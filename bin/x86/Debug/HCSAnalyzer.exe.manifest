@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Controls\LogoType1.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="HCSAnalyzer" version="1.0.4489.34771" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="HCSAnalyzer" version="1.0.4490.26597" language="neutral" processorArchitecture="x86" />
     <commandLine file="HCSAnalyzer.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -115,14 +115,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HCSAnalyzer.exe" size="3650560">
-      <assemblyIdentity name="HCSAnalyzer" version="1.0.4489.34771" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HCSAnalyzer.exe" size="3651072">
+      <assemblyIdentity name="HCSAnalyzer" version="1.0.4490.26597" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>QHhadEfvcNZ9sTrDmOAb+naRUVs=</dsig:DigestValue>
+        <dsig:DigestValue>b0YADn2j0WUTVXaJQx8BeNbPYdo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -163,302 +163,302 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Beans.dll" size="226304">
-      <assemblyIdentity name="IKVM.OpenJDK.Beans" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Beans.dll" size="243200">
+      <assemblyIdentity name="IKVM.OpenJDK.Beans" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>QB1gOSY5m6rPamKYoMZ4fI1Ef8A=</dsig:DigestValue>
+        <dsig:DigestValue>7oQpDJX35SRC8en47McWM98A6gM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Charsets.dll" size="4969472">
-      <assemblyIdentity name="IKVM.OpenJDK.Charsets" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Charsets.dll" size="2233344">
+      <assemblyIdentity name="IKVM.OpenJDK.Charsets" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>bQxU4dausFqBCvfnfTQVChs0nKI=</dsig:DigestValue>
+        <dsig:DigestValue>4r4KCKppuDuKDqzr8oWNpv3vJKw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Corba.dll" size="2195456">
-      <assemblyIdentity name="IKVM.OpenJDK.Corba" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Corba.dll" size="2201600">
+      <assemblyIdentity name="IKVM.OpenJDK.Corba" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>mTMPNaex4+fsCrEq2AMJotkJ3PI=</dsig:DigestValue>
+        <dsig:DigestValue>qcryuqlqmVhOZnqiAXn08lDeXn4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Core.dll" size="3230720">
-      <assemblyIdentity name="IKVM.OpenJDK.Core" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Core.dll" size="4312576">
+      <assemblyIdentity name="IKVM.OpenJDK.Core" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>28i7bEcgFwD1eCIYqGsqpK9U9SI=</dsig:DigestValue>
+        <dsig:DigestValue>aKW0xcmdgnivLbxl/+5bcmYsPIs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Jdbc.dll" size="394752">
-      <assemblyIdentity name="IKVM.OpenJDK.Jdbc" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Jdbc.dll" size="417280">
+      <assemblyIdentity name="IKVM.OpenJDK.Jdbc" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>UkhWhuXY33NuLyo2wgFWF4Uh7QI=</dsig:DigestValue>
+        <dsig:DigestValue>Rn4HCRCI44ed3IIb99bk/h8R2fM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Management.dll" size="1355264">
-      <assemblyIdentity name="IKVM.OpenJDK.Management" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Management.dll" size="1178112">
+      <assemblyIdentity name="IKVM.OpenJDK.Management" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>5D73f611XGFi88w88H91IgTxvmI=</dsig:DigestValue>
+        <dsig:DigestValue>nkSk5M3By+z8GzAGnjfs5lcx8qk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Media.dll" size="832000">
-      <assemblyIdentity name="IKVM.OpenJDK.Media" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Media.dll" size="842752">
+      <assemblyIdentity name="IKVM.OpenJDK.Media" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>1qoG2uglMZnscS3uiHQCeOhtoHQ=</dsig:DigestValue>
+        <dsig:DigestValue>jEI+cLt/D4LvMPHOf2VMzldn0Tc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Misc.dll" size="207872">
-      <assemblyIdentity name="IKVM.OpenJDK.Misc" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Misc.dll" size="287744">
+      <assemblyIdentity name="IKVM.OpenJDK.Misc" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>zvY+YHrLAAYGKPy4DJVryu7GgOY=</dsig:DigestValue>
+        <dsig:DigestValue>R/qsfjlna4nE1fGN50Q9eX9SD5A=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Naming.dll" size="426496">
-      <assemblyIdentity name="IKVM.OpenJDK.Naming" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Naming.dll" size="450048">
+      <assemblyIdentity name="IKVM.OpenJDK.Naming" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>XrXqRwRZvjW1L6qxAkAYDcSj7zU=</dsig:DigestValue>
+        <dsig:DigestValue>80yuctszVxxQDdLmawOwJkZcSl8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Remoting.dll" size="336384">
-      <assemblyIdentity name="IKVM.OpenJDK.Remoting" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Remoting.dll" size="338944">
+      <assemblyIdentity name="IKVM.OpenJDK.Remoting" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>sChAO/XLk/tiqKK5ufJoDf3QoLY=</dsig:DigestValue>
+        <dsig:DigestValue>ozJgzcH2ZFFIDexOuaarvIpVt08=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Security.dll" size="2475008">
-      <assemblyIdentity name="IKVM.OpenJDK.Security" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Security.dll" size="2705920">
+      <assemblyIdentity name="IKVM.OpenJDK.Security" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>ovdyuNbRabig4xUbdd2k6q2BaV0=</dsig:DigestValue>
+        <dsig:DigestValue>a7BrpN/TMBOrfEmF5qCI0QZgq4E=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.SwingAWT.dll" size="5994496">
-      <assemblyIdentity name="IKVM.OpenJDK.SwingAWT" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.SwingAWT.dll" size="6244864">
+      <assemblyIdentity name="IKVM.OpenJDK.SwingAWT" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>+QBMXi6FmC4ujr5zZz6dFeSNeZU=</dsig:DigestValue>
+        <dsig:DigestValue>t2lOIZHjYjM8z5rGVoojGZsYu94=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Text.dll" size="592384">
-      <assemblyIdentity name="IKVM.OpenJDK.Text" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Text.dll" size="822272">
+      <assemblyIdentity name="IKVM.OpenJDK.Text" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>4GXHonVTdrTkh+69BUVr0ZHFgKM=</dsig:DigestValue>
+        <dsig:DigestValue>CyHDdy8Z+3RopDb1+9jUPqZ8ehI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Tools.dll" size="5784064">
-      <assemblyIdentity name="IKVM.OpenJDK.Tools" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Tools.dll" size="6480896">
+      <assemblyIdentity name="IKVM.OpenJDK.Tools" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>4iqqbPnNLHMa9eUIV4qARaAziOA=</dsig:DigestValue>
+        <dsig:DigestValue>kErIpWeY1LNMMSMLJtOgqsvSoZg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Util.dll" size="1417728">
-      <assemblyIdentity name="IKVM.OpenJDK.Util" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.Util.dll" size="1922048">
+      <assemblyIdentity name="IKVM.OpenJDK.Util" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>PF4FO2707QLCuYEm9XzCdLmjpkM=</dsig:DigestValue>
+        <dsig:DigestValue>l/bF18w3JdRghZ5B6gdgM9DqJxQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.XML.API.dll" size="206336">
-      <assemblyIdentity name="IKVM.OpenJDK.XML.API" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.XML.API.dll" size="207872">
+      <assemblyIdentity name="IKVM.OpenJDK.XML.API" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>bkSTJf0n/kt2ou4h69h7P9cLABk=</dsig:DigestValue>
+        <dsig:DigestValue>LJ/X1NnZphGp0d8OSIrnRpnqlcc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.XML.Bind.dll" size="1166848">
-      <assemblyIdentity name="IKVM.OpenJDK.XML.Bind" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.XML.Bind.dll" size="1186816">
+      <assemblyIdentity name="IKVM.OpenJDK.XML.Bind" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Y4V8eenRusm1gG7njhAi+pUJXNM=</dsig:DigestValue>
+        <dsig:DigestValue>+gSpFyhLd49KDx8SGr0oe1ECXks=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.XML.Crypto.dll" size="430080">
-      <assemblyIdentity name="IKVM.OpenJDK.XML.Crypto" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.XML.Crypto.dll" size="453120">
+      <assemblyIdentity name="IKVM.OpenJDK.XML.Crypto" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>rdVfTqI8lXaXHYmI4JzcJb/BUyU=</dsig:DigestValue>
+        <dsig:DigestValue>7e78nV3yBid69qVPug8SK7Qsuew=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.XML.Parse.dll" size="2254336">
-      <assemblyIdentity name="IKVM.OpenJDK.XML.Parse" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.XML.Parse.dll" size="2687488">
+      <assemblyIdentity name="IKVM.OpenJDK.XML.Parse" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>PojVhaIQqszkFmE2w2fyM9o5vzs=</dsig:DigestValue>
+        <dsig:DigestValue>C0WMnfIGbKuT7FYegnYjLaC0ptU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.XML.Transform.dll" size="1425408">
-      <assemblyIdentity name="IKVM.OpenJDK.XML.Transform" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.XML.Transform.dll" size="1487360">
+      <assemblyIdentity name="IKVM.OpenJDK.XML.Transform" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>4dqxAK7qY66FHUDeoq711hAVZ80=</dsig:DigestValue>
+        <dsig:DigestValue>K1nytKmicMxW3sLef+B0+ioLy7A=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.XML.WebServices.dll" size="1524736">
-      <assemblyIdentity name="IKVM.OpenJDK.XML.WebServices" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.XML.WebServices.dll" size="1890304">
+      <assemblyIdentity name="IKVM.OpenJDK.XML.WebServices" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>E/fW2pLkIw7a3l2ikCboaPoqWzQ=</dsig:DigestValue>
+        <dsig:DigestValue>8K0DiX+yEk/QL7CloGps0Vr3BOk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.XML.XPath.dll" size="1058816">
-      <assemblyIdentity name="IKVM.OpenJDK.XML.XPath" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.OpenJDK.XML.XPath.dll" size="1189888">
+      <assemblyIdentity name="IKVM.OpenJDK.XML.XPath" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>TJkftd1GB1IvNzcofsQWc2iMgkE=</dsig:DigestValue>
+        <dsig:DigestValue>3w2Em7jVDtewbDpr9OAS4PFl5fs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.Reflection.dll" size="344064">
-      <assemblyIdentity name="IKVM.Reflection" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.Reflection.dll" size="364544">
+      <assemblyIdentity name="IKVM.Reflection" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Y1cCNFnEKXe8wKVlcEcbxd55PuQ=</dsig:DigestValue>
+        <dsig:DigestValue>zvTs1vGfvVNS7m6vzAf3FAyOLg8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.Runtime.dll" size="872448">
-      <assemblyIdentity name="IKVM.Runtime" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.Runtime.dll" size="970752">
+      <assemblyIdentity name="IKVM.Runtime" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>/9GJLmb8kktrZflMV1VurEyOJ3U=</dsig:DigestValue>
+        <dsig:DigestValue>774xAFZg9nvqgQrS4C6lm8/jAm0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="IKVM.Runtime.JNI.dll" size="77824">
-      <assemblyIdentity name="IKVM.Runtime.JNI" version="0.46.0.1" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
+      <assemblyIdentity name="IKVM.Runtime.JNI" version="7.0.4335.0" publicKeyToken="13235D27FCBFFF58" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>ibbXTY9r+nchk1MHQAkTNa8r2yw=</dsig:DigestValue>
+        <dsig:DigestValue>mcQ6cewZd3AgGoRM+cUITF6MsLc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -523,14 +523,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="weka.dll" size="6051328">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="msvcm90.dll" size="225280">
+      <assemblyIdentity name="msvcm90" version="9.0.30729.4148" publicKeyToken="B03F5F7F11D50A3A" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>EeyDE7og6WoPd2oBhYbMEnpFHhY=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="weka.dll" size="6327296">
       <assemblyIdentity name="weka" version="0.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>gLdDfFpu2WumUk11Kmj/mqYmxZ8=</dsig:DigestValue>
+        <dsig:DigestValue>sVeubXl66pSH7dXOfkv55Kr1znA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

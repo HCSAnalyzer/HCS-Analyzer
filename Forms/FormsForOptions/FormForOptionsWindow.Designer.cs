@@ -39,13 +39,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.radioButtonWellPosModeSingle = new System.Windows.Forms.RadioButton();
             this.tabPageDisplay = new System.Windows.Forms.TabPage();
-            this.groupBox21 = new System.Windows.Forms.GroupBox();
-            this.numericUpDownWellSize = new System.Windows.Forms.NumericUpDown();
-            this.label27 = new System.Windows.Forms.Label();
-            this.numericUpDownDRCOpacity = new System.Windows.Forms.NumericUpDown();
-            this.label26 = new System.Windows.Forms.Label();
-            this.numericUpDownWellOpacity = new System.Windows.Forms.NumericUpDown();
-            this.label25 = new System.Windows.Forms.Label();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.checkBoxDisplayFastPerformance = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -132,29 +125,32 @@
             this.radioButtonReplicatesAverageStdev = new System.Windows.Forms.RadioButton();
             this.radioButtonReplicateAllValues = new System.Windows.Forms.RadioButton();
             this.buttonDRCPlateDesign = new System.Windows.Forms.Button();
-            this.buttonOk = new System.Windows.Forms.Button();
-            this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.groupBox20 = new System.Windows.Forms.GroupBox();
-            this.groupBox22 = new System.Windows.Forms.GroupBox();
-            this.checkBox3DDisplayIsoboles = new System.Windows.Forms.CheckBox();
-            this.checkBox3DDisplayIsoRatioCurves = new System.Windows.Forms.CheckBox();
-            this.checkBox3DDisplayThinPlate = new System.Windows.Forms.CheckBox();
-            this.numericUpDown3DThinPlateRegularization = new System.Windows.Forms.NumericUpDown();
-            this.label28 = new System.Windows.Forms.Label();
-            this.checkBox3DComputeThinPlate = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox23 = new System.Windows.Forms.GroupBox();
             this.checkBox3DPlateInformation = new System.Windows.Forms.CheckBox();
+            this.groupBox22 = new System.Windows.Forms.GroupBox();
+            this.checkBox3DComputeThinPlate = new System.Windows.Forms.CheckBox();
+            this.numericUpDown3DThinPlateRegularization = new System.Windows.Forms.NumericUpDown();
+            this.label28 = new System.Windows.Forms.Label();
+            this.checkBox3DDisplayThinPlate = new System.Windows.Forms.CheckBox();
+            this.checkBox3DDisplayIsoRatioCurves = new System.Windows.Forms.CheckBox();
+            this.checkBox3DDisplayIsoboles = new System.Windows.Forms.CheckBox();
+            this.groupBox20 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.numericUpDownDRCOpacity = new System.Windows.Forms.NumericUpDown();
+            this.label26 = new System.Windows.Forms.Label();
+            this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.numericUpDownWellSize = new System.Windows.Forms.NumericUpDown();
+            this.label27 = new System.Windows.Forms.Label();
+            this.numericUpDownWellOpacity = new System.Windows.Forms.NumericUpDown();
+            this.label25 = new System.Windows.Forms.Label();
+            this.buttonOk = new System.Windows.Forms.Button();
+            this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.tabControlClustering.SuspendLayout();
             this.tabPageImport.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPageDisplay.SuspendLayout();
-            this.groupBox21.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellSize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDRCOpacity)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellOpacity)).BeginInit();
             this.groupBox17.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -199,10 +195,14 @@
             this.tabPage6.SuspendLayout();
             this.groupBox19.SuspendLayout();
             this.tabPage7.SuspendLayout();
-            this.groupBox20.SuspendLayout();
+            this.groupBox23.SuspendLayout();
             this.groupBox22.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3DThinPlateRegularization)).BeginInit();
-            this.groupBox23.SuspendLayout();
+            this.groupBox20.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDRCOpacity)).BeginInit();
+            this.groupBox21.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellOpacity)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlClustering
@@ -322,100 +322,6 @@
             this.tabPageDisplay.TabIndex = 0;
             this.tabPageDisplay.Text = "Display";
             this.tabPageDisplay.UseVisualStyleBackColor = true;
-            // 
-            // groupBox21
-            // 
-            this.groupBox21.Controls.Add(this.numericUpDownWellSize);
-            this.groupBox21.Controls.Add(this.label27);
-            this.groupBox21.Controls.Add(this.numericUpDownWellOpacity);
-            this.groupBox21.Controls.Add(this.label25);
-            this.groupBox21.Location = new System.Drawing.Point(6, 82);
-            this.groupBox21.Name = "groupBox21";
-            this.groupBox21.Size = new System.Drawing.Size(382, 76);
-            this.groupBox21.TabIndex = 19;
-            this.groupBox21.TabStop = false;
-            this.groupBox21.Text = "Wells Display";
-            // 
-            // numericUpDownWellSize
-            // 
-            this.numericUpDownWellSize.DecimalPlaces = 2;
-            this.numericUpDownWellSize.Location = new System.Drawing.Point(280, 30);
-            this.numericUpDownWellSize.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownWellSize.Name = "numericUpDownWellSize";
-            this.numericUpDownWellSize.Size = new System.Drawing.Size(63, 20);
-            this.numericUpDownWellSize.TabIndex = 5;
-            this.numericUpDownWellSize.Value = new decimal(new int[] {
-            9,
-            0,
-            0,
-            65536});
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(210, 33);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(49, 13);
-            this.label27.TabIndex = 4;
-            this.label27.Text = "Well size";
-            // 
-            // numericUpDownDRCOpacity
-            // 
-            this.numericUpDownDRCOpacity.DecimalPlaces = 2;
-            this.numericUpDownDRCOpacity.Location = new System.Drawing.Point(196, 30);
-            this.numericUpDownDRCOpacity.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownDRCOpacity.Name = "numericUpDownDRCOpacity";
-            this.numericUpDownDRCOpacity.Size = new System.Drawing.Size(63, 20);
-            this.numericUpDownDRCOpacity.TabIndex = 3;
-            this.numericUpDownDRCOpacity.Value = new decimal(new int[] {
-            7,
-            0,
-            0,
-            65536});
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(123, 33);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(67, 13);
-            this.label26.TabIndex = 2;
-            this.label26.Text = "DRC opacity";
-            // 
-            // numericUpDownWellOpacity
-            // 
-            this.numericUpDownWellOpacity.DecimalPlaces = 2;
-            this.numericUpDownWellOpacity.Location = new System.Drawing.Point(110, 28);
-            this.numericUpDownWellOpacity.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownWellOpacity.Name = "numericUpDownWellOpacity";
-            this.numericUpDownWellOpacity.Size = new System.Drawing.Size(63, 20);
-            this.numericUpDownWellOpacity.TabIndex = 1;
-            this.numericUpDownWellOpacity.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(40, 31);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(65, 13);
-            this.label25.TabIndex = 0;
-            this.label25.Text = "Well opacity";
             // 
             // groupBox17
             // 
@@ -1573,16 +1479,6 @@
             this.buttonDRCPlateDesign.UseVisualStyleBackColor = true;
             this.buttonDRCPlateDesign.Click += new System.EventHandler(this.buttonDRCPlateDesign_Click);
             // 
-            // buttonOk
-            // 
-            this.buttonOk.Location = new System.Drawing.Point(141, 464);
-            this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(144, 32);
-            this.buttonOk.TabIndex = 1;
-            this.buttonOk.Text = "Ok";
-            this.buttonOk.UseVisualStyleBackColor = true;
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
-            // 
             // tabPage7
             // 
             this.tabPage7.Controls.Add(this.groupBox23);
@@ -1597,17 +1493,27 @@
             this.tabPage7.Text = "3D";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
-            // groupBox20
+            // groupBox23
             // 
-            this.groupBox20.Controls.Add(this.checkBox1);
-            this.groupBox20.Controls.Add(this.numericUpDownDRCOpacity);
-            this.groupBox20.Controls.Add(this.label26);
-            this.groupBox20.Location = new System.Drawing.Point(6, 158);
-            this.groupBox20.Name = "groupBox20";
-            this.groupBox20.Size = new System.Drawing.Size(382, 70);
-            this.groupBox20.TabIndex = 20;
-            this.groupBox20.TabStop = false;
-            this.groupBox20.Text = "                                              ";
+            this.groupBox23.Controls.Add(this.checkBox3DPlateInformation);
+            this.groupBox23.Location = new System.Drawing.Point(6, 13);
+            this.groupBox23.Name = "groupBox23";
+            this.groupBox23.Size = new System.Drawing.Size(381, 68);
+            this.groupBox23.TabIndex = 22;
+            this.groupBox23.TabStop = false;
+            this.groupBox23.Text = "Plate Display";
+            // 
+            // checkBox3DPlateInformation
+            // 
+            this.checkBox3DPlateInformation.AutoSize = true;
+            this.checkBox3DPlateInformation.Checked = true;
+            this.checkBox3DPlateInformation.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox3DPlateInformation.Location = new System.Drawing.Point(119, 26);
+            this.checkBox3DPlateInformation.Name = "checkBox3DPlateInformation";
+            this.checkBox3DPlateInformation.Size = new System.Drawing.Size(142, 17);
+            this.checkBox3DPlateInformation.TabIndex = 5;
+            this.checkBox3DPlateInformation.Text = "Display Plate Information";
+            this.checkBox3DPlateInformation.UseVisualStyleBackColor = true;
             // 
             // groupBox22
             // 
@@ -1617,48 +1523,22 @@
             this.groupBox22.Controls.Add(this.checkBox3DDisplayThinPlate);
             this.groupBox22.Controls.Add(this.checkBox3DDisplayIsoRatioCurves);
             this.groupBox22.Controls.Add(this.checkBox3DDisplayIsoboles);
-            this.groupBox22.Location = new System.Drawing.Point(6, 234);
+            this.groupBox22.Location = new System.Drawing.Point(6, 240);
             this.groupBox22.Name = "groupBox22";
             this.groupBox22.Size = new System.Drawing.Size(382, 126);
             this.groupBox22.TabIndex = 21;
             this.groupBox22.TabStop = false;
             this.groupBox22.Text = "                                 ";
             // 
-            // checkBox3DDisplayIsoboles
+            // checkBox3DComputeThinPlate
             // 
-            this.checkBox3DDisplayIsoboles.AutoSize = true;
-            this.checkBox3DDisplayIsoboles.Checked = true;
-            this.checkBox3DDisplayIsoboles.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox3DDisplayIsoboles.Location = new System.Drawing.Point(140, 60);
-            this.checkBox3DDisplayIsoboles.Name = "checkBox3DDisplayIsoboles";
-            this.checkBox3DDisplayIsoboles.Size = new System.Drawing.Size(102, 17);
-            this.checkBox3DDisplayIsoboles.TabIndex = 3;
-            this.checkBox3DDisplayIsoboles.Text = "Display Isoboles";
-            this.checkBox3DDisplayIsoboles.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3DDisplayIsoRatioCurves
-            // 
-            this.checkBox3DDisplayIsoRatioCurves.AutoSize = true;
-            this.checkBox3DDisplayIsoRatioCurves.Checked = true;
-            this.checkBox3DDisplayIsoRatioCurves.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox3DDisplayIsoRatioCurves.Location = new System.Drawing.Point(123, 89);
-            this.checkBox3DDisplayIsoRatioCurves.Name = "checkBox3DDisplayIsoRatioCurves";
-            this.checkBox3DDisplayIsoRatioCurves.Size = new System.Drawing.Size(135, 17);
-            this.checkBox3DDisplayIsoRatioCurves.TabIndex = 3;
-            this.checkBox3DDisplayIsoRatioCurves.Text = "Display Iso ratio curves";
-            this.checkBox3DDisplayIsoRatioCurves.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3DDisplayThinPlate
-            // 
-            this.checkBox3DDisplayThinPlate.AutoSize = true;
-            this.checkBox3DDisplayThinPlate.Checked = true;
-            this.checkBox3DDisplayThinPlate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox3DDisplayThinPlate.Location = new System.Drawing.Point(70, 28);
-            this.checkBox3DDisplayThinPlate.Name = "checkBox3DDisplayThinPlate";
-            this.checkBox3DDisplayThinPlate.Size = new System.Drawing.Size(100, 17);
-            this.checkBox3DDisplayThinPlate.TabIndex = 4;
-            this.checkBox3DDisplayThinPlate.Text = "Display Surface";
-            this.checkBox3DDisplayThinPlate.UseVisualStyleBackColor = true;
+            this.checkBox3DComputeThinPlate.AutoSize = true;
+            this.checkBox3DComputeThinPlate.Location = new System.Drawing.Point(9, 5);
+            this.checkBox3DComputeThinPlate.Name = "checkBox3DComputeThinPlate";
+            this.checkBox3DComputeThinPlate.Size = new System.Drawing.Size(134, 17);
+            this.checkBox3DComputeThinPlate.TabIndex = 22;
+            this.checkBox3DComputeThinPlate.Text = "Surface Analysis          ";
+            this.checkBox3DComputeThinPlate.UseVisualStyleBackColor = true;
             // 
             // numericUpDown3DThinPlateRegularization
             // 
@@ -1687,47 +1567,167 @@
             this.label28.TabIndex = 4;
             this.label28.Text = "Regularization";
             // 
-            // checkBox3DComputeThinPlate
+            // checkBox3DDisplayThinPlate
             // 
-            this.checkBox3DComputeThinPlate.AutoSize = true;
-            this.checkBox3DComputeThinPlate.Location = new System.Drawing.Point(9, -1);
-            this.checkBox3DComputeThinPlate.Name = "checkBox3DComputeThinPlate";
-            this.checkBox3DComputeThinPlate.Size = new System.Drawing.Size(134, 17);
-            this.checkBox3DComputeThinPlate.TabIndex = 22;
-            this.checkBox3DComputeThinPlate.Text = "Surface Analysis          ";
-            this.checkBox3DComputeThinPlate.UseVisualStyleBackColor = true;
+            this.checkBox3DDisplayThinPlate.AutoSize = true;
+            this.checkBox3DDisplayThinPlate.Checked = true;
+            this.checkBox3DDisplayThinPlate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox3DDisplayThinPlate.Location = new System.Drawing.Point(70, 28);
+            this.checkBox3DDisplayThinPlate.Name = "checkBox3DDisplayThinPlate";
+            this.checkBox3DDisplayThinPlate.Size = new System.Drawing.Size(100, 17);
+            this.checkBox3DDisplayThinPlate.TabIndex = 4;
+            this.checkBox3DDisplayThinPlate.Text = "Display Surface";
+            this.checkBox3DDisplayThinPlate.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3DDisplayIsoRatioCurves
+            // 
+            this.checkBox3DDisplayIsoRatioCurves.AutoSize = true;
+            this.checkBox3DDisplayIsoRatioCurves.Checked = true;
+            this.checkBox3DDisplayIsoRatioCurves.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox3DDisplayIsoRatioCurves.Location = new System.Drawing.Point(123, 89);
+            this.checkBox3DDisplayIsoRatioCurves.Name = "checkBox3DDisplayIsoRatioCurves";
+            this.checkBox3DDisplayIsoRatioCurves.Size = new System.Drawing.Size(135, 17);
+            this.checkBox3DDisplayIsoRatioCurves.TabIndex = 3;
+            this.checkBox3DDisplayIsoRatioCurves.Text = "Display Iso ratio curves";
+            this.checkBox3DDisplayIsoRatioCurves.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3DDisplayIsoboles
+            // 
+            this.checkBox3DDisplayIsoboles.AutoSize = true;
+            this.checkBox3DDisplayIsoboles.Checked = true;
+            this.checkBox3DDisplayIsoboles.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox3DDisplayIsoboles.Location = new System.Drawing.Point(140, 60);
+            this.checkBox3DDisplayIsoboles.Name = "checkBox3DDisplayIsoboles";
+            this.checkBox3DDisplayIsoboles.Size = new System.Drawing.Size(102, 17);
+            this.checkBox3DDisplayIsoboles.TabIndex = 3;
+            this.checkBox3DDisplayIsoboles.Text = "Display Isoboles";
+            this.checkBox3DDisplayIsoboles.UseVisualStyleBackColor = true;
+            // 
+            // groupBox20
+            // 
+            this.groupBox20.Controls.Add(this.checkBox1);
+            this.groupBox20.Controls.Add(this.numericUpDownDRCOpacity);
+            this.groupBox20.Controls.Add(this.label26);
+            this.groupBox20.Location = new System.Drawing.Point(6, 163);
+            this.groupBox20.Name = "groupBox20";
+            this.groupBox20.Size = new System.Drawing.Size(382, 70);
+            this.groupBox20.TabIndex = 20;
+            this.groupBox20.TabStop = false;
+            this.groupBox20.Text = "                                              ";
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(10, -1);
+            this.checkBox1.Location = new System.Drawing.Point(10, 4);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(138, 17);
             this.checkBox1.TabIndex = 23;
             this.checkBox1.Text = "Dose Response Curves";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // groupBox23
+            // numericUpDownDRCOpacity
             // 
-            this.groupBox23.Controls.Add(this.checkBox3DPlateInformation);
-            this.groupBox23.Location = new System.Drawing.Point(6, 13);
-            this.groupBox23.Name = "groupBox23";
-            this.groupBox23.Size = new System.Drawing.Size(381, 68);
-            this.groupBox23.TabIndex = 22;
-            this.groupBox23.TabStop = false;
-            this.groupBox23.Text = "Plate Display";
+            this.numericUpDownDRCOpacity.DecimalPlaces = 2;
+            this.numericUpDownDRCOpacity.Location = new System.Drawing.Point(196, 30);
+            this.numericUpDownDRCOpacity.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownDRCOpacity.Name = "numericUpDownDRCOpacity";
+            this.numericUpDownDRCOpacity.Size = new System.Drawing.Size(63, 20);
+            this.numericUpDownDRCOpacity.TabIndex = 3;
+            this.numericUpDownDRCOpacity.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            65536});
             // 
-            // checkBox3DPlateInformation
+            // label26
             // 
-            this.checkBox3DPlateInformation.AutoSize = true;
-            this.checkBox3DPlateInformation.Checked = true;
-            this.checkBox3DPlateInformation.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox3DPlateInformation.Location = new System.Drawing.Point(119, 26);
-            this.checkBox3DPlateInformation.Name = "checkBox3DPlateInformation";
-            this.checkBox3DPlateInformation.Size = new System.Drawing.Size(142, 17);
-            this.checkBox3DPlateInformation.TabIndex = 5;
-            this.checkBox3DPlateInformation.Text = "Display Plate Information";
-            this.checkBox3DPlateInformation.UseVisualStyleBackColor = true;
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(123, 33);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(67, 13);
+            this.label26.TabIndex = 2;
+            this.label26.Text = "DRC opacity";
+            // 
+            // groupBox21
+            // 
+            this.groupBox21.Controls.Add(this.numericUpDownWellSize);
+            this.groupBox21.Controls.Add(this.label27);
+            this.groupBox21.Controls.Add(this.numericUpDownWellOpacity);
+            this.groupBox21.Controls.Add(this.label25);
+            this.groupBox21.Location = new System.Drawing.Point(6, 82);
+            this.groupBox21.Name = "groupBox21";
+            this.groupBox21.Size = new System.Drawing.Size(382, 76);
+            this.groupBox21.TabIndex = 19;
+            this.groupBox21.TabStop = false;
+            this.groupBox21.Text = "Wells Display";
+            // 
+            // numericUpDownWellSize
+            // 
+            this.numericUpDownWellSize.DecimalPlaces = 2;
+            this.numericUpDownWellSize.Location = new System.Drawing.Point(280, 30);
+            this.numericUpDownWellSize.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownWellSize.Name = "numericUpDownWellSize";
+            this.numericUpDownWellSize.Size = new System.Drawing.Size(63, 20);
+            this.numericUpDownWellSize.TabIndex = 5;
+            this.numericUpDownWellSize.Value = new decimal(new int[] {
+            9,
+            0,
+            0,
+            65536});
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(210, 33);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(49, 13);
+            this.label27.TabIndex = 4;
+            this.label27.Text = "Well size";
+            // 
+            // numericUpDownWellOpacity
+            // 
+            this.numericUpDownWellOpacity.DecimalPlaces = 2;
+            this.numericUpDownWellOpacity.Location = new System.Drawing.Point(110, 28);
+            this.numericUpDownWellOpacity.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownWellOpacity.Name = "numericUpDownWellOpacity";
+            this.numericUpDownWellOpacity.Size = new System.Drawing.Size(63, 20);
+            this.numericUpDownWellOpacity.TabIndex = 1;
+            this.numericUpDownWellOpacity.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(40, 31);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(65, 13);
+            this.label25.TabIndex = 0;
+            this.label25.Text = "Well opacity";
+            // 
+            // buttonOk
+            // 
+            this.buttonOk.Location = new System.Drawing.Point(141, 464);
+            this.buttonOk.Name = "buttonOk";
+            this.buttonOk.Size = new System.Drawing.Size(144, 32);
+            this.buttonOk.TabIndex = 1;
+            this.buttonOk.Text = "Ok";
+            this.buttonOk.UseVisualStyleBackColor = true;
+            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // FormForOptionsWindow
             // 
@@ -1750,11 +1750,6 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabPageDisplay.ResumeLayout(false);
-            this.groupBox21.ResumeLayout(false);
-            this.groupBox21.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellSize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDRCOpacity)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellOpacity)).EndInit();
             this.groupBox17.ResumeLayout(false);
             this.groupBox17.PerformLayout();
             this.groupBox7.ResumeLayout(false);
@@ -1816,13 +1811,18 @@
             this.groupBox19.ResumeLayout(false);
             this.groupBox19.PerformLayout();
             this.tabPage7.ResumeLayout(false);
-            this.groupBox20.ResumeLayout(false);
-            this.groupBox20.PerformLayout();
+            this.groupBox23.ResumeLayout(false);
+            this.groupBox23.PerformLayout();
             this.groupBox22.ResumeLayout(false);
             this.groupBox22.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3DThinPlateRegularization)).EndInit();
-            this.groupBox23.ResumeLayout(false);
-            this.groupBox23.PerformLayout();
+            this.groupBox20.ResumeLayout(false);
+            this.groupBox20.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDRCOpacity)).EndInit();
+            this.groupBox21.ResumeLayout(false);
+            this.groupBox21.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellOpacity)).EndInit();
             this.ResumeLayout(false);
 
         }

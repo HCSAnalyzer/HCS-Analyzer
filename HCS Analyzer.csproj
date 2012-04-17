@@ -151,134 +151,125 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accord">
-      <HintPath>.\Accord.dll</HintPath>
+      <HintPath>Dlls\Accord.dll</HintPath>
     </Reference>
     <Reference Include="Accord.Math">
-      <HintPath>.\Accord.Math.dll</HintPath>
+      <HintPath>Dlls\Accord.Math.dll</HintPath>
     </Reference>
     <Reference Include="Accord.Statistics">
-      <HintPath>.\Accord.Statistics.dll</HintPath>
+      <HintPath>Dlls\Accord.Statistics.dll</HintPath>
     </Reference>
     <Reference Include="AForge">
-      <HintPath>.\AForge.dll</HintPath>
+      <HintPath>Dlls\AForge.dll</HintPath>
     </Reference>
     <Reference Include="AForge.Math">
-      <HintPath>.\AForge.Math.dll</HintPath>
+      <HintPath>Dlls\AForge.Math.dll</HintPath>
     </Reference>
     <Reference Include="AlgLib">
-      <HintPath>.\AlgLib.dll</HintPath>
+      <HintPath>Dlls\AlgLib.dll</HintPath>
     </Reference>
     <Reference Include="HCSPlugin">
-      <HintPath>.\HCSPlugin.dll</HintPath>
+      <HintPath>Dlls\HCSPlugin.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>.\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>Dlls\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.AWT.WinForms">
-      <HintPath>.\IKVM.AWT.WinForms.dll</HintPath>
+      <HintPath>Dlls\IKVM.AWT.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Beans">
-      <HintPath>.\IKVM.OpenJDK.Beans.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.Beans.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Charsets">
-      <HintPath>.\IKVM.OpenJDK.Charsets.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.Charsets.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Corba">
-      <HintPath>.\IKVM.OpenJDK.Corba.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.Corba.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Core">
-      <HintPath>.\IKVM.OpenJDK.Core.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.Core.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Jdbc">
-      <HintPath>.\IKVM.OpenJDK.Jdbc.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.Jdbc.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Management">
-      <HintPath>.\IKVM.OpenJDK.Management.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.Management.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Media">
-      <HintPath>.\IKVM.OpenJDK.Media.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.Media.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Misc">
-      <HintPath>.\IKVM.OpenJDK.Misc.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.Misc.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Naming">
-      <HintPath>.\IKVM.OpenJDK.Naming.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.Naming.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Remoting">
-      <HintPath>.\IKVM.OpenJDK.Remoting.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.Remoting.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Security">
-      <HintPath>.\IKVM.OpenJDK.Security.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.Security.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.SwingAWT">
-      <HintPath>.\IKVM.OpenJDK.SwingAWT.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.SwingAWT.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Text">
-      <HintPath>.\IKVM.OpenJDK.Text.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.Text.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Tools">
-      <HintPath>.\IKVM.OpenJDK.Tools.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.Tools.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Util">
-      <HintPath>.\IKVM.OpenJDK.Util.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.Util.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.XML.API">
-      <HintPath>.\IKVM.OpenJDK.XML.API.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.XML.API.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.XML.Bind">
-      <HintPath>.\IKVM.OpenJDK.XML.Bind.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.XML.Bind.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.XML.Crypto">
-      <HintPath>.\IKVM.OpenJDK.XML.Crypto.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.XML.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.XML.Parse">
-      <HintPath>.\IKVM.OpenJDK.XML.Parse.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.XML.Parse.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.XML.Transform">
-      <HintPath>.\IKVM.OpenJDK.XML.Transform.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.XML.Transform.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.XML.WebServices">
-      <HintPath>.\IKVM.OpenJDK.XML.WebServices.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.XML.WebServices.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.OpenJDK.XML.XPath">
-      <HintPath>.\IKVM.OpenJDK.XML.XPath.dll</HintPath>
+      <HintPath>Dlls\IKVM.OpenJDK.XML.XPath.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.Reflection">
-      <HintPath>.\IKVM.Reflection.dll</HintPath>
+      <HintPath>Dlls\IKVM.Reflection.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.Runtime">
-      <HintPath>.\IKVM.Runtime.dll</HintPath>
+      <HintPath>Dlls\IKVM.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.Runtime.JNI">
-      <HintPath>.\IKVM.Runtime.JNI.dll</HintPath>
+      <HintPath>Dlls\IKVM.Runtime.JNI.dll</HintPath>
     </Reference>
-    <Reference Include="Kitware.mummy.Runtime, Version=1.0.2.599, Culture=neutral, PublicKeyToken=995c7fb9db2c1b44, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Kitware.mummy.Runtime.dll</HintPath>
+    <Reference Include="Kitware.mummy.Runtime">
+      <HintPath>Dlls\vtk32\Kitware.mummy.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Kitware.VTK, Version=5.6.1.599, Culture=neutral, PublicKeyToken=995c7fb9db2c1b44, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Kitware.VTK.dll</HintPath>
+    <Reference Include="Kitware.VTK">
+      <HintPath>Dlls\vtk32\Kitware.VTK.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Msagl">
-      <HintPath>.\Microsoft.Msagl.dll</HintPath>
+      <HintPath>Dlls\Microsoft.Msagl.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Msagl.Drawing">
-      <HintPath>.\Microsoft.Msagl.Drawing.dll</HintPath>
+      <HintPath>Dlls\Microsoft.Msagl.Drawing.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Msagl.GraphViewerGDI">
-      <HintPath>.\Microsoft.Msagl.GraphViewerGDI.dll</HintPath>
+      <HintPath>Dlls\Microsoft.Msagl.GraphViewerGDI.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>.\Microsoft.Office.Interop.Excel.dll</HintPath>
-    </Reference>
-    <Reference Include="office, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>.\office.dll</HintPath>
+    <Reference Include="msvcm90">
+      <HintPath>Dlls\msvcm90.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -289,7 +280,7 @@
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.XML" />
     <Reference Include="weka">
-      <HintPath>.\weka.dll</HintPath>
+      <HintPath>Dlls\weka.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>

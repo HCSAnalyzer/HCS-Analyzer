@@ -40,6 +40,9 @@ namespace HCSAnalyzer
                 case 3:
                     richTextBoxInfoClassif.AppendText("K-Nearest Neighbor(s).\nFor more information, go to: http://en.wikipedia.org/wiki/K-nearest_neighbor_algorithm \n");
                     break;
+                case 4:
+                    richTextBoxInfoClassif.AppendText("Random Forest.\nFor more information, go to: http://en.wikipedia.org/wiki/Random_forest \n");
+                    break;
 
             }
 
@@ -76,6 +79,9 @@ namespace HCSAnalyzer
                     break;
                 case 3:
                     MessageBox.Show("K-Nearest Neighbor(s) classification process finished !", "Process over !", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    break;
+                case 4:
+                    MessageBox.Show("Random Forest classification process finished !", "Process over !", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     break;
                 default:
                     break;
@@ -247,6 +253,9 @@ namespace HCSAnalyzer
                 case 3: // KNN
                     ClassificationModel = new weka.classifiers.lazy.IBk((int)CompleteScreening.GlobalInfo.OptionsWindow.numericUpDownKofKNN.Value);
                     break;
+                case 4: // Random Forest
+                    ClassificationModel = new weka.classifiers.trees.RandomForest();
+                    break;
                 default:
                     break;
             }
@@ -346,6 +355,10 @@ namespace HCSAnalyzer
                     case 3: // KNN
                         ClassificationModel = new weka.classifiers.lazy.IBk((int)CompleteScreening.GlobalInfo.OptionsWindow.numericUpDownKofKNN.Value);
                         Text = "K-Nearest Neighbor(s) - ";
+                        break;
+                    case 4: // Random Forest
+                        ClassificationModel = new weka.classifiers.trees.RandomForest();
+                        Text = "Random Forest - ";
                         break;
                     default:
                         break;
