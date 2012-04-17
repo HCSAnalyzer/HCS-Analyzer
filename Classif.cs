@@ -359,6 +359,7 @@ namespace HCSAnalyzer
                     case 4: // Random Forest
                         ClassificationModel = new weka.classifiers.trees.RandomForest();
                         Text = "Random Forest - ";
+
                         break;
                     default:
                         break;
