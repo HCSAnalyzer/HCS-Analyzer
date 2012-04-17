@@ -383,7 +383,7 @@ namespace HCSAnalyzer
                 {
                     List<cDescriptor> LDesc = new List<cDescriptor>();
 
-                    cDescriptor NewDesc = new cDescriptor(Tmpwell.Concentration, ConcentrationType,CompleteScreening);
+                    cDescriptor NewDesc = new cDescriptor(Tmpwell.Concentration, ConcentrationType, CompleteScreening);
                     LDesc.Add(NewDesc);
 
                     Tmpwell.AddDescriptors(LDesc);
@@ -470,7 +470,7 @@ namespace HCSAnalyzer
                     List<cDescriptor> LDesc = new List<cDescriptor>();
                     for (int i = 0; i < NumBin; i++)
                     {
-                        cDescriptor NewDesc = new cDescriptor(Tmpwell.ListDescriptors[IntToTransfer].Getvalue(i), CompleteScreening.ListDescriptors[i + IntToTransfer + 1],CompleteScreening);
+                        cDescriptor NewDesc = new cDescriptor(Tmpwell.ListDescriptors[IntToTransfer].Getvalue(i), CompleteScreening.ListDescriptors[i + IntToTransfer + 1], CompleteScreening);
                         LDesc.Add(NewDesc);
                     }
                     Tmpwell.AddDescriptors(LDesc);
@@ -793,10 +793,10 @@ namespace HCSAnalyzer
                 buttonStartClassification.Enabled = true;
                 buttonExport.Enabled = true;
                 platesManagerToolStripMenuItem.Enabled = true;
-                doseResponseManagerToolStripMenuItem.Enabled = true;
+                betaToolStripMenuItem.Enabled = true;
                 toolStripMenuItemGeneAnalysis.Enabled = true;
-                dRCAnalysisToolStripMenuItem.Enabled = true;
-                dRCAnalysisToolStripMenuItem1.Enabled = true;
+               
+               
                 CompleteScreening.ISLoading = false;
                 comboBoxDescriptorToDisplay.SelectedIndex = 0;
                 string NamePlate = PlateListWindow.listBoxAvaliableListPlates.Items[0].ToString();
@@ -1272,8 +1272,8 @@ namespace HCSAnalyzer
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(GlobalInfo.CurrentScreen!=null)
-            GlobalInfo.CurrentScreen.Close3DView();
+            if (GlobalInfo.CurrentScreen != null)
+                GlobalInfo.CurrentScreen.Close3DView();
             this.Dispose();
         }
 
@@ -2198,7 +2198,7 @@ namespace HCSAnalyzer
                 return;
             }
 
-            
+
             int NumDesc = CompleteScreening.GetNumberOfActiveDescriptor();
 
             if (NumDesc <= 1)
@@ -3786,20 +3786,20 @@ namespace HCSAnalyzer
             this.Dispose();
         }
 
-        #region DRC management
-        private void doseResponseManagerToolStripMenuItem_Click(object sender, EventArgs e)
+
+
+
+        private void doseResponseDesignerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (GlobalInfo.WindowForDRCDesign.IsDisposed) GlobalInfo.WindowForDRCDesign = new FormForDRCDesign();
             GlobalInfo.WindowForDRCDesign.Visible = true;
         }
 
-        private void convertDRCToWellToolStripMenuItem_Click(object sender, EventArgs e)
-        {   
-            
+        private void convertDRCToWellToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
             System.Windows.Forms.DialogResult ResWin = MessageBox.Show("By applying this process, the current screening will be entirely updated ! Proceed ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (ResWin == System.Windows.Forms.DialogResult.No) return;
-
-
             //foreach (cDescriptorsType DescType in CompleteScreening.ListDescriptors)
             //{
             //    CompleteScreening.ListDescriptors.RemoveDescUnSafe(DescType, CompleteScreening);
@@ -3808,19 +3808,16 @@ namespace HCSAnalyzer
 
             if (CompleteScreening != null) CompleteScreening.Close3DView();
 
-         //   CompleteScreening.ListDescriptors.RemoveDesc(CompleteScreening.ListDescriptors[IntToTransfer], CompleteScreening);
+            //   CompleteScreening.ListDescriptors.RemoveDesc(CompleteScreening.ListDescriptors[IntToTransfer], CompleteScreening);
             cScreening MergedScreening = new cScreening("Merged Screen", GlobalInfo);
             MergedScreening.PanelForPlate = this.panelForPlate;
 
             MergedScreening.Rows = CompleteScreening.Rows;
             MergedScreening.Columns = CompleteScreening.Columns;
-
             MergedScreening.ListPlatesAvailable = new cExtendPlateList();
 
             // create the descriptor
             MergedScreening.ListDescriptors.Clean();
-
-
 
             int Idesc = 0;
 
@@ -3849,7 +3846,7 @@ namespace HCSAnalyzer
                 Idesc++;
             }
 
-                    MergedScreening.ListDescriptors.CurrentSelectedDescriptor = 0;
+            MergedScreening.ListDescriptors.CurrentSelectedDescriptor = 0;
             foreach (cPlate CurrentPlate in CompleteScreening.ListPlatesAvailable)
             {
 
@@ -3871,46 +3868,77 @@ namespace HCSAnalyzer
 
                         cDRC CurrentDRC = CurrentRegion.GetDRC(CompleteScreening.ListDescriptors[IDESCBase++]);
 
-                        cDescriptor Desc_EC50 = new cDescriptor(CurrentDRC.EC50, ListDescType[Idesc++],CompleteScreening);
-                            LDesc.Add(Desc_EC50);
+                        cDescriptor Desc_EC50 = new cDescriptor(CurrentDRC.EC50, ListDescType[Idesc++], CompleteScreening);
+                        LDesc.Add(Desc_EC50);
 
-                            cDescriptor Desc_Top = new cDescriptor(CurrentDRC.Top, ListDescType[Idesc++],CompleteScreening);
-                            LDesc.Add(Desc_Top);
+                        cDescriptor Desc_Top = new cDescriptor(CurrentDRC.Top, ListDescType[Idesc++], CompleteScreening);
+                        LDesc.Add(Desc_Top);
 
-                            cDescriptor Desc_Bottom = new cDescriptor(CurrentDRC.Bottom, ListDescType[Idesc++],CompleteScreening);
-                            LDesc.Add(Desc_Bottom);
+                        cDescriptor Desc_Bottom = new cDescriptor(CurrentDRC.Bottom, ListDescType[Idesc++], CompleteScreening);
+                        LDesc.Add(Desc_Bottom);
 
-                            cDescriptor Desc_Slope = new cDescriptor(CurrentDRC.Slope, ListDescType[Idesc++],CompleteScreening);
-                            LDesc.Add(Desc_Slope);
-
-                            
-
+                        cDescriptor Desc_Slope = new cDescriptor(CurrentDRC.Slope, ListDescType[Idesc++], CompleteScreening);
+                        LDesc.Add(Desc_Slope);
                     }
-                    cWell NewWell = new cWell(LDesc, CurrentRegion.PosXMin+1, CurrentRegion.PosYMin+1, MergedScreening, NewPlate);
+                    cWell NewWell = new cWell(LDesc, CurrentRegion.PosXMin + 1, CurrentRegion.PosYMin + 1, MergedScreening, NewPlate);
                     NewWell.Name = "DRC [" + CurrentRegion.PosXMin + ":" + CurrentRegion.PosYMin + "]";
                     NewPlate.AddWell(NewWell);
-
-
-
-
                 }
             }
-
 
             CompleteScreening.ListDescriptors = MergedScreening.ListDescriptors;
             CompleteScreening.ListPlatesAvailable = MergedScreening.ListPlatesAvailable;
             CompleteScreening.ListPlatesActive = MergedScreening.ListPlatesActive;
 
-            //CompleteScreening.
-
-
             CompleteScreening.UpDatePlateListWithFullAvailablePlate();
             for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
                 CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
             CompleteScreening.GetCurrentDisplayPlate().DisplayDistribution(CompleteScreening.ListDescriptors.CurrentSelectedDescriptor, true);
-
-
         }
+
+        private void displayDRCToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (CompleteScreening.GetCurrentDisplayPlate().ListDRCRegions == null) return;
+
+            int h = 0;
+            FormToDisplayDRC WindowforDRCsDisplay = new FormToDisplayDRC();
+
+            foreach (cDRC_Region TmpRegion in CompleteScreening.GetCurrentDisplayPlate().ListDRCRegions)
+            {
+                int cpt = 0;
+                List<cDRC> ListDRC = new List<cDRC>();
+                for (int i = 0; i < CompleteScreening.ListDescriptors.Count; i++)
+                {
+                    if (CompleteScreening.ListDescriptors[i].IsActive())
+                    {
+                        cDRC CurrentDRC = new cDRC(TmpRegion, CompleteScreening.ListDescriptors[i]);
+
+                        ListDRC.Add(CurrentDRC);
+                        cpt++;
+                    }
+
+                }
+
+                cDRCDisplay DRCDisplay = new cDRCDisplay(ListDRC, GlobalInfo);
+
+                if (DRCDisplay.CurrentChart.Series.Count == 0) continue;
+
+                DRCDisplay.CurrentChart.Location = new Point((DRCDisplay.CurrentChart.Width + 50) * 0, (DRCDisplay.CurrentChart.Height + 10 + DRCDisplay.CurrentRichTextBox.Height) * h++);
+                DRCDisplay.CurrentRichTextBox.Location = new Point(DRCDisplay.CurrentChart.Location.X, DRCDisplay.CurrentChart.Location.Y + DRCDisplay.CurrentChart.Height + 5);
+
+                WindowforDRCsDisplay.LChart.Add(DRCDisplay.CurrentChart);
+                WindowforDRCsDisplay.LRichTextBox.Add(DRCDisplay.CurrentRichTextBox);
+            }
+
+            WindowforDRCsDisplay.panelForDRC.Controls.AddRange(WindowforDRCsDisplay.LChart.ToArray());
+            WindowforDRCsDisplay.panelForDRC.Controls.AddRange(WindowforDRCsDisplay.LRichTextBox.ToArray());
+            WindowforDRCsDisplay.Show();
+        }
+
+   
+                    #region DRC management
+
+
 
         private void displayRespondingDRCToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -3933,7 +3961,7 @@ namespace HCSAnalyzer
                         if (CompleteScreening.ListDescriptors[i].IsActive())
                         {
                             cDRC CurrentDRC = new cDRC(TmpRegion, CompleteScreening.ListDescriptors[i]);
-                            if (CurrentDRC.IsResponding(WindowSelectionDRC)==1)
+                            if (CurrentDRC.IsResponding(WindowSelectionDRC) == 1)
                             {
                                 ListDRC.Add(CurrentDRC);
                                 cpt++;
@@ -3984,17 +4012,17 @@ namespace HCSAnalyzer
 
                     //}
                     List<int> ResDescActive = TmpRegion.GetListRespondingDescritpors(CompleteScreening, WindowSelectionDRC);
-                    
-                    for(int j=0;j<TmpRegion.NumReplicate;j++)
+
+                    for (int j = 0; j < TmpRegion.NumReplicate; j++)
                         for (int i = 0; i < TmpRegion.NumConcentrations; i++)
                         {
-                            
+
                             cWell CurrentWell = TmpRegion.GetListWells()[j][i];
                             if (CurrentWell == null) continue;
 
-                            for(int IdxDesc=0;IdxDesc<ResDescActive.Count;IdxDesc++)
+                            for (int IdxDesc = 0; IdxDesc < ResDescActive.Count; IdxDesc++)
                             {
-                                if(ResDescActive[IdxDesc]==-1) continue;
+                                if (ResDescActive[IdxDesc] == -1) continue;
 
                                 //CurrentWell.ListDescriptors[IdxDesc].HistoValues = new double[1];
                                 CurrentWell.ListDescriptors[IdxDesc].SetHistoValues((double)ResDescActive[IdxDesc]);
@@ -4002,7 +4030,7 @@ namespace HCSAnalyzer
                                     CurrentWell.SetClass(0);
                                 else
                                     CurrentWell.SetAsNoneSelected();
-                                    //[0] = ResDescActive[IdxDesc];   
+                                //[0] = ResDescActive[IdxDesc];   
                                 CurrentWell.ListDescriptors[IdxDesc].UpDateDescriptorStatistics();
 
                             }
@@ -4013,52 +4041,15 @@ namespace HCSAnalyzer
             }
         }
 
-        private void displayDRCToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            if (CompleteScreening.GetCurrentDisplayPlate().ListDRCRegions == null) return;
-
-            int h = 0;
-            FormToDisplayDRC WindowforDRCsDisplay = new FormToDisplayDRC();
-
-            foreach (cDRC_Region TmpRegion in CompleteScreening.GetCurrentDisplayPlate().ListDRCRegions)
-            {
-                int cpt = 0;
-                List<cDRC> ListDRC = new List<cDRC>();
-                for (int i = 0; i < CompleteScreening.ListDescriptors.Count; i++)
-                {
-                    if (CompleteScreening.ListDescriptors[i].IsActive())
-                    {
-                        cDRC CurrentDRC = new cDRC(TmpRegion, CompleteScreening.ListDescriptors[i]);
-
-                        ListDRC.Add(CurrentDRC);
-                        cpt++;
-                    }
-
-                }
-
-                cDRCDisplay DRCDisplay = new cDRCDisplay(ListDRC, GlobalInfo);
-
-                if (DRCDisplay.CurrentChart.Series.Count == 0) continue;
-
-                DRCDisplay.CurrentChart.Location = new Point((DRCDisplay.CurrentChart.Width + 50) * 0, (DRCDisplay.CurrentChart.Height + 10 + DRCDisplay.CurrentRichTextBox.Height) * h++);
-                DRCDisplay.CurrentRichTextBox.Location = new Point(DRCDisplay.CurrentChart.Location.X, DRCDisplay.CurrentChart.Location.Y + DRCDisplay.CurrentChart.Height + 5);
-
-                WindowforDRCsDisplay.LChart.Add(DRCDisplay.CurrentChart);
-                WindowforDRCsDisplay.LRichTextBox.Add(DRCDisplay.CurrentRichTextBox);
-            }
-
-            WindowforDRCsDisplay.panelForDRC.Controls.AddRange(WindowforDRCsDisplay.LChart.ToArray());
-            WindowforDRCsDisplay.panelForDRC.Controls.AddRange(WindowforDRCsDisplay.LRichTextBox.ToArray());
-            WindowforDRCsDisplay.Show();
-        }
         #endregion
 
-        private void switchToDistributionModeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void distributionsModeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GlobalInfo.SwitchDistributionMode();
-                
         }
+
+
+
 
 
 

@@ -18,22 +18,22 @@ namespace HCSAnalyzer
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Classification Tree");
-            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
-            treeNode31});
-            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("Correlation Matrix and Ranking");
-            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("Systematic Errors Table");
-            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Z-Factors");
-            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Quality Control", new System.Windows.Forms.TreeNode[] {
-            treeNode33,
-            treeNode34,
-            treeNode35});
-            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("Pathway Analysis");
-            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("siRNA screening", new System.Windows.Forms.TreeNode[] {
-            treeNode37});
-            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("Weka .Arff File");
-            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("Misc", new System.Windows.Forms.TreeNode[] {
-            treeNode39});
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Classification Tree");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
+            treeNode11});
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Correlation Matrix and Ranking");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Systematic Errors Table");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Z-Factors");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Quality Control", new System.Windows.Forms.TreeNode[] {
+            treeNode13,
+            treeNode14,
+            treeNode15});
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Pathway Analysis");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("siRNA screening", new System.Windows.Forms.TreeNode[] {
+            treeNode17});
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Weka .Arff File");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Misc", new System.Windows.Forms.TreeNode[] {
+            treeNode19});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HCSAnalyzer));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageDistribution = new System.Windows.Forms.TabPage();
@@ -153,7 +153,6 @@ namespace HCSAnalyzer
             this.applySelectionToScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.switchToDistributionModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripcomboBoxPlateList = new System.Windows.Forms.ToolStripComboBox();
             this.clusteringToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.visualizationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -189,12 +188,18 @@ namespace HCSAnalyzer
             this.toolStripMenuItemGeneAnalysis = new System.Windows.Forms.ToolStripMenuItem();
             this.findGeneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pahtwaysAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dRCAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.convertDRCToWellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.platesManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pluginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.betaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dRCAnalysisToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.doseResponseDesignerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.convertDRCToWellToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayDRCToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayRespondingDRCToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.distributionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.distributionsModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutHCSAnalyzerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkedListBoxActiveDescriptors = new System.Windows.Forms.CheckedListBox();
@@ -204,12 +209,6 @@ namespace HCSAnalyzer
             this.label8 = new System.Windows.Forms.Label();
             this.contextMenuStripForLUT = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.betaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dRCAnalysisToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.displayDRCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.displayRespondingDRCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dRCAnalysisToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.doseResponseManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlMain.SuspendLayout();
             this.tabPageDistribution.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -1323,37 +1322,37 @@ namespace HCSAnalyzer
             this.treeViewSelectionForExport.FullRowSelect = true;
             this.treeViewSelectionForExport.Location = new System.Drawing.Point(394, 148);
             this.treeViewSelectionForExport.Name = "treeViewSelectionForExport";
-            treeNode31.Name = "NodeClassifTree";
-            treeNode31.Text = "Classification Tree";
-            treeNode32.Name = "NodeClassification";
-            treeNode32.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode32.Text = "Classification";
-            treeNode33.Checked = true;
-            treeNode33.Name = "NodeCorrelationMatRank";
-            treeNode33.Text = "Correlation Matrix and Ranking";
-            treeNode34.Checked = true;
-            treeNode34.Name = "NodeSystematicError";
-            treeNode34.Text = "Systematic Errors Table";
-            treeNode35.Checked = true;
-            treeNode35.Name = "NodeZfactor";
-            treeNode35.Text = "Z-Factors";
-            treeNode36.Checked = true;
-            treeNode36.Name = "NodeQualityControl";
-            treeNode36.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode36.Text = "Quality Control";
-            treeNode37.Name = "NodePathwayAnalysis";
-            treeNode37.Text = "Pathway Analysis";
-            treeNode38.Name = "NodesiRNA";
-            treeNode38.Text = "siRNA screening";
-            treeNode39.Name = "NodeWekaArff";
-            treeNode39.Text = "Weka .Arff File";
-            treeNode40.Name = "NodeMisc";
-            treeNode40.Text = "Misc";
+            treeNode11.Name = "NodeClassifTree";
+            treeNode11.Text = "Classification Tree";
+            treeNode12.Name = "NodeClassification";
+            treeNode12.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode12.Text = "Classification";
+            treeNode13.Checked = true;
+            treeNode13.Name = "NodeCorrelationMatRank";
+            treeNode13.Text = "Correlation Matrix and Ranking";
+            treeNode14.Checked = true;
+            treeNode14.Name = "NodeSystematicError";
+            treeNode14.Text = "Systematic Errors Table";
+            treeNode15.Checked = true;
+            treeNode15.Name = "NodeZfactor";
+            treeNode15.Text = "Z-Factors";
+            treeNode16.Checked = true;
+            treeNode16.Name = "NodeQualityControl";
+            treeNode16.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode16.Text = "Quality Control";
+            treeNode17.Name = "NodePathwayAnalysis";
+            treeNode17.Text = "Pathway Analysis";
+            treeNode18.Name = "NodesiRNA";
+            treeNode18.Text = "siRNA screening";
+            treeNode19.Name = "NodeWekaArff";
+            treeNode19.Text = "Weka .Arff File";
+            treeNode20.Name = "NodeMisc";
+            treeNode20.Text = "Misc";
             this.treeViewSelectionForExport.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode32,
-            treeNode36,
-            treeNode38,
-            treeNode40});
+            treeNode12,
+            treeNode16,
+            treeNode18,
+            treeNode20});
             this.treeViewSelectionForExport.Size = new System.Drawing.Size(485, 206);
             this.treeViewSelectionForExport.TabIndex = 16;
             // 
@@ -1545,8 +1544,8 @@ namespace HCSAnalyzer
             this.screenAnalysisToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.pluginsToolStripMenuItem,
-            this.aboutToolStripMenuItem,
-            this.betaToolStripMenuItem});
+            this.betaToolStripMenuItem,
+            this.aboutToolStripMenuItem});
             this.menuStripFile.Location = new System.Drawing.Point(0, 0);
             this.menuStripFile.Name = "menuStripFile";
             this.menuStripFile.Size = new System.Drawing.Size(1379, 27);
@@ -1698,8 +1697,7 @@ namespace HCSAnalyzer
             this.toolStripSeparator3,
             this.applySelectionToScreenToolStripMenuItem,
             this.toolStripSeparator1,
-            this.optionsToolStripMenuItem,
-            this.switchToDistributionModeToolStripMenuItem});
+            this.optionsToolStripMenuItem});
             this.copyAverageValuesToolStripMenuItem.Name = "copyAverageValuesToolStripMenuItem";
             this.copyAverageValuesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.copyAverageValuesToolStripMenuItem.Size = new System.Drawing.Size(39, 23);
@@ -1763,14 +1761,6 @@ namespace HCSAnalyzer
             this.optionsToolStripMenuItem.Text = "Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
-            // switchToDistributionModeToolStripMenuItem
-            // 
-            this.switchToDistributionModeToolStripMenuItem.CheckOnClick = true;
-            this.switchToDistributionModeToolStripMenuItem.Name = "switchToDistributionModeToolStripMenuItem";
-            this.switchToDistributionModeToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
-            this.switchToDistributionModeToolStripMenuItem.Text = "Distribution Mode";
-            this.switchToDistributionModeToolStripMenuItem.Click += new System.EventHandler(this.switchToDistributionModeToolStripMenuItem_Click);
-            // 
             // toolStripcomboBoxPlateList
             // 
             this.toolStripcomboBoxPlateList.DropDownWidth = 121;
@@ -1782,8 +1772,7 @@ namespace HCSAnalyzer
             // 
             this.clusteringToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.visualizationToolStripMenuItem,
-            this.qualityControlsToolStripMenuItem1,
-            this.dRCAnalysisToolStripMenuItem1});
+            this.qualityControlsToolStripMenuItem1});
             this.clusteringToolStripMenuItem1.Name = "clusteringToolStripMenuItem1";
             this.clusteringToolStripMenuItem1.Size = new System.Drawing.Size(45, 23);
             this.clusteringToolStripMenuItem1.Text = "Plate";
@@ -1911,8 +1900,7 @@ namespace HCSAnalyzer
             this.visualizationToolStripMenuItemPCA,
             this.qualityControlToolStripMenuItem,
             this.toolStripSeparator6,
-            this.toolStripMenuItemGeneAnalysis,
-            this.dRCAnalysisToolStripMenuItem});
+            this.toolStripMenuItemGeneAnalysis});
             this.screenAnalysisToolStripMenuItem.Name = "screenAnalysisToolStripMenuItem";
             this.screenAnalysisToolStripMenuItem.Size = new System.Drawing.Size(54, 23);
             this.screenAnalysisToolStripMenuItem.Text = "Screen";
@@ -2089,28 +2077,11 @@ namespace HCSAnalyzer
             this.pahtwaysAnalysisToolStripMenuItem.Text = "Pathways analysis";
             this.pahtwaysAnalysisToolStripMenuItem.Click += new System.EventHandler(this.pahtwaysAnalysisToolStripMenuItem_Click);
             // 
-            // dRCAnalysisToolStripMenuItem
-            // 
-            this.dRCAnalysisToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.convertDRCToWellToolStripMenuItem});
-            this.dRCAnalysisToolStripMenuItem.Enabled = false;
-            this.dRCAnalysisToolStripMenuItem.Name = "dRCAnalysisToolStripMenuItem";
-            this.dRCAnalysisToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.dRCAnalysisToolStripMenuItem.Text = "DRC Analysis";
-            // 
-            // convertDRCToWellToolStripMenuItem
-            // 
-            this.convertDRCToWellToolStripMenuItem.Name = "convertDRCToWellToolStripMenuItem";
-            this.convertDRCToWellToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.convertDRCToWellToolStripMenuItem.Text = "Convert DRC to Well";
-            this.convertDRCToWellToolStripMenuItem.Click += new System.EventHandler(this.convertDRCToWellToolStripMenuItem_Click);
-            // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.consoleToolStripMenuItem,
-            this.platesManagerToolStripMenuItem,
-            this.doseResponseManagerToolStripMenuItem});
+            this.platesManagerToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
             this.viewToolStripMenuItem.Text = "View";
@@ -2140,6 +2111,69 @@ namespace HCSAnalyzer
             this.pluginsToolStripMenuItem.Name = "pluginsToolStripMenuItem";
             this.pluginsToolStripMenuItem.Size = new System.Drawing.Size(63, 23);
             this.pluginsToolStripMenuItem.Text = "Plug-ins";
+            // 
+            // betaToolStripMenuItem
+            // 
+            this.betaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dRCAnalysisToolStripMenuItem2,
+            this.distributionsToolStripMenuItem});
+            this.betaToolStripMenuItem.Enabled = false;
+            this.betaToolStripMenuItem.Name = "betaToolStripMenuItem";
+            this.betaToolStripMenuItem.Size = new System.Drawing.Size(42, 23);
+            this.betaToolStripMenuItem.Text = "Beta";
+            // 
+            // dRCAnalysisToolStripMenuItem2
+            // 
+            this.dRCAnalysisToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.doseResponseDesignerToolStripMenuItem,
+            this.convertDRCToWellToolStripMenuItem1,
+            this.displayDRCToolStripMenuItem1,
+            this.displayRespondingDRCToolStripMenuItem1});
+            this.dRCAnalysisToolStripMenuItem2.Name = "dRCAnalysisToolStripMenuItem2";
+            this.dRCAnalysisToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.dRCAnalysisToolStripMenuItem2.Text = "DRC Analysis";
+            // 
+            // doseResponseDesignerToolStripMenuItem
+            // 
+            this.doseResponseDesignerToolStripMenuItem.Name = "doseResponseDesignerToolStripMenuItem";
+            this.doseResponseDesignerToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.doseResponseDesignerToolStripMenuItem.Text = "Dose Response Designer";
+            this.doseResponseDesignerToolStripMenuItem.Click += new System.EventHandler(this.doseResponseDesignerToolStripMenuItem_Click);
+            // 
+            // convertDRCToWellToolStripMenuItem1
+            // 
+            this.convertDRCToWellToolStripMenuItem1.Name = "convertDRCToWellToolStripMenuItem1";
+            this.convertDRCToWellToolStripMenuItem1.Size = new System.Drawing.Size(204, 22);
+            this.convertDRCToWellToolStripMenuItem1.Text = "Convert DRC To Well";
+            this.convertDRCToWellToolStripMenuItem1.Click += new System.EventHandler(this.convertDRCToWellToolStripMenuItem1_Click);
+            // 
+            // displayDRCToolStripMenuItem1
+            // 
+            this.displayDRCToolStripMenuItem1.Name = "displayDRCToolStripMenuItem1";
+            this.displayDRCToolStripMenuItem1.Size = new System.Drawing.Size(204, 22);
+            this.displayDRCToolStripMenuItem1.Text = "Display DRC";
+            this.displayDRCToolStripMenuItem1.Click += new System.EventHandler(this.displayDRCToolStripMenuItem1_Click);
+            // 
+            // displayRespondingDRCToolStripMenuItem1
+            // 
+            this.displayRespondingDRCToolStripMenuItem1.Name = "displayRespondingDRCToolStripMenuItem1";
+            this.displayRespondingDRCToolStripMenuItem1.Size = new System.Drawing.Size(204, 22);
+            this.displayRespondingDRCToolStripMenuItem1.Text = "Display Responding DRC";
+            // 
+            // distributionsToolStripMenuItem
+            // 
+            this.distributionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.distributionsModeToolStripMenuItem});
+            this.distributionsToolStripMenuItem.Name = "distributionsToolStripMenuItem";
+            this.distributionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.distributionsToolStripMenuItem.Text = "Distributions";
+            // 
+            // distributionsModeToolStripMenuItem
+            // 
+            this.distributionsModeToolStripMenuItem.Name = "distributionsModeToolStripMenuItem";
+            this.distributionsModeToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.distributionsModeToolStripMenuItem.Text = "Distributions Mode";
+            this.distributionsModeToolStripMenuItem.Click += new System.EventHandler(this.distributionsModeToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -2239,53 +2273,6 @@ namespace HCSAnalyzer
             this.toolStripMenuItem1.Size = new System.Drawing.Size(169, 22);
             this.toolStripMenuItem1.Text = "Copy to clipboard";
             // 
-            // betaToolStripMenuItem
-            // 
-            this.betaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dRCAnalysisToolStripMenuItem2});
-            this.betaToolStripMenuItem.Name = "betaToolStripMenuItem";
-            this.betaToolStripMenuItem.Size = new System.Drawing.Size(42, 23);
-            this.betaToolStripMenuItem.Text = "Beta";
-            // 
-            // dRCAnalysisToolStripMenuItem2
-            // 
-            this.dRCAnalysisToolStripMenuItem2.Name = "dRCAnalysisToolStripMenuItem2";
-            this.dRCAnalysisToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
-            this.dRCAnalysisToolStripMenuItem2.Text = "DRC Analysis";
-            // 
-            // displayDRCToolStripMenuItem
-            // 
-            this.displayDRCToolStripMenuItem.Name = "displayDRCToolStripMenuItem";
-            this.displayDRCToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.displayDRCToolStripMenuItem.Text = "Display DRC";
-            this.displayDRCToolStripMenuItem.Click += new System.EventHandler(this.displayDRCToolStripMenuItem_Click);
-            // 
-            // displayRespondingDRCToolStripMenuItem
-            // 
-            this.displayRespondingDRCToolStripMenuItem.Name = "displayRespondingDRCToolStripMenuItem";
-            this.displayRespondingDRCToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.displayRespondingDRCToolStripMenuItem.Text = "Display Responding DRC";
-            this.displayRespondingDRCToolStripMenuItem.Click += new System.EventHandler(this.displayRespondingDRCToolStripMenuItem_Click);
-            // 
-            // dRCAnalysisToolStripMenuItem1
-            // 
-            this.dRCAnalysisToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.displayDRCToolStripMenuItem,
-            this.displayRespondingDRCToolStripMenuItem});
-            this.dRCAnalysisToolStripMenuItem1.Enabled = false;
-            this.dRCAnalysisToolStripMenuItem1.Name = "dRCAnalysisToolStripMenuItem1";
-            this.dRCAnalysisToolStripMenuItem1.Size = new System.Drawing.Size(160, 22);
-            this.dRCAnalysisToolStripMenuItem1.Text = "DRC Analysis";
-            // 
-            // doseResponseManagerToolStripMenuItem
-            // 
-            this.doseResponseManagerToolStripMenuItem.Enabled = false;
-            this.doseResponseManagerToolStripMenuItem.Name = "doseResponseManagerToolStripMenuItem";
-            this.doseResponseManagerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D)));
-            this.doseResponseManagerToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.doseResponseManagerToolStripMenuItem.Text = "Dose Response Designer";
-            this.doseResponseManagerToolStripMenuItem.Click += new System.EventHandler(this.doseResponseManagerToolStripMenuItem_Click);
-            // 
             // HCSAnalyzer
             // 
             this.AllowDrop = true;
@@ -2299,7 +2286,7 @@ namespace HCSAnalyzer
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStripFile;
             this.Name = "HCSAnalyzer";
-            this.Text = "HCS analyzer v1.0.4.1";
+            this.Text = "HCS analyzer v1.0.4.2";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.HCSAnalyzer_FormClosed);
             this.Load += new System.EventHandler(this.HCSAnalyzer_Load);
             this.Shown += new System.EventHandler(this.HCSAnalyzer_Shown);
@@ -2521,19 +2508,18 @@ namespace HCSAnalyzer
         private ToolStripMenuItem hierarchicalClusteringToolStripMenuItem1;
         private ToolStripMenuItem hierarchicalTreeToolStripMenuItem;
         private ToolStripMenuItem toARFFToolStripMenuItem;
-        private ToolStripMenuItem dRCAnalysisToolStripMenuItem;
-        private ToolStripMenuItem convertDRCToWellToolStripMenuItem;
-        private ToolStripMenuItem switchToDistributionModeToolStripMenuItem;
         private ComboBox comboBoxRejectionPositiveCtrl;
         private Label label11;
         private ComboBox comboBoxRejectionNegativeCtrl;
         private Label label12;
         private ToolStripMenuItem betaToolStripMenuItem;
-        private ToolStripMenuItem dRCAnalysisToolStripMenuItem1;
-        private ToolStripMenuItem displayDRCToolStripMenuItem;
-        private ToolStripMenuItem displayRespondingDRCToolStripMenuItem;
         private ToolStripMenuItem dRCAnalysisToolStripMenuItem2;
-        private ToolStripMenuItem doseResponseManagerToolStripMenuItem;
+        private ToolStripMenuItem doseResponseDesignerToolStripMenuItem;
+        private ToolStripMenuItem convertDRCToWellToolStripMenuItem1;
+        private ToolStripMenuItem displayDRCToolStripMenuItem1;
+        private ToolStripMenuItem displayRespondingDRCToolStripMenuItem1;
+        private ToolStripMenuItem distributionsToolStripMenuItem;
+        private ToolStripMenuItem distributionsModeToolStripMenuItem;
     }
 }
 
