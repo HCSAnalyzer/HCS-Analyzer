@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Controls\LogoType1.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="HCSAnalyzer" version="1.0.4490.26597" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="HCSAnalyzer" version="1.0.4490.36028" language="neutral" processorArchitecture="x86" />
     <commandLine file="HCSAnalyzer.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -115,14 +115,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HCSAnalyzer.exe" size="3651072">
-      <assemblyIdentity name="HCSAnalyzer" version="1.0.4490.26597" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HCSAnalyzer.exe" size="3651584">
+      <assemblyIdentity name="HCSAnalyzer" version="1.0.4490.36028" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>b0YADn2j0WUTVXaJQx8BeNbPYdo=</dsig:DigestValue>
+        <dsig:DigestValue>NfznSlZkS4DnqYqCXty/121r6+w=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -555,13 +555,13 @@
       <dsig:DigestValue>0eRQJI9SlMJYy9tQOybFcu/fl8o=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="HCSAnalyzer.exe.config" size="1266">
+  <file name="HCSAnalyzer.exe.config" size="1243">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>dtASgtxsbkX7SPyZauI85FZjWe4=</dsig:DigestValue>
+      <dsig:DigestValue>Hbyv8rdKwFAZxK1Ckp+qC5WzykE=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

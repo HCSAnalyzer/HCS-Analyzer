@@ -1489,7 +1489,8 @@ namespace HCSAnalyzer
             int RealIdx = 0;
             for (int IdxValue = 0; IdxValue < ZFactorList.Count; IdxValue++)
             {
-                if (ZFactorList[IdxValue].AverageValue.ToString() == "NaN") continue;
+                if (double.IsNaN(ZFactorList[IdxValue].AverageValue)) continue;
+                if (double.IsInfinity(ZFactorList[IdxValue].AverageValue)) continue;
 
                 CurrentSeries.Points.Add(ZFactorList[IdxValue].AverageValue);
                 CurrentSeries.Points[RealIdx].Label = string.Format("{0:0.###}", ZFactorList[IdxValue].AverageValue);
@@ -3935,12 +3936,47 @@ namespace HCSAnalyzer
             WindowforDRCsDisplay.Show();
         }
 
-   
-                    #region DRC management
+
+
+        private void distributionsModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GlobalInfo.SwitchDistributionMode();
+        }
+
+        private void panelForPlate_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (CompleteScreening == null) return;
+
+            if (e.Button == MouseButtons.Right)
+            {
+                ContextMenuStrip contextMenuStrip = new ContextMenuStrip();
+                string TextFor3D2D;
+                if (GlobalInfo.Is3DVisu())
+                    TextFor3D2D = "Turn Off 3D vizualization";
+                else
+                    TextFor3D2D = "Turn On 3D vizualization";
+
+                ToolStripMenuItem ToolStripMenuItem_SwitchVizuMode = new ToolStripMenuItem(TextFor3D2D);
+
+                contextMenuStrip.Items.AddRange(new ToolStripItem[] { ToolStripMenuItem_SwitchVizuMode });
+
+                contextMenuStrip.Show(Control.MousePosition);
+
+                ToolStripMenuItem_SwitchVizuMode.Click += new System.EventHandler(this.SwitchVizuMode);
+            }
+        }
+
+
+        private void SwitchVizuMode(object sender, EventArgs e)
+        {
+            GlobalInfo.SwitchVisuMode();
+        }
+
+        #region DRC management
 
 
 
-        private void displayRespondingDRCToolStripMenuItem_Click(object sender, EventArgs e)
+        private void displayRespondingDRCToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (CompleteScreening.GetCurrentDisplayPlate().ListDRCRegions == null) return;
 
@@ -4042,14 +4078,6 @@ namespace HCSAnalyzer
         }
 
         #endregion
-
-        private void distributionsModeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            GlobalInfo.SwitchDistributionMode();
-        }
-
-
-
 
 
 

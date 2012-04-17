@@ -84,7 +84,12 @@ namespace LibPlateAnalysis
 
         public void Close3DView()
         {
-            if (_3DWorldForPlateDisplay != null) _3DWorldForPlateDisplay.Terminate();
+            if (_3DWorldForPlateDisplay != null)
+            {
+
+                _3DWorldForPlateDisplay.Terminate();
+                _3DWorldForPlateDisplay = null;
+            }
         
         }
 

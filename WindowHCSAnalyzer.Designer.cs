@@ -18,22 +18,22 @@ namespace HCSAnalyzer
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("Classification Tree");
-            System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
-            treeNode41});
-            System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("Correlation Matrix and Ranking");
-            System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("Systematic Errors Table");
-            System.Windows.Forms.TreeNode treeNode45 = new System.Windows.Forms.TreeNode("Z-Factors");
-            System.Windows.Forms.TreeNode treeNode46 = new System.Windows.Forms.TreeNode("Quality Control", new System.Windows.Forms.TreeNode[] {
-            treeNode43,
-            treeNode44,
-            treeNode45});
-            System.Windows.Forms.TreeNode treeNode47 = new System.Windows.Forms.TreeNode("Pathway Analysis");
-            System.Windows.Forms.TreeNode treeNode48 = new System.Windows.Forms.TreeNode("siRNA screening", new System.Windows.Forms.TreeNode[] {
-            treeNode47});
-            System.Windows.Forms.TreeNode treeNode49 = new System.Windows.Forms.TreeNode("Weka .Arff File");
-            System.Windows.Forms.TreeNode treeNode50 = new System.Windows.Forms.TreeNode("Misc", new System.Windows.Forms.TreeNode[] {
-            treeNode49});
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Classification Tree");
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
+            treeNode21});
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Correlation Matrix and Ranking");
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Systematic Errors Table");
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Z-Factors");
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Quality Control", new System.Windows.Forms.TreeNode[] {
+            treeNode23,
+            treeNode24,
+            treeNode25});
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Pathway Analysis");
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("siRNA screening", new System.Windows.Forms.TreeNode[] {
+            treeNode27});
+            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Weka .Arff File");
+            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Misc", new System.Windows.Forms.TreeNode[] {
+            treeNode29});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HCSAnalyzer));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageDistribution = new System.Windows.Forms.TabPage();
@@ -209,6 +209,7 @@ namespace HCSAnalyzer
             this.label8 = new System.Windows.Forms.Label();
             this.contextMenuStripForLUT = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tabControlMain.SuspendLayout();
             this.tabPageDistribution.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -418,6 +419,7 @@ namespace HCSAnalyzer
             this.panelForPlate.Size = new System.Drawing.Size(992, 439);
             this.panelForPlate.TabIndex = 0;
             this.panelForPlate.Paint += new System.Windows.Forms.PaintEventHandler(this.panelForPlate_Paint);
+            this.panelForPlate.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panelForPlate_MouseClick);
             this.panelForPlate.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelForPlate_MouseDown);
             this.panelForPlate.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelForPlate_MouseMove);
             this.panelForPlate.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panelForPlate_MouseUp);
@@ -1323,37 +1325,37 @@ namespace HCSAnalyzer
             this.treeViewSelectionForExport.FullRowSelect = true;
             this.treeViewSelectionForExport.Location = new System.Drawing.Point(394, 148);
             this.treeViewSelectionForExport.Name = "treeViewSelectionForExport";
-            treeNode41.Name = "NodeClassifTree";
-            treeNode41.Text = "Classification Tree";
-            treeNode42.Name = "NodeClassification";
-            treeNode42.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode42.Text = "Classification";
-            treeNode43.Checked = true;
-            treeNode43.Name = "NodeCorrelationMatRank";
-            treeNode43.Text = "Correlation Matrix and Ranking";
-            treeNode44.Checked = true;
-            treeNode44.Name = "NodeSystematicError";
-            treeNode44.Text = "Systematic Errors Table";
-            treeNode45.Checked = true;
-            treeNode45.Name = "NodeZfactor";
-            treeNode45.Text = "Z-Factors";
-            treeNode46.Checked = true;
-            treeNode46.Name = "NodeQualityControl";
-            treeNode46.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode46.Text = "Quality Control";
-            treeNode47.Name = "NodePathwayAnalysis";
-            treeNode47.Text = "Pathway Analysis";
-            treeNode48.Name = "NodesiRNA";
-            treeNode48.Text = "siRNA screening";
-            treeNode49.Name = "NodeWekaArff";
-            treeNode49.Text = "Weka .Arff File";
-            treeNode50.Name = "NodeMisc";
-            treeNode50.Text = "Misc";
+            treeNode21.Name = "NodeClassifTree";
+            treeNode21.Text = "Classification Tree";
+            treeNode22.Name = "NodeClassification";
+            treeNode22.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode22.Text = "Classification";
+            treeNode23.Checked = true;
+            treeNode23.Name = "NodeCorrelationMatRank";
+            treeNode23.Text = "Correlation Matrix and Ranking";
+            treeNode24.Checked = true;
+            treeNode24.Name = "NodeSystematicError";
+            treeNode24.Text = "Systematic Errors Table";
+            treeNode25.Checked = true;
+            treeNode25.Name = "NodeZfactor";
+            treeNode25.Text = "Z-Factors";
+            treeNode26.Checked = true;
+            treeNode26.Name = "NodeQualityControl";
+            treeNode26.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode26.Text = "Quality Control";
+            treeNode27.Name = "NodePathwayAnalysis";
+            treeNode27.Text = "Pathway Analysis";
+            treeNode28.Name = "NodesiRNA";
+            treeNode28.Text = "siRNA screening";
+            treeNode29.Name = "NodeWekaArff";
+            treeNode29.Text = "Weka .Arff File";
+            treeNode30.Name = "NodeMisc";
+            treeNode30.Text = "Misc";
             this.treeViewSelectionForExport.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode42,
-            treeNode46,
-            treeNode48,
-            treeNode50});
+            treeNode22,
+            treeNode26,
+            treeNode28,
+            treeNode30});
             this.treeViewSelectionForExport.Size = new System.Drawing.Size(485, 206);
             this.treeViewSelectionForExport.TabIndex = 16;
             // 
@@ -2127,6 +2129,7 @@ namespace HCSAnalyzer
             // 
             this.dRCAnalysisToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.doseResponseDesignerToolStripMenuItem,
+            this.toolStripSeparator5,
             this.convertDRCToWellToolStripMenuItem1,
             this.displayDRCToolStripMenuItem1,
             this.displayRespondingDRCToolStripMenuItem1});
@@ -2160,6 +2163,7 @@ namespace HCSAnalyzer
             this.displayRespondingDRCToolStripMenuItem1.Name = "displayRespondingDRCToolStripMenuItem1";
             this.displayRespondingDRCToolStripMenuItem1.Size = new System.Drawing.Size(204, 22);
             this.displayRespondingDRCToolStripMenuItem1.Text = "Display Responding DRC";
+            this.displayRespondingDRCToolStripMenuItem1.Click += new System.EventHandler(this.displayRespondingDRCToolStripMenuItem1_Click);
             // 
             // distributionsToolStripMenuItem
             // 
@@ -2171,6 +2175,7 @@ namespace HCSAnalyzer
             // 
             // distributionsModeToolStripMenuItem
             // 
+            this.distributionsModeToolStripMenuItem.CheckOnClick = true;
             this.distributionsModeToolStripMenuItem.Name = "distributionsModeToolStripMenuItem";
             this.distributionsModeToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.distributionsModeToolStripMenuItem.Text = "Distributions Mode";
@@ -2273,6 +2278,11 @@ namespace HCSAnalyzer
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(169, 22);
             this.toolStripMenuItem1.Text = "Copy to clipboard";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(201, 6);
             // 
             // HCSAnalyzer
             // 
@@ -2521,6 +2531,7 @@ namespace HCSAnalyzer
         private ToolStripMenuItem displayRespondingDRCToolStripMenuItem1;
         private ToolStripMenuItem distributionsToolStripMenuItem;
         private ToolStripMenuItem distributionsModeToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator5;
     }
 }
 

@@ -597,7 +597,7 @@ namespace LibPlateAnalysis
             {
                 if (ParentScreening._3DWorldForPlateDisplay == null)
                 {
-                    ParentScreening._3DWorldForPlateDisplay = new c3DWorld(new cPoint3D(ParentScreening.Columns, ParentScreening.Rows, 1), new cPoint3D(1, 1, 1), ParentScreening.GlobalInfo.renderWindowControlForVTK, null);
+                    ParentScreening._3DWorldForPlateDisplay = new c3DWorld(new cPoint3D(ParentScreening.Columns, ParentScreening.Rows, 1), new cPoint3D(1, 1, 1), ParentScreening.GlobalInfo.renderWindowControlForVTK, ParentScreening.GlobalInfo.WinSize);
 
 
                     Display3Dplate(IdxDescriptor, new cPoint3D(0, 0, 0));
@@ -624,13 +624,28 @@ namespace LibPlateAnalysis
 
 
                     double dist = Math.Sqrt((p[0] - fp[0]) * (p[0] - fp[0]) + (p[1] - fp[1]) * (p[1] - fp[1]) + (p[2] - fp[2]) * (p[2] - fp[2]));
-                    int[] WinPos = new int[2];
-                    WinPos[0] = ParentScreening._3DWorldForPlateDisplay.renWin.GetSize()[0];
-                    WinPos[1] = ParentScreening._3DWorldForPlateDisplay.renWin.GetSize()[1];
+                  //  int[] WinPos = new int[2];
+
+                    if (ParentScreening._3DWorldForPlateDisplay == null)
+                    {
+                        ParentScreening.GlobalInfo.WinSize[0] = 750;
+                        ParentScreening.GlobalInfo.WinSize[1] = 400;
+                    }
+                    else
+                    {
+                        ParentScreening.GlobalInfo.WinSize[0] = ParentScreening._3DWorldForPlateDisplay.renWin.GetSize()[0];
+                        ParentScreening.GlobalInfo.WinSize[1] = ParentScreening._3DWorldForPlateDisplay.renWin.GetSize()[1];
+                    
+                    }
+
+
+                    //WinPos[0] = ParentScreening._3DWorldForPlateDisplay.renWin.GetSize()[0];
+                    //WinPos[1] = ParentScreening._3DWorldForPlateDisplay.renWin.GetSize()[1];
+ 
 
                     ParentScreening._3DWorldForPlateDisplay.Terminate();
                     ParentScreening._3DWorldForPlateDisplay = null;
-                    ParentScreening._3DWorldForPlateDisplay = new c3DWorld(new cPoint3D(ParentScreening.Columns, ParentScreening.Rows, 1), new cPoint3D(1, 1, 1), ParentScreening.GlobalInfo.renderWindowControlForVTK, WinPos);
+                    ParentScreening._3DWorldForPlateDisplay = new c3DWorld(new cPoint3D(ParentScreening.Columns, ParentScreening.Rows, 1), new cPoint3D(1, 1, 1), ParentScreening.GlobalInfo.renderWindowControlForVTK, ParentScreening.GlobalInfo.WinSize);
 
                     ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().Roll(180);
                     ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().Azimuth(180);

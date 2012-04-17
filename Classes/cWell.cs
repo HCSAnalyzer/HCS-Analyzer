@@ -217,11 +217,19 @@ namespace LibPlateAnalysis
             return;
         }
 
+        /// <summary>
+        /// Get the class index related to the well
+        /// </summary>
+        /// <returns>the class index</returns>
         public int GetClass()
         {
             return ClassForClassif;
         }
         
+        /// <summary>
+        /// Return the color of the well (related to the class or the selection mode)
+        /// </summary>
+        /// <returns>The color</returns>
         public Color GetColor()
         {
             return this.CurrentColor;
@@ -522,9 +530,6 @@ namespace LibPlateAnalysis
         private void SwitchVizuMode(object sender, EventArgs e)
         {
             this.Parent.GlobalInfo.SwitchVisuMode();
-
-
-
         }
 
         private void DisplayHisto(object sender, EventArgs e)
@@ -808,6 +813,9 @@ namespace LibPlateAnalysis
 
         }
 
+        /// <summary>
+        /// Display the information window related to the selected well
+        /// </summary>
         public void DisplayInfoWindow()
         {
             FormForWellInformation NewWindow = new FormForWellInformation();
@@ -825,8 +833,11 @@ namespace LibPlateAnalysis
             CurrentSeries.ShadowOffset = 2;
 
             for (int IdxValue = 0; IdxValue < ListDescriptors[CurrentDescriptorToDisplay].GetAssociatedType().GetBinNumber(); IdxValue++)
-                CurrentSeries.Points.Add(ListDescriptors[CurrentDescriptorToDisplay].Getvalue(IdxValue));
-
+            {
+                double Value = ListDescriptors[CurrentDescriptorToDisplay].Getvalue(IdxValue);
+                CurrentSeries.Points.Add(Value);
+                CurrentSeries.Points[IdxValue].ToolTip = Value.ToString();
+            }
             ChartArea CurrentChartArea = new ChartArea("ChartArea" + PosX + "x" + PosY);
             CurrentChartArea.BorderColor = Color.Black;
 
@@ -836,6 +847,9 @@ namespace LibPlateAnalysis
 
             CurrentChartArea.Axes[0].MajorGrid.Enabled = false;
             CurrentChartArea.Axes[0].Title = ListDescriptors[CurrentDescriptorToDisplay].GetName();
+            if(CurrentSeries.Points.Count==1)
+                CurrentSeries.ChartType = SeriesChartType.Column;
+            else
             CurrentSeries.ChartType = SeriesChartType.Line;
             CurrentSeries.Color = Color.White;
             CurrentSeries.BorderWidth = 3;
@@ -850,7 +864,15 @@ namespace LibPlateAnalysis
             NewWindow.Text = PosX + "x" + PosY + " / " + StateForClassif;
 
             if (NewWindow.ShowDialog() == DialogResult.OK)
+            {
                 this.Info = NewWindow.textBoxInfo.Text;
+                this.Name = NewWindow.textBoxName.Text;
+                double Concen = 0;
+                if (double.TryParse(NewWindow.textBoxConcentration.Text, out Concen))
+                    this.Concentration = Concen;
+
+                this.Parent.GetCurrentDisplayPlate().DisplayDistribution(this.Parent.ListDescriptors.CurrentSelectedDescriptor, false);
+            }
 
             NewWindow.chartForFormWell.Update();
             NewWindow.chartForFormWell.Show();

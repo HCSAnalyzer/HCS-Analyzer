@@ -25,11 +25,9 @@ namespace HCSAnalyzer.Classes
         {
             _IsDistributionMode = !_IsDistributionMode;
 
-
             if (_IsDistributionMode == false) CurrentScreen.Reference = null;
             else
             {
-
                 List<cWell> Ref = new List<cWell>();
                 foreach (cWell WellForRef in CurrentScreen.GetCurrentDisplayPlate().ListActiveWells)
                 {
@@ -43,18 +41,11 @@ namespace HCSAnalyzer.Classes
                 CurrentScreen.Reference = new cReference(Ref);
             }
 
-
-
-          //  CurrentScreen.UpDatePlateListWithFullAvailablePlate();
-
             for (int idxP = 0; idxP < CurrentScreen.ListPlatesActive.Count; idxP++)
                 CurrentScreen.ListPlatesActive[idxP].UpDataMinMax();
 
             //StartingUpDateUI();
             CurrentScreen.GetCurrentDisplayPlate().DisplayDistribution(CurrentScreen.ListDescriptors.CurrentSelectedDescriptor, false);
-
-
-        
         }
 
 
@@ -63,31 +54,33 @@ namespace HCSAnalyzer.Classes
             return this._Is3DVisualization;
         }
 
+
+        public int[] WinSize = new int[] {750 , 400};
+
+        /// <summary>
+        /// switch 3D mode
+        /// </summary>
         public void SwitchVisuMode()
         { 
-
-
             _Is3DVisualization = !_Is3DVisualization;
 
-            if (_Is3DVisualization == false) CurrentScreen.Close3DView();
+            if (_Is3DVisualization == false)
+            {
+                CurrentScreen.Close3DView();
+            }
             else
-            CurrentScreen.GetCurrentDisplayPlate().DisplayDistribution(CurrentScreen.ListDescriptors.CurrentSelectedDescriptor, false);
+            {
+                CurrentScreen.GetCurrentDisplayPlate().DisplayDistribution(CurrentScreen.ListDescriptors.CurrentSelectedDescriptor, false);
+            }
            
         }
-
-
-
-
 
 
         public Panel panelForPlate;
         public RichTextBox CurrentRichTextBox;
         public ComboBox ComboForSelectedDesc;
         public CheckedListBox CheckedListBoxForDescActive;
-
-
         public bool IsDisplayClassOnly = false;
-
         public PlatesListForm PlateListWindow;
         public cScreening CurrentScreen = null;
         public float SizeHistoWidth = 34;

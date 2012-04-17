@@ -146,10 +146,7 @@ namespace HCSAnalyzer.Classes._3D
                 renWin.SetWindowName("3D World");
                 renWin.BordersOn();
                 renWin.DoubleBufferOn();
-                if (WinPos == null)
-                    renWin.SetSize(750, 500);
-                else
-                    renWin.SetSize(WinPos[0], WinPos[1]);
+                renWin.SetSize(WinPos[0], WinPos[1]);
 
 
                 //   if(WinPos!=null)            renWin.SetPosition(WinPos[0], WinPos[1]);
