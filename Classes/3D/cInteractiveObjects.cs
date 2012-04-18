@@ -170,8 +170,6 @@ namespace HCSAnalyzer.Classes._3D
         //}
     }
 
-
-
     public class CImage3D
     {
         public int Width;
@@ -509,8 +507,8 @@ namespace HCSAnalyzer.Classes._3D
         {
             this.Intensity = Intensity;
             VTK_Sphere = vtkSphereSource.New();
-            VTK_Sphere.SetThetaResolution(10);
-            VTK_Sphere.SetPhiResolution(10);
+            VTK_Sphere.SetThetaResolution(6);
+            VTK_Sphere.SetPhiResolution(6);
             VTK_Sphere.SetRadius(Radius);
             vtk_PolyDataMapper = vtkPolyDataMapper.New();
             vtk_PolyDataMapper.SetInputConnection(VTK_Sphere.GetOutputPort());
@@ -629,7 +627,7 @@ namespace HCSAnalyzer.Classes._3D
             {
                 List<double> DescriptorList = new List<double>();
 
-                int IdxDesc=-1;
+                int IdxDesc = -1;
                 foreach (cDescriptorsType Desc in CurrentBiologicalObject.AssociatedWell.AssociatedPlate.ParentScreening.ListDescriptors)
                 {
                     IdxDesc++;
@@ -677,7 +675,7 @@ namespace HCSAnalyzer.Classes._3D
 
     public class c3DIsoContours : cInteractive3DObject //cGeometric3DObject
     {
-       public List<cPoint3D> ListPtContour = new List<cPoint3D>();
+        public List<cPoint3D> ListPtContour = new List<cPoint3D>();
 
         private void Create(cGeometric3DObject AssociatedObject, cDRC_Region AssociatedRegion, Color Color, double ZPosition, bool IsIsoboles)
         {
@@ -714,7 +712,7 @@ namespace HCSAnalyzer.Classes._3D
 
             vtkPoints Pts = cutter.GetOutput().GetPoints();
             int NumPts = (int)Pts.GetNumberOfPoints();
-            for(int IdxPt=0;IdxPt<NumPts;IdxPt++)
+            for (int IdxPt = 0; IdxPt < NumPts; IdxPt++)
             {
 
                 double[] Pt = Pts.GetPoint(IdxPt);

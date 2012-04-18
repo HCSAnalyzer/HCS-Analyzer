@@ -574,6 +574,7 @@ namespace HCSAnalyzer.Classes._3D
             TextActor.SetPosition(Position.X, Position.Y, Position.Z);
             TextActor.SetPickable(0);
             TextActor.SetScale(Scale);
+            TextActor.GetProperty().SetColor(Colour.R / 255.0, Colour.G / 255.0, Colour.B / 255.0);
 
             CurrentWorld.ren1.AddActor(TextActor);
             TextActor.SetCamera(CurrentWorld.ren1.GetActiveCamera());

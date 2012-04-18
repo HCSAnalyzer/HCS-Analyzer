@@ -795,8 +795,8 @@ namespace HCSAnalyzer
                 platesManagerToolStripMenuItem.Enabled = true;
                 betaToolStripMenuItem.Enabled = true;
                 toolStripMenuItemGeneAnalysis.Enabled = true;
-               
-               
+
+
                 CompleteScreening.ISLoading = false;
                 comboBoxDescriptorToDisplay.SelectedIndex = 0;
                 string NamePlate = PlateListWindow.listBoxAvaliableListPlates.Items[0].ToString();
@@ -4078,6 +4078,51 @@ namespace HCSAnalyzer
         }
 
         #endregion
+
+
+
+        private void xYZScatterPointsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CompleteScreening == null) return;
+            FormFor3DDataDisplay FormToDisplayXYZ = new FormFor3DDataDisplay(false);
+            for (int i = 0; i < (int)CompleteScreening.ListDescriptors.Count; i++)
+            {
+                FormToDisplayXYZ.comboBoxDescriptorX.Items.Add(CompleteScreening.ListDescriptors[i].GetName());
+                FormToDisplayXYZ.comboBoxDescriptorY.Items.Add(CompleteScreening.ListDescriptors[i].GetName());
+                FormToDisplayXYZ.comboBoxDescriptorZ.Items.Add(CompleteScreening.ListDescriptors[i].GetName());
+            }
+
+            FormToDisplayXYZ.comboBoxDescriptorX.SelectedIndex = 0;
+            FormToDisplayXYZ.comboBoxDescriptorY.SelectedIndex = 0;
+            FormToDisplayXYZ.comboBoxDescriptorZ.SelectedIndex = 0;
+
+            FormToDisplayXYZ.CompleteScreening = CompleteScreening;
+            FormToDisplayXYZ.Show();
+
+            return;
+        }
+
+        private void xYZScatterPointsToolStripMenuItemFullScreen_Click(object sender, EventArgs e)
+        {
+            if (CompleteScreening == null) return;
+            FormFor3DDataDisplay FormToDisplayXYZ = new FormFor3DDataDisplay(true);
+            for (int i = 0; i < (int)CompleteScreening.ListDescriptors.Count; i++)
+            {
+                FormToDisplayXYZ.comboBoxDescriptorX.Items.Add(CompleteScreening.ListDescriptors[i].GetName());
+                FormToDisplayXYZ.comboBoxDescriptorY.Items.Add(CompleteScreening.ListDescriptors[i].GetName());
+                FormToDisplayXYZ.comboBoxDescriptorZ.Items.Add(CompleteScreening.ListDescriptors[i].GetName());
+            }
+
+            FormToDisplayXYZ.comboBoxDescriptorX.SelectedIndex = 0;
+            FormToDisplayXYZ.comboBoxDescriptorY.SelectedIndex = 0;
+            FormToDisplayXYZ.comboBoxDescriptorZ.SelectedIndex = 0;
+
+            FormToDisplayXYZ.CompleteScreening = CompleteScreening;
+            FormToDisplayXYZ.Show();
+
+            return;
+
+        }
 
 
 

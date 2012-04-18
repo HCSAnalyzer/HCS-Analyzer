@@ -643,12 +643,15 @@ namespace LibPlateAnalysis
                     //WinPos[1] = ParentScreening._3DWorldForPlateDisplay.renWin.GetSize()[1];
  
 
-                    ParentScreening._3DWorldForPlateDisplay.Terminate();
-                    ParentScreening._3DWorldForPlateDisplay = null;
-                    ParentScreening._3DWorldForPlateDisplay = new c3DWorld(new cPoint3D(ParentScreening.Columns, ParentScreening.Rows, 1), new cPoint3D(1, 1, 1), ParentScreening.GlobalInfo.renderWindowControlForVTK, ParentScreening.GlobalInfo.WinSize);
+                  //  ParentScreening._3DWorldForPlateDisplay.Terminate();
+                  //  ParentScreening._3DWorldForPlateDisplay = null;
+                  //  ParentScreening._3DWorldForPlateDisplay = new c3DWorld(new cPoint3D(ParentScreening.Columns, ParentScreening.Rows, 1), new cPoint3D(1, 1, 1), ParentScreening.GlobalInfo.renderWindowControlForVTK, ParentScreening.GlobalInfo.WinSize);
 
-                    ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().Roll(180);
-                    ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().Azimuth(180);
+                    //ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().Roll(180);
+                    //ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().Azimuth(180);
+
+                    ParentScreening._3DWorldForPlateDisplay.ren1.RemoveAllViewProps();
+
 
 
                     ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().SetFocalPoint(fp[0], fp[1], fp[2]);

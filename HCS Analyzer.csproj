@@ -311,6 +311,12 @@
     <Compile Include="Classes\cPlate.cs" />
     <Compile Include="Classes\cScreening.cs" />
     <Compile Include="Classes\cWell.cs" />
+    <Compile Include="Forms\FormFor3DDataDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormFor3DDataDisplay.Designer.cs">
+      <DependentUpon>FormFor3DDataDisplay.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormForDescriptorInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -509,6 +515,9 @@
       <DependentUpon>WindowHCSAnalyzer.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\FormFor3DDataDisplay.resx">
+      <DependentUpon>FormFor3DDataDisplay.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormForDescriptorInfo.resx">
       <DependentUpon>FormForDescriptorInfo.cs</DependentUpon>
     </EmbeddedResource>

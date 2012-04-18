@@ -148,10 +148,16 @@ namespace HCSAnalyzer.Classes._3D
                 renWin.DoubleBufferOn();
                 renWin.SetSize(WinPos[0], WinPos[1]);
 
-
+                this.ren1 = vtkRenderer.New();
                 //   if(WinPos!=null)            renWin.SetPosition(WinPos[0], WinPos[1]);
                 // this.ren1 = CurrentrenderWindowControl.RenderWindow.GetRenderers().GetFirstRenderer();
                 //CurrentrenderWindowControl.RenderWindow;
+            }
+            else
+            {
+                renWin = CurrentrenderWindowControl.RenderWindow;
+
+                this.ren1 = CurrentrenderWindowControl.RenderWindow.GetRenderers().GetFirstRenderer();
             }
 
             //// Menu Strip Construction
@@ -159,7 +165,7 @@ namespace HCSAnalyzer.Classes._3D
             //ToolStripMenuItem StripMenuItemDisplay = new ToolStripMenuItem("Display");
             //contextMenuStripActorPicker.Items.Add(StripMenuItemDisplay);
 
-            this.ren1 = vtkRenderer.New();
+            
             //renWin = CurrentrenderWindowControl.RenderWindow;//vtkRenderWindow.New();
 
             renWin.AddRenderer(ren1);
