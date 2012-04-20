@@ -3,12 +3,12 @@
   <Class Name="LibPlateAnalysis.cDescriptor">
     <Position X="9.75" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAQAABAAAAAAIIAEAQAAAAIAIAAAAEAAAAABAA=</HashCode>
+      <HashCode>AAAAAAAQIAAAACAAAIIAEAAAAAAAAIBAAQAgABAgBAA=</HashCode>
       <FileName>Classes\cDescriptor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LibPlateAnalysis.cExportDatabase">
-    <Position X="12.5" Y="0.5" Width="2.25" />
+    <Position X="12.75" Y="9.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAIAAAAIAAAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAA=</HashCode>
       <FileName>Classes\cExportDatabase.cs</FileName>
@@ -17,38 +17,581 @@
   <Class Name="LibPlateAnalysis.cPlate">
     <Position X="3.25" Y="0.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAIAAMAAACgAAAAMAAAEAQAVACUAUAAgAhAAACAAAk=</HashCode>
+      <HashCode>EIAIACMAAAioQAABMEAAEAQA1BCUQUAAgAhAAACAAAk=</HashCode>
       <FileName>Classes\cPlate.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LibPlateAnalysis.cScreening">
     <Position X="0.5" Y="0.5" Width="2.5" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-      <Compartment Name="Nested Types" Collapsed="false" />
-    </Compartments>
     <NestedTypes>
       <Class Name="LibPlateAnalysis.cScreening.CsvRow" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Classes\cScreen.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="LibPlateAnalysis.cScreening.CsvFileReader" Collapsed="true">
+      <Class Name="LibPlateAnalysis.cScreening.CsvFileReader">
         <TypeIdentifier>
           <NewMemberFileName>Classes\cScreen.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAEQIQkUBCEQSFBAKCQBSBQIAQIQkYqIAEATTQiIAVE=</HashCode>
-      <FileName>Classes\cScreen.cs</FileName>
+      <HashCode>EIAQIAqACAEYQFBCMEAQABQIAQAAASgApEAJTQiIABE=</HashCode>
+      <FileName>Classes\cScreening.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LibPlateAnalysis.cWell">
     <Position X="6.25" Y="0.5" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>qACAAAAAAAQAcQAAAAAgwQQCCIAABKCAAwQAACAAYAA=</HashCode>
+      <HashCode>qAAAAAAAAAQCcQACAAgiwYQCCIAABKCADwQACEAAYAA=</HashCode>
       <FileName>Classes\cWell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.HCSAnalyzer" Collapsed="true">
+    <Position X="28.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>/tv8//1f7+/evz579/2fftP/f+rv26+93a533/ndsvs=</HashCode>
+      <FileName>Classif.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.PlateChart" Collapsed="true">
+    <Position X="35" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\PlateChart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.PlateTabPage" Collapsed="true">
+    <Position X="35" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\PlateTabPage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.FormClassification" Collapsed="true">
+    <Position X="30.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAACAAABAAAASAAAACAAAAgAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Forms\FormClassification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.FormConsole" Collapsed="true">
+    <Position X="26.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAgEAIAACAAAACAAAAAAAAAQAAAAAEAAA=</HashCode>
+      <FileName>Forms\FormConsole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.FormForKegg" Collapsed="true">
+    <Position X="33.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAEAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Forms\FormForKegg.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.FormForNormalization" Collapsed="true">
+    <Position X="30.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACQAAAAAAACAAAACACBAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Forms\FormForNormalization.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.PlatesListForm" Collapsed="true">
+    <Position X="35" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAQCCAABAIAAiAAACGAAAAAAACAQAAAAAAgAA=</HashCode>
+      <FileName>Forms\FormPlatesList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.FormForPie" Collapsed="true">
+    <Position X="28.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Forms\FormsForGraphsDisplay\FormForPie.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.FormForOptionsWindow" Collapsed="true">
+    <Position X="26.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>/weEQIAICKUEVBIaEgCCJUIiRQOIkyhOATAKSaGFIHo=</HashCode>
+      <FileName>Forms\FormsForOptions\FormForOptionsWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.FormForImportExcel" Collapsed="true">
+    <Position X="32" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIQAAAACAAEBAIAACAEAACAAAAACAAQSwAAAAAAAA=</HashCode>
+      <FileName>Forms\IO\FormForImportExcel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.c3DWorld" Collapsed="true">
+    <Position X="22.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ADABAAIEhAAABIggACJIwAAAQBBAE4UEA1AEiBQKpgA=</HashCode>
+      <FileName>Classes\3D\c3DWorld.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.cGeometric3DObject" Collapsed="true">
+    <Position X="15.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAgAAAAA=</HashCode>
+      <FileName>Classes\3D\cGeometricalObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.c3DSphere" Collapsed="true">
+    <Position X="11.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAQAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\3D\cGeometricalObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.c3DDRC" Collapsed="true">
+    <Position X="13.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Classes\3D\cGeometricalObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.c3DThinPlate" Collapsed="true">
+    <Position X="15.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAgAAAAAAAAAAAAAAAAAAEAAAAAAAAgAAAA=</HashCode>
+      <FileName>Classes\3D\cGeometricalObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.c2DDelaunay" Collapsed="true">
+    <Position X="15.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\3D\cGeometricalObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.c3DLine" Collapsed="true">
+    <Position X="17.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAABAAAAAAAAAAABgAA=</HashCode>
+      <FileName>Classes\3D\cGeometricalObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.c3DText" Collapsed="true">
+    <Position X="11.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\3D\cGeometricalObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.c3DCube" Collapsed="true">
+    <Position X="13.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\3D\cGeometricalObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.c3DPlane" Collapsed="true">
+    <Position X="17" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Classes\3D\cGeometricalObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.cContainer" Collapsed="true">
+    <Position X="24.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Classes\3D\cInteractiveObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.cInteractive3DObject" Collapsed="true">
+    <Position X="23" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAACEAAAQAQQIIAiIAEQCAAAAAAAAAA=</HashCode>
+      <FileName>Classes\3D\cInteractiveObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.CImage3D" Collapsed="true">
+    <Position X="20.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAADAgAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\3D\cInteractiveObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.cBiological3DVolume" Collapsed="true">
+    <Position X="19" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAEBAAADAAAAAAAAAAAAAAAAAIAAAAAAgAAEAJgAA=</HashCode>
+      <FileName>Classes\3D\cInteractiveObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.cBiologicalSpot" Collapsed="true">
+    <Position X="20.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIEBAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Classes\3D\cInteractiveObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.c3DWell" Collapsed="true">
+    <Position X="22.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEBAAAAAAAAAQAAAAAAAIAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\3D\cInteractiveObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.c3DIsoContours" Collapsed="true">
+    <Position X="24.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\3D\cInteractiveObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.Matrix" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="31" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAgAAAAAAAiEAE6GNDAAAIAQAABLAAiAQ0AAggAjA=</HashCode>
+      <FileName>Classes\3D\cMatrix.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.LuDecomposition" Collapsed="true">
+    <Position X="31" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAABAAAAAAAAAAABAAAAIIAIAQCAgAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\3D\cMatrix.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.QrDecomposition" Collapsed="true">
+    <Position X="29" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAEAAAAAAAIMAIQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\3D\cMatrix.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.cList3Dvolumes" Collapsed="true">
+    <Position X="20.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\3D\cMetaBiologicalObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.cList3DSpots" Collapsed="true">
+    <Position X="22.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\3D\cMetaBiologicalObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.cMetaBiologicalObjectList" Collapsed="true">
+    <Position X="24.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQMAAAAAAEAIAAAIAAAAAA=</HashCode>
+      <FileName>Classes\3D\cMetaBiologicalObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.cMetaBiologicalObject" Collapsed="true">
+    <Position X="24.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAAEABAUABAAAFAYAAAABwCBAAAEABAAAAAQAgAQAA=</HashCode>
+      <FileName>Classes\3D\cMetaBiologicalObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.cPoint3D" Collapsed="true">
+    <Position X="19" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAE=</HashCode>
+      <FileName>Classes\3D\cObject3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes._3D.cObject3D" Collapsed="true">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAlABAQEBAAGAEBAICAEIgQABABABA=</HashCode>
+      <FileName>Classes\3D\cObject3D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BScoreWrapper" Collapsed="true">
+    <Position X="30.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAgAAAAAAAAAAABQ=</HashCode>
+      <FileName>Classes\cB-Score.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes.cDendoGram" Collapsed="true">
+    <Position X="36" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAACAAAAAAAAAAAAAAAgAAAAAAAIAAAAAAACABI=</HashCode>
+      <FileName>Classes\cDendoGram.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes.cDRCDisplay" Collapsed="true">
+    <Position X="43" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAASAAAAAAAAAAAAAAAAAAAAAAIAAAAAOAA=</HashCode>
+      <FileName>Classes\cDRCanalysis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes.cListDRCRegion" Collapsed="true">
+    <Position X="41.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Classes\cDRCanalysis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes.cDRC_Region" Collapsed="true">
+    <Position X="41.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAIABAAAAAEAQAAAEQAAAAgAAIAAAAAACBAAAAQ=</HashCode>
+      <FileName>Classes\cDRCanalysis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes.cListDRC" Collapsed="true">
+    <Position X="41.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\cDRCanalysis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes.cResultFit" Collapsed="true">
+    <Position X="32.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAIAAAAAABAAAAAAAAAAAAAAAgAAAAIAAAAA=</HashCode>
+      <FileName>Classes\cDRCanalysis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes.cDRC" Collapsed="true">
+    <Position X="41.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACCAGAAAAAAAAAAAAAUAAAAAAAIQAAAQAAAIIAAAGE=</HashCode>
+      <FileName>Classes\cDRCanalysis.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes.cEdgeEffect" Collapsed="true">
+    <Position X="29" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAECAAAAAIAAAAAQAAACAAAAAAABAABAACAAAIhICA=</HashCode>
+      <FileName>Classes\cEdgeEffect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes.cGlobalInfo">
+    <Position X="9.75" Y="9.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>FAUAAAGRADAQKEgAiAgAIAAYCAIQgLKIAAAQRQAAAWA=</HashCode>
+      <FileName>Classes\cGlobalInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes.cReference" Collapsed="true">
+    <Position X="30.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\cReference.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes.cInfoClassif" Collapsed="true">
+    <Position X="36" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAABAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\MiscClasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes.cInfoClass" Collapsed="true">
+    <Position X="36" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAABAAAAAAgAAA=</HashCode>
+      <FileName>Classes\MiscClasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes.cScoreAndClass" Collapsed="true">
+    <Position X="34.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\MiscClasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes.cInfoDescriptors" Collapsed="true">
+    <Position X="31.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Classes\MiscClasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Classes.cExtendedList" Collapsed="true">
+    <Position X="30.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAEAAAAAAAIAAIAAAEAAAAAAAAQAA=</HashCode>
+      <FileName>Classes\MiscClasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LibPlateAnalysis.cDescriptorsType">
+    <Position X="37.5" Y="8.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QIAAAgAAAAAAAAAAEAAAAIQAAAAAIgAAAAAAAEAADAA=</HashCode>
+      <FileName>Classes\cDescriptor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LibPlateAnalysis.cListDescriptors">
+    <Position X="40" Y="8.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEACQAAABASAAAAQAAAAAAQQAAABAAAARAA=</HashCode>
+      <FileName>Classes\cDescriptor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LibPlateAnalysis.cExtendWellList" Collapsed="true">
+    <Position X="34.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\cPlate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LibPlateAnalysis.cExtendPlateList" Collapsed="true">
+    <Position X="32.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\cScreening.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LibPlateAnalysis.cInfoForHierarchical" Collapsed="true">
+    <Position X="29" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAEAAQAAAQAAQAAAAA=</HashCode>
+      <FileName>Classes\cScreening.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LibPlateAnalysis.FormForDescriptorInfo" Collapsed="true">
+    <Position X="26.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAICAAABAAAACAgAACAAAAIAAAAUAAAAAAAAA=</HashCode>
+      <FileName>Forms\FormForDescriptorInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LibPlateAnalysis.SimpleForm" Collapsed="true">
+    <Position X="28.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAABQACISQACEACKAKAAAACAAAAAIAAAAAAAAQBABA=</HashCode>
+      <FileName>Forms\FormsForGraphsDisplay\SimpleForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LibPlateAnalysis.SimpleFormForXY" Collapsed="true">
+    <Position X="32" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAQAAISQBCEACJACAAyACAAAAAIAAAAACDACRABA=</HashCode>
+      <FileName>Forms\FormsForGraphsDisplay\SimpleFormForXY.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Forms.FormDendogram" Collapsed="true">
+    <Position X="30.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAABAAACAAAEAAIACAAAACAAACAAAIAACAAAAAABA=</HashCode>
+      <FileName>Forms\FormDendogram.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Forms.FormFor3DDataDisplay" Collapsed="true">
+    <Position X="33.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAACAAAAAABACAB2ACAAAAAAAAgAAADAAAQAA=</HashCode>
+      <FileName>Forms\FormFor3DDataDisplay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Forms.FormForClassificationTree" Collapsed="true">
+    <Position X="33.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAQAAAAAAAAAAAJA=</HashCode>
+      <FileName>Forms\FormForClassificationTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Forms.FormForKeggGene" Collapsed="true">
+    <Position X="26.75" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAEAACAAAACAAAAAQAAAAAQAAAAAAA=</HashCode>
+      <FileName>Forms\FormForKeggGene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Forms.FormForMultivariateScreen" Collapsed="true">
+    <Position X="33.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAECQAABAEQACAAEACAAAAAAAAACQBAAAAABE=</HashCode>
+      <FileName>Forms\FormForMultivariateScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Forms.FormForNameRequest" Collapsed="true">
+    <Position X="28.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAIAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Forms\FormForNameRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Forms.FormForPathway" Collapsed="true">
+    <Position X="30.25" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Forms\FormForPathway.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Forms.FormForPlateDimensions" Collapsed="true">
+    <Position X="28.5" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAACAAABAAAACAAAACAAAAAAAAAQQAAAAAAAA=</HashCode>
+      <FileName>Forms\FormForPlateDimensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Forms.FormForSwapClasses" Collapsed="true">
+    <Position X="30.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgCAAABAAAACCIAACAIAAAAAAgAAAAAAAABA=</HashCode>
+      <FileName>Forms\FormForSwapClasses.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Forms.FormForWellInformation" Collapsed="true">
+    <Position X="32" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAASAAIyQACFICAACAIAACAAAAAIAAAAAAAARBADA=</HashCode>
+      <FileName>Forms\FormForWellInformation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Forms.FormForDRCDesign" Collapsed="true">
+    <Position X="28.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IgkAAAQACKACARQIIACIFgJCAABEkEAKMCIACIQBDAQ=</HashCode>
+      <FileName>Forms\FormsForDRCAnalysis\FormForDRCDesign.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Forms.FormForGenerateScreening" Collapsed="true">
+    <Position X="32" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ewCKAhAAACSICBAAYACggMgCAIpAAEAACy2AQkj5AHA=</HashCode>
+      <FileName>Forms\IO\FormForGenerateScreening.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Forms.FormSaveScreening" Collapsed="true">
+    <Position X="32" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAEAAAACAAAACAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Forms\IO\FormSaveScreening.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Forms.FormsForDRCAnalysis.FormForDRCSelection" Collapsed="true">
+    <Position X="32" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAEAACAAAACAAAgAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Forms\FormsForDRCAnalysis\FormForDRCSelection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Forms.FormsForOptions.FormToDisplayDRC" Collapsed="true">
+    <Position X="26.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARAACAAgACAAAkAAAACAAAACAACAAAAAAAwAAAAAAAA=</HashCode>
+      <FileName>Forms\FormsForDRCAnalysis\FormToDisplayDRC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Forms.FormsForGraphsDisplay.FormForMaxMinRequest" Collapsed="true">
+    <Position X="33.75" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAACAAABAAAACAAAACAAAAAAAIAAAACAEABAA=</HashCode>
+      <FileName>Forms\FormsForGraphsDisplay\FormForMaxMinRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCSAnalyzer.Controls.FormToDisplayArray" Collapsed="true">
+    <Position X="33.75" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAABAAACAABABAAUCAAAICAAAAgAAAAAARAAAABAA=</HashCode>
+      <FileName>Forms\FormsForGraphsDisplay\FormToDisplayArray.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

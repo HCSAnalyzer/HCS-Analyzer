@@ -605,9 +605,9 @@ namespace LibPlateAnalysis
                     ParentScreening._3DWorldForPlateDisplay.DisplayBottom(Color.FromArgb(255, 255, 255));
                     ParentScreening._3DWorldForPlateDisplay.SetBackgroundColor(Color.Black);
 
-
-                    ParentScreening._3DWorldForPlateDisplay.Render();
                     ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().Zoom(1.8);
+                    ParentScreening._3DWorldForPlateDisplay.Render();
+
 
                     double[] p = ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().GetPosition();
                     ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().SetPosition(p[0], p[1], p[2] - 4);
@@ -658,7 +658,7 @@ namespace LibPlateAnalysis
                     ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().SetPosition(p[0], p[1], p[2]);
                     ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().SetViewUp(ViewUp[0], ViewUp[1], ViewUp[2]);
 
-                    ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().Zoom(1.8);
+                //    ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().Zoom(1.8);
 
                 }
 
@@ -691,10 +691,7 @@ namespace LibPlateAnalysis
 
         public void DisplayDistribution(int IdxDescriptor, bool IsFirstTime)
         {
-              
-
-
-            if (ListMinMax == null) this.UpDataMinMax();
+             if (ListMinMax == null) this.UpDataMinMax();
 
             if (IdxDescriptor >= ListMinMax.Count) return;
 

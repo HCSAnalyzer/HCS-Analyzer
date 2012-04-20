@@ -91,6 +91,10 @@ namespace HCSAnalyzer
         private void HCSAnalyzer_Load(object sender, EventArgs e)
         {
             GlobalInfo = new cGlobalInfo(CompleteScreening);
+            GlobalInfo.WindowHCSAnalyzer = this;
+            GlobalInfo.WindowName = this.Text;
+            this.Text = GlobalInfo.WindowName + " (Scalar Mode)";
+
             GlobalInfo.OptionsWindow.Visible = false;
             GlobalInfo.ComboForSelectedDesc = this.comboBoxDescriptorToDisplay;
             GlobalInfo.CheckedListBoxForDescActive = this.checkedListBoxActiveDescriptors;
@@ -4123,6 +4127,9 @@ namespace HCSAnalyzer
             return;
 
         }
+
+ 
+
 
 
 

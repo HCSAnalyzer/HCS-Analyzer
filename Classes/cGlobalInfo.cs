@@ -12,9 +12,11 @@ namespace HCSAnalyzer.Classes
     public class cGlobalInfo
     {
         public FormForDRCDesign WindowForDRCDesign = new FormForDRCDesign();
-
+        public string WindowName;
         private bool _Is3DVisualization = false;
         private bool _IsDistributionMode = false;
+        public HCSAnalyzer WindowHCSAnalyzer = null;
+
 
         public bool IsDistributionMode()
         {
@@ -24,6 +26,11 @@ namespace HCSAnalyzer.Classes
         public void SwitchDistributionMode()
         {
             _IsDistributionMode = !_IsDistributionMode;
+
+            if(_IsDistributionMode)
+                WindowHCSAnalyzer.Text = WindowName + " (Distribution Mode)";
+            else
+                WindowHCSAnalyzer.Text = WindowName + " (Scalar Mode)";
 
             if (_IsDistributionMode == false) CurrentScreen.Reference = null;
             else

@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace HCSAnalyzer.Classes
 {
-    class CDisplayGraph : cScreening
+    class CDisplayGraph
     {
 
         public string Title = "";

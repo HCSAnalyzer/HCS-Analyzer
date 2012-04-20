@@ -582,13 +582,14 @@ namespace HCSAnalyzer.Classes._3D
                 this.DisplayScale();
                 this.legendScaleActor.SetVisibility(1);
             }
-
-
-            if (this.legendScaleActor.GetVisibility() == 0)
-                this.legendScaleActor.SetVisibility(1);
             else
-                this.legendScaleActor.SetVisibility(0);
+            {
 
+                if (this.legendScaleActor.GetVisibility() == 0)
+                    this.legendScaleActor.SetVisibility(1);
+                else
+                    this.legendScaleActor.SetVisibility(0);
+            }
 
             this.renWin.Render();
         }
