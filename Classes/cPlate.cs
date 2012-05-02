@@ -473,7 +473,7 @@ namespace LibPlateAnalysis
                 else
                 {
                     int ConvertedValue;
-                    byte[][] LUT = ParentScreening.GlobalInfo.LUT_JET;
+                    byte[][] LUT = ParentScreening.GlobalInfo.LUT;
 
                     if (this.ListMinMax[IdxDescriptor][0] == this.ListMinMax[IdxDescriptor][1])
                         ConvertedValue = 0;

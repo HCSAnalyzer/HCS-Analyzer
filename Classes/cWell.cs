@@ -225,7 +225,7 @@ namespace LibPlateAnalysis
         {
             return ClassForClassif;
         }
-        
+
         /// <summary>
         /// Return the color of the well (related to the class or the selection mode)
         /// </summary>
@@ -321,8 +321,8 @@ namespace LibPlateAnalysis
                     MainLegend.Text = ((int)(LocusID)).ToString();
                 if (Parent.GlobalInfo.OptionsWindow.radioButtonWellInfoConcentration.Checked)
                 {
-                    if(Concentration>=0)
-                    MainLegend.Text = Concentration.ToString("e4");
+                    if (Concentration >= 0)
+                        MainLegend.Text = Concentration.ToString("e4");
                 }
 
                 MainLegend.Docking = Docking.Bottom;
@@ -365,7 +365,7 @@ namespace LibPlateAnalysis
 
                 int ConvertedValue;
 
-                byte[][] LUT = Parent.GlobalInfo.LUT_JET;
+                byte[][] LUT = Parent.GlobalInfo.LUT;
 
                 if (MinMax[0] == MinMax[1])
                     ConvertedValue = 0;
@@ -415,7 +415,7 @@ namespace LibPlateAnalysis
                 if (Parent.GlobalInfo.OptionsWindow.radioButtonWellInfoLocusID.Checked)
                     MainLegend.Text = ((int)(LocusID)).ToString();
                 if (Parent.GlobalInfo.OptionsWindow.radioButtonWellInfoConcentration.Checked)
-                    if(Concentration>=0) MainLegend.Text = Concentration.ToString("e4");
+                    if (Concentration >= 0) MainLegend.Text = Concentration.ToString("e4");
 
                 MainLegend.Docking = Docking.Bottom;
                 MainLegend.Font = new System.Drawing.Font("Arial", Parent.GlobalInfo.SizeHistoWidth / 10 + 1, FontStyle.Regular);
@@ -440,7 +440,7 @@ namespace LibPlateAnalysis
             for (int i = 0; i < Parent.ListDescriptors.Count; i++)
             {
                 if (Parent.ListDescriptors[i].IsActive() == false) continue;
-                if(i==Parent.ListDescriptors.CurrentSelectedDescriptor)
+                if (i == Parent.ListDescriptors.CurrentSelectedDescriptor)
                     Chara += "\t-> " + Parent.ListDescriptors[i].GetName() + ": " + string.Format("{0:0.######}", ListDescriptors[i].GetValue()) + "\n";
                 else
                     Chara += Parent.ListDescriptors[i].GetName() + ": " + string.Format("{0:0.######}", ListDescriptors[i].GetValue()) + "\n";
@@ -733,10 +733,53 @@ namespace LibPlateAnalysis
 
             string pathway_map_html = "";
             KEGG ServKegg = new KEGG();
-            foreach (string item in ListP.listBoxPathways.SelectedItems)
+
+            string[] ListGenesinPathway = ServKegg.get_genes_by_pathway((string)ListP.listBoxPathways.SelectedItem);
+            double[] ListValues = new double[ListGenesinPathway.Length];
+            int IDxGeneOfInterest = 0;
+            foreach (cPlate CurrentPlate in Parent.ListPlatesActive)
             {
-                pathway_map_html = ServKegg.get_html_of_colored_pathway_by_objects(item, intersection_gene_pathways, fg_list, bg_list);
+                foreach (cWell CurrentWell in CurrentPlate.ListActiveWells)
+                {
+                    string CurrentLID = "hsa:" + (int)CurrentWell.LocusID;
+
+                    for (int IdxGene = 0; IdxGene < ListGenesinPathway.Length; IdxGene++)
+                    {
+
+                        if (CurrentLID == intersection_gene_pathways[0])
+                            IDxGeneOfInterest = IdxGene;
+
+                        if (CurrentLID == ListGenesinPathway[IdxGene])
+                        {
+                            ListValues[IdxGene] = CurrentWell.ListDescriptors[Parent.ListDescriptors.CurrentSelectedDescriptor].GetValue();
+                            break;
+                        }
+                    }
+                }
             }
+
+            bg_list = new string[ListGenesinPathway.Length];
+            fg_list = new string[ListGenesinPathway.Length];
+
+            double MinValue = ListValues.Min();
+            double MaxValue = ListValues.Max();
+
+            for (int IdxCol = 0; IdxCol < bg_list.Length; IdxCol++)
+            {
+
+                int ConvertedValue = (int)((((Parent.GlobalInfo.LUT_JET[0].Length - 1) * (ListValues[IdxCol] - MinValue)) / (MaxValue - MinValue)));
+
+                Color Coul = Color.FromArgb(Parent.GlobalInfo.LUT_JET[0][ConvertedValue], Parent.GlobalInfo.LUT_JET[1][ConvertedValue], Parent.GlobalInfo.LUT_JET[2][ConvertedValue]);
+
+                if (IdxCol == IDxGeneOfInterest)
+                    fg_list[IdxCol] = "white";
+                else
+                    fg_list[IdxCol] = "#000000";
+                bg_list[IdxCol] = "#" + Coul.Name.Remove(0, 2);
+
+            }
+
+            pathway_map_html = ServKegg.get_html_of_colored_pathway_by_objects((string)ListP.listBoxPathways.SelectedItem, ListGenesinPathway, fg_list, bg_list);
 
             string GenInfo = ServKegg.bget((string)ListP.listBoxPathways.SelectedItem);
             string[] Genes = GenInfo.Split(new char[] { '\n' });
@@ -763,7 +806,6 @@ namespace LibPlateAnalysis
             KeggWin.Show();
 
             KeggWin.webBrowser.Navigate(pathway_map_html);
-
         }
 
         public Chart GetChart()
@@ -781,7 +823,7 @@ namespace LibPlateAnalysis
 
             Chart ChartToReturn = new Chart();
             ChartToReturn.ChartAreas.Add(CurrentChartArea);
-           // ChartToReturn.TextAntiAliasingQuality = TextAntiAliasingQuality.High;
+            // ChartToReturn.TextAntiAliasingQuality = TextAntiAliasingQuality.High;
             CurrentChartArea.BackColor = Color.White;
 
             CurrentChartArea.Axes[1].LabelStyle.Enabled = false;
@@ -791,23 +833,23 @@ namespace LibPlateAnalysis
 
 
             CurrentChartArea.Axes[0].MajorGrid.Enabled = false;
-          //  CurrentChartArea.Axes[0].Title = ListDescriptors[CurrentDescriptorToDisplay].GetName();
+            //  CurrentChartArea.Axes[0].Title = ListDescriptors[CurrentDescriptorToDisplay].GetName();
             CurrentSeries.ChartType = SeriesChartType.Line;
             CurrentSeries.Color = Color.Black;
-           // CurrentSeries.BorderWidth = 3;
+            // CurrentSeries.BorderWidth = 3;
             CurrentSeries.ChartArea = "ChartArea" + PosX + "x" + PosY;
 
             CurrentSeries.Name = "Series" + PosX + "x" + PosY;
             ChartToReturn.Series.Add(CurrentSeries);
 
             Title CurrentTitle = new Title(PosX + "x" + PosY);
-           // ChartToReturn.Titles.Add(CurrentTitle);
+            // ChartToReturn.Titles.Add(CurrentTitle);
 
             ChartToReturn.Width = 100;
             ChartToReturn.Height = 48;
 
             ChartToReturn.Update();
-          //  ChartToReturn.Show();
+            //  ChartToReturn.Show();
 
             return ChartToReturn;
 
@@ -847,16 +889,70 @@ namespace LibPlateAnalysis
 
             CurrentChartArea.Axes[0].MajorGrid.Enabled = false;
             CurrentChartArea.Axes[0].Title = ListDescriptors[CurrentDescriptorToDisplay].GetName();
-            if(CurrentSeries.Points.Count==1)
+            if (CurrentSeries.Points.Count == 1)
                 CurrentSeries.ChartType = SeriesChartType.Column;
             else
-            CurrentSeries.ChartType = SeriesChartType.Line;
+                CurrentSeries.ChartType = SeriesChartType.Line;
             CurrentSeries.Color = Color.White;
             CurrentSeries.BorderWidth = 3;
             CurrentSeries.ChartArea = "ChartArea" + PosX + "x" + PosY;
 
             CurrentSeries.Name = "Series" + PosX + "x" + PosY;
             NewWindow.chartForFormWell.Series.Add(CurrentSeries);
+
+            //     GlobalInfo.SwitchDistributionMode();
+            //}
+
+            //private void displayReferenceToolStripMenuItem_Click(object sender, EventArgs e)
+            //{
+            //    CDisplayGraph DispGraph = new CDisplayGraph(CompleteScreening.Reference[CompleteScreening.ListDescriptors.CurrentSelectedDescriptor].ToArray(), CompleteScreening.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptor].GetName() + " - Reference distribution.");
+            //}
+
+            if (Parent.GlobalInfo.IsDistributionMode() && (Parent.Reference != null))
+            {
+                Series CurrentSeriesReference = new Series("Reference");
+
+                CurrentSeriesReference.ChartType = SeriesChartType.Line;
+                CurrentSeriesReference.BorderWidth = 2;
+                CurrentSeriesReference.Color = Color.Red;
+                //  CurrentSeriesReference.ShadowOffset = 2;
+
+                double[] ReferenceCurve = Parent.Reference[Parent.ListDescriptors.CurrentSelectedDescriptor].ToArray();
+
+                for (int IdxValue = 0; IdxValue < ReferenceCurve.Length; IdxValue++)
+                {
+                    double Value = ReferenceCurve[IdxValue];
+                    CurrentSeriesReference.Points.Add(Value);
+                    CurrentSeriesReference.Points[IdxValue].ToolTip = "[Reference] " + Value.ToString();
+                }
+                NewWindow.chartForFormWell.Series.Add(CurrentSeriesReference);
+
+                if (Parent.GlobalInfo.OptionsWindow.checkBoxDisplayHistoStats.Checked)
+                {
+                    StripLine AverageLine = new StripLine();
+                    AverageLine.BackColor = Color.Red;
+                    AverageLine.IntervalOffset = Parent.Reference[Parent.ListDescriptors.CurrentSelectedDescriptor].GetWeightedMean();
+                    AverageLine.StripWidth = double.Epsilon;
+                    CurrentChartArea.AxisX.StripLines.Add(AverageLine);
+                    AverageLine.Text = String.Format("{0:0.###}", AverageLine.IntervalOffset);
+                    AverageLine.ForeColor = Color.White;
+                    AverageLine.StripWidth = 0.0001;
+                }
+
+            }
+
+            if (Parent.GlobalInfo.OptionsWindow.checkBoxDisplayHistoStats.Checked)
+            {
+
+                StripLine AverageLineHisto = new StripLine();
+                AverageLineHisto.BackColor = Color.White;
+                AverageLineHisto.IntervalOffset = ListDescriptors[CurrentDescriptorToDisplay].Getvalues().GetWeightedMean();
+                AverageLineHisto.StripWidth = double.Epsilon;
+                CurrentChartArea.AxisX.StripLines.Add(AverageLineHisto);
+                AverageLineHisto.Text = String.Format("{0:0.###}", AverageLineHisto.IntervalOffset);
+                AverageLineHisto.ForeColor = Color.White;
+                AverageLineHisto.StripWidth = 0.0001;
+            }
 
             Title CurrentTitle = new Title(PosX + "x" + PosY);
             NewWindow.chartForFormWell.Titles.Add(CurrentTitle);

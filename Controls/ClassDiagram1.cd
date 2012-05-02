@@ -48,9 +48,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="HCSAnalyzer.HCSAnalyzer" Collapsed="true">
-    <Position X="28.75" Y="4.25" Width="1.5" />
+    <Position X="28.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>/tv8//1f7+/evz579/2fftP/f+rv26+93a533/ndsvs=</HashCode>
+      <HashCode>/tv8//1f7+/evz579/2fftP/f+rv26+93a5/3/ndsvs=</HashCode>
       <FileName>Classif.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -113,7 +113,7 @@
   <Class Name="HCSAnalyzer.FormForOptionsWindow" Collapsed="true">
     <Position X="26.75" Y="12.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>/weEQIAICKUEVBIaEgCCJUIiRQOIkyhOATAKSaGFIHo=</HashCode>
+      <HashCode>/weEQIQICKUEVBIaEgCiJcIiRQOIkyBOATAKSaGFIHo=</HashCode>
       <FileName>Forms\FormsForOptions\FormForOptionsWindow.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -377,10 +377,10 @@
       <FileName>Classes\cGlobalInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HCSAnalyzer.Classes.cReference" Collapsed="true">
-    <Position X="30.75" Y="3.5" Width="1.5" />
+  <Class Name="HCSAnalyzer.Classes.cReference">
+    <Position X="42.5" Y="8.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\cReference.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -415,7 +415,7 @@
   <Class Name="HCSAnalyzer.Classes.cExtendedList" Collapsed="true">
     <Position X="30.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAABAAAAAAEAAAAAAAIAAIAAAEAAAAAAAAQAA=</HashCode>
+      <HashCode>AAAAAAAAABAAAAAAEAIAAAAAIAAIAAAEAAAAAAAAQAA=</HashCode>
       <FileName>Classes\MiscClasses.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -485,8 +485,8 @@
   <Class Name="HCSAnalyzer.Forms.FormFor3DDataDisplay" Collapsed="true">
     <Position X="33.75" Y="13.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACAAAAAAACAAAAAABACAB2ACAAAAAAAAgAAADAAAQAA=</HashCode>
-      <FileName>Forms\FormFor3DDataDisplay.cs</FileName>
+      <HashCode>ATAAAAAAACIAAAACBACAB2BCAACAAAAAgAAADACAQAA=</HashCode>
+      <FileName>Forms\3D\FormFor3DDataDisplay.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HCSAnalyzer.Forms.FormForClassificationTree" Collapsed="true">
@@ -507,7 +507,7 @@
     <Position X="33.75" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIAAAAECQAABAEQACAAEACAAAAAAAAACQBAAAAABE=</HashCode>
-      <FileName>Forms\FormForMultivariateScreen.cs</FileName>
+      <FileName>Forms\IO\FormForMultivariateScreen.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HCSAnalyzer.Forms.FormForNameRequest" Collapsed="true">
@@ -555,7 +555,7 @@
   <Class Name="HCSAnalyzer.Forms.FormForGenerateScreening" Collapsed="true">
     <Position X="32" Y="12.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ewCKAhAAACSICBAAYACggMgCAIpAAEAACy2AQkj5AHA=</HashCode>
+      <HashCode>ewCKAhAAAiSKCBAAYACggMgCAIpIAEAACy2AQkj5AHA=</HashCode>
       <FileName>Forms\IO\FormForGenerateScreening.cs</FileName>
     </TypeIdentifier>
   </Class>

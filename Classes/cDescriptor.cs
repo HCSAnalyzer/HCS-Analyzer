@@ -99,12 +99,26 @@ namespace LibPlateAnalysis
             foreach (cDescriptorsType TmpDescType in this)
             {
                 DescIndex++;
-                if (TmpDescType == DescriptorType) return DescIndex;
+                if (TmpDescType.GetName() == DescriptorType.GetName()) return DescIndex;
+            }
+            DescIndex = -1;
+
+            return DescIndex;
+        }
+
+        public int GetDescriptorIndex(string DescriptorName)
+        {
+            int DescIndex = -1;
+            foreach (cDescriptorsType TmpDescType in this)
+            {
+                DescIndex++;
+                if (TmpDescType.GetName() == DescriptorName) return DescIndex;
             }
 
 
             return DescIndex;
         }
+
 
         public int CurrentSelectedDescriptor = -1;
 
@@ -247,8 +261,6 @@ namespace LibPlateAnalysis
         //string Name;
         //public bool IsSingle;
 
-        
-
         cDescriptorsType Type;
         private cScreening CurrentScreening;
 
@@ -257,9 +269,7 @@ namespace LibPlateAnalysis
             return this.Type;
         }
 
-
         private cExtendedList HistoValues;
-
 
         private double ComputeDistributionDistanceToReference()
         {
@@ -269,17 +279,45 @@ namespace LibPlateAnalysis
 
         #region public
 
-
-
+        /// <summary>
+        /// Return the value associated to a descriptor within a well
+        /// </summary>
+        /// <returns>if scalar mode: average else distance between histograms</returns>
         public double GetValue()
         {
             if (CurrentScreening.Reference == null)
-                return HistoValues.Mean();
+            {
+                if (Type.GetBinNumber() > 1)
+                {
+                    return HistoValues.GetWeightedMean();
+                }
+                else
+                    return HistoValues.Mean();
+            }
             else
-                return HistoValues.Dist_Euclidean(CurrentScreening.Reference[CurrentScreening.ListDescriptors.IndexOf(Type)]);
+            {
+                if (CurrentScreening.GlobalInfo.OptionsWindow.radioButtonDistributionMetricEuclidean.Checked)
+                    return HistoValues.Dist_Euclidean(CurrentScreening.Reference[CurrentScreening.ListDescriptors.IndexOf(Type)]);
+                else if
+                    (CurrentScreening.GlobalInfo.OptionsWindow.radioButtonDistributionMetricManhattan.Checked)
+                    return HistoValues.Dist_Manhattan(CurrentScreening.Reference[CurrentScreening.ListDescriptors.IndexOf(Type)]);
+                else if
+                    (CurrentScreening.GlobalInfo.OptionsWindow.radioButtonDistributionMetricCosine.Checked)
+                    return HistoValues.Dist_VectorCosine(CurrentScreening.Reference[CurrentScreening.ListDescriptors.IndexOf(Type)]);
+                else if
+                    (CurrentScreening.GlobalInfo.OptionsWindow.radioButtonDistributionMetricBhattacharyya.Checked)
+                    return HistoValues.Dist_BhattacharyyaCoefficient(CurrentScreening.Reference[CurrentScreening.ListDescriptors.IndexOf(Type)]);
+                else if
+                    (CurrentScreening.GlobalInfo.OptionsWindow.radioButtonDistributionMetricEMD.Checked)
+                    return HistoValues.Dist_EarthMover(CurrentScreening.Reference[CurrentScreening.ListDescriptors.IndexOf(Type)]);
+                
+
+                else return -1;
+            }
+
+
 
         }
-
 
         public void SetHistoValues(List<double> ListValues)
         {
@@ -304,13 +342,10 @@ namespace LibPlateAnalysis
 
         }
 
-
-        public List<double> Getvalues()
+        public cExtendedList Getvalues()
         {
-            return this.HistoValues.ToList();
+            return this.HistoValues;
         }
-
-
 
         public double Getvalue(int Idx)
         {

@@ -37,6 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxStandardDeviation = new System.Windows.Forms.CheckBox();
             this.numericUpDownCpdsStdev = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownCpdsMean = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
@@ -60,12 +61,14 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.checkBoxRatioXY = new System.Windows.Forms.CheckBox();
             this.numericUpDownBowlEffectRatioXY = new System.Windows.Forms.NumericUpDown();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.numericUpDownBowlEffectIntensity = new System.Windows.Forms.NumericUpDown();
             this.label17 = new System.Windows.Forms.Label();
             this.checkBoxBowlEffect = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.checkBoxEdgeEffectIteration = new System.Windows.Forms.CheckBox();
             this.numericUpDownEdgeEffectIteration = new System.Windows.Forms.NumericUpDown();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.numericUpDownEdgeEffectIntensity = new System.Windows.Forms.NumericUpDown();
@@ -77,13 +80,12 @@
             this.label12 = new System.Windows.Forms.Label();
             this.checkBoxColumnEffect = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxShiftRowEffect = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.numericUpDownRowEffectIntensity = new System.Windows.Forms.NumericUpDown();
             this.checkBoxRowEffect = new System.Windows.Forms.CheckBox();
-            this.checkBoxEdgeEffectIteration = new System.Windows.Forms.CheckBox();
-            this.checkBoxRatioXY = new System.Windows.Forms.CheckBox();
-            this.checkBoxStandardDeviation = new System.Windows.Forms.CheckBox();
-            this.checkBoxShiftRowEffect = new System.Windows.Forms.CheckBox();
+            this.checkBoxAddAsDescriptor = new System.Windows.Forms.CheckBox();
+            this.groupBoxGeneralInfo = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPlateNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRows)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).BeginInit();
@@ -115,12 +117,13 @@
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRowEffectIntensity)).BeginInit();
+            this.groupBoxGeneralInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonGenerate
             // 
             this.buttonGenerate.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonGenerate.Location = new System.Drawing.Point(105, 539);
+            this.buttonGenerate.Location = new System.Drawing.Point(105, 584);
             this.buttonGenerate.Name = "buttonGenerate";
             this.buttonGenerate.Size = new System.Drawing.Size(171, 31);
             this.buttonGenerate.TabIndex = 0;
@@ -130,7 +133,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(81, 25);
+            this.label1.Location = new System.Drawing.Point(17, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 1;
@@ -138,7 +141,7 @@
             // 
             // numericUpDownPlateNumber
             // 
-            this.numericUpDownPlateNumber.Location = new System.Drawing.Point(201, 23);
+            this.numericUpDownPlateNumber.Location = new System.Drawing.Point(115, 27);
             this.numericUpDownPlateNumber.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -160,7 +163,7 @@
             // 
             // numericUpDownRows
             // 
-            this.numericUpDownRows.Location = new System.Drawing.Point(201, 80);
+            this.numericUpDownRows.Location = new System.Drawing.Point(115, 84);
             this.numericUpDownRows.Maximum = new decimal(new int[] {
             1215752192,
             23,
@@ -183,7 +186,7 @@
             // 
             // numericUpDownColumns
             // 
-            this.numericUpDownColumns.Location = new System.Drawing.Point(201, 54);
+            this.numericUpDownColumns.Location = new System.Drawing.Point(115, 58);
             this.numericUpDownColumns.Maximum = new decimal(new int[] {
             1000000000,
             0,
@@ -207,7 +210,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(104, 82);
+            this.label2.Location = new System.Drawing.Point(40, 86);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 13);
             this.label2.TabIndex = 3;
@@ -216,7 +219,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(100, 56);
+            this.label3.Location = new System.Drawing.Point(36, 60);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 4;
@@ -234,6 +237,19 @@
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Compounds Distribution";
+            // 
+            // checkBoxStandardDeviation
+            // 
+            this.checkBoxStandardDeviation.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxStandardDeviation.AutoSize = true;
+            this.checkBoxStandardDeviation.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.checkBoxStandardDeviation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBoxStandardDeviation.Location = new System.Drawing.Point(29, 61);
+            this.checkBoxStandardDeviation.Name = "checkBoxStandardDeviation";
+            this.checkBoxStandardDeviation.Size = new System.Drawing.Size(108, 23);
+            this.checkBoxStandardDeviation.TabIndex = 21;
+            this.checkBoxStandardDeviation.Text = "Standard Deviation";
+            this.checkBoxStandardDeviation.UseVisualStyleBackColor = true;
             // 
             // numericUpDownCpdsStdev
             // 
@@ -505,7 +521,7 @@
             this.tabControlGenerateScreening.Alignment = System.Windows.Forms.TabAlignment.Left;
             this.tabControlGenerateScreening.Controls.Add(this.tabPage1);
             this.tabControlGenerateScreening.Controls.Add(this.tabPage2);
-            this.tabControlGenerateScreening.Location = new System.Drawing.Point(12, 111);
+            this.tabControlGenerateScreening.Location = new System.Drawing.Point(12, 156);
             this.tabControlGenerateScreening.Multiline = true;
             this.tabControlGenerateScreening.Name = "tabControlGenerateScreening";
             this.tabControlGenerateScreening.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -554,6 +570,19 @@
             this.groupBox5.TabIndex = 20;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "                           ";
+            // 
+            // checkBoxRatioXY
+            // 
+            this.checkBoxRatioXY.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxRatioXY.AutoSize = true;
+            this.checkBoxRatioXY.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.checkBoxRatioXY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBoxRatioXY.Location = new System.Drawing.Point(5, 62);
+            this.checkBoxRatioXY.Name = "checkBoxRatioXY";
+            this.checkBoxRatioXY.Size = new System.Drawing.Size(64, 23);
+            this.checkBoxRatioXY.TabIndex = 21;
+            this.checkBoxRatioXY.Text = "Ratio X/Y";
+            this.checkBoxRatioXY.UseVisualStyleBackColor = true;
             // 
             // numericUpDownBowlEffectRatioXY
             // 
@@ -639,6 +668,19 @@
             this.groupBox4.TabIndex = 18;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "                           ";
+            // 
+            // checkBoxEdgeEffectIteration
+            // 
+            this.checkBoxEdgeEffectIteration.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxEdgeEffectIteration.AutoSize = true;
+            this.checkBoxEdgeEffectIteration.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.checkBoxEdgeEffectIteration.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBoxEdgeEffectIteration.Location = new System.Drawing.Point(11, 67);
+            this.checkBoxEdgeEffectIteration.Name = "checkBoxEdgeEffectIteration";
+            this.checkBoxEdgeEffectIteration.Size = new System.Drawing.Size(55, 23);
+            this.checkBoxEdgeEffectIteration.TabIndex = 20;
+            this.checkBoxEdgeEffectIteration.Text = "Iteration";
+            this.checkBoxEdgeEffectIteration.UseVisualStyleBackColor = true;
             // 
             // numericUpDownEdgeEffectIteration
             // 
@@ -791,6 +833,19 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "                           ";
             // 
+            // checkBoxShiftRowEffect
+            // 
+            this.checkBoxShiftRowEffect.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBoxShiftRowEffect.AutoSize = true;
+            this.checkBoxShiftRowEffect.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.checkBoxShiftRowEffect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBoxShiftRowEffect.Location = new System.Drawing.Point(17, 32);
+            this.checkBoxShiftRowEffect.Name = "checkBoxShiftRowEffect";
+            this.checkBoxShiftRowEffect.Size = new System.Drawing.Size(38, 23);
+            this.checkBoxShiftRowEffect.TabIndex = 21;
+            this.checkBoxShiftRowEffect.Text = "Shift";
+            this.checkBoxShiftRowEffect.UseVisualStyleBackColor = true;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -834,70 +889,40 @@
             this.checkBoxRowEffect.UseVisualStyleBackColor = true;
             this.checkBoxRowEffect.CheckedChanged += new System.EventHandler(this.checkBoxRowEffect_CheckedChanged);
             // 
-            // checkBoxEdgeEffectIteration
+            // checkBoxAddAsDescriptor
             // 
-            this.checkBoxEdgeEffectIteration.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBoxEdgeEffectIteration.AutoSize = true;
-            this.checkBoxEdgeEffectIteration.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.checkBoxEdgeEffectIteration.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxEdgeEffectIteration.Location = new System.Drawing.Point(11, 67);
-            this.checkBoxEdgeEffectIteration.Name = "checkBoxEdgeEffectIteration";
-            this.checkBoxEdgeEffectIteration.Size = new System.Drawing.Size(55, 23);
-            this.checkBoxEdgeEffectIteration.TabIndex = 20;
-            this.checkBoxEdgeEffectIteration.Text = "Iteration";
-            this.checkBoxEdgeEffectIteration.UseVisualStyleBackColor = true;
+            this.checkBoxAddAsDescriptor.AutoSize = true;
+            this.checkBoxAddAsDescriptor.Location = new System.Drawing.Point(12, 68);
+            this.checkBoxAddAsDescriptor.Name = "checkBoxAddAsDescriptor";
+            this.checkBoxAddAsDescriptor.Size = new System.Drawing.Size(110, 17);
+            this.checkBoxAddAsDescriptor.TabIndex = 18;
+            this.checkBoxAddAsDescriptor.Text = "As new descriptor";
+            this.checkBoxAddAsDescriptor.UseVisualStyleBackColor = true;
+            this.checkBoxAddAsDescriptor.CheckedChanged += new System.EventHandler(this.checkBoxAddAsDescriptor_CheckedChanged);
             // 
-            // checkBoxRatioXY
+            // groupBoxGeneralInfo
             // 
-            this.checkBoxRatioXY.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBoxRatioXY.AutoSize = true;
-            this.checkBoxRatioXY.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.checkBoxRatioXY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxRatioXY.Location = new System.Drawing.Point(5, 62);
-            this.checkBoxRatioXY.Name = "checkBoxRatioXY";
-            this.checkBoxRatioXY.Size = new System.Drawing.Size(64, 23);
-            this.checkBoxRatioXY.TabIndex = 21;
-            this.checkBoxRatioXY.Text = "Ratio X/Y";
-            this.checkBoxRatioXY.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxStandardDeviation
-            // 
-            this.checkBoxStandardDeviation.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBoxStandardDeviation.AutoSize = true;
-            this.checkBoxStandardDeviation.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.checkBoxStandardDeviation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxStandardDeviation.Location = new System.Drawing.Point(29, 61);
-            this.checkBoxStandardDeviation.Name = "checkBoxStandardDeviation";
-            this.checkBoxStandardDeviation.Size = new System.Drawing.Size(108, 23);
-            this.checkBoxStandardDeviation.TabIndex = 21;
-            this.checkBoxStandardDeviation.Text = "Standard Deviation";
-            this.checkBoxStandardDeviation.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxShiftRowEffect
-            // 
-            this.checkBoxShiftRowEffect.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBoxShiftRowEffect.AutoSize = true;
-            this.checkBoxShiftRowEffect.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.checkBoxShiftRowEffect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxShiftRowEffect.Location = new System.Drawing.Point(17, 32);
-            this.checkBoxShiftRowEffect.Name = "checkBoxShiftRowEffect";
-            this.checkBoxShiftRowEffect.Size = new System.Drawing.Size(38, 23);
-            this.checkBoxShiftRowEffect.TabIndex = 21;
-            this.checkBoxShiftRowEffect.Text = "Shift";
-            this.checkBoxShiftRowEffect.UseVisualStyleBackColor = true;
+            this.groupBoxGeneralInfo.Controls.Add(this.numericUpDownPlateNumber);
+            this.groupBoxGeneralInfo.Controls.Add(this.label1);
+            this.groupBoxGeneralInfo.Controls.Add(this.label3);
+            this.groupBoxGeneralInfo.Controls.Add(this.numericUpDownRows);
+            this.groupBoxGeneralInfo.Controls.Add(this.label2);
+            this.groupBoxGeneralInfo.Controls.Add(this.numericUpDownColumns);
+            this.groupBoxGeneralInfo.Location = new System.Drawing.Point(130, 16);
+            this.groupBoxGeneralInfo.Name = "groupBoxGeneralInfo";
+            this.groupBoxGeneralInfo.Size = new System.Drawing.Size(220, 119);
+            this.groupBoxGeneralInfo.TabIndex = 19;
+            this.groupBoxGeneralInfo.TabStop = false;
+            this.groupBoxGeneralInfo.Text = "General";
             // 
             // FormForGenerateScreening
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(368, 582);
+            this.ClientSize = new System.Drawing.Size(383, 631);
+            this.Controls.Add(this.groupBoxGeneralInfo);
+            this.Controls.Add(this.checkBoxAddAsDescriptor);
             this.Controls.Add(this.tabControlGenerateScreening);
-            this.Controls.Add(this.numericUpDownRows);
-            this.Controls.Add(this.numericUpDownColumns);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.numericUpDownPlateNumber);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonGenerate);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -941,6 +966,8 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRowEffectIntensity)).EndInit();
+            this.groupBoxGeneralInfo.ResumeLayout(false);
+            this.groupBoxGeneralInfo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1003,5 +1030,7 @@
         public System.Windows.Forms.CheckBox checkBoxRatioXY;
         public System.Windows.Forms.CheckBox checkBoxStandardDeviation;
         public System.Windows.Forms.CheckBox checkBoxShiftRowEffect;
+        private System.Windows.Forms.GroupBox groupBoxGeneralInfo;
+        public System.Windows.Forms.CheckBox checkBoxAddAsDescriptor;
     }
 }

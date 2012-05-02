@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
+using Emgu.CV;
+using Emgu.CV.Structure;
+using Emgu.CV.CvEnum;
+using System.Runtime.InteropServices;
 
 namespace HCSAnalyzer.Classes
 {
@@ -54,6 +59,21 @@ namespace HCSAnalyzer.Classes
             return Mean / (double)this.Count;
         }
 
+
+        public double GetWeightedMean()
+        {
+            double ToReturn = 0;
+            double Norm = this.Sum();
+
+            for (int Idx = 0; Idx < this.Count; Idx++)
+            {
+                ToReturn += (Idx * this[Idx]);
+            }
+           
+            return ToReturn/Norm;
+        
+        }
+
         public double Std()
         {
             double var = 0f, mean = this.Mean();
@@ -93,7 +113,6 @@ namespace HCSAnalyzer.Classes
 
             return ToReturn;
         }
-
 
         public List<double[]> CreateHistogram(double Bin)
         {
@@ -136,7 +155,6 @@ namespace HCSAnalyzer.Classes
             return ToReturn;
         }
 
-
         public double Max()
         {
             double Max = double.MinValue;
@@ -157,7 +175,6 @@ namespace HCSAnalyzer.Classes
 
         }
 
-
         public double Dist_Euclidean(cExtendedList CompareTo)
         {
             double Res = 0;
@@ -173,6 +190,80 @@ namespace HCSAnalyzer.Classes
             return Math.Sqrt(Res);
         }
 
+        public double Dist_Manhattan(cExtendedList CompareTo)
+        {
+            double Res = 0;
+            if (CompareTo.Count != this.Count) return -1;
+
+            for (int i = 0; i < this.Count; i++)
+            {
+                Res += Math.Abs(this[i] - CompareTo[i]);
+            }
+
+
+            return Res;
+        }
+
+        public double Dist_VectorCosine(cExtendedList CompareTo)
+        {
+            
+            if (CompareTo.Count != this.Count) return -1;
+
+            double Top = 0;
+            double Bottom1 = 0;
+            double Bottom2 = 0;
+
+            for (int i = 0; i < this.Count; i++)
+            {
+                Top += this[i] * CompareTo[i];
+
+                Bottom1 += this[i] * this[i];
+                Bottom2 += CompareTo[i] * CompareTo[i];
+
+            }
+
+            double Bottom = Math.Sqrt(Bottom1)*Math.Sqrt(Bottom2);
+
+            if(Bottom<=0) return -1;
+
+            return Top/Bottom;
+        }
+
+
+        public double Dist_BhattacharyyaCoefficient(cExtendedList CompareTo)
+        {
+            double Res = 0;
+            if (CompareTo.Count != this.Count) return -1;
+
+            
+            for (int i = 0; i < this.Count; i++)
+            {
+                Res += Math.Sqrt(this[i] * CompareTo[i]);
+            }
+
+            return Res;
+        }
+
+
+        public double Dist_EarthMover(cExtendedList CompareTo)
+        {
+            Matrix<float> Signature1 = new Matrix<float>(this.Count, 2);
+            Matrix<float> Signature2 = new Matrix<float>(CompareTo.Count, 2);
+
+            for(int Idx=0;Idx<this.Count;Idx++)
+            {
+                Signature1[Idx,0] = (float)this[Idx];
+                Signature1[Idx,1] = Idx;
+
+                Signature2[Idx, 0] = (float)CompareTo[Idx];
+                Signature2[Idx,1] = Idx;
+            }
+
+            double ResutatEMD;
+            ResutatEMD = CvInvoke.cvCalcEMD2(Signature1.Ptr, Signature2.Ptr, DIST_TYPE.CV_DIST_L1, null, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
+            
+            return ResutatEMD;
+        }
 
     }
 

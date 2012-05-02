@@ -157,7 +157,7 @@ namespace HCSAnalyzer.Classes._3D
             {
                 renWin = CurrentrenderWindowControl.RenderWindow;
 
-                this.ren1 = CurrentrenderWindowControl.RenderWindow.GetRenderers().GetFirstRenderer();
+               this.ren1 = CurrentrenderWindowControl.RenderWindow.GetRenderers().GetFirstRenderer();
             }
 
             //// Menu Strip Construction

@@ -37,8 +37,8 @@
     <PublisherName>IPK</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>2</ApplicationRevision>
-    <ApplicationVersion>1.0.4.2</ApplicationVersion>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>1.0.4.3</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -168,6 +168,12 @@
     <Reference Include="AlgLib">
       <HintPath>Dlls\AlgLib.dll</HintPath>
     </Reference>
+    <Reference Include="Emgu.CV">
+      <HintPath>Dlls\OpenCV\Emgu.CV.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.Util">
+      <HintPath>Dlls\OpenCV\Emgu.Util.dll</HintPath>
+    </Reference>
     <Reference Include="HCSPlugin">
       <HintPath>Dlls\HCSPlugin.dll</HintPath>
     </Reference>
@@ -268,6 +274,9 @@
     <Reference Include="Microsoft.Msagl.GraphViewerGDI">
       <HintPath>Dlls\Microsoft.Msagl.GraphViewerGDI.dll</HintPath>
     </Reference>
+    <Reference Include="MINE">
+      <HintPath>Dlls\Mine\MINE.dll</HintPath>
+    </Reference>
     <Reference Include="msvcm90">
       <HintPath>Dlls\msvcm90.dll</HintPath>
     </Reference>
@@ -285,6 +294,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CDisplayTable.cs" />
     <Compile Include="Class2.cs" />
     <Compile Include="Classes\3D\c3DWorld.cs" />
     <Compile Include="Classes\3D\cInteractiveObjects.cs" />
@@ -311,11 +321,17 @@
     <Compile Include="Classes\cPlate.cs" />
     <Compile Include="Classes\cScreening.cs" />
     <Compile Include="Classes\cWell.cs" />
-    <Compile Include="Forms\FormFor3DDataDisplay.cs">
+    <Compile Include="Forms\3D\FormFor3DDataDisplay.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormFor3DDataDisplay.Designer.cs">
+    <Compile Include="Forms\3D\FormFor3DDataDisplay.Designer.cs">
       <DependentUpon>FormFor3DDataDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\3D\FormFor3DVizuOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\3D\FormFor3DVizuOptions.Designer.cs">
+      <DependentUpon>FormFor3DVizuOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormForDescriptorInfo.cs">
       <SubType>Form</SubType>
@@ -335,6 +351,9 @@
     <Compile Include="Forms\FormsForDRCAnalysis\FormForDRCSelection.Designer.cs">
       <DependentUpon>FormForDRCSelection.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormsForGraphsDisplay\cDisplayTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\FormsForGraphsDisplay\FormForMaxMinRequest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -347,10 +366,22 @@
     <Compile Include="Forms\FormsForDRCAnalysis\FormForDRCDesign.Designer.cs">
       <DependentUpon>FormForDRCDesign.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormForMultivariateScreen.cs">
+    <Compile Include="Forms\FormsForGraphsDisplay\FormToDisplayTable.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormForMultivariateScreen.Designer.cs">
+    <Compile Include="Forms\FormsForGraphsDisplay\FormToDisplayTable.Designer.cs">
+      <DependentUpon>FormToDisplayTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\IO\FormForHistogramScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\IO\FormForHistogramScreen.Designer.cs">
+      <DependentUpon>FormForHistogramScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\IO\FormForMultivariateScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\IO\FormForMultivariateScreen.Designer.cs">
       <DependentUpon>FormForMultivariateScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormsForDRCAnalysis\FormToDisplayDRC.cs">
@@ -400,6 +431,12 @@
     </Compile>
     <Compile Include="Forms\FormForWellInformation.Designer.cs">
       <DependentUpon>FormForWellInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\IO\FormForVariability.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\IO\FormForVariability.Designer.cs">
+      <DependentUpon>FormForVariability.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\IO\FormSaveScreening.cs">
       <SubType>Form</SubType>
@@ -515,8 +552,11 @@
       <DependentUpon>WindowHCSAnalyzer.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\FormFor3DDataDisplay.resx">
+    <EmbeddedResource Include="Forms\3D\FormFor3DDataDisplay.resx">
       <DependentUpon>FormFor3DDataDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\3D\FormFor3DVizuOptions.resx">
+      <DependentUpon>FormFor3DVizuOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormForDescriptorInfo.resx">
       <DependentUpon>FormForDescriptorInfo.cs</DependentUpon>
@@ -524,7 +564,13 @@
     <EmbeddedResource Include="Forms\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormForMultivariateScreen.resx">
+    <EmbeddedResource Include="Forms\FormsForGraphsDisplay\FormToDisplayTable.resx">
+      <DependentUpon>FormToDisplayTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\IO\FormForHistogramScreen.resx">
+      <DependentUpon>FormForHistogramScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\IO\FormForMultivariateScreen.resx">
       <DependentUpon>FormForMultivariateScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsForDRCAnalysis\FormForDRCSelection.resx">
@@ -559,6 +605,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormForWellInformation.resx">
       <DependentUpon>FormForWellInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\IO\FormForVariability.resx">
+      <DependentUpon>FormForVariability.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\IO\FormSaveScreening.resx">
       <DependentUpon>FormSaveScreening.cs</DependentUpon>
@@ -698,6 +747,12 @@
     <None Include="bin\Capture1.JPG" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="opencv_core231.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="opencv_imgproc231.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="bin\Logo.PNG" />
     <None Include="bin\DarkLogo.png" />
     <None Include="bin\WhitePicture.png" />

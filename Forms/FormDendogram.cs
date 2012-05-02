@@ -60,7 +60,7 @@ namespace HCSAnalyzer.Forms
                 // specify the color
                 cDescriptor CurrentDesc = Well.ListDescriptors[iDesc];
 
-                byte[][] LUT = GlobalInfo.LUT_JET;
+                byte[][] LUT = GlobalInfo.LUT;
 
                 Min = CurrentDendo.InfoForHierarchical.ListMin[RealIdx];
                 Max = CurrentDendo.InfoForHierarchical.ListMax[RealIdx];

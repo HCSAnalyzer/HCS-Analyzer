@@ -14,18 +14,28 @@ namespace HCSAnalyzer.Classes
         public string Title = "";
 
         public SimpleForm NewWindow = new SimpleForm();
+        public Series Serie;
 
-
-        public CDisplayGraph(double[] Values)
+        public CDisplayGraph(double[] Values, string Name)
         {
             SimpleForm NewWindow = new SimpleForm();
-            Series SeriesPos = new Series();
-            SeriesPos.ShadowOffset = 1;
+            NewWindow.Text = Name;
+            Serie = new Series();
+            
+            Serie.ShadowOffset = 2;
+
+            if (Values.Length == 1)
+                Serie.ChartType = SeriesChartType.Column;
+            else
+               Serie.ChartType = SeriesChartType.Line;
+            Serie.Color = Color.White;
+            Serie.BorderWidth = 3;
+
 
             for (int IdxValue = 0; IdxValue < Values.Length; IdxValue++)
             {
-                SeriesPos.Points.AddY(Values[IdxValue]);
-                SeriesPos.Points[IdxValue].Color = Color.Black;
+                Serie.Points.AddXY(IdxValue,Values[IdxValue]);
+               // Serie.Points[IdxValue].Color = Color.Black;
             }
 
             ChartArea CurrentChartArea = new ChartArea();
@@ -36,11 +46,9 @@ namespace HCSAnalyzer.Classes
             CurrentChartArea.AxisX.LabelStyle.Format = "N2";
 
             NewWindow.chartForSimpleForm.TextAntiAliasingQuality = TextAntiAliasingQuality.High;
-            CurrentChartArea.BackGradientStyle = GradientStyle.TopBottom;
-            CurrentChartArea.BackSecondaryColor = Color.White;
-
-            SeriesPos.ChartType = SeriesChartType.Column;
-            NewWindow.chartForSimpleForm.Series.Add(SeriesPos);
+            CurrentChartArea.BackColor = Color.FromArgb(64, 64, 64);
+        
+            NewWindow.chartForSimpleForm.Series.Add(Serie);
 
             NewWindow.chartForSimpleForm.ChartAreas[0].CursorX.IsUserEnabled = true;
             NewWindow.chartForSimpleForm.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
@@ -65,6 +73,16 @@ namespace HCSAnalyzer.Classes
                 //AverageLine.StripWidth = 0.0001;
             }
 
+         
+            NewWindow.chartForSimpleForm.Update();
+            NewWindow.chartForSimpleForm.Show();
+            NewWindow.Controls.AddRange(new System.Windows.Forms.Control[] { NewWindow.chartForSimpleForm });
+            NewWindow.Show();
+
+        }
+    
+        public void Display()
+        {
             NewWindow.Show();
             NewWindow.chartForSimpleForm.Update();
             NewWindow.chartForSimpleForm.Show();

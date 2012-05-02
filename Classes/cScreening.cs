@@ -448,6 +448,10 @@ namespace LibPlateAnalysis
         {
             this.ListPlatesActive = new cExtendPlateList();
             foreach (cPlate Plate in ListPlatesAvailable) this.ListPlatesActive.Add(Plate);
+
+           // this.ListPlatesAvailable = new cExtendPlateList();
+          //  foreach (cPlate Plate in ListPlatesAvailable) this.ListPlatesAvailable.Add(Plate);
+
         }
 
         public cPlate GetPlateIfNameIsContainIn(string PlateName)

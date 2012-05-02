@@ -21,6 +21,8 @@ namespace HCSAnalyzer.Forms
 
             this.GlobalInfo = GlobalInfo;
 
+            if (GlobalInfo.CurrentScreen == null) this.checkBoxAddAsDescriptor.Enabled = false;
+
             ToolTip toolTip1 = new ToolTip();
 
             // Set up the delays for the ToolTip.
@@ -104,6 +106,19 @@ namespace HCSAnalyzer.Forms
         {
             numericUpDownBowlEffectIntensity.Enabled = numericUpDownBowlEffectRatioXY.Enabled = checkBoxBowlEffect.Checked;
         }
+
+        private void checkBoxAddAsDescriptor_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxGeneralInfo.Enabled = !checkBoxAddAsDescriptor.Checked;
+
+            if (checkBoxAddAsDescriptor.Checked)
+            {
+                numericUpDownPlateNumber.Value = GlobalInfo.CurrentScreen.GetNumberOfOriginalPlates();
+                numericUpDownColumns.Value = GlobalInfo.CurrentScreen.Columns;
+                numericUpDownRows.Value = GlobalInfo.CurrentScreen.Rows;
+            }
+        }
+
 
     }
 }

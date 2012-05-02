@@ -110,10 +110,6 @@ namespace HCSAnalyzer
             this.Save(@"save00");
         }
 
-        private void FormForOptionsWindow_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void buttonDRCPlateDesign_Click(object sender, EventArgs e)
         {

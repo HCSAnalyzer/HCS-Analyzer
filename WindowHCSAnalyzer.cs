@@ -29,6 +29,13 @@ using System.Resources;
 using HCSPlugin;
 using HCSAnalyzer.Forms.FormsForOptions;
 using HCSAnalyzer.Forms.FormsForDRCAnalysis;
+using analysis;
+using HCSAnalyzer.Forms.FormsForGraphsDisplay;
+using System.Linq;
+using Emgu.CV;
+using Emgu.CV.Structure;
+using Emgu.CV.CvEnum;
+using System.Runtime.InteropServices;
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -90,9 +97,9 @@ namespace HCSAnalyzer
 
         private void HCSAnalyzer_Load(object sender, EventArgs e)
         {
-            GlobalInfo = new cGlobalInfo(CompleteScreening);
-            GlobalInfo.WindowHCSAnalyzer = this;
-            GlobalInfo.WindowName = this.Text;
+            GlobalInfo = new cGlobalInfo(CompleteScreening, this);
+
+            // GlobalInfo.WindowName = this.Text;
             this.Text = GlobalInfo.WindowName + " (Scalar Mode)";
 
             GlobalInfo.OptionsWindow.Visible = false;
@@ -295,6 +302,16 @@ namespace HCSAnalyzer
             ToolStripConvertMenuItems.DropDownItems.Add(ColumnToDescriptorItem);
             ToolStripConvertMenuItems.DropDownItems.Add(RowToDescriptorItem);
 
+            if (GlobalInfo.WindowHCSAnalyzer.checkedListBoxActiveDescriptors.CheckedItems.Count >= 2)
+            {
+                ToolStripMenuItem SumCheckedDescToDescriptorItem = new ToolStripMenuItem("Sum checked descriptors");
+                SumCheckedDescToDescriptorItem.Click += new System.EventHandler(this.SumCheckedDescToDescriptorItem);
+                ToolStripConvertMenuItems.DropDownItems.Add(SumCheckedDescToDescriptorItem);
+
+                ToolStripMenuItem MultiplyCheckedDescToDescriptorItem = new ToolStripMenuItem("Multiply checked descriptors");
+                MultiplyCheckedDescToDescriptorItem.Click += new System.EventHandler(this.MultiplyCheckedDescToDescriptorItem);
+                ToolStripConvertMenuItems.DropDownItems.Add(MultiplyCheckedDescToDescriptorItem);
+            }
 
             ToolStripSeparator SepratorStrip = new ToolStripSeparator();
 
@@ -303,6 +320,7 @@ namespace HCSAnalyzer
             int VertPos = locationOnForm.Y - 163;
             int ItemHeight = checkedListBoxActiveDescriptors.GetItemHeight(0);
             int IdxItem = VertPos / ItemHeight;
+
             if ((IdxItem < CompleteScreening.ListDescriptors.Count) && ((IdxItem >= 0)))
             {
                 ToolStripMenuItem ToolStripMenuItems = new ToolStripMenuItem(CompleteScreening.ListDescriptors[IdxItem].GetName());
@@ -325,11 +343,29 @@ namespace HCSAnalyzer
                     SplitDescItem.Click += new System.EventHandler(this.SplitDescItem);
                     ToolStripMenuItems.DropDownItems.Add(SplitDescItem);
                 }
+
+                if (CompleteScreening.ListDescriptors[IntToTransfer].GetBinNumber() == 1)
+                {
+                    ToolStripMenuItem AddCorrelatedDescItem = new ToolStripMenuItem("Generate Square");
+                    AddCorrelatedDescItem.Click += new System.EventHandler(this.AddCorrelatedSquareDescItem);
+                    ToolStripMenuItems.DropDownItems.Add(AddCorrelatedDescItem);
+
+                    ToolStripMenuItem AddCorrelatedSineDescItem = new ToolStripMenuItem("Generate Sine");
+                    AddCorrelatedSineDescItem.Click += new System.EventHandler(this.AddCorrelatedSineDescItem);
+                    ToolStripMenuItems.DropDownItems.Add(AddCorrelatedSineDescItem);
+
+
+                    ToolStripMenuItem AddCorrelatedCosineDescItem = new ToolStripMenuItem("Generate Cosine");
+                    AddCorrelatedCosineDescItem.Click += new System.EventHandler(this.AddCorrelatedCosineDescItem);
+                    ToolStripMenuItems.DropDownItems.Add(AddCorrelatedCosineDescItem);
+
+
+                }
+
                 contextMenuStripActorPicker.Items.AddRange(new ToolStripItem[] { UnselectItem, SelectAllItem, ToolStripConvertMenuItems, ToolStripMenuItems });
             }
             else
             {
-
                 contextMenuStripActorPicker.Items.AddRange(new ToolStripItem[] { UnselectItem, SelectAllItem, ToolStripConvertMenuItems });
             }
             contextMenuStripActorPicker.Show(Control.MousePosition);
@@ -391,6 +427,194 @@ namespace HCSAnalyzer
                     LDesc.Add(NewDesc);
 
                     Tmpwell.AddDescriptors(LDesc);
+                }
+            }
+
+            CompleteScreening.ListDescriptors.UpDateDisplay();
+            CompleteScreening.UpDatePlateListWithFullAvailablePlate();
+
+            for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
+                CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
+
+            StartingUpDateUI();
+        }
+
+        private void AddCorrelatedCosineDescItem(object sender, EventArgs e)
+        {
+            cDescriptorsType ColumnType = new cDescriptorsType("Cosine(" + CompleteScreening.ListDescriptors[IntToTransfer].GetName() + ")", true, 1);
+
+            CompleteScreening.ListDescriptors.AddNew(ColumnType);
+
+            foreach (cPlate TmpPlate in CompleteScreening.ListPlatesAvailable)
+            {
+                foreach (cWell Tmpwell in TmpPlate.ListActiveWells)
+                {
+                    List<cDescriptor> LDesc = new List<cDescriptor>();
+
+                    cDescriptor NewDesc = new cDescriptor(Math.Cos(Tmpwell.ListDescriptors[IntToTransfer].GetValue()), ColumnType, CompleteScreening);
+                    LDesc.Add(NewDesc);
+
+                    Tmpwell.AddDescriptors(LDesc);
+                }
+            }
+
+            CompleteScreening.ListDescriptors.UpDateDisplay();
+            CompleteScreening.UpDatePlateListWithFullAvailablePlate();
+
+            for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
+                CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
+
+            StartingUpDateUI();
+        }
+
+        private void AddCorrelatedSineDescItem(object sender, EventArgs e)
+        {
+            cDescriptorsType ColumnType = new cDescriptorsType("Sine(" + CompleteScreening.ListDescriptors[IntToTransfer].GetName() + ")", true, 1);
+
+            CompleteScreening.ListDescriptors.AddNew(ColumnType);
+
+            foreach (cPlate TmpPlate in CompleteScreening.ListPlatesAvailable)
+            {
+                foreach (cWell Tmpwell in TmpPlate.ListActiveWells)
+                {
+                    List<cDescriptor> LDesc = new List<cDescriptor>();
+
+                    cDescriptor NewDesc = new cDescriptor(Math.Sin(Tmpwell.ListDescriptors[IntToTransfer].GetValue()), ColumnType, CompleteScreening);
+                    LDesc.Add(NewDesc);
+
+                    Tmpwell.AddDescriptors(LDesc);
+                }
+            }
+
+            CompleteScreening.ListDescriptors.UpDateDisplay();
+            CompleteScreening.UpDatePlateListWithFullAvailablePlate();
+
+            for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
+                CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
+
+            StartingUpDateUI();
+        }
+
+        private void AddCorrelatedSquareDescItem(object sender, EventArgs e)
+        {
+            cDescriptorsType ColumnType = new cDescriptorsType("Square(" + CompleteScreening.ListDescriptors[IntToTransfer].GetName() + ")", true, 1);
+
+            CompleteScreening.ListDescriptors.AddNew(ColumnType);
+
+            foreach (cPlate TmpPlate in CompleteScreening.ListPlatesAvailable)
+            {
+                foreach (cWell Tmpwell in TmpPlate.ListActiveWells)
+                {
+                    List<cDescriptor> LDesc = new List<cDescriptor>();
+
+                    cDescriptor NewDesc = new cDescriptor(Math.Pow(Tmpwell.ListDescriptors[IntToTransfer].GetValue(), 2), ColumnType, CompleteScreening);
+                    LDesc.Add(NewDesc);
+
+                    Tmpwell.AddDescriptors(LDesc);
+                }
+            }
+
+            CompleteScreening.ListDescriptors.UpDateDisplay();
+            CompleteScreening.UpDatePlateListWithFullAvailablePlate();
+
+            for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
+                CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
+
+            StartingUpDateUI();
+        }
+
+        private void SumCheckedDescToDescriptorItem(object sender, EventArgs e)
+        {
+            string NewName = "";
+
+            for (int Idx = 0; Idx < CompleteScreening.GlobalInfo.WindowHCSAnalyzer.checkedListBoxActiveDescriptors.Items.Count; Idx++)
+            {
+
+                if (CompleteScreening.ListDescriptors[Idx].IsActive())
+                    if (CompleteScreening.ListDescriptors[Idx].GetBinNumber() == 1)
+                    {
+                        NewName += CompleteScreening.ListDescriptors[Idx].GetName() + "+";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Descriptor length not consistent (" + CompleteScreening.ListDescriptors[Idx].GetName() + " : " + CompleteScreening.ListDescriptors[Idx].GetBinNumber() + " bins", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+            }
+            cDescriptorsType ColumnType = new cDescriptorsType(NewName.Remove(NewName.Length - 1), true, 1);
+
+            CompleteScreening.ListDescriptors.AddNew(ColumnType);
+
+            foreach (cPlate TmpPlate in CompleteScreening.ListPlatesAvailable)
+            {
+                foreach (cWell Tmpwell in TmpPlate.ListActiveWells)
+                {
+                    List<cDescriptor> LDesc = new List<cDescriptor>();
+
+                    double NewValue = 0;
+
+                    for (int IdxActiveDesc = 0; IdxActiveDesc < CompleteScreening.ListDescriptors.Count - 1; IdxActiveDesc++)
+                    {
+                        if (CompleteScreening.ListDescriptors[IdxActiveDesc].IsActive())
+                            NewValue += Tmpwell.ListDescriptors[IdxActiveDesc].GetValue();
+                    }
+                    cDescriptor NewDesc = new cDescriptor(NewValue, ColumnType, CompleteScreening);
+                    LDesc.Add(NewDesc);
+
+                    Tmpwell.AddDescriptors(LDesc);
+
+                }
+            }
+
+            CompleteScreening.ListDescriptors.UpDateDisplay();
+            CompleteScreening.UpDatePlateListWithFullAvailablePlate();
+
+            for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
+                CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
+
+            StartingUpDateUI();
+        }
+
+        private void MultiplyCheckedDescToDescriptorItem(object sender, EventArgs e)
+        {
+            string NewName = "";
+
+            for (int Idx = 0; Idx < CompleteScreening.GlobalInfo.WindowHCSAnalyzer.checkedListBoxActiveDescriptors.Items.Count; Idx++)
+            {
+
+                if (CompleteScreening.ListDescriptors[Idx].IsActive())
+                    if (CompleteScreening.ListDescriptors[Idx].GetBinNumber() == 1)
+                    {
+                        NewName += CompleteScreening.ListDescriptors[Idx].GetName() + "*";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Descriptor length not consistent (" + CompleteScreening.ListDescriptors[Idx].GetName() + " : " + CompleteScreening.ListDescriptors[Idx].GetBinNumber() + " bins", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+            }
+            cDescriptorsType ColumnType = new cDescriptorsType(NewName.Remove(NewName.Length - 1), true, 1);
+
+            CompleteScreening.ListDescriptors.AddNew(ColumnType);
+
+            foreach (cPlate TmpPlate in CompleteScreening.ListPlatesAvailable)
+            {
+                foreach (cWell Tmpwell in TmpPlate.ListActiveWells)
+                {
+                    List<cDescriptor> LDesc = new List<cDescriptor>();
+
+                    double NewValue = 1;
+
+                    for (int IdxActiveDesc = 0; IdxActiveDesc < CompleteScreening.ListDescriptors.Count - 1; IdxActiveDesc++)
+                    {
+                        if (CompleteScreening.ListDescriptors[IdxActiveDesc].IsActive())
+                            NewValue *= Tmpwell.ListDescriptors[IdxActiveDesc].GetValue();
+                    }
+                    cDescriptor NewDesc = new cDescriptor(NewValue, ColumnType, CompleteScreening);
+                    LDesc.Add(NewDesc);
+
+                    Tmpwell.AddDescriptors(LDesc);
+
                 }
             }
 
@@ -1968,24 +2192,24 @@ namespace HCSAnalyzer
             SeriesPos.Color = CompleteScreening.GlobalInfo.GetColor(1);
             NewWindow.chartForSimpleForm.Series.Add(SeriesPos);
 
-            Series SeriesGaussNeg = new Series();
-            SeriesGaussNeg.ChartType = SeriesChartType.Spline;
+            //Series SeriesGaussNeg = new Series();
+            //SeriesGaussNeg.ChartType = SeriesChartType.Spline;
 
-            Series SeriesGaussPos = new Series();
-            SeriesGaussPos.ChartType = SeriesChartType.Spline;
+            //Series SeriesGaussPos = new Series();
+            //SeriesGaussPos.ChartType = SeriesChartType.Spline;
 
-            if (HistoPos.Count != 0)
-            {
-                double[] HistoGaussPos = CreateGauss(Mean(Pos.ToArray()), std(Pos.ToArray()), HistoPos[0].Length);
+            //if (HistoPos.Count != 0)
+            //{
+            //    double[] HistoGaussPos = CreateGauss(Mean(Pos.ToArray()), std(Pos.ToArray()), HistoPos[0].Length);
 
-                SeriesGaussPos.Color = Color.Black;
-                SeriesGaussPos.BorderWidth = 2;
-            }
-            SeriesGaussNeg.Color = Color.Black;
-            SeriesGaussNeg.BorderWidth = 2;
+            //    SeriesGaussPos.Color = Color.Black;
+            //    SeriesGaussPos.BorderWidth = 2;
+            //}
+            //SeriesGaussNeg.Color = Color.Black;
+            //SeriesGaussNeg.BorderWidth = 2;
 
-            NewWindow.chartForSimpleForm.Series.Add(SeriesGaussNeg);
-            NewWindow.chartForSimpleForm.Series.Add(SeriesGaussPos);
+            //NewWindow.chartForSimpleForm.Series.Add(SeriesGaussNeg);
+           // NewWindow.chartForSimpleForm.Series.Add(SeriesGaussPos);
             NewWindow.chartForSimpleForm.ChartAreas[0].CursorX.IsUserEnabled = true;
             NewWindow.chartForSimpleForm.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
             NewWindow.chartForSimpleForm.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
@@ -3085,11 +3309,11 @@ namespace HCSAnalyzer
             if (CompleteScreening == null) return;
 
             bool IsDisplayRanking = CompleteScreening.GlobalInfo.OptionsWindow.checkBoxCorrelationMatrixDisplayRanking.Checked;
-            bool IsPearson = CompleteScreening.GlobalInfo.OptionsWindow.radioButtonPearson.Checked;
+            //bool IsPearson = CompleteScreening.GlobalInfo.OptionsWindow.radioButtonPearson.Checked;
             Boolean IsDisplayValues = false;
 
             List<double>[] ListValueDesc = ExtractDesciptorAverageValuesList(IsFullScreen);
-            double[,] CorrelationMatrix = ComputeCorrelationMatrix(ListValueDesc, IsPearson);
+            double[,] CorrelationMatrix = ComputeCorrelationMatrix(ListValueDesc);
 
             if (CorrelationMatrix == null)
             {
@@ -3101,9 +3325,11 @@ namespace HCSAnalyzer
             List<string> NameY = CompleteScreening.ListDescriptors.GetListNameActives();
 
             string TitleForGraph = "";
-            if (IsPearson) TitleForGraph = "Pearson ";
-            else
-                TitleForGraph = "Spearman's rank ";
+            if (GlobalInfo.OptionsWindow.radioButtonPearson.Checked) TitleForGraph = "Pearson ";
+            else if
+                (GlobalInfo.OptionsWindow.radioButtonSpearman.Checked) TitleForGraph = "Spearman's ";
+            else if
+                (GlobalInfo.OptionsWindow.radioButtonMIC.Checked) TitleForGraph = "MIC's ";
             TitleForGraph += " correlation matrix.";
 
             int SquareSize;
@@ -3184,9 +3410,10 @@ namespace HCSAnalyzer
             CurrentChartArea1.AxisX.Interval = 1;
             NewWindow1.chartForSimpleForm.Series[0].Sort(PointSortOrder.Ascending, "Y");
 
-            if (IsPearson) TitleForGraph = "Pearson ";
-            else
-                TitleForGraph = "Spearman's ";
+            if (GlobalInfo.OptionsWindow.radioButtonPearson.Checked) TitleForGraph = "Pearson's ";
+            else if (GlobalInfo.OptionsWindow.radioButtonPearson.Checked) TitleForGraph = "Spearman's ";
+            else if (GlobalInfo.OptionsWindow.radioButtonMIC.Checked) TitleForGraph = "MIC's ";
+
             TitleForGraph += "correlation ranking";
 
             Title CurrentTitle1 = new Title(TitleForGraph);
@@ -3205,28 +3432,85 @@ namespace HCSAnalyzer
 
 
 
-        private double[,] ComputeCorrelationMatrix(List<double>[] ListValueDesc, bool IsPearson)
+        private double[,] ComputeCorrelationMatrix(List<double>[] ListValueDesc)
         {
             int NumDesc = ListValueDesc.Length;
             double[,] CorrelationMatrix = new double[NumDesc, NumDesc];
-            //return null;
-            for (int iDesc = 0; iDesc < NumDesc; iDesc++)
-                for (int jDesc = 0; jDesc < NumDesc; jDesc++)
+
+            if (GlobalInfo.OptionsWindow.radioButtonMIC.Checked)
+            {
+                double[][] dataset1 = new double[NumDesc][];
+                string[] VarNames = new string[NumDesc];
+
+
+                for (int iDesc = 0; iDesc < NumDesc; iDesc++)
                 {
-                    try
+                    dataset1[iDesc] = new double[ListValueDesc[iDesc].Count];
+
+                    Array.Copy(ListValueDesc[iDesc].ToArray(), dataset1[iDesc], ListValueDesc[iDesc].Count);
+                    VarNames[iDesc] = iDesc.ToString();
+                }
+                data.Dataset data1 = new data.Dataset(dataset1, VarNames, 0);
+                VarPairQueue Qu = new VarPairQueue(data1);
+
+
+                for (int iDesc = 0; iDesc < NumDesc; iDesc++)
+                    for (int jDesc = 0; jDesc < NumDesc; jDesc++)
                     {
-                        if (IsPearson)
-                            CorrelationMatrix[iDesc, jDesc] = (alglib.pearsoncorr2(ListValueDesc[iDesc].ToArray(), ListValueDesc[jDesc].ToArray()));
-                        else
-                            CorrelationMatrix[iDesc, jDesc] = (alglib.spearmancorr2(ListValueDesc[iDesc].ToArray(), ListValueDesc[jDesc].ToArray()));
-                    }
-                    catch
-                    {
-                        //Console.WriteLine("Input string is not a sequence of digits.");
-                        return null;
+                        Qu.addPair(iDesc, jDesc);
                     }
 
-                }
+
+                Analysis ana = new Analysis(data1, Qu);
+                AnalysisParameters param = new AnalysisParameters();
+                double resparam = param.commonValsThreshold;
+
+                analysis.results.FullResult Full = new analysis.results.FullResult();
+                //List<analysis.results.BriefResult> Brief = new List<analysis.results.BriefResult>();
+                analysis.results.BriefResult Brief = new analysis.results.BriefResult();
+
+                java.lang.Class t = java.lang.Class.forName("analysis.results.BriefResult");
+
+                //java.lang.Class restype = null;
+                ana.analyzePairs(t, param);
+
+                //   object o =  (ana.varPairQueue().peek());
+                //   ana.getClass();
+                //  int resNum = ana.numResults();
+                analysis.results.Result[] res = ana.getSortedResults();
+                //  double main = res[0].getMainScore();
+                for (int iDesc = 0; iDesc < NumDesc; iDesc++)
+                    for (int jDesc = 0; jDesc < NumDesc; jDesc++)
+                    {
+                        int X = int.Parse(res[jDesc + iDesc * NumDesc].getXVar());
+                        int Y = int.Parse(res[jDesc + iDesc * NumDesc].getYVar());
+                        CorrelationMatrix[X, Y] = res[jDesc + iDesc * NumDesc].getMainScore();
+
+                    }
+            }
+            else
+            {
+
+                //return null;
+                for (int iDesc = 0; iDesc < NumDesc; iDesc++)
+                    for (int jDesc = 0; jDesc < NumDesc; jDesc++)
+                    {
+                        try
+                        {
+                            if (GlobalInfo.OptionsWindow.radioButtonPearson.Checked)
+                                CorrelationMatrix[iDesc, jDesc] = (alglib.pearsoncorr2(ListValueDesc[iDesc].ToArray(), ListValueDesc[jDesc].ToArray()));
+                            else if (GlobalInfo.OptionsWindow.radioButtonSpearman.Checked)
+                                CorrelationMatrix[iDesc, jDesc] = (alglib.spearmancorr2(ListValueDesc[iDesc].ToArray(), ListValueDesc[jDesc].ToArray()));
+
+                        }
+                        catch
+                        {
+                            //Console.WriteLine("Input string is not a sequence of digits.");
+                            return null;
+                        }
+
+                    }
+            }
             return CorrelationMatrix;
         }
 
@@ -3299,9 +3583,9 @@ namespace HCSAnalyzer
 
                     CurrentSeries.Points[IdxValue].ToolTip = Math.Abs(Value) + " <=> | " + Matrix[iDesc, jDesc].ToString() + " |";
 
-                    int ConvertedValue = (int)(Math.Abs(Value) * (CompleteScreening.GlobalInfo.LUT_JET[0].Length - 1));
+                    int ConvertedValue = (int)(Math.Abs(Value) * (CompleteScreening.GlobalInfo.LUT[0].Length - 1));
 
-                    CurrentSeries.Points[IdxValue++].Color = Color.FromArgb(CompleteScreening.GlobalInfo.LUT_JET[0][ConvertedValue], CompleteScreening.GlobalInfo.LUT_JET[1][ConvertedValue], CompleteScreening.GlobalInfo.LUT_JET[2][ConvertedValue]);
+                    CurrentSeries.Points[IdxValue++].Color = Color.FromArgb(CompleteScreening.GlobalInfo.LUT[0][ConvertedValue], CompleteScreening.GlobalInfo.LUT[1][ConvertedValue], CompleteScreening.GlobalInfo.LUT[2][ConvertedValue]);
                 }
             }
 
@@ -3315,7 +3599,7 @@ namespace HCSAnalyzer
             NewWindow.Width = SquareSize * ListLabelX.Count + 245;
 
             ChartArea CurrentChartArea = new ChartArea("Default");
-            for (int i = 0; i < CompleteScreening.ListDescriptors.Count; i++)
+            for (int i = 0; i < CompleteScreening.ListDescriptors.GetListNameActives().Count; i++)
             {
                 CustomLabel lblY = new CustomLabel();
                 lblY.ToPosition = i * 2 + 2;
@@ -3940,13 +4224,6 @@ namespace HCSAnalyzer
             WindowforDRCsDisplay.Show();
         }
 
-
-
-        private void distributionsModeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            GlobalInfo.SwitchDistributionMode();
-        }
-
         private void panelForPlate_MouseClick(object sender, MouseEventArgs e)
         {
             if (CompleteScreening == null) return;
@@ -3969,7 +4246,6 @@ namespace HCSAnalyzer
                 ToolStripMenuItem_SwitchVizuMode.Click += new System.EventHandler(this.SwitchVizuMode);
             }
         }
-
 
         private void SwitchVizuMode(object sender, EventArgs e)
         {
@@ -4083,55 +4359,246 @@ namespace HCSAnalyzer
 
         #endregion
 
-
-
         private void xYZScatterPointsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (CompleteScreening == null) return;
-            FormFor3DDataDisplay FormToDisplayXYZ = new FormFor3DDataDisplay(false);
+            FormFor3DDataDisplay FormToDisplayXYZ = new FormFor3DDataDisplay(false, CompleteScreening);
             for (int i = 0; i < (int)CompleteScreening.ListDescriptors.Count; i++)
             {
                 FormToDisplayXYZ.comboBoxDescriptorX.Items.Add(CompleteScreening.ListDescriptors[i].GetName());
                 FormToDisplayXYZ.comboBoxDescriptorY.Items.Add(CompleteScreening.ListDescriptors[i].GetName());
                 FormToDisplayXYZ.comboBoxDescriptorZ.Items.Add(CompleteScreening.ListDescriptors[i].GetName());
             }
-
-            FormToDisplayXYZ.comboBoxDescriptorX.SelectedIndex = 0;
-            FormToDisplayXYZ.comboBoxDescriptorY.SelectedIndex = 0;
-            FormToDisplayXYZ.comboBoxDescriptorZ.SelectedIndex = 0;
-
-            FormToDisplayXYZ.CompleteScreening = CompleteScreening;
             FormToDisplayXYZ.Show();
-
+            FormToDisplayXYZ.comboBoxDescriptorX.Text = CompleteScreening.ListDescriptors[0].GetName() + " ";
+            FormToDisplayXYZ.comboBoxDescriptorY.Text = CompleteScreening.ListDescriptors[0].GetName() + " ";
+            FormToDisplayXYZ.comboBoxDescriptorZ.Text = CompleteScreening.ListDescriptors[0].GetName() + " ";
             return;
         }
 
         private void xYZScatterPointsToolStripMenuItemFullScreen_Click(object sender, EventArgs e)
         {
             if (CompleteScreening == null) return;
-            FormFor3DDataDisplay FormToDisplayXYZ = new FormFor3DDataDisplay(true);
+            FormFor3DDataDisplay FormToDisplayXYZ = new FormFor3DDataDisplay(true, CompleteScreening);
             for (int i = 0; i < (int)CompleteScreening.ListDescriptors.Count; i++)
             {
                 FormToDisplayXYZ.comboBoxDescriptorX.Items.Add(CompleteScreening.ListDescriptors[i].GetName());
                 FormToDisplayXYZ.comboBoxDescriptorY.Items.Add(CompleteScreening.ListDescriptors[i].GetName());
                 FormToDisplayXYZ.comboBoxDescriptorZ.Items.Add(CompleteScreening.ListDescriptors[i].GetName());
             }
-
-            FormToDisplayXYZ.comboBoxDescriptorX.SelectedIndex = 0;
-            FormToDisplayXYZ.comboBoxDescriptorY.SelectedIndex = 0;
-            FormToDisplayXYZ.comboBoxDescriptorZ.SelectedIndex = 0;
-
-            FormToDisplayXYZ.CompleteScreening = CompleteScreening;
             FormToDisplayXYZ.Show();
-
+            FormToDisplayXYZ.comboBoxDescriptorX.Text = CompleteScreening.ListDescriptors[0].GetName() + " ";
+            FormToDisplayXYZ.comboBoxDescriptorY.Text = CompleteScreening.ListDescriptors[0].GetName() + " ";
+            FormToDisplayXYZ.comboBoxDescriptorZ.Text = CompleteScreening.ListDescriptors[0].GetName() + " ";
             return;
 
         }
 
- 
+        #region Distributions
+        private void distributionsModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GlobalInfo.SwitchDistributionMode();
+        }
+
+        private void displayReferenceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CDisplayGraph DispGraph = new CDisplayGraph(CompleteScreening.Reference[CompleteScreening.ListDescriptors.CurrentSelectedDescriptor].ToArray(), CompleteScreening.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptor].GetName() + " - Reference distribution.");
+        }
+        #endregion
+
+        private void mINEAnalysisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bool IsFullScreen = false;
+            List<double>[] ListValueDesc = ExtractDesciptorAverageValuesList(IsFullScreen);
+
+            int NumDesc = ListValueDesc.Length;
+            double[,] CorrelationMatrix = new double[NumDesc, NumDesc];
+
+            double[][] dataset1 = new double[NumDesc][];
+            string[] VarNames = new string[NumDesc];
+
+            for (int iDesc = 0; iDesc < NumDesc; iDesc++)
+            {
+                dataset1[iDesc] = new double[ListValueDesc[iDesc].Count];
+
+                Array.Copy(ListValueDesc[iDesc].ToArray(), dataset1[iDesc], ListValueDesc[iDesc].Count);
+                VarNames[iDesc] = iDesc.ToString();
+            }
+            data.Dataset data1 = new data.Dataset(dataset1, VarNames, 0);
+            VarPairQueue Qu = new VarPairQueue(data1);
+
+            for (int iDesc = 0; iDesc < NumDesc; iDesc++)
+                for (int jDesc = 0; jDesc < iDesc; jDesc++)
+                {
+                    Qu.addPair(iDesc, jDesc);
+                }
+            Analysis ana = new Analysis(data1, Qu);
+            AnalysisParameters param = new AnalysisParameters();
+            double resparam = param.commonValsThreshold;
+
+            analysis.results.FullResult Full = new analysis.results.FullResult();
+            //List<analysis.results.BriefResult> Brief = new List<analysis.results.BriefResult>();
+            analysis.results.BriefResult Brief = new analysis.results.BriefResult();
+
+            java.lang.Class t = java.lang.Class.forName("analysis.results.BriefResult");
+
+            //java.lang.Class restype = null;
+            ana.analyzePairs(t, param);
+
+            //   object o =  (ana.varPairQueue().peek());
+            //   ana.getClass();
+            //  int resNum = ana.numResults();
+            analysis.results.Result[] res = ana.getSortedResults();
+
+            List<string[]> ListValues = new List<string[]>();
+            List<string> NameX = CompleteScreening.ListDescriptors.GetListNameActives();
+
+            List<bool> ListIscolor = new List<bool>();
+
+            for (int Idx = 0; Idx < res.Length; Idx++)
+            {
+               ListValues.Add(res[Idx].toString().Split(','));
+               ListValues[Idx][0] = NameX[int.Parse(ListValues[Idx][0])];
+               ListValues[Idx][1] = NameX[int.Parse(ListValues[Idx][1])];
+
+           
 
 
 
+            }
+            string[] ListNames = res[0].getHeader().Split(',');
+
+
+            ListNames[0] = "Descriptor A";
+            ListNames[1] = "Descriptor B";
+
+
+            for (int NIdx = 0; NIdx < ListNames.Length; NIdx++)
+            {
+                if (NIdx == 0) ListIscolor.Add(false);
+                else if (NIdx == 1) ListIscolor.Add(false);
+                else ListIscolor.Add(true);
+            
+            }
+
+            cDisplayTable DisplayForTable = new cDisplayTable("MINE Analysis results", ListNames, ListValues, GlobalInfo, true);
+
+        }
+
+        private void findPathwayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           
+            if (CompleteScreening == null) return;
+            FormForNameRequest FormForRequest = new FormForNameRequest();
+            if (FormForRequest.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+            int NumberOfPlates = CompleteScreening.ListPlatesActive.Count;
+            
+            FormForKeggGene KeggWin = new FormForKeggGene();
+            KEGG ServKegg = new KEGG();
+            string[] intersection_gene_pathways = new string[1];
+
+           
+            string[] Pathways = {FormForRequest.textBoxForName.Text};
+            intersection_gene_pathways = ServKegg.get_genes_by_pathway("path:" + Pathways[0]);
+            if ((Pathways == null) || (Pathways.Length == 0))
+            {
+                MessageBox.Show("No pathway founded !", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            string[] fg_list = { "black" };
+            string[] bg_list = { "orange" };
+
+            string pathway_map_html = "";
+            //  KEGG ServKegg = new KEGG();
+            string[] ListGenesinPathway = ServKegg.get_genes_by_pathway("path:"+Pathways[0]);
+            if (ListGenesinPathway.Length==0)
+            {
+                return;
+            }
+            double[] ListValues = new double[ListGenesinPathway.Length];
+            int IDxGeneOfInterest = 0;
+            foreach (cPlate CurrentPlate in CompleteScreening.ListPlatesActive)
+            {
+                foreach (cWell CurrentWell in CurrentPlate.ListActiveWells)
+                {
+                    string CurrentLID = "hsa:" + (int)CurrentWell.LocusID;
+
+                    for (int IdxGene = 0; IdxGene < ListGenesinPathway.Length; IdxGene++)
+                    {
+
+                        if (CurrentLID == intersection_gene_pathways[0])
+                            IDxGeneOfInterest = IdxGene;
+
+                        if (CurrentLID == ListGenesinPathway[IdxGene])
+                        {
+                            ListValues[IdxGene] = CurrentWell.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptor].GetValue();
+                            break;
+                        }
+                    }
+                }
+            }
+
+            bg_list = new string[ListGenesinPathway.Length];
+            fg_list = new string[ListGenesinPathway.Length];
+
+            double MinValue = ListValues.Min();
+            double MaxValue = ListValues.Max();
+
+            for (int IdxCol = 0; IdxCol < bg_list.Length; IdxCol++)
+            {
+
+                int ConvertedValue = (int)((((CompleteScreening.GlobalInfo.LUT_GREEN_TO_RED[0].Length - 1) * (ListValues[IdxCol] - MinValue)) / (MaxValue - MinValue)));
+
+                Color Coul = Color.FromArgb(CompleteScreening.GlobalInfo.LUT_GREEN_TO_RED[0][ConvertedValue], CompleteScreening.GlobalInfo.LUT_GREEN_TO_RED[1][ConvertedValue], CompleteScreening.GlobalInfo.LUT_GREEN_TO_RED[2][ConvertedValue]);
+
+                if (IdxCol == IDxGeneOfInterest)
+                    fg_list[IdxCol] = "white";
+                else
+                    fg_list[IdxCol] = "#000000";
+                bg_list[IdxCol] = "#" + Coul.Name.Remove(0, 2);
+
+            }
+
+            //  foreach (string item in ListP.listBoxPathways.SelectedItems)
+            {
+                pathway_map_html = ServKegg.get_html_of_colored_pathway_by_objects(Pathways[0], ListGenesinPathway, fg_list, bg_list);
+            }
+            
+            pathway_map_html = ServKegg.get_html_of_colored_pathway_by_objects((string)(Pathways[0]), intersection_gene_pathways, fg_list, bg_list);
+
+            // FormForKegg KeggWin = new FormForKegg();
+            if (pathway_map_html.Length == 0) return;
+
+            //
+            //KeggWin.Show();
+            //ListP.listBoxPathways.MouseDoubleClick += new MouseEventHandler(listBox1_MouseDoubleClick);
+            KeggWin.webBrowser.Navigate(pathway_map_html);
+
+            KeggWin.Show();
+        }
+
+        private void HCSAnalyzer_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (CompleteScreening == null) return;
+            if (e.KeyChar == 's')
+            {
+                CompleteScreening.GlobalInfo.OptionsWindow.radioButtonDisplayAverage.Checked = true;
+                CompleteScreening.GlobalInfo.OptionsWindow.radioButtonDisplayDistribution.Checked = false;
+            }
+            if (e.KeyChar == 'd')
+            {
+                CompleteScreening.GlobalInfo.OptionsWindow.radioButtonDisplayAverage.Checked = false;
+                CompleteScreening.GlobalInfo.OptionsWindow.radioButtonDisplayDistribution.Checked = true;
+            }
+
+            CompleteScreening.GetCurrentDisplayPlate().DisplayDistribution(CompleteScreening.ListDescriptors.CurrentSelectedDescriptor, false);
+        }
+
+        private void panelForPlate_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (CompleteScreening == null) return;
+        }
 
     }
 
