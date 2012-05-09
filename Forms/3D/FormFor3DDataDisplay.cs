@@ -64,7 +64,7 @@ namespace HCSAnalyzer.Forms
 
             if (CurrentWorld == null)
             {
-                CurrentWorld = new c3DWorld(new cPoint3D(1000, 1000, 1000), new cPoint3D(ListScales[DescX], ListScales[DescY], ListScales[DescZ]), this.renderWindowControl1, Pos);
+                CurrentWorld = new c3DWorld(new cPoint3D(1000, 1000, 1000), new cPoint3D(ListScales[DescX], ListScales[DescY], ListScales[DescZ]), this.renderWindowControl1, Pos, CompleteScreening);
             }
 
             CurrentWorld.SetBackgroundColor(Color.Black);

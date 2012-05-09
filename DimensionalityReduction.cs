@@ -209,7 +209,7 @@ namespace HCSAnalyzer
             filter.buildEvaluator(insts);
 
             Ranker search2 = new Ranker();
-            search2.setNumToSelect(2);
+         //   search2.setNumToSelect(2);
             search2.setGenerateRanking(true);
             rang = search2.search(filter, insts);
            

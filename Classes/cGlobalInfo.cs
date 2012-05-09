@@ -104,10 +104,10 @@ namespace HCSAnalyzer.Classes
         public bool IsDisplayClassOnly = false;
         public PlatesListForm PlateListWindow;
         public cScreening CurrentScreen = null;
-        public float SizeHistoWidth = 34;
-        public float SizeHistoHeight = 20;
-        public float ShiftX = 34;
-        public float ShiftY = 20;
+        public float SizeHistoWidth = 26;
+        public float SizeHistoHeight = 18;
+        public float ShiftX = 26;
+        public float ShiftY = 18;
 
         public FormForOptionsWindow OptionsWindow;
 

@@ -200,6 +200,7 @@ namespace HCSAnalyzer.Forms
 
             foreach (cWell TmpWell in ListWells)
             {
+                if (TmpWell == null) continue;
                 if (TmpWell.GetPosX() > PosXMax) PosXMax = TmpWell.GetPosX();
                 if (TmpWell.GetPosY() > PosYMax) PosYMax = TmpWell.GetPosY();
 

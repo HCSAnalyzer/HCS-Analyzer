@@ -28,10 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SimpleForm));
             this.chartForSimpleForm = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.contextMenuStripSimpleForm = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.DisplayParamaters = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.saveGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,8 +38,8 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.parametersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.chartForSimpleForm)).BeginInit();
-            this.contextMenuStripSimpleForm.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,32 +48,25 @@
             this.chartForSimpleForm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.chartForSimpleForm.ContextMenuStrip = this.contextMenuStripSimpleForm;
             this.chartForSimpleForm.Location = new System.Drawing.Point(12, 38);
             this.chartForSimpleForm.Name = "chartForSimpleForm";
             this.chartForSimpleForm.Size = new System.Drawing.Size(966, 446);
             this.chartForSimpleForm.TabIndex = 0;
             this.chartForSimpleForm.Text = "chart1";
-            // 
-            // contextMenuStripSimpleForm
-            // 
-            this.contextMenuStripSimpleForm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.DisplayParamaters});
-            this.contextMenuStripSimpleForm.Name = "contextMenuStripSimpleForm";
-            this.contextMenuStripSimpleForm.Size = new System.Drawing.Size(175, 48);
+            this.chartForSimpleForm.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chartForSimpleForm_MouseClick_1);
+            this.chartForSimpleForm.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.chartForSimpleForm_MouseDoubleClick_1);
             // 
             // DisplayParamaters
             // 
             this.DisplayParamaters.Name = "DisplayParamaters";
-            this.DisplayParamaters.Size = new System.Drawing.Size(174, 22);
-            this.DisplayParamaters.Text = "Display parameters";
-            this.DisplayParamaters.Click += new System.EventHandler(this.DisplayParamaters_Click);
+            this.DisplayParamaters.Size = new System.Drawing.Size(32, 19);
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveGraphToolStripMenuItem,
-            this.copyToClipboardToolStripMenuItem});
+            this.copyToClipboardToolStripMenuItem,
+            this.parametersToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(990, 24);
@@ -133,6 +124,13 @@
             this.dataToolStripMenuItem.Text = "Data";
             this.dataToolStripMenuItem.Click += new System.EventHandler(this.dataToolStripMenuItem_Click);
             // 
+            // parametersToolStripMenuItem
+            // 
+            this.parametersToolStripMenuItem.Name = "parametersToolStripMenuItem";
+            this.parametersToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.parametersToolStripMenuItem.Text = "Parameters";
+            this.parametersToolStripMenuItem.Click += new System.EventHandler(this.parametersToolStripMenuItem_Click);
+            // 
             // SimpleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -144,7 +142,6 @@
             this.Name = "SimpleForm";
             this.Text = "SimpleForm";
             ((System.ComponentModel.ISupportInitialize)(this.chartForSimpleForm)).EndInit();
-            this.contextMenuStripSimpleForm.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -162,7 +159,7 @@
         private System.Windows.Forms.ToolStripMenuItem saveGraphToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem printToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripSimpleForm;
         private System.Windows.Forms.ToolStripMenuItem DisplayParamaters;
+        private System.Windows.Forms.ToolStripMenuItem parametersToolStripMenuItem;
     }
 }

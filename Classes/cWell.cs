@@ -11,6 +11,10 @@ using HCSAnalyzer.jp.genome.soap;
 using HCSAnalyzer.Forms;
 using HCSAnalyzer.Classes;
 using weka.core;
+using System.Runtime.InteropServices;
+using System.Xml;
+using System.Collections;
+using System.Data.SqlClient;
 
 namespace LibPlateAnalysis
 {
@@ -532,6 +536,7 @@ namespace LibPlateAnalysis
             this.Parent.GlobalInfo.SwitchVisuMode();
         }
 
+
         private void DisplayHisto(object sender, EventArgs e)
         {
 
@@ -571,7 +576,7 @@ namespace LibPlateAnalysis
 
             List<double[]> HistoPos = Pos.CreateHistogram((int)Parent.GlobalInfo.OptionsWindow.numericUpDownHistoBin.Value);
             if (HistoPos == null) return;
-            SimpleForm NewWindow = new SimpleForm();
+            SimpleForm NewWindow = new SimpleForm(this.Parent);
 
             Series SeriesPos = new Series();
             SeriesPos.ShadowOffset = 1;
@@ -855,12 +860,15 @@ namespace LibPlateAnalysis
 
         }
 
+
+        static IList images = null;
+
         /// <summary>
         /// Display the information window related to the selected well
         /// </summary>
         public void DisplayInfoWindow()
         {
-            FormForWellInformation NewWindow = new FormForWellInformation();
+            FormForWellInformation NewWindow = new FormForWellInformation(this);
 
             NewWindow.textBoxName.Text = Name;
             NewWindow.textBoxInfo.Text = Info;
@@ -907,6 +915,8 @@ namespace LibPlateAnalysis
             //{
             //    CDisplayGraph DispGraph = new CDisplayGraph(CompleteScreening.Reference[CompleteScreening.ListDescriptors.CurrentSelectedDescriptor].ToArray(), CompleteScreening.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptor].GetName() + " - Reference distribution.");
             //}
+
+            NewWindow.richTextBoxDescription.AppendText("Plate: " + this.AssociatedPlate.Name + "\nWell: [" + this.GetPosX() + "x" + this.GetPosY() + "]");
 
             if (Parent.GlobalInfo.IsDistributionMode() && (Parent.Reference != null))
             {
@@ -959,6 +969,214 @@ namespace LibPlateAnalysis
 
             NewWindow.Text = PosX + "x" + PosY + " / " + StateForClassif;
 
+            string connec = string.Concat(new string[]  {"server=", "192.168.10.10", ";uid=", "IMG-USER", ";pwd=", "#####", ";database=", "OPERA_DB"});
+
+            string[] ListOpera = new string[3];
+            ListOpera[0] = "OPERA-COMMON";
+            ListOpera[1] = "OPERA-P3";
+            ListOpera[2] = "OPERA-SUWON";
+            List<string> strf = new List<string>(); 
+            
+            
+            string[] SplittedString  = Parent.ListPlatesActive[Parent.CurrentDisplayPlateIdx].Name.Split('(');
+            if (SplittedString.Length == 1) goto THEEND;
+            string PlateName = "(" + SplittedString[1];
+            SqlConnection sqc = new SqlConnection(connec);
+            for (int OperaIdx = 0; OperaIdx < ListOpera.Length; OperaIdx++)
+            {
+                //string queryString = "SELECT A.P_SEQ,A.LVL,A.PATH, A.TREE_NAME,B.MEA_NAME,B.MEA_YEAR, B.MEA_TYPE,B.BARCODE, C.MEA, C.[CIA-1],C.[CIA-2],C.[CIA-3], C.[CIA-4],C.[CIA-5],C.[CIA-6],";
+                //queryString += " A.END_FLAG FROM TB_OPERA_DB_TREE A LEFT OUTER JOIN TB_OPERA_MEA B ON A.ITEM_SEQ = B.MEA_PATH AND B.MEA_TYPE = '" + ListOpera[OperaIdx] + "' LEFT OUTER JOIN TB_OPERA_PATH C ON B.MEA_YEAR = C.EQ_YEAR";
+                //queryString += " AND B.MEA_TYPE = C.EQ_TYPE AND C.EQ_TYPE = '" + ListOpera[OperaIdx] + "' WHERE A.EQ_TYPE = '" + ListOpera[OperaIdx] + "' ORDER BY A.PATH ASC, A.LVL ASC, A.P_SEQ ASC";
+
+
+                string queryString = "SELECT B.MEA_NAME, B.BARCODE, C.[CIA-1],C.[CIA-2],C.[CIA-3], C.[CIA-4],C.[CIA-5],C.[CIA-6]";
+                queryString += " FROM TB_OPERA_DB_TREE A LEFT OUTER JOIN TB_OPERA_MEA B ON A.ITEM_SEQ = B.MEA_PATH AND B.MEA_TYPE = '" + ListOpera[OperaIdx] + "' LEFT OUTER JOIN TB_OPERA_PATH C ON B.MEA_YEAR = C.EQ_YEAR";
+                queryString += " AND B.MEA_TYPE = C.EQ_TYPE AND C.EQ_TYPE = '" + ListOpera[OperaIdx] + "' WHERE A.EQ_TYPE = '" + ListOpera[OperaIdx] + "' ORDER BY A.PATH ASC, A.LVL ASC, A.P_SEQ ASC";
+
+                SqlCommand command = new SqlCommand(queryString, sqc);
+                sqc.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                int cpt = 0;
+
+
+
+                while (reader.Read())
+                {
+                    if (reader.GetSqlString(0).ToString().Contains(PlateName))
+                    {
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            strf.Add(reader.GetSqlString(i).ToString());
+                        }
+                        goto THELOOPEND;
+                    }
+
+                    cpt++;
+                }
+                sqc.Close();
+
+            }
+
+        THELOOPEND: sqc.Close();
+
+
+            if (strf.Count > 1)
+            {
+                string specifier = "000";
+
+                string PX = this.GetPosX().ToString(specifier);
+                string PY = this.GetPosY().ToString(specifier);
+
+
+                for (int IdxCIA = 0; IdxCIA < 6; IdxCIA++)
+                {
+
+                    if (strf[IdxCIA + 2] == "Null") break;
+                    string FinalName = strf[0].Remove(strf[0].Length - 4);
+
+                    string NewTemp1 = strf[IdxCIA + 2] + "\\" + strf[1] + "\\" + FinalName + "\\" + PY + PX + "000.flex";
+                    if (File.Exists(NewTemp1))
+                    {
+                        Bitmap NewBMP = new Bitmap(NewTemp1);
+
+                        images = new ArrayList();
+                        int count = NewBMP.GetFrameCount(System.Drawing.Imaging.FrameDimension.Page);
+                        for (int idx = 0; idx < count; idx++)
+                        {
+                            // save each frame to a bytestream
+                            NewBMP.SelectActiveFrame(System.Drawing.Imaging.FrameDimension.Page, idx);
+                            MemoryStream byteStream = new MemoryStream();
+                            NewBMP.Save(byteStream, System.Drawing.Imaging.ImageFormat.Bmp);
+
+                            // and then create a new Image from it
+                            images.Add(Image.FromStream(byteStream));
+                        }
+
+                        NewWindow.numericUpDownIdxImage.Maximum = images.Count - 1;
+
+                        DrawPic(NewWindow, null, null);
+                        break;
+                    }
+                }
+
+            }
+
+
+            //    // display Image
+
+            //    string toSearch = AssociatedPlate.Name;
+            //    string[] ToSplit = toSearch.Split('/');
+
+            //    if (Parent.GlobalInfo.OptionsWindow.textBoxMainServer.Text == "") goto THEEND;
+            //    string[] ResultsPath = Directory.GetDirectories(Parent.GlobalInfo.OptionsWindow.textBoxMainServer.Text, ToSplit[0], SearchOption.AllDirectories);
+            //    string RealDir = "";
+            //    if (ResultsPath.Length == 0) goto THEEND;
+            //    foreach (string CurrPath in ResultsPath)
+            //    {
+            //        string[] Results = Directory.GetFiles(CurrPath, ToSplit[1] + ".mea", SearchOption.AllDirectories);
+            //        if (Results.Length == 1)
+            //        {
+            //            RealDir = Results[0];
+            //            break;
+            //        }
+            //    }
+
+            //    if (RealDir == "") goto THEEND;
+            //    //XmlReader XMLRead = XmlReader.Create(RealDir);
+            //    List<string> ListHosts = new List<string>();
+
+            //    XmlReader xmlReader = new XmlTextReader(RealDir);
+            //    xmlReader.MoveToContent();
+            //    while (!xmlReader.EOF)
+            //    {
+            //        string localName = xmlReader.LocalName;
+            //        switch (localName)
+            //        {
+            //            case "Host":
+            //                {
+            //                    string HostName = xmlReader["name"];
+            //                    if (HostName != null) ListHosts.Add(HostName);
+            //                    break;
+            //                }
+            //            default: break;
+            //        }
+            //        xmlReader.Read();
+            //    }
+
+            //    StreamReader st = new StreamReader(RealDir);
+            //    string FileRead = "";
+            //    while (!st.EndOfStream)
+            //    {
+            //        FileRead = st.ReadToEnd();
+            //    }
+
+            //    int Idx = FileRead.IndexOf("path");
+            //    string Stemp = FileRead.Remove(0, Idx + 6);
+            //    int Idx1 = Stemp.IndexOf("table_");
+
+            //    string NewTmp = Stemp.Remove(Idx1 - 11);
+
+            //    //string PX = "0"+this.GetPosX().ToString("N3");
+            //    string specifier = "000";
+
+            //    string PX = this.GetPosX().ToString(specifier);
+            //    string PY = this.GetPosY().ToString(specifier);
+
+            //    string NewHost = "";
+            //    foreach (string Host in ListHosts)
+            //    {
+            //        if (Host == "CIA-1") NewHost = "CIA-01";
+            //        if (Host == "CIA-2") NewHost = "CIA-02";
+            //        if (Host == "CIA-3") NewHost = "CIA-03";
+            //        if (Host == "CIA-4") NewHost = "CIA-04";
+
+            //        string NewTemp1 = "\\\\ip-korea.org\\REQ\\opr_p2_2012\\" + NewHost + "\\screening\\" + NewTmp + PY + PX + "000.flex";
+            //        if (File.Exists(NewTemp1))
+            //        {
+
+            //            //  Graphics g = Graphics.FromImage(NewBMP);
+            //            Bitmap NewBMP = new Bitmap(NewTemp1);
+
+            //            //XmpParser parser = new XmpParser();
+            //            //System.Xml.XmlDocument xml = (System.Xml.XmlDocument)parser.ParseFromImage(stream, frameIndex);
+
+
+            //            images = new ArrayList();
+
+
+            //            int count = NewBMP.GetFrameCount(System.Drawing.Imaging.FrameDimension.Page);
+            //            for (int idx = 0; idx < count; idx++)
+            //            {
+            //                // save each frame to a bytestream
+            //                NewBMP.SelectActiveFrame(System.Drawing.Imaging.FrameDimension.Page, idx);
+            //                MemoryStream byteStream = new MemoryStream();
+            //                NewBMP.Save(byteStream, System.Drawing.Imaging.ImageFormat.Bmp);
+
+            //                // and then create a new Image from it
+            //                images.Add(Image.FromStream(byteStream));
+            //            }
+
+            //            NewWindow.numericUpDownIdxImage.Maximum = images.Count - 1;
+
+            //            DrawPic(NewWindow, null, null);
+            //        }
+            //    }
+            ////Graphics g = NewWindow.pictureBoxForImage.CreateGraphics();
+            ////g.DrawImage((Image)NewBMP, 1, 1);
+            ////NewBMP.PixelFormat = System.Drawing.Imaging.PixelFormat.Format16bppRgb555;
+            //// NewWindow.pictureBoxForImage.Image = (Image)NewBMP;
+            ////NewWindow.pictureBoxForImage.Image = System.Drawing.Image.FromFile("005001000.tiff", true);
+            ////  NewWindow.pictureBoxForImage.Image = System.Drawing.Image.FromFile("hilbert.tif");
+            ////NewWindow.pictureBoxForImage.
+            //THEEND: ;
+
+            THEEND: ;
+
+            NewWindow.chartForFormWell.Update();
+            //NewWindow.chartForFormWell.Show();
+
+
             if (NewWindow.ShowDialog() == DialogResult.OK)
             {
                 this.Info = NewWindow.textBoxInfo.Text;
@@ -969,10 +1187,62 @@ namespace LibPlateAnalysis
 
                 this.Parent.GetCurrentDisplayPlate().DisplayDistribution(this.Parent.ListDescriptors.CurrentSelectedDescriptor, false);
             }
-
-            NewWindow.chartForFormWell.Update();
-            NewWindow.chartForFormWell.Show();
             return;
+        }
+
+        public void DrawPic(FormForWellInformation NewWindow, List<double> lMin, List<double> lMax)
+        {
+            if (images == null) return;
+
+
+
+
+            Bitmap NewBMP = (Bitmap)images[(int)NewWindow.numericUpDownIdxImage.Value];
+
+            double Max = int.MinValue;
+            double Min = int.MaxValue;
+
+
+
+
+            cExtendedList PixelValues = new cExtendedList();
+            for (int Y = 0; Y < NewBMP.Height; Y++)
+                for (int X = 0; X < NewBMP.Width; X++)
+                {
+                    Color Col = NewBMP.GetPixel(X, Y);
+                    PixelValues.Add(Col.R);
+                    if (Col.R > Max) Max = Col.R;
+                    if (Col.R < Min) Min = Col.R;
+                }
+
+
+
+
+            if (lMin == null) NewWindow.numericUpDownImageMin.Value = (decimal)Min;
+            if (lMax == null) NewWindow.numericUpDownImageMax.Value = (decimal)Max;
+
+            Min = (double)NewWindow.numericUpDownImageMin.Value;
+            Max = (double)NewWindow.numericUpDownImageMax.Value;
+
+            //   NewWindow.panelForImage.Width = NewBMP.Width;
+            //   NewWindow.panelForImage.Height = NewBMP.Height;
+            NewWindow.pictureBoxForImage.SizeMode = PictureBoxSizeMode.StretchImage;
+            //NewWindow.pictureBoxForImage.Width = 1000;
+            //NewWindow.pictureBoxForImage.Height = 1000;
+
+            int ConvertedValue = 0;
+
+            Bitmap FinalBMP = new Bitmap(NewBMP);
+
+            for (int Y = 0; Y < NewBMP.Height; Y++)
+                for (int X = 0; X < NewBMP.Width; X++)
+                {
+                    ConvertedValue = 0;
+                    if (Max != Min)
+                        ConvertedValue = (int)(((Parent.GlobalInfo.LUT[0].Length - 1) * (PixelValues[X + Y * NewBMP.Width] - Min)) / (Max - Min));
+                    FinalBMP.SetPixel(X, Y, Color.FromArgb(Parent.GlobalInfo.LUT[0][ConvertedValue], Parent.GlobalInfo.LUT[1][ConvertedValue], Parent.GlobalInfo.LUT[2][ConvertedValue]));
+                }
+            NewWindow.pictureBoxForImage.Image = (Image)FinalBMP;
         }
 
         private void DisplayInfo(object sender, EventArgs e)

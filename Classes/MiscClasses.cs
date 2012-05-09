@@ -245,6 +245,7 @@ namespace HCSAnalyzer.Classes
         }
 
 
+
         public double Dist_EarthMover(cExtendedList CompareTo)
         {
             Matrix<float> Signature1 = new Matrix<float>(this.Count, 2);
@@ -264,6 +265,7 @@ namespace HCSAnalyzer.Classes
             
             return ResutatEMD;
         }
+
 
     }
 

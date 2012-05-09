@@ -96,6 +96,9 @@ namespace LibPlateAnalysis
         public Point ptOriginal = new Point();
         public Point ptLast = new Point();
 
+        public Point ClientPosFirst = new Point();
+        public Point ClientPosLast = new Point();
+
         public List<string> ListPlateBaseddescriptorNames;
         
         public int GetNumberOfActiveDescriptor()

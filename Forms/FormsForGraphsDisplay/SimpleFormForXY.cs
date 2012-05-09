@@ -8,13 +8,14 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Windows.Forms.DataVisualization.Charting;
+using HCSAnalyzer.Forms.FormsForGraphsDisplay;
 
 namespace LibPlateAnalysis
 {
     public partial class SimpleFormForXY : Form
     {
         public cScreening CompleteScreening = null;
-
+        FormForMaxMinRequest RequestWindow = new FormForMaxMinRequest();
         private bool IsFullScreen;
 
         public SimpleFormForXY(bool IsFullScreen)
@@ -177,18 +178,22 @@ namespace LibPlateAnalysis
                             CurrentSeries.Points.AddXY(TempX, TempY);
                             CurrentSeries.Points[Idx].Color = TmpWell.GetColor();
 
-                            if(IsFullScreen)
+                            if (IsFullScreen)
                                 CurrentSeries.Points[Idx].ToolTip = TmpWell.AssociatedPlate.Name + "\n" + TmpWell.GetPosX() + "x" + TmpWell.GetPosY() + " :" + TmpWell.Name;
                             else
-                            CurrentSeries.Points[Idx].ToolTip = TmpWell.GetPosX() + "x" + TmpWell.GetPosY() + " :" + TmpWell.Name;
-
+                                CurrentSeries.Points[Idx].ToolTip = TmpWell.GetPosX() + "x" + TmpWell.GetPosY() + " :" + TmpWell.Name;
+                            CurrentSeries.Points[Idx].Tag = TmpWell;
                             CurrentSeries.Points[Idx].MarkerStyle = MarkerStyle.Circle;
                             CurrentSeries.Points[Idx].MarkerSize = 8;
                             Idx++;
                         }
                     }
             }
+
+
+
             CurrentChartArea.CursorX.IsUserSelectionEnabled = true;
+            CurrentChartArea.CursorY.IsUserSelectionEnabled = true;
             CurrentChartArea.BorderColor = Color.Black;
             this.chartForSimpleFormXY.ChartAreas.Clear();
             this.chartForSimpleFormXY.ChartAreas.Add(CurrentChartArea);
@@ -212,9 +217,96 @@ namespace LibPlateAnalysis
             this.chartForSimpleFormXY.Series.Clear();
             this.chartForSimpleFormXY.Series.Add(CurrentSeries);
 
-            this.Text = "Scatter Point / " + Idx+ " points";
-            this.chartForSimpleFormXY.Update();
+            this.Text = "Scatter Point / " + Idx + " points";
 
+            //  this.chartForSimpleFormXY.GetToolTipText += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ToolTipEventArgs>(this.chartForSimpleFormXY_GetToolTipText);
+
+
+            this.chartForSimpleFormXY.Update();
         }
+
+
+
+
+
+
+
+        private void chartForSimpleFormXY_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            HitTestResult Res = this.chartForSimpleFormXY.HitTest(e.X, e.Y, ChartElementType.DataPoint);
+
+            if ((Res.Series == null) || (Res.Series.Points[Res.PointIndex].Tag.GetType().Name.ToString() != "cWell")) return;
+
+            cWell TmpWell = (cWell)(Res.Series.Points[Res.PointIndex].Tag);
+            if (TmpWell == null) return;
+
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                //CompleteScreening.GlobalInfo.WindowHCSAnalyzer.tabControlMain.SelectedTab = CompleteScreening.GlobalInfo.WindowHCSAnalyzer.tabPageDistribution;
+                int PosPlate = CompleteScreening.GlobalInfo.WindowHCSAnalyzer.toolStripcomboBoxPlateList.FindStringExact(TmpWell.AssociatedPlate.Name);
+                CompleteScreening.GlobalInfo.WindowHCSAnalyzer.toolStripcomboBoxPlateList.SelectedIndex = PosPlate;
+                CompleteScreening.CurrentDisplayPlateIdx = PosPlate;
+                CompleteScreening.GetCurrentDisplayPlate().DisplayDistribution(CompleteScreening.ListDescriptors.CurrentSelectedDescriptor, false);
+                TmpWell.DisplayInfoWindow();
+            }
+        }
+
+
+
+ 
+        static DataPoint PtToTransfer;
+        void ChangeClass(object sender, EventArgs e)
+        {
+            cWell WellToTransfer = (cWell)(PtToTransfer.Tag);
+            if (WellToTransfer == null) return;
+            WellToTransfer.SetClass(int.Parse(sender.ToString().Remove(0, 6)));
+            WellToTransfer.AssociatedPlate.UpdateNumberOfClass();
+            PtToTransfer.Color = WellToTransfer.GetColor();
+        }
+
+        private void parametersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.chartForSimpleFormXY.Series[0].Points.Count >= 1)
+                RequestWindow.numericUpDownMarkerSize.Value = (decimal)this.chartForSimpleFormXY.Series[0].Points[0].MarkerSize;
+
+
+            RequestWindow.numericUpDownMax.Value = (decimal)this.chartForSimpleFormXY.ChartAreas[0].AxisY.Maximum;
+            RequestWindow.numericUpDownMin.Value = (decimal)this.chartForSimpleFormXY.ChartAreas[0].AxisY.Minimum;
+
+            if (RequestWindow.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+
+            if (RequestWindow.numericUpDownMax.Value <= RequestWindow.numericUpDownMin.Value) return;
+
+            this.chartForSimpleFormXY.ChartAreas[0].AxisY.Maximum = (double)RequestWindow.numericUpDownMax.Value;
+            this.chartForSimpleFormXY.ChartAreas[0].AxisY.Minimum = (double)RequestWindow.numericUpDownMin.Value;
+            foreach (DataPoint Pt in this.chartForSimpleFormXY.Series[0].Points)
+            {
+                Pt.MarkerSize = (int)RequestWindow.numericUpDownMarkerSize.Value;
+
+            }
+        }
+
+        private void chartForSimpleFormXY_MouseClick_1(object sender, MouseEventArgs e)
+        {
+ if ((e.Button != System.Windows.Forms.MouseButtons.Right) || (CompleteScreening == null)) return;
+
+            ContextMenuStrip contextMenuStripActorPicker = new ContextMenuStrip();
+            for (int i = 0; i < CompleteScreening.GlobalInfo.GetNumberofDefinedClass(); i++)
+            {
+                ToolStripItem ChangeClassItem = new ToolStripMenuItem("Class " + i);
+                ChangeClassItem.Click += new System.EventHandler(this.ChangeClass);
+                contextMenuStripActorPicker.Items.Add(ChangeClassItem);
+            }
+
+            HitTestResult Res = this.chartForSimpleFormXY.HitTest(e.X, e.Y, ChartElementType.DataPoint);
+            if (Res.Series.Points[Res.PointIndex].Tag.GetType().Name.ToString() != "cWell") return;
+            PtToTransfer = Res.Series.Points[Res.PointIndex];
+            contextMenuStripActorPicker.Show(Control.MousePosition);
+        }
+
+
+
+
+
     }
 }

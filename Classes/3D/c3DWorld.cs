@@ -125,16 +125,19 @@ namespace HCSAnalyzer.Classes._3D
         //    ListVolume = new List<cVolume3D>();
         //}
 
+
+        private cScreening CurrentScreen;
+
         /// <summary>
         /// Create a 3D world
         /// </summary>
         /// <param name="CurrentrenderWindowControl">vtk Control</param>
         /// <param name="Dimensions">in pixels</param>
         /// <param name="Resolution">spatial resolutions</param>
-        public c3DWorld(cPoint3D Dimensions, cPoint3D Resolution, RenderWindowControl CurrentrenderWindowControl, int[] WinPos)
+        public c3DWorld(cPoint3D Dimensions, cPoint3D Resolution, RenderWindowControl CurrentrenderWindowControl, int[] WinPos, cScreening CurrentScreen)
         {
 
-
+            this.CurrentScreen = CurrentScreen;
             // int[] Pos =  renWin.GetPosition();
 
             //,
@@ -226,6 +229,11 @@ namespace HCSAnalyzer.Classes._3D
             ToolStripMenuItem ScaleItem = new ToolStripMenuItem("Scale");
             ToolStripMenuItem_World.DropDownItems.Add(ScaleItem);
             ScaleItem.Click += new System.EventHandler(this.ScaleClicking);
+
+
+            ToolStripMenuItem OptionsItem = new ToolStripMenuItem("Options");
+            //ToolStripMenuItem_World.DropDownItems.Add(OptionsItem);
+            OptionsItem.Click += new System.EventHandler(this.OptionsItem);
 
             ToolStripMenuItem ColorItem = new ToolStripMenuItem("Background Color");
             ToolStripMenuItem_World.DropDownItems.Add(ColorItem);
@@ -328,6 +336,9 @@ namespace HCSAnalyzer.Classes._3D
                                         MemoryStream ms = new MemoryStream();
                                         TmpWell.AssociatedWell.GetChart().SaveImage(ms, ChartImageFormat.Bmp);
                                         TypeItem.Image = new Bitmap(ms);
+
+                                        
+
                                         TypeItem.ImageScaling = ToolStripItemImageScaling.None;
                                         TypeItem.Size = new System.Drawing.Size(48, 48);
                                         
@@ -401,16 +412,10 @@ namespace HCSAnalyzer.Classes._3D
                                   //  CurrentlySelectedWell = TmpWell.AssociatedWell;
 
                                   //  TypeItem.Click += new System.EventHandler(this.WellInfoClick);
-
-
                                 }
-
-
 
                                 if (((cInteractive3DObject)ListObject[i]).ThumbnailnewImage != null)
                                 {
-
-
                                     //    TypeItem.Image = ((cBiological3DObject)ListObject[i]).ThumbnailnewImage;
                                     //    TypeItem.ImageScaling = ToolStripItemImageScaling.None;
                                     //    TypeItem.Size = new System.Drawing.Size(48, 48);
@@ -437,15 +442,15 @@ namespace HCSAnalyzer.Classes._3D
 
                     ToolStripSeparator SepratorStrip = new ToolStripSeparator();
                     if (ToolStripMenuItem_MetaDescriptorDisplay != null)
-                        contextMenuStripActorPicker.Items.AddRange(new ToolStripItem[] { TypeItem, SepratorStrip, ToolStripMenuItem_World, ToolStripMenuItem_ObjectDisplay, ToolStripMenuItem_DescriptorDisplay, ToolStripMenuItem_MetaDescriptorDisplay });
+                        contextMenuStripActorPicker.Items.AddRange(new ToolStripItem[] { TypeItem, SepratorStrip, OptionsItem, ToolStripMenuItem_World, ToolStripMenuItem_ObjectDisplay, ToolStripMenuItem_DescriptorDisplay, ToolStripMenuItem_MetaDescriptorDisplay });
                     else
-                        contextMenuStripActorPicker.Items.AddRange(new ToolStripItem[] { TypeItem, SepratorStrip, ToolStripMenuItem_World, ToolStripMenuItem_ObjectDisplay, ToolStripMenuItem_DescriptorDisplay });
+                        contextMenuStripActorPicker.Items.AddRange(new ToolStripItem[] { TypeItem, SepratorStrip, OptionsItem, ToolStripMenuItem_World, ToolStripMenuItem_ObjectDisplay, ToolStripMenuItem_DescriptorDisplay });
                 }
                 else
-                    contextMenuStripActorPicker.Items.AddRange(new ToolStripItem[] { ToolStripMenuItem_World });
+                    contextMenuStripActorPicker.Items.AddRange(new ToolStripItem[] {OptionsItem, ToolStripMenuItem_World });
             }
             else
-                contextMenuStripActorPicker.Items.AddRange(new ToolStripItem[] { ToolStripMenuItem_World });
+                contextMenuStripActorPicker.Items.AddRange(new ToolStripItem[] {OptionsItem, ToolStripMenuItem_World });
 
             int[] PosWindow = this.renWin.GetSize();
             contextMenuStripActorPicker.Show(Control.MousePosition);
@@ -707,6 +712,21 @@ namespace HCSAnalyzer.Classes._3D
             this.SetBackgroundColor(backgroundColor);
             this.renWin.Render();
 
+        }
+
+        void OptionsItem(object sender, EventArgs e)
+        {
+            //ColorDialog colorDialog = new ColorDialog();
+            //if (colorDialog.ShowDialog() != DialogResult.OK) return;
+            //Color backgroundColor = colorDialog.Color;
+            //this.SetBackgroundColor(backgroundColor);
+            //this.renWin.Render();
+
+            this.CurrentScreen.GlobalInfo.OptionsWindow.tabControlWindowOption.SelectedTab = this.CurrentScreen.GlobalInfo.OptionsWindow.tabPage3D;
+
+            this.CurrentScreen.GlobalInfo.OptionsWindow.CurrentScreen = this.CurrentScreen;
+            this.CurrentScreen.GlobalInfo.OptionsWindow.Visible = !this.CurrentScreen.GlobalInfo.OptionsWindow.Visible;
+            this.CurrentScreen.GlobalInfo.OptionsWindow.Update();
         }
 
         void RenderWindow_KeyPressEvt(vtkObject sender, vtkObjectEventArgs e)

@@ -365,75 +365,67 @@ namespace LibPlateAnalysis
             int SelectionType = ParentScreening.GetSelectionType();
             if (SelectionType == -2) return;
 
-            int PosMouseXMax = ParentScreening.ptLast.X;
-            int PosMouseXMin = ParentScreening.ptOriginal.X;
-            if (ParentScreening.ptOriginal.X > PosMouseXMax)
+            int PosMouseXMax = ParentScreening.ClientPosLast.X;
+            int PosMouseXMin = ParentScreening.ClientPosFirst.X;
+
+            if (ParentScreening.ClientPosFirst.X > PosMouseXMax)
             {
-                PosMouseXMax = ParentScreening.ptOriginal.X;
-                PosMouseXMin = ParentScreening.ptLast.X;
+                PosMouseXMax = ParentScreening.ClientPosFirst.X;
+                PosMouseXMin = ParentScreening.ClientPosLast.X;
             }
 
-            int PosMouseYMax = ParentScreening.ptLast.Y;
-            int PosMouseYMin = ParentScreening.ptOriginal.Y;
-            if (ParentScreening.ptOriginal.Y > PosMouseYMax)
+            int PosMouseYMax = ParentScreening.ClientPosLast.Y;
+            int PosMouseYMin = ParentScreening.ClientPosFirst.Y;
+            if (ParentScreening.ClientPosFirst.Y > PosMouseYMax)
             {
-                PosMouseYMax = ParentScreening.ptOriginal.Y;
-                PosMouseYMin = ParentScreening.ptLast.Y;
+                PosMouseYMax = ParentScreening.ClientPosFirst.Y;
+                PosMouseYMin = ParentScreening.ClientPosLast.Y;
             }
-
-
-
-
 
             int GutterSize = (int)ParentScreening.GlobalInfo.OptionsWindow.numericUpDownGutter.Value;
+            int ScrollShiftX = ParentScreening.GlobalInfo.WindowHCSAnalyzer.panelForPlate.HorizontalScroll.Value;
+            int ScrollShiftY = ParentScreening.GlobalInfo.WindowHCSAnalyzer.panelForPlate.VerticalScroll.Value;
 
+            List<cPlate> ListPlateToProcess = new List<cPlate>();
             if (ParentScreening.IsSelectionApplyToAllPlates == true)
             {
-                int NumberOfPlates = ParentScreening.GetNumberOfActivePlates();
-
-                for (int j = 0; j < ParentScreening.Rows; j++)
-                    for (int i = 0; i < ParentScreening.Columns; i++)
-                    {
-                        cWell TempWell = GetWell(i, j, false);
-                        if (TempWell == null) continue;
-                        int PWellX = (int)((TempWell.GetPosX() + 1) * (ParentScreening.GlobalInfo.SizeHistoWidth + GutterSize));// - 2*ParentScreening.GlobalInfo.ShiftX);
-                        int PWellY = (int)((TempWell.GetPosY() + 1) * (ParentScreening.GlobalInfo.SizeHistoHeight + GutterSize) + (int)(GutterSize * 2.5) + 60);// + (int)ParentScreening.GlobalInfo.OptionsWindow.numericUpDownShiftY.Value);
-
-                        if ((PWellX > PosMouseXMin) && (PWellX < PosMouseXMax) && (PWellY > PosMouseYMin) && (PWellY < PosMouseYMax))
-                        {
-                            for (int PlateIdx = 0; PlateIdx < NumberOfPlates; PlateIdx++)
-                            {
-                                cPlate CurrentPlateToProcess = ParentScreening.ListPlatesActive.GetPlate(PlateIdx);
-                                TempWell = CurrentPlateToProcess.GetWell(i, j, false);
-                                if (TempWell == null) continue;
-                                if (SelectionType == -1)
-                                    TempWell.SetAsNoneSelected();
-                                else
-                                    TempWell.SetClass(SelectionType);
-                            }
-                        }
-                    }
+                ListPlateToProcess = ParentScreening.ListPlatesActive;
             }
             else
             {
-                for (int j = 0; j < ParentScreening.Rows; j++)
-                    for (int i = 0; i < ParentScreening.Columns; i++)
-                    {
-                        cWell TempWell = GetWell(i, j, false);
-                        if (TempWell == null) continue;
-                        int PWellX = (int)((TempWell.GetPosX() + 1) * (ParentScreening.GlobalInfo.SizeHistoWidth + GutterSize));// - 2*ParentScreening.GlobalInfo.ShiftX);
-                        int PWellY = (int)((TempWell.GetPosY() + 1) * (ParentScreening.GlobalInfo.SizeHistoHeight + GutterSize) + +(int)(GutterSize * 2.5) + 60);// (int)ParentScreening.GlobalInfo.OptionsWindow.numericUpDownShiftY.Value);
+                ListPlateToProcess.Add(this);
+            }
+                int NumberOfPlates = ParentScreening.GetNumberOfActivePlates();
 
-                        if ((PWellX > PosMouseXMin) && (PWellX < PosMouseXMax) && (PWellY > PosMouseYMin) && (PWellY < PosMouseYMax))
+                //Point ResMin = ParentScreening.GlobalInfo.WindowHCSAnalyzer.panelForPlate.GetChildAtPoint(new Point(PosMouseXMin, PosMouseYMin));
+
+                int PosWellMinX = (int)((PosMouseXMin - ScrollShiftX) / (ParentScreening.GlobalInfo.SizeHistoWidth + GutterSize));
+                int PosWellMinY = (int)((PosMouseYMin - ScrollShiftY) / (ParentScreening.GlobalInfo.SizeHistoHeight + GutterSize));
+
+                int PosWellMaxX = (int)((PosMouseXMax - ScrollShiftX) / (ParentScreening.GlobalInfo.SizeHistoWidth + GutterSize));
+                int PosWellMaxY = (int)((PosMouseYMax - ScrollShiftY) / (ParentScreening.GlobalInfo.SizeHistoHeight + GutterSize));
+
+
+                if (PosWellMaxX > ParentScreening.Columns) PosWellMaxX = ParentScreening.Columns;
+                if (PosWellMaxY > ParentScreening.Rows) PosWellMaxY = ParentScreening.Rows;
+                if (PosWellMinX < 0) PosWellMinX = 0;
+                if (PosWellMinY < 0) PosWellMinY = 0;
+
+
+                foreach (cPlate CurrentPlate in ListPlateToProcess)
+                {
+                    for (int j = PosWellMinY; j < PosWellMaxY; j++)
+                        for (int i = PosWellMinX; i < PosWellMaxX; i++)
                         {
+                            cWell TempWell = CurrentPlate.GetWell(i, j, false);
+
+                            if (TempWell == null) continue;
                             if (SelectionType == -1)
                                 TempWell.SetAsNoneSelected();
                             else
                                 TempWell.SetClass(SelectionType);
                         }
-                    }
-
-            }
+                }
             ParentScreening.GetCurrentDisplayPlate().UpdateNumberOfClass();
             ParentScreening.UpdateListActiveWell();
 
@@ -597,7 +589,7 @@ namespace LibPlateAnalysis
             {
                 if (ParentScreening._3DWorldForPlateDisplay == null)
                 {
-                    ParentScreening._3DWorldForPlateDisplay = new c3DWorld(new cPoint3D(ParentScreening.Columns, ParentScreening.Rows, 1), new cPoint3D(1, 1, 1), ParentScreening.GlobalInfo.renderWindowControlForVTK, ParentScreening.GlobalInfo.WinSize);
+                    ParentScreening._3DWorldForPlateDisplay = new c3DWorld(new cPoint3D(ParentScreening.Columns, ParentScreening.Rows, 1), new cPoint3D(1, 1, 1), ParentScreening.GlobalInfo.renderWindowControlForVTK, ParentScreening.GlobalInfo.WinSize, this.ParentScreening);
 
 
                     Display3Dplate(IdxDescriptor, new cPoint3D(0, 0, 0));

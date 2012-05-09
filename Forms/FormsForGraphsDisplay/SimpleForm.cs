@@ -16,14 +16,20 @@ namespace LibPlateAnalysis
     {
         FormForMaxMinRequest RequestWindow = new FormForMaxMinRequest();
 
+        cScreening CompleteScreening = null;
+
+        public SimpleForm(cScreening CompleteScreening)
+        {
+            InitializeComponent();
+            this.CompleteScreening = CompleteScreening;
+        }
+
 
         public SimpleForm()
         {
             InitializeComponent();
+
         }
-
-
-
         private void saveGraphToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog CurrSaveFileDialog = new SaveFileDialog();
@@ -98,7 +104,6 @@ namespace LibPlateAnalysis
             return sb.ToString();
         }
 
-
         private void dataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(GetValues());
@@ -111,7 +116,22 @@ namespace LibPlateAnalysis
             this.chartForSimpleForm.Printing.Print(false);
         }
 
-        private void DisplayParamaters_Click(object sender, EventArgs e)
+
+
+        static DataPoint PtToTransfer;
+        void ChangeClass(object sender, EventArgs e)
+        {
+            cWell WellToTransfer = (cWell)(PtToTransfer.Tag);
+            if (WellToTransfer == null) return;
+            WellToTransfer.SetClass(int.Parse(sender.ToString().Remove(0, 6)));
+            WellToTransfer.AssociatedPlate.UpdateNumberOfClass();
+            PtToTransfer.Color = WellToTransfer.GetColor();
+        }
+
+
+
+
+        private void parametersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.chartForSimpleForm.Series[0].Points.Count >= 1)
                 RequestWindow.numericUpDownMarkerSize.Value = (decimal)this.chartForSimpleForm.Series[0].Points[0].MarkerSize;
@@ -132,6 +152,47 @@ namespace LibPlateAnalysis
 
             }
         }
+
+        private void chartForSimpleForm_MouseClick_1(object sender, MouseEventArgs e)
+        {
+            if ((e.Button != System.Windows.Forms.MouseButtons.Right) || (CompleteScreening == null)) return;
+            HitTestResult Res = this.chartForSimpleForm.HitTest(e.X, e.Y, ChartElementType.DataPoint);
+            if (Res.Series == null) return;
+
+            ContextMenuStrip contextMenuStripActorPicker = new ContextMenuStrip();
+            for (int i = 0; i < CompleteScreening.GlobalInfo.GetNumberofDefinedClass(); i++)
+            {
+                ToolStripItem ChangeClassItem = new ToolStripMenuItem("Class " + i);
+                ChangeClassItem.Click += new System.EventHandler(this.ChangeClass);
+                contextMenuStripActorPicker.Items.Add(ChangeClassItem);
+            }
+
+            if ((Res.Series.Points[Res.PointIndex].Tag == null) || (Res.Series.Points[Res.PointIndex].Tag.GetType().Name.ToString() != "cWell")) return;
+            PtToTransfer = Res.Series.Points[Res.PointIndex];
+            contextMenuStripActorPicker.Show(Control.MousePosition);
+        }
+
+        private void chartForSimpleForm_MouseDoubleClick_1(object sender, MouseEventArgs e)
+        {
+            if (CompleteScreening == null) return;
+            HitTestResult Res = this.chartForSimpleForm.HitTest(e.X, e.Y, ChartElementType.DataPoint);
+
+            if ((Res.Series == null) || (Res.Series.Points[Res.PointIndex].Tag == null) || (Res.Series.Points[Res.PointIndex].Tag.GetType().Name.ToString() != "cWell")) return;
+
+            cWell TmpWell = (cWell)(Res.Series.Points[Res.PointIndex].Tag);
+            if (TmpWell == null) return;
+
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                // CompleteScreening.GlobalInfo.WindowHCSAnalyzer.tabControlMain.SelectedTab = CompleteScreening.GlobalInfo.WindowHCSAnalyzer.tabPageDistribution;
+                int PosPlate = CompleteScreening.GlobalInfo.WindowHCSAnalyzer.toolStripcomboBoxPlateList.FindStringExact(TmpWell.AssociatedPlate.Name);
+                CompleteScreening.GlobalInfo.WindowHCSAnalyzer.toolStripcomboBoxPlateList.SelectedIndex = PosPlate;
+                CompleteScreening.CurrentDisplayPlateIdx = PosPlate;
+                CompleteScreening.GetCurrentDisplayPlate().DisplayDistribution(CompleteScreening.ListDescriptors.CurrentSelectedDescriptor, false);
+                TmpWell.DisplayInfoWindow();
+            }
+        }
+
 
 
     }

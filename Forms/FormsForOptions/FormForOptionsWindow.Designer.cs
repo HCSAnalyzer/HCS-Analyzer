@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormForOptionsWindow));
-            this.tabControlClustering = new System.Windows.Forms.TabControl();
+            this.tabControlWindowOption = new System.Windows.Forms.TabControl();
             this.tabPageImport = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBoxSetActiveOnlyForNamed = new System.Windows.Forms.CheckBox();
@@ -126,7 +126,7 @@
             this.radioButtonReplicatesAverageStdev = new System.Windows.Forms.RadioButton();
             this.radioButtonReplicateAllValues = new System.Windows.Forms.RadioButton();
             this.buttonDRCPlateDesign = new System.Windows.Forms.Button();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tabPage3D = new System.Windows.Forms.TabPage();
             this.groupBox23 = new System.Windows.Forms.GroupBox();
             this.checkBox3DPlateInformation = new System.Windows.Forms.CheckBox();
             this.groupBox22 = new System.Windows.Forms.GroupBox();
@@ -147,16 +147,26 @@
             this.label25 = new System.Windows.Forms.Label();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.groupBox24 = new System.Windows.Forms.GroupBox();
+            this.radioButtonDistributionMetricEMD = new System.Windows.Forms.RadioButton();
+            this.radioButtonDistributionMetricBhattacharyya = new System.Windows.Forms.RadioButton();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.radioButtonDistributionMetricCosine = new System.Windows.Forms.RadioButton();
             this.radioButtonDistributionMetricManhattan = new System.Windows.Forms.RadioButton();
             this.radioButtonDistributionMetricEuclidean = new System.Windows.Forms.RadioButton();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.radioButtonServerUltra = new System.Windows.Forms.RadioButton();
+            this.radioButtonServerOperetta = new System.Windows.Forms.RadioButton();
+            this.radioButtonServerOpera = new System.Windows.Forms.RadioButton();
+            this.groupBoxServerOperetta = new System.Windows.Forms.GroupBox();
+            this.groupBoxServerUltra = new System.Windows.Forms.GroupBox();
+            this.groupBoxServerOpera = new System.Windows.Forms.GroupBox();
+            this.buttonModifyServer = new System.Windows.Forms.Button();
+            this.label31 = new System.Windows.Forms.Label();
+            this.textBoxMainServer = new System.Windows.Forms.TextBox();
             this.buttonOk = new System.Windows.Forms.Button();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
-            this.radioButtonDistributionMetricCosine = new System.Windows.Forms.RadioButton();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.radioButtonDistributionMetricBhattacharyya = new System.Windows.Forms.RadioButton();
-            this.radioButtonDistributionMetricEMD = new System.Windows.Forms.RadioButton();
-            this.tabControlClustering.SuspendLayout();
+            this.tabControlWindowOption.SuspendLayout();
             this.tabPageImport.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -204,7 +214,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGenerateScreenNoiseStdDev)).BeginInit();
             this.tabPage6.SuspendLayout();
             this.groupBox19.SuspendLayout();
-            this.tabPage7.SuspendLayout();
+            this.tabPage3D.SuspendLayout();
             this.groupBox23.SuspendLayout();
             this.groupBox22.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3DThinPlateRegularization)).BeginInit();
@@ -215,27 +225,30 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellOpacity)).BeginInit();
             this.tabPage8.SuspendLayout();
             this.groupBox24.SuspendLayout();
+            this.tabPage9.SuspendLayout();
+            this.groupBoxServerOpera.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControlClustering
+            // tabControlWindowOption
             // 
-            this.tabControlClustering.Controls.Add(this.tabPageImport);
-            this.tabControlClustering.Controls.Add(this.tabPageDisplay);
-            this.tabControlClustering.Controls.Add(this.tabPage3);
-            this.tabControlClustering.Controls.Add(this.tabPageClassification);
-            this.tabControlClustering.Controls.Add(this.tabPage1);
-            this.tabControlClustering.Controls.Add(this.tabPage2);
-            this.tabControlClustering.Controls.Add(this.tabPage4);
-            this.tabControlClustering.Controls.Add(this.tabPage5);
-            this.tabControlClustering.Controls.Add(this.tabPage6);
-            this.tabControlClustering.Controls.Add(this.tabPage7);
-            this.tabControlClustering.Controls.Add(this.tabPage8);
-            this.tabControlClustering.Location = new System.Drawing.Point(12, 12);
-            this.tabControlClustering.Multiline = true;
-            this.tabControlClustering.Name = "tabControlClustering";
-            this.tabControlClustering.SelectedIndex = 0;
-            this.tabControlClustering.Size = new System.Drawing.Size(404, 446);
-            this.tabControlClustering.TabIndex = 0;
+            this.tabControlWindowOption.Controls.Add(this.tabPageImport);
+            this.tabControlWindowOption.Controls.Add(this.tabPageDisplay);
+            this.tabControlWindowOption.Controls.Add(this.tabPage3);
+            this.tabControlWindowOption.Controls.Add(this.tabPageClassification);
+            this.tabControlWindowOption.Controls.Add(this.tabPage1);
+            this.tabControlWindowOption.Controls.Add(this.tabPage2);
+            this.tabControlWindowOption.Controls.Add(this.tabPage4);
+            this.tabControlWindowOption.Controls.Add(this.tabPage5);
+            this.tabControlWindowOption.Controls.Add(this.tabPage6);
+            this.tabControlWindowOption.Controls.Add(this.tabPage3D);
+            this.tabControlWindowOption.Controls.Add(this.tabPage8);
+            this.tabControlWindowOption.Controls.Add(this.tabPage9);
+            this.tabControlWindowOption.Location = new System.Drawing.Point(12, 12);
+            this.tabControlWindowOption.Multiline = true;
+            this.tabControlWindowOption.Name = "tabControlWindowOption";
+            this.tabControlWindowOption.SelectedIndex = 0;
+            this.tabControlWindowOption.Size = new System.Drawing.Size(404, 446);
+            this.tabControlWindowOption.TabIndex = 0;
             // 
             // tabPageImport
             // 
@@ -529,7 +542,7 @@
             this.radioButtonDisplayDistribution.AutoSize = true;
             this.radioButtonDisplayDistribution.Location = new System.Drawing.Point(61, 21);
             this.radioButtonDisplayDistribution.Name = "radioButtonDisplayDistribution";
-            this.radioButtonDisplayDistribution.Size = new System.Drawing.Size(112, 17);
+            this.radioButtonDisplayDistribution.Size = new System.Drawing.Size(107, 17);
             this.radioButtonDisplayDistribution.TabIndex = 0;
             this.radioButtonDisplayDistribution.Text = "Display histogram";
             this.radioButtonDisplayDistribution.UseVisualStyleBackColor = true;
@@ -1503,26 +1516,26 @@
             this.buttonDRCPlateDesign.UseVisualStyleBackColor = true;
             this.buttonDRCPlateDesign.Click += new System.EventHandler(this.buttonDRCPlateDesign_Click);
             // 
-            // tabPage7
+            // tabPage3D
             // 
-            this.tabPage7.Controls.Add(this.groupBox23);
-            this.tabPage7.Controls.Add(this.groupBox22);
-            this.tabPage7.Controls.Add(this.groupBox20);
-            this.tabPage7.Controls.Add(this.groupBox21);
-            this.tabPage7.Location = new System.Drawing.Point(4, 58);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(396, 384);
-            this.tabPage7.TabIndex = 10;
-            this.tabPage7.Text = "3D";
-            this.tabPage7.UseVisualStyleBackColor = true;
+            this.tabPage3D.Controls.Add(this.groupBox23);
+            this.tabPage3D.Controls.Add(this.groupBox22);
+            this.tabPage3D.Controls.Add(this.groupBox20);
+            this.tabPage3D.Controls.Add(this.groupBox21);
+            this.tabPage3D.Location = new System.Drawing.Point(4, 58);
+            this.tabPage3D.Name = "tabPage3D";
+            this.tabPage3D.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3D.Size = new System.Drawing.Size(396, 384);
+            this.tabPage3D.TabIndex = 10;
+            this.tabPage3D.Text = "3D";
+            this.tabPage3D.UseVisualStyleBackColor = true;
             // 
             // groupBox23
             // 
             this.groupBox23.Controls.Add(this.checkBox3DPlateInformation);
             this.groupBox23.Location = new System.Drawing.Point(6, 13);
             this.groupBox23.Name = "groupBox23";
-            this.groupBox23.Size = new System.Drawing.Size(381, 68);
+            this.groupBox23.Size = new System.Drawing.Size(381, 63);
             this.groupBox23.TabIndex = 22;
             this.groupBox23.TabStop = false;
             this.groupBox23.Text = "Plate Display";
@@ -1770,6 +1783,56 @@
             this.groupBox24.TabStop = false;
             this.groupBox24.Text = "Metric";
             // 
+            // radioButtonDistributionMetricEMD
+            // 
+            this.radioButtonDistributionMetricEMD.AutoSize = true;
+            this.radioButtonDistributionMetricEMD.Location = new System.Drawing.Point(130, 182);
+            this.radioButtonDistributionMetricEMD.Name = "radioButtonDistributionMetricEMD";
+            this.radioButtonDistributionMetricEMD.Size = new System.Drawing.Size(128, 17);
+            this.radioButtonDistributionMetricEMD.TabIndex = 6;
+            this.radioButtonDistributionMetricEMD.Text = "Earth Mover Distance";
+            this.radioButtonDistributionMetricEMD.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonDistributionMetricBhattacharyya
+            // 
+            this.radioButtonDistributionMetricBhattacharyya.AutoSize = true;
+            this.radioButtonDistributionMetricBhattacharyya.Location = new System.Drawing.Point(130, 97);
+            this.radioButtonDistributionMetricBhattacharyya.Name = "radioButtonDistributionMetricBhattacharyya";
+            this.radioButtonDistributionMetricBhattacharyya.Size = new System.Drawing.Size(146, 17);
+            this.radioButtonDistributionMetricBhattacharyya.TabIndex = 5;
+            this.radioButtonDistributionMetricBhattacharyya.Text = "Bhattacharyya Coefficient";
+            this.radioButtonDistributionMetricBhattacharyya.UseVisualStyleBackColor = true;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(22, 156);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(59, 13);
+            this.label30.TabIndex = 4;
+            this.label30.Text = "Cross-bin";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(22, 29);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(61, 13);
+            this.label29.TabIndex = 3;
+            this.label29.Text = "Bin-to-bin";
+            // 
+            // radioButtonDistributionMetricCosine
+            // 
+            this.radioButtonDistributionMetricCosine.AutoSize = true;
+            this.radioButtonDistributionMetricCosine.Location = new System.Drawing.Point(130, 74);
+            this.radioButtonDistributionMetricCosine.Name = "radioButtonDistributionMetricCosine";
+            this.radioButtonDistributionMetricCosine.Size = new System.Drawing.Size(121, 17);
+            this.radioButtonDistributionMetricCosine.TabIndex = 2;
+            this.radioButtonDistributionMetricCosine.Text = "Vector Cosine Angle";
+            this.radioButtonDistributionMetricCosine.UseVisualStyleBackColor = true;
+            // 
             // radioButtonDistributionMetricManhattan
             // 
             this.radioButtonDistributionMetricManhattan.AutoSize = true;
@@ -1792,6 +1855,113 @@
             this.radioButtonDistributionMetricEuclidean.Text = "Euclidean";
             this.radioButtonDistributionMetricEuclidean.UseVisualStyleBackColor = true;
             // 
+            // tabPage9
+            // 
+            this.tabPage9.Controls.Add(this.radioButtonServerUltra);
+            this.tabPage9.Controls.Add(this.radioButtonServerOperetta);
+            this.tabPage9.Controls.Add(this.radioButtonServerOpera);
+            this.tabPage9.Controls.Add(this.groupBoxServerOperetta);
+            this.tabPage9.Controls.Add(this.groupBoxServerUltra);
+            this.tabPage9.Controls.Add(this.groupBoxServerOpera);
+            this.tabPage9.Location = new System.Drawing.Point(4, 58);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage9.Size = new System.Drawing.Size(396, 384);
+            this.tabPage9.TabIndex = 12;
+            this.tabPage9.Text = "Image Server";
+            this.tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonServerUltra
+            // 
+            this.radioButtonServerUltra.AutoSize = true;
+            this.radioButtonServerUltra.Location = new System.Drawing.Point(23, 144);
+            this.radioButtonServerUltra.Name = "radioButtonServerUltra";
+            this.radioButtonServerUltra.Size = new System.Drawing.Size(47, 17);
+            this.radioButtonServerUltra.TabIndex = 10;
+            this.radioButtonServerUltra.TabStop = true;
+            this.radioButtonServerUltra.Text = "Ultra";
+            this.radioButtonServerUltra.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonServerOperetta
+            // 
+            this.radioButtonServerOperetta.AutoSize = true;
+            this.radioButtonServerOperetta.Location = new System.Drawing.Point(25, 263);
+            this.radioButtonServerOperetta.Name = "radioButtonServerOperetta";
+            this.radioButtonServerOperetta.Size = new System.Drawing.Size(66, 17);
+            this.radioButtonServerOperetta.TabIndex = 11;
+            this.radioButtonServerOperetta.TabStop = true;
+            this.radioButtonServerOperetta.Text = "Operetta";
+            this.radioButtonServerOperetta.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonServerOpera
+            // 
+            this.radioButtonServerOpera.AutoSize = true;
+            this.radioButtonServerOpera.Checked = true;
+            this.radioButtonServerOpera.Location = new System.Drawing.Point(25, 14);
+            this.radioButtonServerOpera.Name = "radioButtonServerOpera";
+            this.radioButtonServerOpera.Size = new System.Drawing.Size(54, 17);
+            this.radioButtonServerOpera.TabIndex = 9;
+            this.radioButtonServerOpera.TabStop = true;
+            this.radioButtonServerOpera.Text = "Opera";
+            this.radioButtonServerOpera.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxServerOperetta
+            // 
+            this.groupBoxServerOperetta.Location = new System.Drawing.Point(7, 266);
+            this.groupBoxServerOperetta.Name = "groupBoxServerOperetta";
+            this.groupBoxServerOperetta.Size = new System.Drawing.Size(383, 105);
+            this.groupBoxServerOperetta.TabIndex = 8;
+            this.groupBoxServerOperetta.TabStop = false;
+            this.groupBoxServerOperetta.Text = "                     ";
+            // 
+            // groupBoxServerUltra
+            // 
+            this.groupBoxServerUltra.Location = new System.Drawing.Point(7, 148);
+            this.groupBoxServerUltra.Name = "groupBoxServerUltra";
+            this.groupBoxServerUltra.Size = new System.Drawing.Size(383, 105);
+            this.groupBoxServerUltra.TabIndex = 7;
+            this.groupBoxServerUltra.TabStop = false;
+            this.groupBoxServerUltra.Text = "                   ";
+            // 
+            // groupBoxServerOpera
+            // 
+            this.groupBoxServerOpera.Controls.Add(this.buttonModifyServer);
+            this.groupBoxServerOpera.Controls.Add(this.label31);
+            this.groupBoxServerOpera.Controls.Add(this.textBoxMainServer);
+            this.groupBoxServerOpera.Location = new System.Drawing.Point(7, 17);
+            this.groupBoxServerOpera.Name = "groupBoxServerOpera";
+            this.groupBoxServerOpera.Size = new System.Drawing.Size(383, 121);
+            this.groupBoxServerOpera.TabIndex = 6;
+            this.groupBoxServerOpera.TabStop = false;
+            this.groupBoxServerOpera.Text = "                       ";
+            // 
+            // buttonModifyServer
+            // 
+            this.buttonModifyServer.Location = new System.Drawing.Point(293, 85);
+            this.buttonModifyServer.Name = "buttonModifyServer";
+            this.buttonModifyServer.Size = new System.Drawing.Size(84, 30);
+            this.buttonModifyServer.TabIndex = 2;
+            this.buttonModifyServer.Text = "Modify";
+            this.buttonModifyServer.UseVisualStyleBackColor = true;
+            this.buttonModifyServer.Click += new System.EventHandler(this.buttonModifyServer_Click);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(15, 25);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(64, 13);
+            this.label31.TabIndex = 1;
+            this.label31.Text = "Main Server";
+            // 
+            // textBoxMainServer
+            // 
+            this.textBoxMainServer.Location = new System.Drawing.Point(18, 41);
+            this.textBoxMainServer.Name = "textBoxMainServer";
+            this.textBoxMainServer.ReadOnly = true;
+            this.textBoxMainServer.Size = new System.Drawing.Size(359, 20);
+            this.textBoxMainServer.TabIndex = 0;
+            // 
             // buttonOk
             // 
             this.buttonOk.Location = new System.Drawing.Point(141, 464);
@@ -1802,56 +1972,6 @@
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
-            // radioButtonDistributionMetricCosine
-            // 
-            this.radioButtonDistributionMetricCosine.AutoSize = true;
-            this.radioButtonDistributionMetricCosine.Location = new System.Drawing.Point(130, 74);
-            this.radioButtonDistributionMetricCosine.Name = "radioButtonDistributionMetricCosine";
-            this.radioButtonDistributionMetricCosine.Size = new System.Drawing.Size(121, 17);
-            this.radioButtonDistributionMetricCosine.TabIndex = 2;
-            this.radioButtonDistributionMetricCosine.Text = "Vector Cosine Angle";
-            this.radioButtonDistributionMetricCosine.UseVisualStyleBackColor = true;
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(22, 29);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(61, 13);
-            this.label29.TabIndex = 3;
-            this.label29.Text = "Bin-to-bin";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(22, 156);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(59, 13);
-            this.label30.TabIndex = 4;
-            this.label30.Text = "Cross-bin";
-            // 
-            // radioButtonDistributionMetricBhattacharyya
-            // 
-            this.radioButtonDistributionMetricBhattacharyya.AutoSize = true;
-            this.radioButtonDistributionMetricBhattacharyya.Location = new System.Drawing.Point(130, 97);
-            this.radioButtonDistributionMetricBhattacharyya.Name = "radioButtonDistributionMetricBhattacharyya";
-            this.radioButtonDistributionMetricBhattacharyya.Size = new System.Drawing.Size(146, 17);
-            this.radioButtonDistributionMetricBhattacharyya.TabIndex = 5;
-            this.radioButtonDistributionMetricBhattacharyya.Text = "Bhattacharyya Coefficient";
-            this.radioButtonDistributionMetricBhattacharyya.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonDistributionMetricEMD
-            // 
-            this.radioButtonDistributionMetricEMD.AutoSize = true;
-            this.radioButtonDistributionMetricEMD.Location = new System.Drawing.Point(130, 182);
-            this.radioButtonDistributionMetricEMD.Name = "radioButtonDistributionMetricEMD";
-            this.radioButtonDistributionMetricEMD.Size = new System.Drawing.Size(128, 17);
-            this.radioButtonDistributionMetricEMD.TabIndex = 6;
-            this.radioButtonDistributionMetricEMD.Text = "Earth Mover Distance";
-            this.radioButtonDistributionMetricEMD.UseVisualStyleBackColor = true;
-            // 
             // FormForOptionsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1859,13 +1979,13 @@
             this.ClientSize = new System.Drawing.Size(427, 508);
             this.ControlBox = false;
             this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.tabControlClustering);
+            this.Controls.Add(this.tabControlWindowOption);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormForOptionsWindow";
             this.Text = "Options";
-            this.tabControlClustering.ResumeLayout(false);
+            this.tabControlWindowOption.ResumeLayout(false);
             this.tabPageImport.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -1932,7 +2052,7 @@
             this.tabPage6.ResumeLayout(false);
             this.groupBox19.ResumeLayout(false);
             this.groupBox19.PerformLayout();
-            this.tabPage7.ResumeLayout(false);
+            this.tabPage3D.ResumeLayout(false);
             this.groupBox23.ResumeLayout(false);
             this.groupBox23.PerformLayout();
             this.groupBox22.ResumeLayout(false);
@@ -1948,13 +2068,16 @@
             this.tabPage8.ResumeLayout(false);
             this.groupBox24.ResumeLayout(false);
             this.groupBox24.PerformLayout();
+            this.tabPage9.ResumeLayout(false);
+            this.tabPage9.PerformLayout();
+            this.groupBoxServerOpera.ResumeLayout(false);
+            this.groupBoxServerOpera.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControlClustering;
         private System.Windows.Forms.TabPage tabPageDisplay;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPageClassification;
@@ -2057,7 +2180,6 @@
         private System.Windows.Forms.Label label25;
         public System.Windows.Forms.NumericUpDown numericUpDownWellSize;
         private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.GroupBox groupBox22;
         public System.Windows.Forms.CheckBox checkBox3DDisplayIsoRatioCurves;
         public System.Windows.Forms.CheckBox checkBox3DDisplayIsoboles;
@@ -2081,5 +2203,17 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Label label29;
         public System.Windows.Forms.RadioButton radioButtonDistributionMetricEMD;
+        private System.Windows.Forms.TabPage tabPage9;
+        public System.Windows.Forms.RadioButton radioButtonServerUltra;
+        public System.Windows.Forms.RadioButton radioButtonServerOperetta;
+        public System.Windows.Forms.RadioButton radioButtonServerOpera;
+        private System.Windows.Forms.GroupBox groupBoxServerOperetta;
+        private System.Windows.Forms.GroupBox groupBoxServerUltra;
+        private System.Windows.Forms.GroupBox groupBoxServerOpera;
+        private System.Windows.Forms.Button buttonModifyServer;
+        private System.Windows.Forms.Label label31;
+        public System.Windows.Forms.TextBox textBoxMainServer;
+        public System.Windows.Forms.TabControl tabControlWindowOption;
+        public System.Windows.Forms.TabPage tabPage3D;
     }
 }

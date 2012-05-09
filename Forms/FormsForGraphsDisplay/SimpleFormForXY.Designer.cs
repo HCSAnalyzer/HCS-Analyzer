@@ -37,6 +37,7 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.parametersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboBoxDescriptorY = new System.Windows.Forms.ComboBox();
             this.comboBoxDescriptorX = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.chartForSimpleFormXY)).BeginInit();
@@ -45,20 +46,23 @@
             // 
             // chartForSimpleFormXY
             // 
-            this.chartForSimpleFormXY.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.chartForSimpleFormXY.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.chartForSimpleFormXY.Location = new System.Drawing.Point(180, 38);
             this.chartForSimpleFormXY.Name = "chartForSimpleFormXY";
             this.chartForSimpleFormXY.Size = new System.Drawing.Size(680, 585);
             this.chartForSimpleFormXY.TabIndex = 0;
             this.chartForSimpleFormXY.Text = "chart1";
+            this.chartForSimpleFormXY.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chartForSimpleFormXY_MouseClick_1);
+            this.chartForSimpleFormXY.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.chartForSimpleFormXY_MouseDoubleClick);
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveGraphToolStripMenuItem,
-            this.copyToClipboardToolStripMenuItem});
+            this.copyToClipboardToolStripMenuItem,
+            this.parametersToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(872, 24);
@@ -110,16 +114,23 @@
             // dataToolStripMenuItem
             // 
             this.dataToolStripMenuItem.Name = "dataToolStripMenuItem";
-            this.dataToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
-                        | System.Windows.Forms.Keys.C)));
+            this.dataToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.C)));
             this.dataToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.dataToolStripMenuItem.Text = "Data";
             this.dataToolStripMenuItem.Click += new System.EventHandler(this.dataToolStripMenuItem_Click);
             // 
+            // parametersToolStripMenuItem
+            // 
+            this.parametersToolStripMenuItem.Name = "parametersToolStripMenuItem";
+            this.parametersToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.parametersToolStripMenuItem.Text = "Parameters";
+            this.parametersToolStripMenuItem.Click += new System.EventHandler(this.parametersToolStripMenuItem_Click);
+            // 
             // comboBoxDescriptorY
             // 
-            this.comboBoxDescriptorY.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxDescriptorY.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBoxDescriptorY.FormattingEnabled = true;
             this.comboBoxDescriptorY.Location = new System.Drawing.Point(12, 265);
             this.comboBoxDescriptorY.Name = "comboBoxDescriptorY";
@@ -129,8 +140,8 @@
             // 
             // comboBoxDescriptorX
             // 
-            this.comboBoxDescriptorX.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxDescriptorX.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxDescriptorX.FormattingEnabled = true;
             this.comboBoxDescriptorX.Location = new System.Drawing.Point(419, 629);
             this.comboBoxDescriptorX.Name = "comboBoxDescriptorX";
@@ -170,5 +181,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveToFileToolStripMenuItem;
         public System.Windows.Forms.ComboBox comboBoxDescriptorY;
         public System.Windows.Forms.ComboBox comboBoxDescriptorX;
+        private System.Windows.Forms.ToolStripMenuItem parametersToolStripMenuItem;
     }
 }

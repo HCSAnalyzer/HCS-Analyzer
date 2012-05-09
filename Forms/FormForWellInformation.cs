@@ -8,14 +8,18 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Windows.Forms.DataVisualization.Charting;
+using LibPlateAnalysis;
 
 namespace HCSAnalyzer.Forms
 {
     public partial class FormForWellInformation : Form
     {
-        public FormForWellInformation()
+        cWell CurrentWell;
+
+        public FormForWellInformation(cWell CurrentWell)
         {
             InitializeComponent();
+            this.CurrentWell = CurrentWell;
         }
 
         public string GetValues()
@@ -103,6 +107,29 @@ namespace HCSAnalyzer.Forms
             this.chartForFormWell.Printing.PrintPreview();
             this.chartForFormWell.Printing.Print(false);
         }
+
+        private void numericUpDownImageMin_ValueChanged(object sender, EventArgs e)
+        {
+            List<double> lMin = new List<double>();
+            lMin.Add((double)numericUpDownImageMin.Value);
+
+            this.CurrentWell.DrawPic(this, lMin, null);
+        }
+
+        private void numericUpDownImageMax_ValueChanged(object sender, EventArgs e)
+        {
+            List<double> lMax = new List<double>();
+            lMax.Add((double)numericUpDownImageMax.Value);
+
+            this.CurrentWell.DrawPic(this, null, lMax);
+        }
+
+        private void numericUpDownIdxImage_ValueChanged_1(object sender, EventArgs e)
+        {
+            this.CurrentWell.DrawPic(this, null, null);
+        }
+
+
 
 
 
