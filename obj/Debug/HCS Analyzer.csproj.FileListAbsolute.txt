@@ -802,3 +802,4 @@ E:\git_HCS\HCS-Analyzer\obj\Debug\HCSAnalyzer.exe.manifest
 E:\git_HCS\HCS-Analyzer\obj\Debug\HCSAnalyzer.application
 E:\git_HCS\HCS-Analyzer\obj\Debug\HCSAnalyzer.exe
 E:\git_HCS\HCS-Analyzer\obj\Debug\HCSAnalyzer.pdb
+E:\HCS-Analyzer\bin\Debug\HCSAnalyzer.exe.config

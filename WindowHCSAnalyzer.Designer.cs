@@ -18,22 +18,22 @@ namespace HCSAnalyzer
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Classification Tree");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Correlation Matrix and Ranking");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Systematic Errors Table");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Z-Factors");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Quality Control", new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode4,
-            treeNode5});
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Pathway Analysis");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("siRNA screening", new System.Windows.Forms.TreeNode[] {
-            treeNode7});
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Weka .Arff File");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Misc", new System.Windows.Forms.TreeNode[] {
-            treeNode9});
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Classification Tree");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
+            treeNode11});
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Correlation Matrix and Ranking");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Systematic Errors Table");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Z-Factors");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Quality Control", new System.Windows.Forms.TreeNode[] {
+            treeNode13,
+            treeNode14,
+            treeNode15});
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Pathway Analysis");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("siRNA screening", new System.Windows.Forms.TreeNode[] {
+            treeNode17});
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Weka .Arff File");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Misc", new System.Windows.Forms.TreeNode[] {
+            treeNode19});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HCSAnalyzer));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageDImRed = new System.Windows.Forms.TabPage();
@@ -216,6 +216,7 @@ namespace HCSAnalyzer
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.buttonPreviousPlate = new System.Windows.Forms.Button();
             this.buttonNextPlate = new System.Windows.Forms.Button();
+            this.distanceMatrixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlMain.SuspendLayout();
             this.tabPageDImRed.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNewDimension)).BeginInit();
@@ -1171,37 +1172,37 @@ namespace HCSAnalyzer
             this.treeViewSelectionForExport.FullRowSelect = true;
             this.treeViewSelectionForExport.Location = new System.Drawing.Point(166, 111);
             this.treeViewSelectionForExport.Name = "treeViewSelectionForExport";
-            treeNode1.Name = "NodeClassifTree";
-            treeNode1.Text = "Classification Tree";
-            treeNode2.Name = "NodeClassification";
-            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode2.Text = "Classification";
-            treeNode3.Checked = true;
-            treeNode3.Name = "NodeCorrelationMatRank";
-            treeNode3.Text = "Correlation Matrix and Ranking";
-            treeNode4.Checked = true;
-            treeNode4.Name = "NodeSystematicError";
-            treeNode4.Text = "Systematic Errors Table";
-            treeNode5.Checked = true;
-            treeNode5.Name = "NodeZfactor";
-            treeNode5.Text = "Z-Factors";
-            treeNode6.Checked = true;
-            treeNode6.Name = "NodeQualityControl";
-            treeNode6.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode6.Text = "Quality Control";
-            treeNode7.Name = "NodePathwayAnalysis";
-            treeNode7.Text = "Pathway Analysis";
-            treeNode8.Name = "NodesiRNA";
-            treeNode8.Text = "siRNA screening";
-            treeNode9.Name = "NodeWekaArff";
-            treeNode9.Text = "Weka .Arff File";
-            treeNode10.Name = "NodeMisc";
-            treeNode10.Text = "Misc";
+            treeNode11.Name = "NodeClassifTree";
+            treeNode11.Text = "Classification Tree";
+            treeNode12.Name = "NodeClassification";
+            treeNode12.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode12.Text = "Classification";
+            treeNode13.Checked = true;
+            treeNode13.Name = "NodeCorrelationMatRank";
+            treeNode13.Text = "Correlation Matrix and Ranking";
+            treeNode14.Checked = true;
+            treeNode14.Name = "NodeSystematicError";
+            treeNode14.Text = "Systematic Errors Table";
+            treeNode15.Checked = true;
+            treeNode15.Name = "NodeZfactor";
+            treeNode15.Text = "Z-Factors";
+            treeNode16.Checked = true;
+            treeNode16.Name = "NodeQualityControl";
+            treeNode16.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode16.Text = "Quality Control";
+            treeNode17.Name = "NodePathwayAnalysis";
+            treeNode17.Text = "Pathway Analysis";
+            treeNode18.Name = "NodesiRNA";
+            treeNode18.Text = "siRNA screening";
+            treeNode19.Name = "NodeWekaArff";
+            treeNode19.Text = "Weka .Arff File";
+            treeNode20.Name = "NodeMisc";
+            treeNode20.Text = "Misc";
             this.treeViewSelectionForExport.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode6,
-            treeNode8,
-            treeNode10});
+            treeNode12,
+            treeNode16,
+            treeNode18,
+            treeNode20});
             this.treeViewSelectionForExport.Size = new System.Drawing.Size(281, 141);
             this.treeViewSelectionForExport.TabIndex = 16;
             // 
@@ -1737,7 +1738,8 @@ namespace HCSAnalyzer
             this.PCAToolStripMenuItem,
             this.classificationTreeToolStripMenuItem,
             this.hierarchicalTreeToolStripMenuItem,
-            this.lDAToolStripMenuItem2});
+            this.lDAToolStripMenuItem2,
+            this.distanceMatrixToolStripMenuItem});
             this.visualizationToolStripMenuItem.Enabled = false;
             this.visualizationToolStripMenuItem.Name = "visualizationToolStripMenuItem";
             this.visualizationToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
@@ -2328,6 +2330,13 @@ namespace HCSAnalyzer
             this.buttonNextPlate.UseVisualStyleBackColor = true;
             this.buttonNextPlate.Click += new System.EventHandler(this.buttonNextPlate_Click);
             // 
+            // distanceMatrixToolStripMenuItem
+            // 
+            this.distanceMatrixToolStripMenuItem.Name = "distanceMatrixToolStripMenuItem";
+            this.distanceMatrixToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.distanceMatrixToolStripMenuItem.Text = "Distance Matrix";
+            this.distanceMatrixToolStripMenuItem.Click += new System.EventHandler(this.distanceMatrixToolStripMenuItem_Click);
+            // 
             // HCSAnalyzer
             // 
             this.AllowDrop = true;
@@ -2583,6 +2592,7 @@ namespace HCSAnalyzer
         public Panel panelForPlate;
         private Button buttonNextPlate;
         private Button buttonPreviousPlate;
+        private ToolStripMenuItem distanceMatrixToolStripMenuItem;
     }
 }
 

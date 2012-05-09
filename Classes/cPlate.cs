@@ -867,6 +867,26 @@ namespace LibPlateAnalysis
             return Table;
         }
 
+        public double[][] GetAverageValueDescTable1(int Desc, out bool IsMissingWell)
+        {
+            IsMissingWell = false;
+            double[][] Table = new double[ParentScreening.Rows][];
+                for(int J=0;J<Table.Length;J++)
+                Table[J] = new double[ParentScreening.Columns];
+
+            for (int j = 0; j < ParentScreening.Rows; j++)
+                for (int i = 0; i < ParentScreening.Columns; i++)
+                {
+                    cWell currentWell = this.GetWell(i, j, true);
+                    if (currentWell == null)
+                        IsMissingWell = true;
+                    else
+                        Table[j][i] = currentWell.GetAverageValuesList()[Desc];
+                }
+
+            return Table;
+        }
+
         public void SetAverageValueDescTable(int Desc, double[,] Table)
         {
 

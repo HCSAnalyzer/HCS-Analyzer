@@ -6,17 +6,59 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using LibPlateAnalysis;
 
 namespace HCSAnalyzer.Controls
 {
     public partial class FormToDisplayArray : Form
     {
+
+        protected cScreening CurrentScreening;
+        protected double[][] ValuesMatrix;
+        double Min = double.MaxValue;
+        double Max = double.MinValue;
+
+
         public FormToDisplayArray()
         {
             InitializeComponent();
-            DisplayMatrix();
+    
+                for (int j = 0; j < ValuesMatrix.Length; j++)
+                    for (int i = 0; i < ValuesMatrix[0].Length; i++)
+                    {
+                        if (ValuesMatrix[j][i] > this.Max)
+                            this.Max =ValuesMatrix[j][i];
+                        if (ValuesMatrix[j][i] < this.Min)
+                            this.Min =ValuesMatrix[j][i];
+
+                    }
+
+  DisplayMatrix();
+        }
+        public FormToDisplayArray(double[][] Values, cScreening CurrentScreening)
+        {
+            InitializeComponent();
+            this.CurrentScreening = CurrentScreening;
+            this.ValuesMatrix = Values;
+          
+
+
+                for (int j = 0; j < ValuesMatrix.Length; j++)
+                    for (int i = 0; i < ValuesMatrix[0].Length; i++)
+                    {
+                        if (ValuesMatrix[j][i] > this.Max)
+                            this.Max =ValuesMatrix[j][i];
+                        if (ValuesMatrix[j][i] < this.Min)
+                            this.Min =ValuesMatrix[j][i];
+
+                    }
+
+  DisplayMatrix();
            // this.panelForArray.GetToolTipText += new System.EventHandler<ToolTipEventArgs>(this.AssociatedChart_GetToolTipText);
         }
+
+
+        
 
         Boolean bHaveMouse;
         Point ptOriginal = new Point();
@@ -128,29 +170,51 @@ namespace HCSAnalyzer.Controls
             Color BorderColor = Color.BlueViolet;
             Color CenterColor = Color.Blue;
 
-            
-            int NumCol = 24;
-            int NumRow = 16;
 
-            int Cell_Width = 600 / NumCol;
-            int Cell_Height = 300 / NumRow;
+            int NumCol = ValuesMatrix.Length;
+            int NumRow = ValuesMatrix[0].Length;
 
-            int GutterSize = Cell_Width / 4;
+            int Cell_Width = 10;// 600 / NumCol;
+            int Cell_Height = 10;// 600 / NumRow;
+
+            int GutterSize = 0;// Cell_Width / 4;
             float WidthBorder = GutterSize;
             double[,] MatrixToDisplay = new double[NumCol, NumRow];
             System.Drawing.Graphics formGraphics = this.CreateGraphics();
 
-            for (int j = 0; j < NumRow; j++)
-                for (int i = 0; i < NumCol; i++)
+
+            byte[][] LUT = this.CurrentScreening.GlobalInfo.LUT;
+          //  double Min = -40;
+          //  double Max = 200;
+
+
+            for (int j = 0; j < ValuesMatrix.Length; j++)
+                for (int i = 0; i < ValuesMatrix[0].Length; i++)
                 {
                     int PosX = PosXMatrix + i * (GutterSize + Cell_Width);
                     int PosY = PosYMatrix + j * (GutterSize + Cell_Height);
+                    
+                    
 
+                 
+                    int ConvertedValue = (int)(((ValuesMatrix[j][i] - Min) * (LUT[0].Length - 1)) / (Max - Min));
+                
+                    CenterColor = Color.FromArgb(LUT[0][ConvertedValue], LUT[1][ConvertedValue], LUT[2][ConvertedValue]);
+
+                   
                     SolidBrush Brush = new SolidBrush(CenterColor);
-                    System.Drawing.Pen myPen = new System.Drawing.Pen(BorderColor, WidthBorder);
+                    
+                    
                     Rectangle Rect = new Rectangle(PosX, PosY, Cell_Width, Cell_Height);
-                    formGraphics.DrawRectangle(myPen, Rect);
+
                     formGraphics.FillRectangle(Brush, Rect);
+
+                    if (GutterSize > 0)
+                    {
+                        System.Drawing.Pen myPen = new System.Drawing.Pen(BorderColor, WidthBorder);
+                        formGraphics.DrawRectangle(myPen, Rect);
+                    }
+
                 }
         }
 
@@ -174,4 +238,32 @@ namespace HCSAnalyzer.Controls
 
 
     }
+
+
+    public partial class FormToDisplayPlate : FormToDisplayArray
+    {
+
+
+        public FormToDisplayPlate(cPlate PlateToDisplay, int Descriptor, cScreening CompleteScreening)
+        {
+            this.CurrentScreening = CompleteScreening;
+            bool ResMiss = false;
+            ValuesMatrix = PlateToDisplay.GetAverageValueDescTable1(Descriptor, out ResMiss);
+
+            //for (int i = 0; i < Values.Length; i++)
+            //    Values[i] = new double[20];
+
+
+            //for (int j = 0; j < Values.Length; j++)
+            //    for (int i = 0; i < Values[0].Length; i++)
+            //        Values[j][i] = i + j * Values[0].Length;
+
+        //    FormToDisplayArray WindowForArray = new FormToDisplayArray(Values, CompleteScreening);
+        
+        
+        }
+    
+    
+    }
+
 }

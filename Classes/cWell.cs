@@ -969,7 +969,7 @@ namespace LibPlateAnalysis
 
             NewWindow.Text = PosX + "x" + PosY + " / " + StateForClassif;
 
-            string connec = string.Concat(new string[]  {"server=", "192.168.10.10", ";uid=", "IMG-USER", ";pwd=", "#####", ";database=", "OPERA_DB"});
+            string connec = string.Concat(new string[] { "server=", "192.168.10.10", ";uid=", "IMG-USER", ";pwd=", "", ";database=", "OPERA_DB" });
 
             string[] ListOpera = new string[3];
             ListOpera[0] = "OPERA-COMMON";

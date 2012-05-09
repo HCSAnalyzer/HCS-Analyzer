@@ -4902,6 +4902,29 @@ namespace HCSAnalyzer
             toolStripcomboBoxPlateList.SelectedIndex--;
         }
 
+        private void distanceMatrixToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            //bool ResMiss = false;
+            //double[][] Values = CompleteScreening.ListPlatesActive[CompleteScreening.CurrentDisplayPlateIdx].GetAverageValueDescTable1(CompleteScreening.ListDescriptors.CurrentSelectedDescriptor, out ResMiss);
+
+            ////for (int i = 0; i < Values.Length; i++)
+            ////    Values[i] = new double[20];
+
+
+            ////for (int j = 0; j < Values.Length; j++)
+            ////    for (int i = 0; i < Values[0].Length; i++)
+            ////        Values[j][i] = i + j * Values[0].Length;
+
+            //FormToDisplayArray WindowForArray = new FormToDisplayArray(Values, CompleteScreening);
+            
+            //WindowForArray.Show();
+
+
+            FormToDisplayPlate WinToDispPlate = new FormToDisplayPlate(CompleteScreening.ListPlatesActive[CompleteScreening.CurrentDisplayPlateIdx], CompleteScreening.ListDescriptors.CurrentSelectedDescriptor, CompleteScreening);
+
+        }
+
 
 
 
