@@ -36,6 +36,8 @@ using Emgu.CV;
 using Emgu.CV.Structure;
 using Emgu.CV.CvEnum;
 using System.Runtime.InteropServices;
+using System.Data.SqlClient;
+using System.Data.SQLite;
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -342,6 +344,11 @@ namespace HCSAnalyzer
                     ToolStripMenuItem SplitDescItem = new ToolStripMenuItem("Split");
                     SplitDescItem.Click += new System.EventHandler(this.SplitDescItem);
                     ToolStripMenuItems.DropDownItems.Add(SplitDescItem);
+
+
+                    ToolStripMenuItem AverageDescItem = new ToolStripMenuItem("Average");
+                    AverageDescItem.Click += new System.EventHandler(this.AverageDescItem);
+                    ToolStripMenuItems.DropDownItems.Add(AverageDescItem);
                 }
 
                 if (CompleteScreening.ListDescriptors[IntToTransfer].GetBinNumber() == 1)
@@ -358,10 +365,7 @@ namespace HCSAnalyzer
                     ToolStripMenuItem AddCorrelatedCosineDescItem = new ToolStripMenuItem("Generate Cosine");
                     AddCorrelatedCosineDescItem.Click += new System.EventHandler(this.AddCorrelatedCosineDescItem);
                     ToolStripMenuItems.DropDownItems.Add(AddCorrelatedCosineDescItem);
-
-
                 }
-
                 contextMenuStripActorPicker.Items.AddRange(new ToolStripItem[] { UnselectItem, SelectAllItem, ToolStripConvertMenuItems, ToolStripMenuItems });
             }
             else
@@ -369,8 +373,6 @@ namespace HCSAnalyzer
                 contextMenuStripActorPicker.Items.AddRange(new ToolStripItem[] { UnselectItem, SelectAllItem, ToolStripConvertMenuItems });
             }
             contextMenuStripActorPicker.Show(Control.MousePosition);
-
-
         }
 
         static int IntToTransfer;
@@ -435,8 +437,6 @@ namespace HCSAnalyzer
 
             for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
                 CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
-
-            StartingUpDateUI();
         }
 
         private void AddCorrelatedCosineDescItem(object sender, EventArgs e)
@@ -463,8 +463,6 @@ namespace HCSAnalyzer
 
             for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
                 CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
-
-            StartingUpDateUI();
         }
 
         private void AddCorrelatedSineDescItem(object sender, EventArgs e)
@@ -491,8 +489,6 @@ namespace HCSAnalyzer
 
             for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
                 CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
-
-            StartingUpDateUI();
         }
 
         private void AddCorrelatedSquareDescItem(object sender, EventArgs e)
@@ -519,8 +515,6 @@ namespace HCSAnalyzer
 
             for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
                 CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
-
-            StartingUpDateUI();
         }
 
         private void SumCheckedDescToDescriptorItem(object sender, EventArgs e)
@@ -571,8 +565,6 @@ namespace HCSAnalyzer
 
             for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
                 CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
-
-            StartingUpDateUI();
         }
 
         private void MultiplyCheckedDescToDescriptorItem(object sender, EventArgs e)
@@ -623,8 +615,6 @@ namespace HCSAnalyzer
 
             for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
                 CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
-
-            StartingUpDateUI();
         }
 
         private void ColumnToDescriptorItem(object sender, EventArgs e)
@@ -651,8 +641,6 @@ namespace HCSAnalyzer
 
             for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
                 CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
-
-            StartingUpDateUI();
         }
 
         private void RowToDescriptorItem(object sender, EventArgs e)
@@ -679,8 +667,6 @@ namespace HCSAnalyzer
 
             for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
                 CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
-
-            StartingUpDateUI();
         }
 
         private void SplitDescItem(object sender, EventArgs e)
@@ -710,9 +696,37 @@ namespace HCSAnalyzer
 
             for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
                 CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
-
-            StartingUpDateUI();
         }
+
+        private void AverageDescItem(object sender, EventArgs e)
+        {
+            //int NumBin = CompleteScreening.ListDescriptors[IntToTransfer].GetBinNumber();
+
+            // first we update the descriptor
+            
+            cDescriptorsType NewAverageType = new cDescriptorsType("Average("+CompleteScreening.ListDescriptors[IntToTransfer].GetName()+")", true, 1);
+
+                CompleteScreening.ListDescriptors.AddNew(NewAverageType);
+
+            foreach (cPlate TmpPlate in CompleteScreening.ListPlatesAvailable)
+            {
+                foreach (cWell Tmpwell in TmpPlate.ListActiveWells)
+                {
+                    List<cDescriptor> LDesc = new List<cDescriptor>();
+                    cDescriptor NewDesc = new cDescriptor(Tmpwell.ListDescriptors[IntToTransfer].Getvalues().GetWeightedMean(), NewAverageType, CompleteScreening);
+                    LDesc.Add(NewDesc);
+                    Tmpwell.AddDescriptors(LDesc);
+                }
+            }
+
+            CompleteScreening.ListDescriptors.UpDateDisplay();
+            CompleteScreening.UpDatePlateListWithFullAvailablePlate();
+
+            for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
+                CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
+        }
+
+
         #endregion
 
         private void clearToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1023,7 +1037,7 @@ namespace HCSAnalyzer
                 platesManagerToolStripMenuItem.Enabled = true;
                 betaToolStripMenuItem.Enabled = true;
                 toolStripMenuItemGeneAnalysis.Enabled = true;
-
+                displayThumbnailsToolStripMenuItem1.Enabled = true;
 
                 CompleteScreening.ISLoading = false;
                 comboBoxDescriptorToDisplay.SelectedIndex = 0;
@@ -4476,7 +4490,7 @@ namespace HCSAnalyzer
 
         private void displayReferenceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CDisplayGraph DispGraph = new CDisplayGraph(CompleteScreening.Reference[CompleteScreening.ListDescriptors.CurrentSelectedDescriptor].ToArray(), CompleteScreening.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptor].GetName() + " - Reference distribution.");
+            cDisplayGraph DispGraph = new cDisplayGraph(CompleteScreening.Reference[CompleteScreening.ListDescriptors.CurrentSelectedDescriptor].ToArray(), CompleteScreening.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptor].GetName() + " - Reference distribution.");
         }
         #endregion
 
@@ -4902,32 +4916,131 @@ namespace HCSAnalyzer
             toolStripcomboBoxPlateList.SelectedIndex--;
         }
 
+        private void displayThumbnailsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            List<cPanelForDisplayArray> ListPlates = new List<cPanelForDisplayArray>();
+            
+                foreach (cPlate CurrentPlate in CompleteScreening.ListPlatesActive)
+                {
+                    ListPlates.Add(new FormToDisplayPlate(CurrentPlate, CompleteScreening.ListDescriptors.CurrentSelectedDescriptor, CompleteScreening));
+                }
+                cWindowToDisplayEntireScreening WindowToDisplayArray = new cWindowToDisplayEntireScreening(ListPlates, CompleteScreening.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptor].GetName(),6);
+            WindowToDisplayArray.Show();
+        }
+
+
         private void distanceMatrixToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            cPlate CurrentPlate = CompleteScreening.ListPlatesActive[CompleteScreening.CurrentDisplayPlateIdx];
 
-            //bool ResMiss = false;
-            //double[][] Values = CompleteScreening.ListPlatesActive[CompleteScreening.CurrentDisplayPlateIdx].GetAverageValueDescTable1(CompleteScreening.ListDescriptors.CurrentSelectedDescriptor, out ResMiss);
+            //double[][] Values = new double[CurrentPlate.ListActiveWells.Count][];
 
-            ////for (int i = 0; i < Values.Length; i++)
-            ////    Values[i] = new double[20];
+            //for (int i = 0; i < Values.Length; i++)
+            //    Values[i] = new double[CurrentPlate.ListActiveWells.Count];
 
 
-            ////for (int j = 0; j < Values.Length; j++)
-            ////    for (int i = 0; i < Values[0].Length; i++)
-            ////        Values[j][i] = i + j * Values[0].Length;
+            //for (int j = 0; j < Values.Length; j++)
+            //{
+            //    cWell SourceWell = CurrentPlate.ListActiveWells[j];
+            //    for (int i = j; i < Values[0].Length; i++)
+            //    {
+            //        cWell DestinationWell = CurrentPlate.ListActiveWells[i];
+            //        Values[i][j] = Values[j][i] = SourceWell.DistanceTo(DestinationWell, CompleteScreening.ListDescriptors.CurrentSelectedDescriptor, eDistances.EUCLIDEAN);
+            //    }
+            //}
+            FormToDisplayDistanceMap SingleMatrix = new FormToDisplayDistanceMap(CurrentPlate, CompleteScreening);
+            cWindowToDisplaySingleMatrix WindowForSingleArray = new cWindowToDisplaySingleMatrix(SingleMatrix, eDistances.EUCLIDEAN);
+        }
 
-            //FormToDisplayArray WindowForArray = new FormToDisplayArray(Values, CompleteScreening);
+        private void testImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            OpenFileDialog CurrOpenFileDialog = new OpenFileDialog();
+
+            CurrOpenFileDialog.Filter = "Tif files (*.tif)|*.tif";
             
-            //WindowForArray.Show();
+            DialogResult Res = CurrOpenFileDialog.ShowDialog();
+            if (Res != DialogResult.OK) return;
+
+            cImage NewIm = new cImage(CurrOpenFileDialog.FileName);
 
 
-            FormToDisplayPlate WinToDispPlate = new FormToDisplayPlate(CompleteScreening.ListPlatesActive[CompleteScreening.CurrentDisplayPlateIdx], CompleteScreening.ListDescriptors.CurrentSelectedDescriptor, CompleteScreening);
+            cImageViewer NewView = new cImageViewer();
+            NewView.SetImage(NewIm);
+            NewView.AddNotation(new ObjectForNotations.cString("This is a test", new Point(100,100),Color.Red,20));
+
+            for (int Idx = 0; Idx < 120; Idx += 10)
+                NewView.AddNotation(new ObjectForNotations.cDisk(new Point(Idx*10, Idx*10), Color.FromArgb(Idx, Idx, 50), Idx));
+
+            GlobalInfo.DisplayViewer(NewView);
 
         }
 
 
 
 
+        List<cWell> ListSelectedWell = new List<cWell>();
+
+        private void buttonDisplayWellsSelectionData_Click(object sender, EventArgs e)
+        {
+            DataTable FinalDataTable = new DataTable();
+
+            foreach (cWell TmpWell in ListSelectedWell)
+            {
+                TmpWell.AssociatedPlate.DBConnection = new cDBConnection(TmpWell.AssociatedPlate, TmpWell.SQLTableName);
+
+                TmpWell.AssociatedPlate.DBConnection.AddWellToDataTable(TmpWell, FinalDataTable);
+                //TmpWell.AssociatedPlate.DBConnection.DisplayTable(TmpWell);
+                TmpWell.AssociatedPlate.DBConnection.DB_CloseConnection();
+
+            }
+            //this.AssociatedPlate.DBConnection = new cDBConnection(this.AssociatedPlate, this.SQLTableName);
+            //this.AssociatedPlate.DBConnection.DB_CloseConnection();
+            //this.SQLTableName
+            FormForSingleCellsDisplay WindowForTable = new FormForSingleCellsDisplay(FinalDataTable, GlobalInfo);
+            WindowForTable.comboBoxAxeX.DataSource = CompleteScreening.ListDescriptors.GetListNameActives(); //ListSelectedWell[0].GetDescriptorNames(ListSelectedWell[0]);
+            WindowForTable.comboBoxAxeY.DataSource = CompleteScreening.ListDescriptors.GetListNameActives();
+            WindowForTable.Text = ListSelectedWell.Count +  " selected wells - " + FinalDataTable.Rows.Count + " points.";// Well.AssociatedPlate.Name + " [" + Well.GetPosX() + "x" + Well.GetPosY() + "]";
+
+            WindowForTable.Show();
+
+            //this.AssociatedPlate.DBConnection = new cDBConnection(this.AssociatedPlate, this.SQLTableName);
+            //// this.AssociatedPlate.DBConnection.DB_EstablishConnection();
+
+            //this.AssociatedPlate.DBConnection.DisplayTable(this);
+
+            //this.AssociatedPlate.DBConnection.DB_CloseConnection();
+            //this.SQLTableName
+        }
+
+
+        private void comboBoxClassForWellSelection_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+            SolidBrush BrushForColor = new SolidBrush(GlobalInfo.GetColor(e.Index));
+            e.Graphics.FillRectangle(BrushForColor, e.Bounds.X + 1, e.Bounds.Y + 1, 10, 10);
+            e.Graphics.DrawString(comboBoxNeutralClassForClassif.Items[e.Index].ToString(), comboBoxNeutralClassForClassif.Font,
+                System.Drawing.Brushes.Black, new RectangleF(e.Bounds.X + 15, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height));
+            e.DrawFocusRectangle();
+        }
+
+        private void buttonToSelectWellsFromClass_Click(object sender, EventArgs e)
+        {
+            foreach(cWell TmpWell in CompleteScreening.GetCurrentDisplayPlate().ListActiveWells)
+            {
+                if (TmpWell.GetClass() == comboBoxClassForWellSelection.SelectedIndex)
+                {
+                    listBoxSelectedWells.Items.Add(CompleteScreening.GetCurrentDisplayPlate().Name + " : " + TmpWell.GetPosX() + "x" + TmpWell.GetPosY());
+                    ListSelectedWell.Add(TmpWell);
+                }
+            }
+        }
+
+        private void clearToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            listBoxSelectedWells.Items.Clear();
+            ListSelectedWell.Clear();
+        }
 
     }
 

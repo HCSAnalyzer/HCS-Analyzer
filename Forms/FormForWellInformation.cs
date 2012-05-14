@@ -129,6 +129,18 @@ namespace HCSAnalyzer.Forms
             this.CurrentWell.DrawPic(this, null, null);
         }
 
+        private void pictureBoxForImage_Paint(object sender, PaintEventArgs e)
+        {
+            this.CurrentWell.DrawPic(this, null, null);
+        }
+
+        private void panelForImage_Paint(object sender, PaintEventArgs e)
+        {
+            this.CurrentWell.DrawPic(this, null, null);
+        }
+
+
+
 
 
 

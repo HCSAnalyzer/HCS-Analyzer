@@ -18,22 +18,22 @@ namespace HCSAnalyzer
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Classification Tree");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
-            treeNode11});
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Correlation Matrix and Ranking");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Systematic Errors Table");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Z-Factors");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Quality Control", new System.Windows.Forms.TreeNode[] {
-            treeNode13,
-            treeNode14,
-            treeNode15});
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Pathway Analysis");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("siRNA screening", new System.Windows.Forms.TreeNode[] {
-            treeNode17});
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Weka .Arff File");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Misc", new System.Windows.Forms.TreeNode[] {
-            treeNode19});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Classification Tree");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Classification", new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Correlation Matrix and Ranking");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Systematic Errors Table");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Z-Factors");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Quality Control", new System.Windows.Forms.TreeNode[] {
+            treeNode3,
+            treeNode4,
+            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Pathway Analysis");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("siRNA screening", new System.Windows.Forms.TreeNode[] {
+            treeNode7});
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Weka .Arff File");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Misc", new System.Windows.Forms.TreeNode[] {
+            treeNode9});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HCSAnalyzer));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageDImRed = new System.Windows.Forms.TabPage();
@@ -107,6 +107,13 @@ namespace HCSAnalyzer
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.buttonExport = new System.Windows.Forms.Button();
+            this.tabPageWellsSelection = new System.Windows.Forms.TabPage();
+            this.buttonToSelectWellsFromClass = new System.Windows.Forms.Button();
+            this.comboBoxClassForWellSelection = new System.Windows.Forms.ComboBox();
+            this.listBoxSelectedWells = new System.Windows.Forms.ListBox();
+            this.contextMenuStripForListSelectedWells = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonDisplayWellsSelectionData = new System.Windows.Forms.Button();
             this.imageListForTab = new System.Windows.Forms.ImageList(this.components);
             this.panelForTools = new System.Windows.Forms.Panel();
             this.buttonGlobalOnlySelected = new System.Windows.Forms.Button();
@@ -127,6 +134,7 @@ namespace HCSAnalyzer
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generateScreenToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.univariateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.multivariateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -161,6 +169,7 @@ namespace HCSAnalyzer
             this.lDAToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.displayGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generateDescToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.distanceMatrixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.qualityControlsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.zscoreSinglePlateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.normalProbabilityPlotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -191,6 +200,8 @@ namespace HCSAnalyzer
             this.findGeneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pahtwaysAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findPathwayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.displayThumbnailsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.platesManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -216,7 +227,6 @@ namespace HCSAnalyzer
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.buttonPreviousPlate = new System.Windows.Forms.Button();
             this.buttonNextPlate = new System.Windows.Forms.Button();
-            this.distanceMatrixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlMain.SuspendLayout();
             this.tabPageDImRed.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNewDimension)).BeginInit();
@@ -243,6 +253,8 @@ namespace HCSAnalyzer
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.tabPageWellsSelection.SuspendLayout();
+            this.contextMenuStripForListSelectedWells.SuspendLayout();
             this.panelForTools.SuspendLayout();
             this.panelForPlate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -264,10 +276,11 @@ namespace HCSAnalyzer
             this.tabControlMain.Controls.Add(this.tabPageNormalization);
             this.tabControlMain.Controls.Add(this.tabPageClassification);
             this.tabControlMain.Controls.Add(this.tabPageExport);
+            this.tabControlMain.Controls.Add(this.tabPageWellsSelection);
             this.tabControlMain.Location = new System.Drawing.Point(0, 429);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(1220, 303);
+            this.tabControlMain.Size = new System.Drawing.Size(1216, 303);
             this.tabControlMain.TabIndex = 5;
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControlMain_SelectedIndexChanged);
             this.tabControlMain.DragDrop += new System.Windows.Forms.DragEventHandler(this.tabControlMain_DragDrop);
@@ -286,7 +299,7 @@ namespace HCSAnalyzer
             this.tabPageDImRed.Location = new System.Drawing.Point(4, 22);
             this.tabPageDImRed.Name = "tabPageDImRed";
             this.tabPageDImRed.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDImRed.Size = new System.Drawing.Size(1212, 277);
+            this.tabPageDImRed.Size = new System.Drawing.Size(1208, 277);
             this.tabPageDImRed.TabIndex = 8;
             this.tabPageDImRed.Text = "Dimensionality Reduction";
             this.tabPageDImRed.UseVisualStyleBackColor = true;
@@ -350,7 +363,7 @@ namespace HCSAnalyzer
             // 
             this.buttonReduceDim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonReduceDim.Enabled = false;
-            this.buttonReduceDim.Location = new System.Drawing.Point(1056, 234);
+            this.buttonReduceDim.Location = new System.Drawing.Point(1052, 234);
             this.buttonReduceDim.Name = "buttonReduceDim";
             this.buttonReduceDim.Size = new System.Drawing.Size(150, 37);
             this.buttonReduceDim.TabIndex = 9;
@@ -482,7 +495,7 @@ namespace HCSAnalyzer
             this.tabPageQualityQtrl.Location = new System.Drawing.Point(4, 22);
             this.tabPageQualityQtrl.Name = "tabPageQualityQtrl";
             this.tabPageQualityQtrl.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageQualityQtrl.Size = new System.Drawing.Size(1212, 277);
+            this.tabPageQualityQtrl.Size = new System.Drawing.Size(1208, 277);
             this.tabPageQualityQtrl.TabIndex = 7;
             this.tabPageQualityQtrl.Text = "Systematic Error Identification & Correction";
             this.tabPageQualityQtrl.UseVisualStyleBackColor = true;
@@ -500,7 +513,7 @@ namespace HCSAnalyzer
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.richTextBoxInformationRejection);
             this.groupBox1.Controls.Add(this.comboBoxRejection);
-            this.groupBox1.Location = new System.Drawing.Point(698, 6);
+            this.groupBox1.Location = new System.Drawing.Point(694, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(291, 268);
             this.groupBox1.TabIndex = 8;
@@ -638,7 +651,7 @@ namespace HCSAnalyzer
             this.groupBox2.Controls.Add(this.richTextBoxInformationForPlateCorrection);
             this.groupBox2.Controls.Add(this.comboBoxMethodForCorrection);
             this.groupBox2.Controls.Add(this.buttonCorrectionPlateByPlate);
-            this.groupBox2.Location = new System.Drawing.Point(430, 6);
+            this.groupBox2.Location = new System.Drawing.Point(426, 6);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(262, 268);
             this.groupBox2.TabIndex = 7;
@@ -690,7 +703,7 @@ namespace HCSAnalyzer
             this.dataGridViewForQualityControl.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewForQualityControl.Location = new System.Drawing.Point(6, 6);
             this.dataGridViewForQualityControl.Name = "dataGridViewForQualityControl";
-            this.dataGridViewForQualityControl.Size = new System.Drawing.Size(418, 228);
+            this.dataGridViewForQualityControl.Size = new System.Drawing.Size(414, 228);
             this.dataGridViewForQualityControl.TabIndex = 1;
             this.dataGridViewForQualityControl.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewForQualityControl_CellContentDoubleClick);
             // 
@@ -701,7 +714,7 @@ namespace HCSAnalyzer
             this.buttonQualityControl.Enabled = false;
             this.buttonQualityControl.Location = new System.Drawing.Point(5, 240);
             this.buttonQualityControl.Name = "buttonQualityControl";
-            this.buttonQualityControl.Size = new System.Drawing.Size(418, 34);
+            this.buttonQualityControl.Size = new System.Drawing.Size(414, 34);
             this.buttonQualityControl.TabIndex = 2;
             this.buttonQualityControl.Text = "Systematic error identification";
             this.buttonQualityControl.UseVisualStyleBackColor = true;
@@ -715,7 +728,7 @@ namespace HCSAnalyzer
             this.tabPageNormalization.Location = new System.Drawing.Point(4, 22);
             this.tabPageNormalization.Name = "tabPageNormalization";
             this.tabPageNormalization.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNormalization.Size = new System.Drawing.Size(1212, 277);
+            this.tabPageNormalization.Size = new System.Drawing.Size(1208, 277);
             this.tabPageNormalization.TabIndex = 3;
             this.tabPageNormalization.Text = "Normalization";
             this.tabPageNormalization.UseVisualStyleBackColor = true;
@@ -724,7 +737,7 @@ namespace HCSAnalyzer
             // 
             this.buttonNormalize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonNormalize.Enabled = false;
-            this.buttonNormalize.Location = new System.Drawing.Point(1059, 237);
+            this.buttonNormalize.Location = new System.Drawing.Point(1055, 237);
             this.buttonNormalize.Name = "buttonNormalize";
             this.buttonNormalize.Size = new System.Drawing.Size(150, 34);
             this.buttonNormalize.TabIndex = 5;
@@ -842,7 +855,7 @@ namespace HCSAnalyzer
             this.tabPageClassification.Location = new System.Drawing.Point(4, 22);
             this.tabPageClassification.Name = "tabPageClassification";
             this.tabPageClassification.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageClassification.Size = new System.Drawing.Size(1212, 277);
+            this.tabPageClassification.Size = new System.Drawing.Size(1208, 277);
             this.tabPageClassification.TabIndex = 4;
             this.tabPageClassification.Text = "Classification & Clustering";
             this.tabPageClassification.UseVisualStyleBackColor = true;
@@ -1086,7 +1099,7 @@ namespace HCSAnalyzer
             this.tabPageExport.Location = new System.Drawing.Point(4, 22);
             this.tabPageExport.Name = "tabPageExport";
             this.tabPageExport.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageExport.Size = new System.Drawing.Size(1212, 277);
+            this.tabPageExport.Size = new System.Drawing.Size(1208, 277);
             this.tabPageExport.TabIndex = 5;
             this.tabPageExport.Text = "Report Export";
             this.tabPageExport.UseVisualStyleBackColor = true;
@@ -1110,8 +1123,8 @@ namespace HCSAnalyzer
             this.splitContainerExport.Panel2.Controls.Add(this.checkBoxExportPlateFormat);
             this.splitContainerExport.Panel2.Controls.Add(this.groupBox3);
             this.splitContainerExport.Panel2.Controls.Add(this.groupBox4);
-            this.splitContainerExport.Size = new System.Drawing.Size(1037, 261);
-            this.splitContainerExport.SplitterDistance = 404;
+            this.splitContainerExport.Size = new System.Drawing.Size(1033, 261);
+            this.splitContainerExport.SplitterDistance = 402;
             this.splitContainerExport.TabIndex = 17;
             // 
             // groupBox5
@@ -1123,7 +1136,7 @@ namespace HCSAnalyzer
             this.groupBox5.Controls.Add(this.richTextBoxForScreeningInformation);
             this.groupBox5.Location = new System.Drawing.Point(3, 8);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(398, 250);
+            this.groupBox5.Size = new System.Drawing.Size(396, 250);
             this.groupBox5.TabIndex = 8;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "                                             ";
@@ -1147,7 +1160,7 @@ namespace HCSAnalyzer
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBoxForScreeningInformation.Location = new System.Drawing.Point(6, 23);
             this.richTextBoxForScreeningInformation.Name = "richTextBoxForScreeningInformation";
-            this.richTextBoxForScreeningInformation.Size = new System.Drawing.Size(386, 221);
+            this.richTextBoxForScreeningInformation.Size = new System.Drawing.Size(384, 221);
             this.richTextBoxForScreeningInformation.TabIndex = 0;
             this.richTextBoxForScreeningInformation.Text = "";
             // 
@@ -1157,7 +1170,7 @@ namespace HCSAnalyzer
             this.checkBoxExportFullScreen.AutoSize = true;
             this.checkBoxExportFullScreen.Checked = true;
             this.checkBoxExportFullScreen.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxExportFullScreen.Location = new System.Drawing.Point(215, 60);
+            this.checkBoxExportFullScreen.Location = new System.Drawing.Point(163, 8);
             this.checkBoxExportFullScreen.Name = "checkBoxExportFullScreen";
             this.checkBoxExportFullScreen.Size = new System.Drawing.Size(79, 17);
             this.checkBoxExportFullScreen.TabIndex = 9;
@@ -1170,40 +1183,40 @@ namespace HCSAnalyzer
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeViewSelectionForExport.CheckBoxes = true;
             this.treeViewSelectionForExport.FullRowSelect = true;
-            this.treeViewSelectionForExport.Location = new System.Drawing.Point(166, 111);
+            this.treeViewSelectionForExport.Location = new System.Drawing.Point(67, 111);
             this.treeViewSelectionForExport.Name = "treeViewSelectionForExport";
-            treeNode11.Name = "NodeClassifTree";
-            treeNode11.Text = "Classification Tree";
-            treeNode12.Name = "NodeClassification";
-            treeNode12.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode12.Text = "Classification";
-            treeNode13.Checked = true;
-            treeNode13.Name = "NodeCorrelationMatRank";
-            treeNode13.Text = "Correlation Matrix and Ranking";
-            treeNode14.Checked = true;
-            treeNode14.Name = "NodeSystematicError";
-            treeNode14.Text = "Systematic Errors Table";
-            treeNode15.Checked = true;
-            treeNode15.Name = "NodeZfactor";
-            treeNode15.Text = "Z-Factors";
-            treeNode16.Checked = true;
-            treeNode16.Name = "NodeQualityControl";
-            treeNode16.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            treeNode16.Text = "Quality Control";
-            treeNode17.Name = "NodePathwayAnalysis";
-            treeNode17.Text = "Pathway Analysis";
-            treeNode18.Name = "NodesiRNA";
-            treeNode18.Text = "siRNA screening";
-            treeNode19.Name = "NodeWekaArff";
-            treeNode19.Text = "Weka .Arff File";
-            treeNode20.Name = "NodeMisc";
-            treeNode20.Text = "Misc";
+            treeNode1.Name = "NodeClassifTree";
+            treeNode1.Text = "Classification Tree";
+            treeNode2.Name = "NodeClassification";
+            treeNode2.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode2.Text = "Classification";
+            treeNode3.Checked = true;
+            treeNode3.Name = "NodeCorrelationMatRank";
+            treeNode3.Text = "Correlation Matrix and Ranking";
+            treeNode4.Checked = true;
+            treeNode4.Name = "NodeSystematicError";
+            treeNode4.Text = "Systematic Errors Table";
+            treeNode5.Checked = true;
+            treeNode5.Name = "NodeZfactor";
+            treeNode5.Text = "Z-Factors";
+            treeNode6.Checked = true;
+            treeNode6.Name = "NodeQualityControl";
+            treeNode6.NodeFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNode6.Text = "Quality Control";
+            treeNode7.Name = "NodePathwayAnalysis";
+            treeNode7.Text = "Pathway Analysis";
+            treeNode8.Name = "NodesiRNA";
+            treeNode8.Text = "siRNA screening";
+            treeNode9.Name = "NodeWekaArff";
+            treeNode9.Text = "Weka .Arff File";
+            treeNode10.Name = "NodeMisc";
+            treeNode10.Text = "Misc";
             this.treeViewSelectionForExport.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode12,
-            treeNode16,
-            treeNode18,
-            treeNode20});
-            this.treeViewSelectionForExport.Size = new System.Drawing.Size(281, 141);
+            treeNode2,
+            treeNode6,
+            treeNode8,
+            treeNode10});
+            this.treeViewSelectionForExport.Size = new System.Drawing.Size(450, 141);
             this.treeViewSelectionForExport.TabIndex = 16;
             // 
             // checkBoxExportPlateFormat
@@ -1212,7 +1225,7 @@ namespace HCSAnalyzer
             this.checkBoxExportPlateFormat.AutoSize = true;
             this.checkBoxExportPlateFormat.Checked = true;
             this.checkBoxExportPlateFormat.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxExportPlateFormat.Location = new System.Drawing.Point(522, 60);
+            this.checkBoxExportPlateFormat.Location = new System.Drawing.Point(376, 7);
             this.checkBoxExportPlateFormat.Name = "checkBoxExportPlateFormat";
             this.checkBoxExportPlateFormat.Size = new System.Drawing.Size(85, 17);
             this.checkBoxExportPlateFormat.TabIndex = 10;
@@ -1223,7 +1236,7 @@ namespace HCSAnalyzer
             // 
             this.groupBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox3.Controls.Add(this.pictureBox1);
-            this.groupBox3.Location = new System.Drawing.Point(10, 19);
+            this.groupBox3.Location = new System.Drawing.Point(99, 22);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(199, 83);
             this.groupBox3.TabIndex = 5;
@@ -1245,7 +1258,7 @@ namespace HCSAnalyzer
             // 
             this.groupBox4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupBox4.Controls.Add(this.pictureBox2);
-            this.groupBox4.Location = new System.Drawing.Point(317, 18);
+            this.groupBox4.Location = new System.Drawing.Point(316, 18);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(199, 87);
             this.groupBox4.TabIndex = 6;
@@ -1267,13 +1280,97 @@ namespace HCSAnalyzer
             // 
             this.buttonExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonExport.Enabled = false;
-            this.buttonExport.Location = new System.Drawing.Point(1082, 218);
+            this.buttonExport.Location = new System.Drawing.Point(1078, 232);
             this.buttonExport.Name = "buttonExport";
             this.buttonExport.Size = new System.Drawing.Size(124, 39);
             this.buttonExport.TabIndex = 0;
             this.buttonExport.Text = "Export";
             this.buttonExport.UseVisualStyleBackColor = true;
             this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
+            // 
+            // tabPageWellsSelection
+            // 
+            this.tabPageWellsSelection.Controls.Add(this.buttonToSelectWellsFromClass);
+            this.tabPageWellsSelection.Controls.Add(this.comboBoxClassForWellSelection);
+            this.tabPageWellsSelection.Controls.Add(this.listBoxSelectedWells);
+            this.tabPageWellsSelection.Controls.Add(this.buttonDisplayWellsSelectionData);
+            this.tabPageWellsSelection.Location = new System.Drawing.Point(4, 22);
+            this.tabPageWellsSelection.Name = "tabPageWellsSelection";
+            this.tabPageWellsSelection.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageWellsSelection.Size = new System.Drawing.Size(1208, 277);
+            this.tabPageWellsSelection.TabIndex = 9;
+            this.tabPageWellsSelection.Text = "Wells Selection";
+            this.tabPageWellsSelection.UseVisualStyleBackColor = true;
+            // 
+            // buttonToSelectWellsFromClass
+            // 
+            this.buttonToSelectWellsFromClass.Enabled = false;
+            this.buttonToSelectWellsFromClass.Location = new System.Drawing.Point(320, 52);
+            this.buttonToSelectWellsFromClass.Name = "buttonToSelectWellsFromClass";
+            this.buttonToSelectWellsFromClass.Size = new System.Drawing.Size(133, 33);
+            this.buttonToSelectWellsFromClass.TabIndex = 29;
+            this.buttonToSelectWellsFromClass.Text = "Add wells From class";
+            this.buttonToSelectWellsFromClass.UseVisualStyleBackColor = true;
+            this.buttonToSelectWellsFromClass.Click += new System.EventHandler(this.buttonToSelectWellsFromClass_Click);
+            // 
+            // comboBoxClassForWellSelection
+            // 
+            this.comboBoxClassForWellSelection.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBoxClassForWellSelection.Enabled = false;
+            this.comboBoxClassForWellSelection.FormattingEnabled = true;
+            this.comboBoxClassForWellSelection.Items.AddRange(new object[] {
+            "Positive (0)",
+            "Negative (1)",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"});
+            this.comboBoxClassForWellSelection.Location = new System.Drawing.Point(320, 101);
+            this.comboBoxClassForWellSelection.Name = "comboBoxClassForWellSelection";
+            this.comboBoxClassForWellSelection.Size = new System.Drawing.Size(133, 21);
+            this.comboBoxClassForWellSelection.TabIndex = 28;
+            this.comboBoxClassForWellSelection.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxClassForWellSelection_DrawItem);
+            // 
+            // listBoxSelectedWells
+            // 
+            this.listBoxSelectedWells.ContextMenuStrip = this.contextMenuStripForListSelectedWells;
+            this.listBoxSelectedWells.Enabled = false;
+            this.listBoxSelectedWells.FormattingEnabled = true;
+            this.listBoxSelectedWells.HorizontalScrollbar = true;
+            this.listBoxSelectedWells.Location = new System.Drawing.Point(9, 6);
+            this.listBoxSelectedWells.Name = "listBoxSelectedWells";
+            this.listBoxSelectedWells.Size = new System.Drawing.Size(291, 264);
+            this.listBoxSelectedWells.TabIndex = 1;
+            // 
+            // contextMenuStripForListSelectedWells
+            // 
+            this.contextMenuStripForListSelectedWells.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearToolStripMenuItem});
+            this.contextMenuStripForListSelectedWells.Name = "contextMenuStripForListSelectedWells";
+            this.contextMenuStripForListSelectedWells.Size = new System.Drawing.Size(102, 26);
+            // 
+            // clearToolStripMenuItem
+            // 
+            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.clearToolStripMenuItem.Text = "Clear";
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click_1);
+            // 
+            // buttonDisplayWellsSelectionData
+            // 
+            this.buttonDisplayWellsSelectionData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDisplayWellsSelectionData.Enabled = false;
+            this.buttonDisplayWellsSelectionData.Location = new System.Drawing.Point(1063, 230);
+            this.buttonDisplayWellsSelectionData.Name = "buttonDisplayWellsSelectionData";
+            this.buttonDisplayWellsSelectionData.Size = new System.Drawing.Size(139, 39);
+            this.buttonDisplayWellsSelectionData.TabIndex = 0;
+            this.buttonDisplayWellsSelectionData.Text = "Display Data";
+            this.buttonDisplayWellsSelectionData.UseVisualStyleBackColor = true;
+            this.buttonDisplayWellsSelectionData.Click += new System.EventHandler(this.buttonDisplayWellsSelectionData_Click);
             // 
             // imageListForTab
             // 
@@ -1500,6 +1597,7 @@ namespace HCSAnalyzer
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.importToolStripMenuItem,
             this.loadScreenToolStripMenuItem,
+            this.loadDatabaseToolStripMenuItem,
             this.generateScreenToolStripMenuItem1,
             this.toolStripSeparator2,
             this.exportToolStripMenuItem,
@@ -1532,6 +1630,15 @@ namespace HCSAnalyzer
             this.loadScreenToolStripMenuItem.Text = "Load Histogram Based Screen";
             this.loadScreenToolStripMenuItem.ToolTipText = "Load distributions based screens";
             this.loadScreenToolStripMenuItem.Click += new System.EventHandler(this.loadScreenToolStripMenuItem_Click);
+            // 
+            // loadDatabaseToolStripMenuItem
+            // 
+            this.loadDatabaseToolStripMenuItem.Enabled = false;
+            this.loadDatabaseToolStripMenuItem.Name = "loadDatabaseToolStripMenuItem";
+            this.loadDatabaseToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
+            this.loadDatabaseToolStripMenuItem.Text = "Load Database";
+            this.loadDatabaseToolStripMenuItem.ToolTipText = "soon !!";
+            this.loadDatabaseToolStripMenuItem.Click += new System.EventHandler(this.loadDatabaseToolStripMenuItem_Click);
             // 
             // generateScreenToolStripMenuItem1
             // 
@@ -1825,6 +1932,13 @@ namespace HCSAnalyzer
             this.generateDescToolStripMenuItem.Text = "Generate Desc.";
             this.generateDescToolStripMenuItem.Click += new System.EventHandler(this.generateDescToolStripMenuItem_Click);
             // 
+            // distanceMatrixToolStripMenuItem
+            // 
+            this.distanceMatrixToolStripMenuItem.Name = "distanceMatrixToolStripMenuItem";
+            this.distanceMatrixToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.distanceMatrixToolStripMenuItem.Text = "Distance Matrix";
+            this.distanceMatrixToolStripMenuItem.Click += new System.EventHandler(this.distanceMatrixToolStripMenuItem_Click);
+            // 
             // qualityControlsToolStripMenuItem1
             // 
             this.qualityControlsToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1883,7 +1997,9 @@ namespace HCSAnalyzer
             this.visualizationToolStripMenuItemPCA,
             this.qualityControlToolStripMenuItem,
             this.toolStripSeparator6,
-            this.toolStripMenuItemGeneAnalysis});
+            this.toolStripMenuItemGeneAnalysis,
+            this.toolStripSeparator7,
+            this.displayThumbnailsToolStripMenuItem1});
             this.screenAnalysisToolStripMenuItem.Name = "screenAnalysisToolStripMenuItem";
             this.screenAnalysisToolStripMenuItem.Size = new System.Drawing.Size(54, 23);
             this.screenAnalysisToolStripMenuItem.Text = "Screen";
@@ -1901,7 +2017,7 @@ namespace HCSAnalyzer
             this.lDAToolStripMenuItem});
             this.visualizationToolStripMenuItemPCA.Enabled = false;
             this.visualizationToolStripMenuItemPCA.Name = "visualizationToolStripMenuItemPCA";
-            this.visualizationToolStripMenuItemPCA.Size = new System.Drawing.Size(160, 22);
+            this.visualizationToolStripMenuItemPCA.Size = new System.Drawing.Size(178, 22);
             this.visualizationToolStripMenuItemPCA.Text = "Visualization";
             // 
             // scatterPointsToolStripMenuItem
@@ -2000,7 +2116,7 @@ namespace HCSAnalyzer
             this.descriptorEvolutionToolStripMenuItem});
             this.qualityControlToolStripMenuItem.Enabled = false;
             this.qualityControlToolStripMenuItem.Name = "qualityControlToolStripMenuItem";
-            this.qualityControlToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.qualityControlToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.qualityControlToolStripMenuItem.Text = "Quality Controls";
             // 
             // zscoreToolStripMenuItem
@@ -2054,7 +2170,7 @@ namespace HCSAnalyzer
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(157, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(175, 6);
             // 
             // toolStripMenuItemGeneAnalysis
             // 
@@ -2064,7 +2180,7 @@ namespace HCSAnalyzer
             this.findPathwayToolStripMenuItem});
             this.toolStripMenuItemGeneAnalysis.Enabled = false;
             this.toolStripMenuItemGeneAnalysis.Name = "toolStripMenuItemGeneAnalysis";
-            this.toolStripMenuItemGeneAnalysis.Size = new System.Drawing.Size(160, 22);
+            this.toolStripMenuItemGeneAnalysis.Size = new System.Drawing.Size(178, 22);
             this.toolStripMenuItemGeneAnalysis.Text = "Gene Analysis";
             // 
             // findGeneToolStripMenuItem
@@ -2089,6 +2205,19 @@ namespace HCSAnalyzer
             this.findPathwayToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.findPathwayToolStripMenuItem.Text = "Find Pathway";
             this.findPathwayToolStripMenuItem.Click += new System.EventHandler(this.findPathwayToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(175, 6);
+            // 
+            // displayThumbnailsToolStripMenuItem1
+            // 
+            this.displayThumbnailsToolStripMenuItem1.Enabled = false;
+            this.displayThumbnailsToolStripMenuItem1.Name = "displayThumbnailsToolStripMenuItem1";
+            this.displayThumbnailsToolStripMenuItem1.Size = new System.Drawing.Size(178, 22);
+            this.displayThumbnailsToolStripMenuItem1.Text = "Display Thumbnails";
+            this.displayThumbnailsToolStripMenuItem1.Click += new System.EventHandler(this.displayThumbnailsToolStripMenuItem1_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -2330,13 +2459,6 @@ namespace HCSAnalyzer
             this.buttonNextPlate.UseVisualStyleBackColor = true;
             this.buttonNextPlate.Click += new System.EventHandler(this.buttonNextPlate_Click);
             // 
-            // distanceMatrixToolStripMenuItem
-            // 
-            this.distanceMatrixToolStripMenuItem.Name = "distanceMatrixToolStripMenuItem";
-            this.distanceMatrixToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
-            this.distanceMatrixToolStripMenuItem.Text = "Distance Matrix";
-            this.distanceMatrixToolStripMenuItem.Click += new System.EventHandler(this.distanceMatrixToolStripMenuItem_Click);
-            // 
             // HCSAnalyzer
             // 
             this.AllowDrop = true;
@@ -2392,6 +2514,8 @@ namespace HCSAnalyzer
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.tabPageWellsSelection.ResumeLayout(false);
+            this.contextMenuStripForListSelectedWells.ResumeLayout(false);
             this.panelForTools.ResumeLayout(false);
             this.panelForTools.PerformLayout();
             this.panelForPlate.ResumeLayout(false);
@@ -2592,7 +2716,17 @@ namespace HCSAnalyzer
         public Panel panelForPlate;
         private Button buttonNextPlate;
         private Button buttonPreviousPlate;
+        private ToolStripSeparator toolStripSeparator7;
+        private ToolStripMenuItem displayThumbnailsToolStripMenuItem1;
         private ToolStripMenuItem distanceMatrixToolStripMenuItem;
+        private ToolStripMenuItem loadDatabaseToolStripMenuItem;
+        private TabPage tabPageWellsSelection;
+        private Button buttonDisplayWellsSelectionData;
+        private ComboBox comboBoxClassForWellSelection;
+        private ListBox listBoxSelectedWells;
+        private Button buttonToSelectWellsFromClass;
+        private ContextMenuStrip contextMenuStripForListSelectedWells;
+        private ToolStripMenuItem clearToolStripMenuItem;
     }
 }
 

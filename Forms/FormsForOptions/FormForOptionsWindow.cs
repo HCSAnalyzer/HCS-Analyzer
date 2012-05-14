@@ -105,10 +105,6 @@ namespace HCSAnalyzer
         //    return BrainDataBase;
         //}
 
-        private void buttonSaveOptions_Click(object sender, EventArgs e)
-        {
-            this.Save(@"save00");
-        }
 
 
         private void buttonDRCPlateDesign_Click(object sender, EventArgs e)
@@ -117,19 +113,7 @@ namespace HCSAnalyzer
             CurrentScreen.GlobalInfo.WindowForDRCDesign.ShowDialog();
         }
 
-        private void buttonModifyServer_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog OpenFolderDialog = new FolderBrowserDialog();
-            OpenFolderDialog.ShowNewFolderButton = false;
-            OpenFolderDialog.SelectedPath = @"\\srv-naf-01.ip-korea.org\";
-            DialogResult result = OpenFolderDialog.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                string Path = OpenFolderDialog.SelectedPath;
-                this.textBoxMainServer.Text = Path;
 
-            }
-        }
 
 
     }

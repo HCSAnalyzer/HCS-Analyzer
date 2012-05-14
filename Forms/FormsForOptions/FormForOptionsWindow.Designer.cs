@@ -154,16 +154,6 @@
             this.radioButtonDistributionMetricCosine = new System.Windows.Forms.RadioButton();
             this.radioButtonDistributionMetricManhattan = new System.Windows.Forms.RadioButton();
             this.radioButtonDistributionMetricEuclidean = new System.Windows.Forms.RadioButton();
-            this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.radioButtonServerUltra = new System.Windows.Forms.RadioButton();
-            this.radioButtonServerOperetta = new System.Windows.Forms.RadioButton();
-            this.radioButtonServerOpera = new System.Windows.Forms.RadioButton();
-            this.groupBoxServerOperetta = new System.Windows.Forms.GroupBox();
-            this.groupBoxServerUltra = new System.Windows.Forms.GroupBox();
-            this.groupBoxServerOpera = new System.Windows.Forms.GroupBox();
-            this.buttonModifyServer = new System.Windows.Forms.Button();
-            this.label31 = new System.Windows.Forms.Label();
-            this.textBoxMainServer = new System.Windows.Forms.TextBox();
             this.buttonOk = new System.Windows.Forms.Button();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.tabControlWindowOption.SuspendLayout();
@@ -225,8 +215,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellOpacity)).BeginInit();
             this.tabPage8.SuspendLayout();
             this.groupBox24.SuspendLayout();
-            this.tabPage9.SuspendLayout();
-            this.groupBoxServerOpera.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlWindowOption
@@ -242,7 +230,6 @@
             this.tabControlWindowOption.Controls.Add(this.tabPage6);
             this.tabControlWindowOption.Controls.Add(this.tabPage3D);
             this.tabControlWindowOption.Controls.Add(this.tabPage8);
-            this.tabControlWindowOption.Controls.Add(this.tabPage9);
             this.tabControlWindowOption.Location = new System.Drawing.Point(12, 12);
             this.tabControlWindowOption.Multiline = true;
             this.tabControlWindowOption.Name = "tabControlWindowOption";
@@ -1855,113 +1842,6 @@
             this.radioButtonDistributionMetricEuclidean.Text = "Euclidean";
             this.radioButtonDistributionMetricEuclidean.UseVisualStyleBackColor = true;
             // 
-            // tabPage9
-            // 
-            this.tabPage9.Controls.Add(this.radioButtonServerUltra);
-            this.tabPage9.Controls.Add(this.radioButtonServerOperetta);
-            this.tabPage9.Controls.Add(this.radioButtonServerOpera);
-            this.tabPage9.Controls.Add(this.groupBoxServerOperetta);
-            this.tabPage9.Controls.Add(this.groupBoxServerUltra);
-            this.tabPage9.Controls.Add(this.groupBoxServerOpera);
-            this.tabPage9.Location = new System.Drawing.Point(4, 58);
-            this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(396, 384);
-            this.tabPage9.TabIndex = 12;
-            this.tabPage9.Text = "Image Server";
-            this.tabPage9.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonServerUltra
-            // 
-            this.radioButtonServerUltra.AutoSize = true;
-            this.radioButtonServerUltra.Location = new System.Drawing.Point(23, 144);
-            this.radioButtonServerUltra.Name = "radioButtonServerUltra";
-            this.radioButtonServerUltra.Size = new System.Drawing.Size(47, 17);
-            this.radioButtonServerUltra.TabIndex = 10;
-            this.radioButtonServerUltra.TabStop = true;
-            this.radioButtonServerUltra.Text = "Ultra";
-            this.radioButtonServerUltra.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonServerOperetta
-            // 
-            this.radioButtonServerOperetta.AutoSize = true;
-            this.radioButtonServerOperetta.Location = new System.Drawing.Point(25, 263);
-            this.radioButtonServerOperetta.Name = "radioButtonServerOperetta";
-            this.radioButtonServerOperetta.Size = new System.Drawing.Size(66, 17);
-            this.radioButtonServerOperetta.TabIndex = 11;
-            this.radioButtonServerOperetta.TabStop = true;
-            this.radioButtonServerOperetta.Text = "Operetta";
-            this.radioButtonServerOperetta.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonServerOpera
-            // 
-            this.radioButtonServerOpera.AutoSize = true;
-            this.radioButtonServerOpera.Checked = true;
-            this.radioButtonServerOpera.Location = new System.Drawing.Point(25, 14);
-            this.radioButtonServerOpera.Name = "radioButtonServerOpera";
-            this.radioButtonServerOpera.Size = new System.Drawing.Size(54, 17);
-            this.radioButtonServerOpera.TabIndex = 9;
-            this.radioButtonServerOpera.TabStop = true;
-            this.radioButtonServerOpera.Text = "Opera";
-            this.radioButtonServerOpera.UseVisualStyleBackColor = true;
-            // 
-            // groupBoxServerOperetta
-            // 
-            this.groupBoxServerOperetta.Location = new System.Drawing.Point(7, 266);
-            this.groupBoxServerOperetta.Name = "groupBoxServerOperetta";
-            this.groupBoxServerOperetta.Size = new System.Drawing.Size(383, 105);
-            this.groupBoxServerOperetta.TabIndex = 8;
-            this.groupBoxServerOperetta.TabStop = false;
-            this.groupBoxServerOperetta.Text = "                     ";
-            // 
-            // groupBoxServerUltra
-            // 
-            this.groupBoxServerUltra.Location = new System.Drawing.Point(7, 148);
-            this.groupBoxServerUltra.Name = "groupBoxServerUltra";
-            this.groupBoxServerUltra.Size = new System.Drawing.Size(383, 105);
-            this.groupBoxServerUltra.TabIndex = 7;
-            this.groupBoxServerUltra.TabStop = false;
-            this.groupBoxServerUltra.Text = "                   ";
-            // 
-            // groupBoxServerOpera
-            // 
-            this.groupBoxServerOpera.Controls.Add(this.buttonModifyServer);
-            this.groupBoxServerOpera.Controls.Add(this.label31);
-            this.groupBoxServerOpera.Controls.Add(this.textBoxMainServer);
-            this.groupBoxServerOpera.Location = new System.Drawing.Point(7, 17);
-            this.groupBoxServerOpera.Name = "groupBoxServerOpera";
-            this.groupBoxServerOpera.Size = new System.Drawing.Size(383, 121);
-            this.groupBoxServerOpera.TabIndex = 6;
-            this.groupBoxServerOpera.TabStop = false;
-            this.groupBoxServerOpera.Text = "                       ";
-            // 
-            // buttonModifyServer
-            // 
-            this.buttonModifyServer.Location = new System.Drawing.Point(293, 85);
-            this.buttonModifyServer.Name = "buttonModifyServer";
-            this.buttonModifyServer.Size = new System.Drawing.Size(84, 30);
-            this.buttonModifyServer.TabIndex = 2;
-            this.buttonModifyServer.Text = "Modify";
-            this.buttonModifyServer.UseVisualStyleBackColor = true;
-            this.buttonModifyServer.Click += new System.EventHandler(this.buttonModifyServer_Click);
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(15, 25);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(64, 13);
-            this.label31.TabIndex = 1;
-            this.label31.Text = "Main Server";
-            // 
-            // textBoxMainServer
-            // 
-            this.textBoxMainServer.Location = new System.Drawing.Point(18, 41);
-            this.textBoxMainServer.Name = "textBoxMainServer";
-            this.textBoxMainServer.ReadOnly = true;
-            this.textBoxMainServer.Size = new System.Drawing.Size(359, 20);
-            this.textBoxMainServer.TabIndex = 0;
-            // 
             // buttonOk
             // 
             this.buttonOk.Location = new System.Drawing.Point(141, 464);
@@ -2068,10 +1948,6 @@
             this.tabPage8.ResumeLayout(false);
             this.groupBox24.ResumeLayout(false);
             this.groupBox24.PerformLayout();
-            this.tabPage9.ResumeLayout(false);
-            this.tabPage9.PerformLayout();
-            this.groupBoxServerOpera.ResumeLayout(false);
-            this.groupBoxServerOpera.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2203,16 +2079,6 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Label label29;
         public System.Windows.Forms.RadioButton radioButtonDistributionMetricEMD;
-        private System.Windows.Forms.TabPage tabPage9;
-        public System.Windows.Forms.RadioButton radioButtonServerUltra;
-        public System.Windows.Forms.RadioButton radioButtonServerOperetta;
-        public System.Windows.Forms.RadioButton radioButtonServerOpera;
-        private System.Windows.Forms.GroupBox groupBoxServerOperetta;
-        private System.Windows.Forms.GroupBox groupBoxServerUltra;
-        private System.Windows.Forms.GroupBox groupBoxServerOpera;
-        private System.Windows.Forms.Button buttonModifyServer;
-        private System.Windows.Forms.Label label31;
-        public System.Windows.Forms.TextBox textBoxMainServer;
         public System.Windows.Forms.TabControl tabControlWindowOption;
         public System.Windows.Forms.TabPage tabPage3D;
     }

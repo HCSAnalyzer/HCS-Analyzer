@@ -14,6 +14,7 @@ namespace HCSAnalyzer.Forms.FormsForGraphsDisplay
         DataTable TableValues = null;
 
 
+
         public cDisplayTable(string Title, string[] ColumnNames, List<string[]> Values, cGlobalInfo GlobalInfo, bool IsMINE)
         {
             this.Text = Title;

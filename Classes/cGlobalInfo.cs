@@ -6,9 +6,14 @@ using System.Drawing;
 using LibPlateAnalysis;
 using System.Windows.Forms;
 using HCSAnalyzer.Forms;
+using HCSAnalyzer.Forms.FormsForImages;
 
 namespace HCSAnalyzer.Classes
 {
+
+
+
+
     public class cGlobalInfo
     {
         public FormForDRCDesign WindowForDRCDesign = new FormForDRCDesign();
@@ -17,6 +22,14 @@ namespace HCSAnalyzer.Classes
         private bool _IsDistributionMode = false;
         public HCSAnalyzer WindowHCSAnalyzer = null;
 
+        List<cImageViewer> ListImageViewers = new List<cImageViewer>();
+
+        public void DisplayViewer(cImageViewer ImageViewer)
+        {
+            ListImageViewers.Add(ImageViewer);
+            ListImageViewers[ListImageViewers.Count-1].Display();
+
+        }
 
         public bool IsDistributionMode()
         {
@@ -41,7 +54,7 @@ namespace HCSAnalyzer.Classes
                 if (OptionsWindow.radioButtonDistributionMetricEMD.Checked)
                     DistributionMode += OptionsWindow.radioButtonDistributionMetricEMD.Text;
 
-                WindowHCSAnalyzer.Text = WindowName + " (Histogram Mode - " + DistributionMode +")";
+                WindowHCSAnalyzer.Text = WindowName + " (Histogram Mode - " + DistributionMode + ")";
             }
             else
                 WindowHCSAnalyzer.Text = WindowName + " (Scalar Mode)";

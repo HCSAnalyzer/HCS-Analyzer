@@ -8,18 +8,31 @@ using HCSAnalyzer.Classes;
 namespace LibPlateAnalysis
 {
 
+    public enum eDistances { EUCLIDEAN , MANHATTAN, VECTOR_COS, BHATTACHARYYA, EMD };
+
     public class cDescriptorsType
     {
+        public bool IsConnectedToDatabase { get; private set;}
 
+
+        public cDescriptorsType(string Name, bool IsActive, int BinNumber, bool IsConnectedToDB)
+        {
+            //this.AssociatedcListDescriptors = AssociatedcListDescriptors;
+            this.Name = Name;
+            this.ActiveState = IsActive;
+            this.NumBin = BinNumber;
+            this.IsConnectedToDatabase = IsConnectedToDB;
+            CreateAssociatedWindow();
+        }
         public cDescriptorsType(string Name, bool IsActive, int BinNumber)
         {
             //this.AssociatedcListDescriptors = AssociatedcListDescriptors;
             this.Name = Name;
             this.ActiveState = IsActive;
             this.NumBin = BinNumber;
+            this.IsConnectedToDatabase = false;
             CreateAssociatedWindow();
         }
-
         /*public cDescriptorsType(cDescriptor Example, bool IsActive)
         {
             this.Name = Example.GetName();
@@ -36,18 +49,15 @@ namespace LibPlateAnalysis
             return Name;
         }
 
-
-
         // private cListDescriptors AssociatedcListDescriptors = null;
 
-
         private int NumBin;
+
 
         public int GetBinNumber()
         {
             return NumBin;
         }
-
 
         public string GetDataType()
         {
@@ -55,7 +65,6 @@ namespace LibPlateAnalysis
             else
                 return "Histogram - " + this.GetBinNumber() + " bins.";
         }
-
 
         private bool ActiveState;
 
@@ -69,14 +78,11 @@ namespace LibPlateAnalysis
             return this.ActiveState;
         }
 
-
         public bool ChangeName(string NewName)
         {
             this.Name = NewName;
             return true;
         }
-
-
 
         public FormForDescriptorInfo WindowDescriptorInfo;// = new FormForDescriptorInfo();   
 
@@ -86,12 +92,14 @@ namespace LibPlateAnalysis
             WindowDescriptorInfo.CurrentDesc = this;
             WindowDescriptorInfo.Text = this.Name;
         }
+
     }
 
     public class cListDescriptors : List<cDescriptorsType>
     {
         CheckedListBox AssociatedListBox;
         ComboBox AssociatedListDescriptorToDisplay;
+        public int CurrentSelectedDescriptor = -1;
 
         public int GetDescriptorIndex(cDescriptorsType DescriptorType)
         {
@@ -118,9 +126,6 @@ namespace LibPlateAnalysis
 
             return DescIndex;
         }
-
-
-        public int CurrentSelectedDescriptor = -1;
 
         public void SetCurrentSelectedDescriptor(int Desc)
         {
@@ -164,7 +169,6 @@ namespace LibPlateAnalysis
             return true;
         }
 
-
         public void RemoveDesc(cDescriptorsType DescriptorTypeToBeRemoved, cScreening CurrentScreen)
         {
             for (int i = 0; i < this.Count; i++)
@@ -188,7 +192,6 @@ namespace LibPlateAnalysis
             }
         }
 
-
         public void RemoveDescUnSafe(cDescriptorsType DescriptorTypeToBeRemoved, cScreening CurrentScreen)
         {
             for (int i = 0; i < this.Count; i++)
@@ -211,7 +214,6 @@ namespace LibPlateAnalysis
                 }
             }
         }
-
 
         public List<string> GetListNameActives()
         {
@@ -253,6 +255,19 @@ namespace LibPlateAnalysis
                 Idx++;
             }
         }
+
+        public cExtendedList GetValue(List<cPlate> ListPlate, cDescriptorsType Desc)
+        {
+            cExtendedList ToReturn = new cExtendedList();
+
+            int Idx = this.GetDescriptorIndex(Desc);
+
+            foreach (cPlate CurrentPlate in ListPlate)
+                foreach (cWell TmpWell in CurrentPlate.ListActiveWells)
+                    ToReturn.Add(TmpWell.ListDescriptors[Idx].GetValue());
+            return ToReturn;
+        }
+
     }
 
 
@@ -262,6 +277,7 @@ namespace LibPlateAnalysis
         //public bool IsSingle;
 
         cDescriptorsType Type;
+
         private cScreening CurrentScreening;
 
         public cDescriptorsType GetAssociatedType()
@@ -274,7 +290,7 @@ namespace LibPlateAnalysis
         private double ComputeDistributionDistanceToReference()
         {
             return 0;
-        
+
         }
 
         #region public
@@ -310,7 +326,7 @@ namespace LibPlateAnalysis
                 else if
                     (CurrentScreening.GlobalInfo.OptionsWindow.radioButtonDistributionMetricEMD.Checked)
                     return HistoValues.Dist_EarthMover(CurrentScreening.Reference[CurrentScreening.ListDescriptors.IndexOf(Type)]);
-                
+
 
                 else return -1;
             }
@@ -369,7 +385,7 @@ namespace LibPlateAnalysis
         {
             AverageValue = HistoValues.Mean();
             //FirstValue = HistoValues[0];
-          //  LastValue = HistoValues[HistoValues.Count - 1];
+            //  LastValue = HistoValues[HistoValues.Count - 1];
         }
 
 
@@ -377,8 +393,8 @@ namespace LibPlateAnalysis
 
         private double AverageValue;
 
-      //  private double FirstValue = -1;
-       // private double LastValue = -1;
+        //  private double FirstValue = -1;
+        // private double LastValue = -1;
 
         private double[] OriginalValues = null;
 
@@ -445,7 +461,7 @@ namespace LibPlateAnalysis
         /// <param name="Name">Descriptor name</param>
         //public cDescriptor(double[] ListOriginalValues, cDescriptorsType Type)
         //{
-            
+
 
         //    this.OriginalValues = new double[ListOriginalValues.Length];
         //    Array.Copy(ListOriginalValues, this.OriginalValues, OriginalValues.Length);
@@ -488,7 +504,7 @@ namespace LibPlateAnalysis
             this.Type = Type;
 
             //this.FirstValue = FirstValue;
-           // this.LastValue = LastValue;
+            // this.LastValue = LastValue;
 
             this.HistoValues = new cExtendedList();
 
@@ -499,7 +515,7 @@ namespace LibPlateAnalysis
                 for (int i = 0; i < Type.GetBinNumber() - HistoGram.Length; i++)
                     this.HistoValues.Add(0);
             }
-            
+
 
             //    new double[HistoGram.Length];
             //Array.Copy(HistoGram, this.HistoValues, HistoGram.Length);

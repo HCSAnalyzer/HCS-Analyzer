@@ -53,7 +53,6 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panelForImage = new System.Windows.Forms.Panel();
-            this.pictureBoxForImage = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDownIdxImage = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
@@ -70,8 +69,6 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.panelForImage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxForImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIdxImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImageMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImageMax)).BeginInit();
@@ -84,7 +81,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chartForFormWell.Location = new System.Drawing.Point(6, 6);
             this.chartForFormWell.Name = "chartForFormWell";
-            this.chartForFormWell.Size = new System.Drawing.Size(576, 325);
+            this.chartForFormWell.Size = new System.Drawing.Size(604, 412);
             this.chartForFormWell.TabIndex = 1;
             this.chartForFormWell.Text = "chart1";
             // 
@@ -264,7 +261,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(588, 337);
+            this.tabPage1.Size = new System.Drawing.Size(616, 424);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Histogram";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -275,16 +272,16 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(588, 337);
+            this.tabPage2.Size = new System.Drawing.Size(616, 424);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Desription";
+            this.tabPage2.Text = "Description";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // richTextBoxDescription
             // 
             this.richTextBoxDescription.Location = new System.Drawing.Point(6, 6);
             this.richTextBoxDescription.Name = "richTextBoxDescription";
-            this.richTextBoxDescription.Size = new System.Drawing.Size(576, 325);
+            this.richTextBoxDescription.Size = new System.Drawing.Size(604, 412);
             this.richTextBoxDescription.TabIndex = 0;
             this.richTextBoxDescription.Text = "";
             // 
@@ -332,24 +329,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelForImage.BackColor = System.Drawing.Color.Gainsboro;
             this.panelForImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelForImage.Controls.Add(this.pictureBoxForImage);
             this.panelForImage.Location = new System.Drawing.Point(3, 3);
             this.panelForImage.Name = "panelForImage";
             this.panelForImage.Size = new System.Drawing.Size(485, 402);
             this.panelForImage.TabIndex = 3;
-            // 
-            // pictureBoxForImage
-            // 
-            this.pictureBoxForImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxForImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBoxForImage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBoxForImage.Location = new System.Drawing.Point(3, 3);
-            this.pictureBoxForImage.Name = "pictureBoxForImage";
-            this.pictureBoxForImage.Size = new System.Drawing.Size(477, 394);
-            this.pictureBoxForImage.TabIndex = 0;
-            this.pictureBoxForImage.TabStop = false;
+            this.panelForImage.Paint += new System.Windows.Forms.PaintEventHandler(this.panelForImage_Paint);
             // 
             // label7
             // 
@@ -464,8 +448,6 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.panelForImage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxForImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIdxImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImageMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImageMax)).EndInit();
@@ -500,7 +482,6 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.SplitContainer splitContainer1;
         public System.Windows.Forms.Panel panelForImage;
-        public System.Windows.Forms.PictureBox pictureBoxForImage;
         private System.Windows.Forms.Label label7;
         public System.Windows.Forms.NumericUpDown numericUpDownIdxImage;
         private System.Windows.Forms.Label label5;

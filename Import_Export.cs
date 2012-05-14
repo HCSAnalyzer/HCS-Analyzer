@@ -17,6 +17,8 @@ using HCSAnalyzer.Classes;
 using weka.core.converters;
 using System.Diagnostics;
 using HCSAnalyzer.Forms.IO;
+using HCSAnalyzer.Forms.FormsForGraphsDisplay;
+using System.Data.SQLite;
 
 namespace HCSAnalyzer
 {
@@ -1153,9 +1155,6 @@ namespace HCSAnalyzer
 
         }
 
-
-
-
         public string CheckAndCorrectFilemName(string FileName, bool IsWarn)
         {
             string[] ListChr = new string[] { "?", ">", "<", "*", ":", "|", "/", "\\" };
@@ -1856,6 +1855,7 @@ namespace HCSAnalyzer
                             LDesc.Add(Desc);
                         else
                         {
+                            if (CurrentWell == null) continue;
                             LDesc.Add(Desc);
                             CurrentWell.AddDescriptors(LDesc);
                         }
@@ -1867,6 +1867,7 @@ namespace HCSAnalyzer
                     for (int Y = 0; Y < NumRow; Y++)
                     {
                         cWell CurrentWell = CurrentPlate.GetWell((int)WindowGenerateScreening.numericUpDownColPosCtrl.Value, Y, false);
+                        if (CurrentWell == null) continue;
                         CurrentWell.Name = "Positive Ctrl";
                         CurrentWell.SetClass(0);
 
@@ -1885,6 +1886,7 @@ namespace HCSAnalyzer
                     for (int Y = 0; Y < NumRow; Y++)
                     {
                         cWell CurrentWell = CurrentPlate.GetWell((int)WindowGenerateScreening.numericUpDownColNegCtrl.Value, Y, false);
+                        if (CurrentWell == null) continue;
                         CurrentWell.Name = "Negative Ctrl";
                         CurrentWell.SetClass(1);
 
@@ -1909,7 +1911,7 @@ namespace HCSAnalyzer
                         for (int Y = 0; Y < NumRow; Y++)
                         {
                             cWell CurrentWell = CurrentPlate.GetWell(X, Y, false);
-
+                            if (CurrentWell == null) continue;
                             double NewVal = CurrentWell.ListDescriptors[CurrentWell.ListDescriptors.Count - 1].GetValue() * ((Y + 1) + ShiftForRow);
 
                             CurrentWell.ListDescriptors[IdxDesc].SetHistoValues(NewVal);
@@ -1922,7 +1924,7 @@ namespace HCSAnalyzer
                         for (int Y = 0; Y < NumRow; Y++)
                         {
                             cWell CurrentWell = CurrentPlate.GetWell(X, Y, false);
-
+                            if (CurrentWell == null) continue;
                             double CurrentValue = (CurrentWell.ListDescriptors[CurrentWell.ListDescriptors.Count - 1].GetValue() * ((X + 1) + (double)WindowGenerateScreening.numericUpDownColEffectIntensity.Value));
 
                             CurrentWell.ListDescriptors[IdxDesc].SetHistoValues(CurrentValue);
@@ -1943,7 +1945,7 @@ namespace HCSAnalyzer
                         for (int Y = 0; Y < NumRow; Y++)
                         {
                             cWell CurrentWell = CurrentPlate.GetWell(X, Y, false);
-
+                            if (CurrentWell == null) continue;
                             double CurrentValue = (CurrentWell.ListDescriptors[CurrentWell.ListDescriptors.Count - 1].GetValue() * ((X + 1) + (double)WindowGenerateScreening.numericUpDownColEffectIntensity.Value));
                             CurrentValue *= (float)Math.Sqrt((X - CenterX) * (X - CenterX) / CurrentRatioXY + (Y - CenterY) * (Y - CenterY));
 
@@ -1966,6 +1968,7 @@ namespace HCSAnalyzer
                         for (int Y = 0; Y < NumRow; Y++)
                         {
                             cWell CurrentWell = CurrentPlate.GetWell(X, Y, false);
+                            if (CurrentWell == null) continue;
                             double CurrentValue = (CurrentWell.ListDescriptors[CurrentWell.ListDescriptors.Count - 1].GetValue()) * (DiffusionMap[X, Y] * (double)WindowGenerateScreening.numericUpDownEdgeEffectIntensity.Value);
                             CurrentWell.ListDescriptors[IdxDesc].SetHistoValues(CurrentValue);
                         }
@@ -2001,259 +2004,6 @@ namespace HCSAnalyzer
             }
 
         }
-
-        private void histogramBasedToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-
-            if (CompleteScreening != null) CompleteScreening.Close3DView();
-
-            FormForHistogramScreen WindowGenerateScreening = new FormForHistogramScreen(GlobalInfo);
-            if (WindowGenerateScreening.ShowDialog() != DialogResult.OK) return;
-
-            int HistoSize = (int)WindowGenerateScreening.numericUpDownHistogramSize.Value;
-
-            int NumRow = (int)WindowGenerateScreening.numericUpDownRows.Value;
-            int NumCol = (int)WindowGenerateScreening.numericUpDownColumns.Value;
-            if (!WindowGenerateScreening.checkBoxAddAsDescriptor.Checked)
-            {
-                CompleteScreening = new cScreening("Generated Histogram based Screen", GlobalInfo);
-                CompleteScreening.Rows = NumRow;
-                CompleteScreening.Columns = NumCol;
-                CompleteScreening.ListPlatesAvailable = new cExtendPlateList();
-            }
-
-            int NumPlate = (int)WindowGenerateScreening.numericUpDownPlateNumber.Value;
-
-
-            List<int> NumPts = new List<int>();
-            NumPts.Add((int)WindowGenerateScreening.numericUpDownPopulation1NumberOfEvents.Value);
-            NumPts.Add((int)WindowGenerateScreening.numericUpDownPopulation2NumberOfEvents.Value);
-
-            List<double> MeanCpds = new List<double>();
-            MeanCpds.Add((double)WindowGenerateScreening.numericUpDownPopulation1Mean.Value);
-            MeanCpds.Add((double)WindowGenerateScreening.numericUpDownPopulation2Mean.Value);
-
-            List<double> StdevCpds = new List<double>();
-            StdevCpds.Add((double)WindowGenerateScreening.numericUpDownPopulation1Stdev.Value);
-            StdevCpds.Add((double)WindowGenerateScreening.numericUpDownPopulation2Stdev.Value);
-
-
-
-
-            //double MeanPos = (double)WindowGenerateScreening.numericUpDownPosCtrlMean.Value;
-            //double StdevPos = (double)WindowGenerateScreening.numericUpDownPosCtrlStdv.Value;
-
-            //double MeanNeg = (double)WindowGenerateScreening.numericUpDownNegCtrlMean.Value;
-            //double StdevNeg = (double)WindowGenerateScreening.numericUpDownNegCtrlStdv.Value;
-
-            cDescriptorsType NewDescType = null;
-
-            // create the descriptor
-            if (!WindowGenerateScreening.checkBoxAddAsDescriptor.Checked)
-            {
-                CompleteScreening.ListDescriptors.Clean();
-                NewDescType = new cDescriptorsType("Descriptor", true, HistoSize);
-                CompleteScreening.ListDescriptors.AddNew(NewDescType);
-            }
-            else
-            {
-
-                NewDescType = new cDescriptorsType("New_Descriptor", true, HistoSize);
-
-                int NIdxDesc = 0;
-                while (CompleteScreening.ListDescriptors.GetDescriptorIndex(NewDescType) != -1)
-                {
-                    NewDescType = new cDescriptorsType("New_Descriptor" + NIdxDesc++, true, HistoSize);
-
-                }
-
-                CompleteScreening.ListDescriptors.AddNew(NewDescType);
-            }
-
-            Random rand = new Random();
-
-            double StepForNoiseStandardDeviation = (double)GlobalInfo.OptionsWindow.numericUpDownGenerateScreenNoiseStdDev.Value;
-
-            for (int IdxPlate = 0; IdxPlate < NumPlate; IdxPlate++)
-            {
-                cPlate CurrentPlate = null;
-                if (!WindowGenerateScreening.checkBoxAddAsDescriptor.Checked)
-                {
-                    string PlateName = "Plate_" + IdxPlate;
-                    CurrentPlate = new cPlate("Cpds", PlateName, CompleteScreening);
-                    CompleteScreening.AddPlate(CurrentPlate);
-                }
-                else
-                {
-                    CurrentPlate = CompleteScreening.ListPlatesAvailable[IdxPlate];
-
-                }
-
-
-                //StdevCpds = (double)WindowGenerateScreening.numericUpDownCpdsStdev.Value + StepForNoiseStandardDeviation * IdxPlate;
-
-                int IdxDesc = CompleteScreening.ListDescriptors.GetDescriptorIndex(NewDescType);
-
-                double u1;
-                double u2;
-                double randStdNormal;
-
-                for (int X = 1; X <= NumCol; X++)
-                    for (int Y = 1; Y <= NumRow; Y++)
-                    {
-                        List<cDescriptor> LDesc = new List<cDescriptor>();
-                        cExtendedList ListForPts = new cExtendedList();
-
-                        for (int IdxPop = 0; IdxPop < NumPts.Count; IdxPop++)
-                        {
-
-                            #region population average variability
-                            double MeanVariability = 0;
-
-                            if (WindowGenerateScreening.AverageVariabilityWindows[IdxPop].numericUpDownVariability.Value > 0)
-                            {
-                                u1 = rand.NextDouble();
-                                u2 = rand.NextDouble();
-                                randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
-                                MeanVariability = (double)WindowGenerateScreening.AverageVariabilityWindows[IdxPop].numericUpDownVariability.Value * randStdNormal;
-                            }
-
-                            if (WindowGenerateScreening.AverageVariabilityWindows[IdxPop].checkBoxVariableAlongTheColumns.Checked)
-                            {
-                                if (WindowGenerateScreening.AverageVariabilityWindows[IdxPop].radioButtonVariableAlongTheColumnsPositive.Checked)
-                                    MeanVariability += 6 * (X - 1);
-                                else
-                                    MeanVariability -= 6* (X - 1);
-                            }
-
-
-
-                            if (WindowGenerateScreening.AverageVariabilityWindows[IdxPop].checkBoxVariableAlongTheRows.Checked)
-                            {
-                                if (WindowGenerateScreening.AverageVariabilityWindows[IdxPop].radioButtonVariableAlongTheRowsPositive.Checked)
-                                    MeanVariability += 6 * (Y - 1);
-                                else
-                                    MeanVariability -= 6 * (Y - 1);
-                            }
-
-                            #endregion
-
-
-                            #region population standard deviation variability
-                            double StdevVariability = 0;
-
-                            if (WindowGenerateScreening.StDevVariabilityWindows[IdxPop].numericUpDownVariability.Value > 0)
-                            {
-                                u1 = rand.NextDouble();
-                                u2 = rand.NextDouble();
-                                randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
-                                StdevVariability = (double)WindowGenerateScreening.StDevVariabilityWindows[IdxPop].numericUpDownVariability.Value * randStdNormal;
-                            }
-
-                            if (WindowGenerateScreening.StDevVariabilityWindows[IdxPop].checkBoxVariableAlongTheColumns.Checked)
-                            {
-                                if(WindowGenerateScreening.StDevVariabilityWindows[IdxPop].radioButtonVariableAlongTheColumnsPositive.Checked)
-                                    StdevVariability += (X - 1);
-                                else
-                                    StdevVariability -= (X - 1);
-                            }
-
-                            if (WindowGenerateScreening.StDevVariabilityWindows[IdxPop].checkBoxVariableAlongTheRows.Checked)
-                                if (WindowGenerateScreening.StDevVariabilityWindows[IdxPop].radioButtonVariableAlongTheRowsPositive.Checked)
-                                    StdevVariability += (Y - 1);
-                                else
-                                    StdevVariability -= (Y - 1);
-
-
-                            #endregion
-
-
-                            #region Number of events variability
-                            int PopEvent = NumPts[IdxPop];
-                            int PopVariability = 0;
-
-                            if (WindowGenerateScreening.EventsNumberVariabilityWindows[IdxPop].numericUpDownVariability.Value > 0)
-                            {
-                                u1 = rand.NextDouble();
-                                u2 = rand.NextDouble();
-                                randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
-                                PopVariability = (int)((int)(WindowGenerateScreening.AverageVariabilityWindows[IdxPop].numericUpDownVariability.Value) * randStdNormal);
-                            }
-
-                            if (WindowGenerateScreening.EventsNumberVariabilityWindows[IdxPop].checkBoxVariableAlongTheColumns.Checked)
-                                PopVariability += 500*(X - 1);
-
-                            if (WindowGenerateScreening.EventsNumberVariabilityWindows[IdxPop].checkBoxVariableAlongTheRows.Checked)
-                                PopVariability += 500*(Y - 1);
-                            #endregion
-
-
-                            for (int IdxPt = 0; IdxPt < PopEvent + PopVariability; IdxPt++)
-                            {
-                                u1 = rand.NextDouble();
-                                u2 = rand.NextDouble();
-                                randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
-                                double randNormal = (MeanCpds[IdxPop] + MeanVariability) + (StdevCpds[IdxPop] + StdevVariability)* randStdNormal;
-                                if (randNormal < 0) randNormal = 0;
-                                if (randNormal > HistoSize - 1) randNormal = HistoSize - 1;
-                                ListForPts.Add(randNormal);
-                            }
-                        }
-
-
-                        cDescriptor Desc = new cDescriptor(ListForPts.CreateHistogram(0, HistoSize - 1, HistoSize - 1)[1], 0, HistoSize - 1, NewDescType, CompleteScreening);
-                        cWell CurrentWell = null;
-
-                        if (!WindowGenerateScreening.checkBoxAddAsDescriptor.Checked)
-                        {
-                            CurrentWell = new cWell(LDesc, X, Y, CompleteScreening, CurrentPlate);
-                            CurrentWell.Name = "Cpds";
-                            CurrentPlate.AddWell(CurrentWell);
-                        }
-                        else
-                            CurrentWell = CurrentPlate.GetWell(X - 1, Y - 1, false);
-
-                        if (!WindowGenerateScreening.checkBoxAddAsDescriptor.Checked)
-                            LDesc.Add(Desc);
-                        else
-                        {
-                            LDesc.Add(Desc);
-                            CurrentWell.AddDescriptors(LDesc);
-                        }
-                    }
-            }
-
-
-            CompleteScreening.ListDescriptors.UpDateDisplay();
-            CompleteScreening.UpDatePlateListWithFullAvailablePlate();
-
-            for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
-                CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
-
-            StartingUpDateUI();
-
-            if (!WindowGenerateScreening.checkBoxAddAsDescriptor.Checked)
-            {
-                this.toolStripcomboBoxPlateList.Items.Clear();
-
-                for (int IdxPlate = 0; IdxPlate < CompleteScreening.GetNumberOfActivePlates(); IdxPlate++)
-                {
-                    string Name = CompleteScreening.ListPlatesActive.GetPlate(IdxPlate).Name;
-                    this.toolStripcomboBoxPlateList.Items.Add(Name);
-                    PlateListWindow.listBoxPlateNameToProcess.Items.Add(Name);
-                    PlateListWindow.listBoxAvaliableListPlates.Items.Add(Name);
-                }
-
-
-                CompleteScreening.CurrentDisplayPlateIdx = 0;
-                CompleteScreening.SetSelectionType(comboBoxClass.SelectedIndex - 1);
-
-                UpdateUIAfterLoading();
-            }
-
-        }
-
 
         public class cRandomDistribution
         {
@@ -2433,6 +2183,374 @@ namespace HCSAnalyzer
 
             UpdateUIAfterLoading();
         }
+
+        private void histogramBasedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CompleteScreening != null) CompleteScreening.Close3DView();
+
+            FormForHistogramScreen WindowGenerateScreening = new FormForHistogramScreen(GlobalInfo);
+            if (WindowGenerateScreening.ShowDialog() != DialogResult.OK) return;
+
+            int HistoSize = (int)WindowGenerateScreening.numericUpDownHistogramSize.Value;
+
+            int NumRow = (int)WindowGenerateScreening.numericUpDownRows.Value;
+            int NumCol = (int)WindowGenerateScreening.numericUpDownColumns.Value;
+            if (!WindowGenerateScreening.checkBoxAddAsDescriptor.Checked)
+            {
+                CompleteScreening = new cScreening("Generated Histogram based Screen", GlobalInfo);
+                CompleteScreening.Rows = NumRow;
+                CompleteScreening.Columns = NumCol;
+                CompleteScreening.ListPlatesAvailable = new cExtendPlateList();
+            }
+
+            int NumPlate = (int)WindowGenerateScreening.numericUpDownPlateNumber.Value;
+
+
+            List<int> NumPts = new List<int>();
+            NumPts.Add((int)WindowGenerateScreening.numericUpDownPopulation1NumberOfEvents.Value);
+            NumPts.Add((int)WindowGenerateScreening.numericUpDownPopulation2NumberOfEvents.Value);
+
+            List<double> MeanCpds = new List<double>();
+            MeanCpds.Add((double)WindowGenerateScreening.numericUpDownPopulation1Mean.Value);
+            MeanCpds.Add((double)WindowGenerateScreening.numericUpDownPopulation2Mean.Value);
+
+            List<double> StdevCpds = new List<double>();
+            StdevCpds.Add((double)WindowGenerateScreening.numericUpDownPopulation1Stdev.Value);
+            StdevCpds.Add((double)WindowGenerateScreening.numericUpDownPopulation2Stdev.Value);
+
+
+
+
+            //double MeanPos = (double)WindowGenerateScreening.numericUpDownPosCtrlMean.Value;
+            //double StdevPos = (double)WindowGenerateScreening.numericUpDownPosCtrlStdv.Value;
+
+            //double MeanNeg = (double)WindowGenerateScreening.numericUpDownNegCtrlMean.Value;
+            //double StdevNeg = (double)WindowGenerateScreening.numericUpDownNegCtrlStdv.Value;
+
+            cDescriptorsType NewDescType = null;
+
+            // create the descriptor
+            if (!WindowGenerateScreening.checkBoxAddAsDescriptor.Checked)
+            {
+                CompleteScreening.ListDescriptors.Clean();
+                NewDescType = new cDescriptorsType("Descriptor", true, HistoSize);
+                CompleteScreening.ListDescriptors.AddNew(NewDescType);
+            }
+            else
+            {
+
+                NewDescType = new cDescriptorsType("New_Descriptor", true, HistoSize);
+
+                int NIdxDesc = 0;
+                while (CompleteScreening.ListDescriptors.GetDescriptorIndex(NewDescType) != -1)
+                {
+                    NewDescType = new cDescriptorsType("New_Descriptor" + NIdxDesc++, true, HistoSize);
+
+                }
+
+                CompleteScreening.ListDescriptors.AddNew(NewDescType);
+            }
+
+            Random rand = new Random();
+
+            double StepForNoiseStandardDeviation = (double)GlobalInfo.OptionsWindow.numericUpDownGenerateScreenNoiseStdDev.Value;
+
+            for (int IdxPlate = 0; IdxPlate < NumPlate; IdxPlate++)
+            {
+                cPlate CurrentPlate = null;
+                if (!WindowGenerateScreening.checkBoxAddAsDescriptor.Checked)
+                {
+                    string PlateName = "Plate_" + IdxPlate;
+                    CurrentPlate = new cPlate("Cpds", PlateName, CompleteScreening);
+                    CompleteScreening.AddPlate(CurrentPlate);
+                }
+                else
+                {
+                    CurrentPlate = CompleteScreening.ListPlatesAvailable[IdxPlate];
+
+                }
+
+
+                //StdevCpds = (double)WindowGenerateScreening.numericUpDownCpdsStdev.Value + StepForNoiseStandardDeviation * IdxPlate;
+
+                int IdxDesc = CompleteScreening.ListDescriptors.GetDescriptorIndex(NewDescType);
+
+                double u1;
+                double u2;
+                double randStdNormal;
+
+                for (int X = 1; X <= NumCol; X++)
+                    for (int Y = 1; Y <= NumRow; Y++)
+                    {
+                        List<cDescriptor> LDesc = new List<cDescriptor>();
+                        cExtendedList ListForPts = new cExtendedList();
+
+                        for (int IdxPop = 0; IdxPop < NumPts.Count; IdxPop++)
+                        {
+
+                            #region population average variability
+                            double MeanVariability = 0;
+
+                            if (WindowGenerateScreening.AverageVariabilityWindows[IdxPop].numericUpDownVariability.Value > 0)
+                            {
+                                u1 = rand.NextDouble();
+                                u2 = rand.NextDouble();
+                                randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
+                                MeanVariability = (double)WindowGenerateScreening.AverageVariabilityWindows[IdxPop].numericUpDownVariability.Value * randStdNormal;
+                            }
+
+                            if (WindowGenerateScreening.AverageVariabilityWindows[IdxPop].checkBoxVariableAlongTheColumns.Checked)
+                            {
+                                if (WindowGenerateScreening.AverageVariabilityWindows[IdxPop].radioButtonVariableAlongTheColumnsPositive.Checked)
+                                    MeanVariability += 6 * (X - 1);
+                                else
+                                    MeanVariability -= 6 * (X - 1);
+                            }
+
+
+
+                            if (WindowGenerateScreening.AverageVariabilityWindows[IdxPop].checkBoxVariableAlongTheRows.Checked)
+                            {
+                                if (WindowGenerateScreening.AverageVariabilityWindows[IdxPop].radioButtonVariableAlongTheRowsPositive.Checked)
+                                    MeanVariability += 6 * (Y - 1);
+                                else
+                                    MeanVariability -= 6 * (Y - 1);
+                            }
+
+                            #endregion
+
+
+                            #region population standard deviation variability
+                            double StdevVariability = 0;
+
+                            if (WindowGenerateScreening.StDevVariabilityWindows[IdxPop].numericUpDownVariability.Value > 0)
+                            {
+                                u1 = rand.NextDouble();
+                                u2 = rand.NextDouble();
+                                randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
+                                StdevVariability = (double)WindowGenerateScreening.StDevVariabilityWindows[IdxPop].numericUpDownVariability.Value * randStdNormal;
+                            }
+
+                            if (WindowGenerateScreening.StDevVariabilityWindows[IdxPop].checkBoxVariableAlongTheColumns.Checked)
+                            {
+                                if (WindowGenerateScreening.StDevVariabilityWindows[IdxPop].radioButtonVariableAlongTheColumnsPositive.Checked)
+                                    StdevVariability += (X - 1);
+                                else
+                                    StdevVariability -= (X - 1);
+                            }
+
+                            if (WindowGenerateScreening.StDevVariabilityWindows[IdxPop].checkBoxVariableAlongTheRows.Checked)
+                                if (WindowGenerateScreening.StDevVariabilityWindows[IdxPop].radioButtonVariableAlongTheRowsPositive.Checked)
+                                    StdevVariability += (Y - 1);
+                                else
+                                    StdevVariability -= (Y - 1);
+
+
+                            #endregion
+
+
+                            #region Number of events variability
+                            int PopEvent = NumPts[IdxPop];
+                            int PopVariability = 0;
+
+                            if (WindowGenerateScreening.EventsNumberVariabilityWindows[IdxPop].numericUpDownVariability.Value > 0)
+                            {
+                                u1 = rand.NextDouble();
+                                u2 = rand.NextDouble();
+                                randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
+                                PopVariability = (int)((int)(WindowGenerateScreening.AverageVariabilityWindows[IdxPop].numericUpDownVariability.Value) * randStdNormal);
+                            }
+
+                            if (WindowGenerateScreening.EventsNumberVariabilityWindows[IdxPop].checkBoxVariableAlongTheColumns.Checked)
+                                PopVariability += 500 * (X - 1);
+
+                            if (WindowGenerateScreening.EventsNumberVariabilityWindows[IdxPop].checkBoxVariableAlongTheRows.Checked)
+                                PopVariability += 500 * (Y - 1);
+                            #endregion
+
+
+                            for (int IdxPt = 0; IdxPt < PopEvent + PopVariability; IdxPt++)
+                            {
+                                u1 = rand.NextDouble();
+                                u2 = rand.NextDouble();
+                                randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
+                                double randNormal = (MeanCpds[IdxPop] + MeanVariability) + (StdevCpds[IdxPop] + StdevVariability) * randStdNormal;
+                                if (randNormal < 0) randNormal = 0;
+                                if (randNormal > HistoSize - 1) randNormal = HistoSize - 1;
+                                ListForPts.Add(randNormal);
+                            }
+                        }
+
+
+                        cDescriptor Desc = new cDescriptor(ListForPts.CreateHistogram(0, HistoSize - 1, HistoSize - 1)[1], 0, HistoSize - 1, NewDescType, CompleteScreening);
+                        cWell CurrentWell = null;
+
+                        if (!WindowGenerateScreening.checkBoxAddAsDescriptor.Checked)
+                        {
+                            CurrentWell = new cWell(LDesc, X, Y, CompleteScreening, CurrentPlate);
+                            CurrentWell.Name = "Cpds";
+                            CurrentPlate.AddWell(CurrentWell);
+                        }
+                        else
+                            CurrentWell = CurrentPlate.GetWell(X - 1, Y - 1, false);
+
+                        if (!WindowGenerateScreening.checkBoxAddAsDescriptor.Checked)
+                            LDesc.Add(Desc);
+                        else
+                        {
+                            LDesc.Add(Desc);
+                            CurrentWell.AddDescriptors(LDesc);
+                        }
+                    }
+            }
+
+
+            CompleteScreening.ListDescriptors.UpDateDisplay();
+            CompleteScreening.UpDatePlateListWithFullAvailablePlate();
+
+            for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
+                CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
+
+            StartingUpDateUI();
+
+            if (!WindowGenerateScreening.checkBoxAddAsDescriptor.Checked)
+            {
+                this.toolStripcomboBoxPlateList.Items.Clear();
+
+                for (int IdxPlate = 0; IdxPlate < CompleteScreening.GetNumberOfActivePlates(); IdxPlate++)
+                {
+                    string Name = CompleteScreening.ListPlatesActive.GetPlate(IdxPlate).Name;
+                    this.toolStripcomboBoxPlateList.Items.Add(Name);
+                    PlateListWindow.listBoxPlateNameToProcess.Items.Add(Name);
+                    PlateListWindow.listBoxAvaliableListPlates.Items.Add(Name);
+                }
+
+
+                CompleteScreening.CurrentDisplayPlateIdx = 0;
+                CompleteScreening.SetSelectionType(comboBoxClass.SelectedIndex - 1);
+
+                UpdateUIAfterLoading();
+            }
+
+        }
         #endregion
+
+        private void loadDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CompleteScreening != null) CompleteScreening.Close3DView();
+
+            FolderBrowserDialog OpenFolderDialog = new FolderBrowserDialog();
+
+            if (OpenFolderDialog.ShowDialog() != DialogResult.OK) return;
+            string Path = OpenFolderDialog.SelectedPath;
+            string[] ListFilesForPlates = Directory.GetFiles(Path, "*.db");
+            if (ListFilesForPlates.Length == 0)
+            {
+                MessageBox.Show("The selected directory do not contain any .db file !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            FormForPlateDimensions PlateDim = new FormForPlateDimensions();
+            PlateDim.labelHisto.Visible = true;
+            PlateDim.numericUpDownHistoSize.Visible = true;
+
+            if (PlateDim.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                return;
+
+            //   CompleteScreening.LoadData(Path, (int)PlateDim.numericUpDownColumns.Value, (int)PlateDim.numericUpDownRows.Value);
+            int HistoSize = (int)PlateDim.numericUpDownHistoSize.Value;
+            int NumRow = (int)PlateDim.numericUpDownRows.Value;
+            int NumCol = (int)PlateDim.numericUpDownColumns.Value;
+
+            string[] ScreeningName = Path.Split('\\');
+
+            CompleteScreening = new cScreening(ScreeningName[ScreeningName.Length - 1], GlobalInfo);
+            CompleteScreening.Rows = NumRow;
+            CompleteScreening.Columns = NumCol;
+            CompleteScreening.ListPlatesAvailable = new cExtendPlateList();
+
+            cDescriptorsType NewDescType = null;
+
+            // create the descriptor
+            CompleteScreening.ListDescriptors.Clean();
+
+            // open the first database to build the descriptor list
+            cPlate CurrentPlate = null;
+            string PlateName = ListFilesForPlates[0];
+            CurrentPlate = new cPlate("Cpds", PlateName, CompleteScreening);
+
+            CurrentPlate.DBConnection = new cDBConnection(CurrentPlate,PlateName);
+            List<string> ListWells = CurrentPlate.DBConnection.GetListTableNames();
+            List<string> ListDescNames = CurrentPlate.DBConnection.GetDescriptorNames(0);
+            for (int IdxDesc = 0; IdxDesc < ListDescNames.Count; IdxDesc++)
+            {
+                NewDescType = new cDescriptorsType(ListDescNames[IdxDesc], true, HistoSize, true);
+                CompleteScreening.ListDescriptors.AddNew(NewDescType);
+            }
+
+            CurrentPlate.DBConnection.DB_CloseConnection();
+
+            for (int IdxPlate = 0; IdxPlate < (int)ListFilesForPlates.Length; IdxPlate++)
+            {
+                PlateName = ListFilesForPlates[IdxPlate];
+                CurrentPlate = new cPlate("Cpds", PlateName, CompleteScreening);
+                CompleteScreening.AddPlate(CurrentPlate);
+
+                CurrentPlate.DBConnection = new cDBConnection(CurrentPlate, PlateName);
+                int IdxDesc = CompleteScreening.ListDescriptors.GetDescriptorIndex(NewDescType);
+                ListWells = CurrentPlate.DBConnection.GetListTableNames();
+
+                for (int IdxWell = 0; IdxWell < ListWells.Count; IdxWell++)
+                {
+                    // first rebuild the position with the name
+                    string[] ListS = ListWells[IdxWell].Split('_');
+                    string[] Positions = ListS[ListS.Length - 1].Split('x');
+
+                    List<cDescriptor> LDesc = new List<cDescriptor>();
+                    for (IdxDesc = 0; IdxDesc < ListDescNames.Count; IdxDesc++)
+                    {
+                        cExtendedList ListForPts = CurrentPlate.DBConnection.GetWellValues(ListWells[IdxWell], CompleteScreening.ListDescriptors[IdxDesc]);
+                     //   cDescriptor Desc = new cDescriptor(ListForPts.CreateHistogram(0, HistoSize - 1, HistoSize - 1)[1], 0, HistoSize - 1, CompleteScreening.ListDescriptors[IdxDesc], CompleteScreening);
+
+
+                        cDescriptor Desc = new cDescriptor(ListForPts.CreateHistogram(HistoSize)[1], ListForPts.Min(), ListForPts.Max(), CompleteScreening.ListDescriptors[IdxDesc], CompleteScreening);
+
+                        LDesc.Add(Desc);
+                    }
+                    cWell CurrentWell = new cWell(LDesc, int.Parse(Positions[0]), int.Parse(Positions[1]), CompleteScreening, CurrentPlate);
+                    CurrentWell.Name = "Cpds";
+                    CurrentWell.SQLTableName = ListWells[IdxWell];
+                    CurrentPlate.AddWell(CurrentWell);
+                }
+               CurrentPlate.DBConnection.DB_CloseConnection();
+            }
+
+            CompleteScreening.ListDescriptors.UpDateDisplay();
+            CompleteScreening.UpDatePlateListWithFullAvailablePlate();
+
+            for (int idxP = 0; idxP < CompleteScreening.ListPlatesActive.Count; idxP++)
+                CompleteScreening.ListPlatesActive[idxP].UpDataMinMax();
+
+            StartingUpDateUI();
+
+            this.toolStripcomboBoxPlateList.Items.Clear();
+
+            for (int IdxPlate = 0; IdxPlate < CompleteScreening.GetNumberOfActivePlates(); IdxPlate++)
+            {
+                string Name = CompleteScreening.ListPlatesActive.GetPlate(IdxPlate).Name;
+                this.toolStripcomboBoxPlateList.Items.Add(Name);
+                PlateListWindow.listBoxPlateNameToProcess.Items.Add(Name);
+                PlateListWindow.listBoxAvaliableListPlates.Items.Add(Name);
+            }
+            CompleteScreening.CurrentDisplayPlateIdx = 0;
+            CompleteScreening.SetSelectionType(comboBoxClass.SelectedIndex - 1);
+
+            UpdateUIAfterLoading();
+
+            CompleteScreening.GetCurrentDisplayPlate().DisplayDistribution(CompleteScreening.ListDescriptors.CurrentSelectedDescriptor, false);
+
+        }
+
+
     }
 }

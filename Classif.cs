@@ -118,7 +118,7 @@ namespace HCSAnalyzer
         #endregion
 
         #region Tree graph display functions
-        private Microsoft.Msagl.Drawing.Graph ComputeAndDisplayGraph(string DotString)
+        public Microsoft.Msagl.Drawing.Graph ComputeAndDisplayGraph(string DotString)
         {
             int CurrentPos = 0;
             int NextReturnPos = CurrentPos;

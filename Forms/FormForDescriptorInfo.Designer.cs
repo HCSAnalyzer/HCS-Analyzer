@@ -34,6 +34,8 @@
             this.textBoxNameDescriptor = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.labelDataType = new System.Windows.Forms.Label();
+            this.labelDataBaseConnection = new System.Windows.Forms.Label();
+            this.panelForColor = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -65,7 +67,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 74);
+            this.label2.Location = new System.Drawing.Point(12, 60);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 13);
             this.label2.TabIndex = 3;
@@ -75,18 +77,38 @@
             // 
             this.labelDataType.AutoSize = true;
             this.labelDataType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDataType.Location = new System.Drawing.Point(111, 74);
+            this.labelDataType.Location = new System.Drawing.Point(111, 60);
             this.labelDataType.Name = "labelDataType";
             this.labelDataType.Size = new System.Drawing.Size(31, 13);
             this.labelDataType.TabIndex = 3;
             this.labelDataType.Text = "###";
             this.labelDataType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // labelDataBaseConnection
+            // 
+            this.labelDataBaseConnection.AutoSize = true;
+            this.labelDataBaseConnection.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDataBaseConnection.Location = new System.Drawing.Point(51, 100);
+            this.labelDataBaseConnection.Name = "labelDataBaseConnection";
+            this.labelDataBaseConnection.Size = new System.Drawing.Size(134, 13);
+            this.labelDataBaseConnection.TabIndex = 5;
+            this.labelDataBaseConnection.Text = "DataBase Connection.";
+            this.labelDataBaseConnection.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panelForColor
+            // 
+            this.panelForColor.Location = new System.Drawing.Point(205, 98);
+            this.panelForColor.Name = "panelForColor";
+            this.panelForColor.Size = new System.Drawing.Size(22, 18);
+            this.panelForColor.TabIndex = 6;
+            // 
             // FormForDescriptorInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(299, 176);
+            this.Controls.Add(this.panelForColor);
+            this.Controls.Add(this.labelDataBaseConnection);
             this.Controls.Add(this.labelDataType);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxNameDescriptor);
@@ -108,5 +130,7 @@
         private System.Windows.Forms.TextBox textBoxNameDescriptor;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelDataType;
+        private System.Windows.Forms.Label labelDataBaseConnection;
+        public System.Windows.Forms.Panel panelForColor;
     }
 }

@@ -20,7 +20,18 @@ namespace LibPlateAnalysis
             InitializeComponent(); 
             this.textBoxNameDescriptor.Text = CurrentDesc.GetName();
             this.labelDataType.Text = CurrentDesc.GetDataType();
-            
+
+            if (CurrentDesc.IsConnectedToDatabase)
+            {
+                this.labelDataBaseConnection.Text = "DataBase Connection.";
+                panelForColor.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                this.labelDataBaseConnection.Text = "No DataBase connection.";
+                panelForColor.BackColor = Color.Red;
+            }
+
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -10,6 +10,9 @@ using HCSAnalyzer.Classes;
 using weka.core;
 using System.Windows.Threading;
 using HCSAnalyzer.Classes._3D;
+using System.Data.SQLite;
+using System.Data;
+using HCSAnalyzer.Forms.FormsForGraphsDisplay;
 
 namespace LibPlateAnalysis
 {
@@ -29,6 +32,150 @@ namespace LibPlateAnalysis
         }
     }
 
+
+    public class cDBConnection
+    {
+        private SQLiteConnection _SQLiteConnection;
+        public string SQLFileDBName = "";
+       // cPlate AssociatedPlate;
+
+        private void DB_EstablishConnection()
+        {
+            this._SQLiteConnection = new SQLiteConnection("Data Source=" + SQLFileDBName);
+            this._SQLiteConnection.Open();
+        }
+
+        public void DB_CloseConnection()
+        {
+            this._SQLiteConnection.Close(); 
+        }
+
+        public List<string> GetListTableNames()
+        {
+
+            List<string> Toreturn = new List<string>();
+            SQLiteCommand mycommand = new SQLiteCommand(_SQLiteConnection);
+            mycommand.CommandText = "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name";
+            SQLiteDataReader value = mycommand.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(value);
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+                Toreturn.Add(dt.Rows[i][0].ToString());
+
+            return Toreturn;
+
+        }
+
+        public void DisplayTable(cWell Well)
+        {
+            SQLiteCommand mycommand = new SQLiteCommand(_SQLiteConnection);
+            mycommand.CommandText = "SELECT * FROM " + Well.SQLTableName;
+            SQLiteDataReader value = mycommand.ExecuteReader();
+
+            DataTable dt = new DataTable();
+            dt.Load(value);
+            FormToDisplayTable WindowForTable = new FormToDisplayTable(dt);
+            WindowForTable.comboBoxAxeX.DataSource = this.GetDescriptorNames(Well);
+            WindowForTable.comboBoxAxeY.DataSource = this.GetDescriptorNames(Well);
+            WindowForTable.Text = Well.AssociatedPlate.Name + " [" + Well.GetPosX() + "x" + Well.GetPosY() + "]";
+            
+            WindowForTable.Show();
+        }
+
+        public void AddWellToDataTable(cWell Well, DataTable DataTableToAddedTo)
+        {
+            SQLiteCommand mycommand = new SQLiteCommand(_SQLiteConnection);
+            mycommand.CommandText = "SELECT * FROM " + Well.SQLTableName;
+            SQLiteDataReader value = mycommand.ExecuteReader();
+
+            DataTable dt = new DataTable();
+            dt.Load(value);
+
+
+            if (DataTableToAddedTo.Columns.Count == 0)
+            {
+                List<string> Names = this.GetDescriptorNames(Well);
+
+                foreach (string TmpName in Names)
+                    DataTableToAddedTo.Columns.Add(new DataColumn(TmpName, typeof(double)));
+            }
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                DataTableToAddedTo.Rows.Add();
+
+                for (int IdxCol = 0; IdxCol < dt.Columns.Count; IdxCol++)
+                    DataTableToAddedTo.Rows[DataTableToAddedTo.Rows.Count-1][IdxCol] = dt.Rows[i][IdxCol];
+            }
+
+            
+
+        }
+
+
+        public cExtendedList GetWellValues(string TableName, cDescriptorsType DescType)
+        {
+            cExtendedList ToReturn = new cExtendedList();
+            
+            SQLiteCommand mycommand = new SQLiteCommand(_SQLiteConnection);
+            mycommand.CommandText = "SELECT *, "+DescType.GetName() +" FROM " + TableName;
+            SQLiteDataReader value = mycommand.ExecuteReader();
+           // value.Read();
+            int Pos = value.GetOrdinal(DescType.GetName());
+
+            while (value.Read())
+            {
+               ToReturn.Add(value.GetFloat(Pos));
+            }
+
+            return ToReturn;
+        }
+
+        public List<string> GetDescriptorNames(int IdxWell)
+        {
+            List<string> ToReturn = new List<string>();
+            string NameWell = GetListTableNames()[IdxWell];
+
+            SQLiteCommand mycommand = new SQLiteCommand(_SQLiteConnection);
+            mycommand.CommandText = "SELECT * FROM " + NameWell;
+            SQLiteDataReader value = mycommand.ExecuteReader();
+
+            for (int i = 0; i < value.FieldCount; i++)
+                ToReturn.Add(value.GetName(i));
+
+            return ToReturn;
+        }
+
+        public List<string> GetDescriptorNames(cWell Well)
+        {
+            List<string> ToReturn = new List<string>();
+          //  string NameWell = GetListTableNames()[IdxWell];
+
+            SQLiteCommand mycommand = new SQLiteCommand(_SQLiteConnection);
+            mycommand.CommandText = "SELECT * FROM " + Well.SQLTableName;
+            SQLiteDataReader value = mycommand.ExecuteReader();
+
+            for (int i = 0; i < value.FieldCount; i++)
+                ToReturn.Add(value.GetName(i));
+
+            return ToReturn;
+        }
+        public cDBConnection(cPlate Plate, string SQLFileDBName)
+        {
+            if(Plate.DBConnection==null)
+                this.SQLFileDBName = SQLFileDBName;
+            else
+                this.SQLFileDBName = Plate.DBConnection.SQLFileDBName;
+           
+            this.DB_EstablishConnection();
+        }
+
+    }
+
+
+
+
     public class cPlate
     {
         string PlateType;
@@ -39,6 +186,12 @@ namespace LibPlateAnalysis
         public cExtendWellList ListActiveWells = new cExtendWellList();
 
         public cListDRCRegion ListDRCRegions;
+
+        public cDBConnection DBConnection = null;
+        //public void DBConnection_Establish(string FileName)
+        //{
+        //    DBConnection = new cDBConnection(this, FileName);
+        //}
 
 
         int NumberOfActiveWells = 0;
@@ -312,7 +465,7 @@ namespace LibPlateAnalysis
             cDescriptorsType TypeRow = new cDescriptorsType("Row_Pos", true, 1);
             cDescriptorsType TypeCol = new cDescriptorsType("Col_Pos", true, 1);
             cDescriptorsType TypeDistBorder = new cDescriptorsType("Dist_To_Border", true, 1);
-            cDescriptorsType TypeDistCenter = new cDescriptorsType("Dist_To_Center", true, 1);
+            cDescriptorsType TypeDistCenter = new cDescriptorsType("Dist_To_Center", true, 1 );
 
 
             for (int j = 0; j < ParentScreening.Rows; j++)
@@ -395,37 +548,37 @@ namespace LibPlateAnalysis
             {
                 ListPlateToProcess.Add(this);
             }
-                int NumberOfPlates = ParentScreening.GetNumberOfActivePlates();
+            int NumberOfPlates = ParentScreening.GetNumberOfActivePlates();
 
-                //Point ResMin = ParentScreening.GlobalInfo.WindowHCSAnalyzer.panelForPlate.GetChildAtPoint(new Point(PosMouseXMin, PosMouseYMin));
+            //Point ResMin = ParentScreening.GlobalInfo.WindowHCSAnalyzer.panelForPlate.GetChildAtPoint(new Point(PosMouseXMin, PosMouseYMin));
 
-                int PosWellMinX = (int)((PosMouseXMin - ScrollShiftX) / (ParentScreening.GlobalInfo.SizeHistoWidth + GutterSize));
-                int PosWellMinY = (int)((PosMouseYMin - ScrollShiftY) / (ParentScreening.GlobalInfo.SizeHistoHeight + GutterSize));
+            int PosWellMinX = (int)((PosMouseXMin - ScrollShiftX) / (ParentScreening.GlobalInfo.SizeHistoWidth + GutterSize));
+            int PosWellMinY = (int)((PosMouseYMin - ScrollShiftY) / (ParentScreening.GlobalInfo.SizeHistoHeight + GutterSize));
 
-                int PosWellMaxX = (int)((PosMouseXMax - ScrollShiftX) / (ParentScreening.GlobalInfo.SizeHistoWidth + GutterSize));
-                int PosWellMaxY = (int)((PosMouseYMax - ScrollShiftY) / (ParentScreening.GlobalInfo.SizeHistoHeight + GutterSize));
-
-
-                if (PosWellMaxX > ParentScreening.Columns) PosWellMaxX = ParentScreening.Columns;
-                if (PosWellMaxY > ParentScreening.Rows) PosWellMaxY = ParentScreening.Rows;
-                if (PosWellMinX < 0) PosWellMinX = 0;
-                if (PosWellMinY < 0) PosWellMinY = 0;
+            int PosWellMaxX = (int)((PosMouseXMax - ScrollShiftX) / (ParentScreening.GlobalInfo.SizeHistoWidth + GutterSize));
+            int PosWellMaxY = (int)((PosMouseYMax - ScrollShiftY) / (ParentScreening.GlobalInfo.SizeHistoHeight + GutterSize));
 
 
-                foreach (cPlate CurrentPlate in ListPlateToProcess)
-                {
-                    for (int j = PosWellMinY; j < PosWellMaxY; j++)
-                        for (int i = PosWellMinX; i < PosWellMaxX; i++)
-                        {
-                            cWell TempWell = CurrentPlate.GetWell(i, j, false);
+            if (PosWellMaxX > ParentScreening.Columns) PosWellMaxX = ParentScreening.Columns;
+            if (PosWellMaxY > ParentScreening.Rows) PosWellMaxY = ParentScreening.Rows;
+            if (PosWellMinX < 0) PosWellMinX = 0;
+            if (PosWellMinY < 0) PosWellMinY = 0;
 
-                            if (TempWell == null) continue;
-                            if (SelectionType == -1)
-                                TempWell.SetAsNoneSelected();
-                            else
-                                TempWell.SetClass(SelectionType);
-                        }
-                }
+
+            foreach (cPlate CurrentPlate in ListPlateToProcess)
+            {
+                for (int j = PosWellMinY; j < PosWellMaxY; j++)
+                    for (int i = PosWellMinX; i < PosWellMaxX; i++)
+                    {
+                        cWell TempWell = CurrentPlate.GetWell(i, j, false);
+
+                        if (TempWell == null) continue;
+                        if (SelectionType == -1)
+                            TempWell.SetAsNoneSelected();
+                        else
+                            TempWell.SetClass(SelectionType);
+                    }
+            }
             ParentScreening.GetCurrentDisplayPlate().UpdateNumberOfClass();
             ParentScreening.UpdateListActiveWell();
 
@@ -444,20 +597,20 @@ namespace LibPlateAnalysis
             cMetaBiologicalObject Plate3D = new cMetaBiologicalObject(this.Name, ListMetacells, NewPlate3D);
 
 
-            
+
             #region  display the well list
 
             foreach (cWell TmpWell in this.ListWell)
             {
-                if ((TmpWell == null)||(TmpWell.GetClass()==-1)) continue;
+                if ((TmpWell == null) || (TmpWell.GetClass() == -1)) continue;
 
                 double PosZ = 8 - ((TmpWell.ListDescriptors[IdxDescriptor].GetValue() - this.ListMinMax[IdxDescriptor][0]) * 8) / (this.ListMinMax[IdxDescriptor][1] - this.ListMinMax[IdxDescriptor][0]);
-  
-                
+
+
                 double WellSize = (double)ParentScreening.GlobalInfo.OptionsWindow.numericUpDownWellSize.Value;
                 double WellBorder = (1 - WellSize) / 2.0;
 
-                cPoint3D CurrentPos = new cPoint3D(TmpWell.GetPosX() - WellBorder + MinimumPosition.X, TmpWell.GetPosY() + WellBorder + MinimumPosition.Y - WellSize/2, PosZ + MinimumPosition.Z - WellBorder);
+                cPoint3D CurrentPos = new cPoint3D(TmpWell.GetPosX() - WellBorder + MinimumPosition.X, TmpWell.GetPosY() + WellBorder + MinimumPosition.Y - WellSize / 2, PosZ + MinimumPosition.Z - WellBorder);
                 Color WellColor = Color.Black;
 
                 if (ParentScreening.GlobalInfo.IsDisplayClassOnly)
@@ -475,11 +628,11 @@ namespace LibPlateAnalysis
                         WellColor = Color.FromArgb(LUT[0][ConvertedValue], LUT[1][ConvertedValue], LUT[2][ConvertedValue]);
                 }
 
-              
 
-                c3DWell New3DWell = new c3DWell(CurrentPos, new cPoint3D(CurrentPos.X + WellSize, CurrentPos.Y + WellSize, CurrentPos.Z + WellSize/2.0), WellColor, TmpWell);
 
-              
+                c3DWell New3DWell = new c3DWell(CurrentPos, new cPoint3D(CurrentPos.X + WellSize, CurrentPos.Y + WellSize, CurrentPos.Z + WellSize / 2.0), WellColor, TmpWell);
+
+
                 New3DWell.SetType("[" + TmpWell.GetPosX() + " x " + TmpWell.GetPosY() + "]");
 
                 if (ParentScreening.GlobalInfo.OptionsWindow.checkBoxDisplayWellInformation.Checked)
@@ -559,7 +712,7 @@ namespace LibPlateAnalysis
                         {
                             for (double PosZContour = 0; PosZContour <= 10.0; PosZContour += 1.5)
                             {
-                                c3DIsoContours NewContour = new c3DIsoContours(NewThinPlate,Region, Color.Red, PosZContour, true);
+                                c3DIsoContours NewContour = new c3DIsoContours(NewThinPlate, Region, Color.Red, PosZContour, true);
                                 ParentScreening._3DWorldForPlateDisplay.AddBiological3DObject(NewContour);
                             }
                         }
@@ -567,7 +720,7 @@ namespace LibPlateAnalysis
                         {
                             //   for (double PosZContour = 0; PosZContour <= 15.0; PosZContour += 3)
                             {
-                                c3DIsoContours NewContour = new c3DIsoContours(NewThinPlate,Region, Color.Blue, 0/*PosZContour*/, false);
+                                c3DIsoContours NewContour = new c3DIsoContours(NewThinPlate, Region, Color.Blue, 0/*PosZContour*/, false);
                                 ParentScreening._3DWorldForPlateDisplay.AddBiological3DObject(NewContour);
                             }
                         }
@@ -579,7 +732,7 @@ namespace LibPlateAnalysis
             }
 
 
- 
+
 
         }
 
@@ -616,7 +769,7 @@ namespace LibPlateAnalysis
 
 
                     double dist = Math.Sqrt((p[0] - fp[0]) * (p[0] - fp[0]) + (p[1] - fp[1]) * (p[1] - fp[1]) + (p[2] - fp[2]) * (p[2] - fp[2]));
-                  //  int[] WinPos = new int[2];
+                    //  int[] WinPos = new int[2];
 
                     if (ParentScreening._3DWorldForPlateDisplay == null)
                     {
@@ -627,17 +780,17 @@ namespace LibPlateAnalysis
                     {
                         ParentScreening.GlobalInfo.WinSize[0] = ParentScreening._3DWorldForPlateDisplay.renWin.GetSize()[0];
                         ParentScreening.GlobalInfo.WinSize[1] = ParentScreening._3DWorldForPlateDisplay.renWin.GetSize()[1];
-                    
+
                     }
 
 
                     //WinPos[0] = ParentScreening._3DWorldForPlateDisplay.renWin.GetSize()[0];
                     //WinPos[1] = ParentScreening._3DWorldForPlateDisplay.renWin.GetSize()[1];
- 
 
-                  //  ParentScreening._3DWorldForPlateDisplay.Terminate();
-                  //  ParentScreening._3DWorldForPlateDisplay = null;
-                  //  ParentScreening._3DWorldForPlateDisplay = new c3DWorld(new cPoint3D(ParentScreening.Columns, ParentScreening.Rows, 1), new cPoint3D(1, 1, 1), ParentScreening.GlobalInfo.renderWindowControlForVTK, ParentScreening.GlobalInfo.WinSize);
+
+                    //  ParentScreening._3DWorldForPlateDisplay.Terminate();
+                    //  ParentScreening._3DWorldForPlateDisplay = null;
+                    //  ParentScreening._3DWorldForPlateDisplay = new c3DWorld(new cPoint3D(ParentScreening.Columns, ParentScreening.Rows, 1), new cPoint3D(1, 1, 1), ParentScreening.GlobalInfo.renderWindowControlForVTK, ParentScreening.GlobalInfo.WinSize);
 
                     //ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().Roll(180);
                     //ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().Azimuth(180);
@@ -650,7 +803,7 @@ namespace LibPlateAnalysis
                     ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().SetPosition(p[0], p[1], p[2]);
                     ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().SetViewUp(ViewUp[0], ViewUp[1], ViewUp[2]);
 
-                //    ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().Zoom(1.8);
+                    //    ParentScreening._3DWorldForPlateDisplay.ren1.GetActiveCamera().Zoom(1.8);
 
                 }
 
@@ -658,7 +811,7 @@ namespace LibPlateAnalysis
 
                 Display3Dplate(IdxDescriptor, new cPoint3D(0, 0, 0));
 
-                if (ParentScreening.GlobalInfo.OptionsWindow.checkBox3DPlateInformation.Checked)  ParentScreening._3DWorldForPlateDisplay.DisplayBottom(Color.FromArgb(255, 255, 255));
+                if (ParentScreening.GlobalInfo.OptionsWindow.checkBox3DPlateInformation.Checked) ParentScreening._3DWorldForPlateDisplay.DisplayBottom(Color.FromArgb(255, 255, 255));
                 ParentScreening._3DWorldForPlateDisplay.SetBackgroundColor(Color.Black);
                 ParentScreening._3DWorldForPlateDisplay.SimpleRender();
             }
@@ -673,9 +826,9 @@ namespace LibPlateAnalysis
                 }
             }
             #endregion
-          
-        
-        
+
+
+
         }
 
 
@@ -683,7 +836,7 @@ namespace LibPlateAnalysis
 
         public void DisplayDistribution(int IdxDescriptor, bool IsFirstTime)
         {
-             if (ListMinMax == null) this.UpDataMinMax();
+            if (ListMinMax == null) this.UpDataMinMax();
 
             if (IdxDescriptor >= ListMinMax.Count) return;
 
@@ -691,13 +844,13 @@ namespace LibPlateAnalysis
 
             Refresh3D(IdxDescriptor);
 
-            #region 2D display  
-         //   if (!this.ParentScreening.GlobalInfo.IsDisplayClassOnly)
+            #region 2D display
+            //   if (!this.ParentScreening.GlobalInfo.IsDisplayClassOnly)
             {
-          //  ParentScreening.PanelForPlate.Controls.Clear();
+                //  ParentScreening.PanelForPlate.Controls.Clear();
 
-            //double[] MinMax = ListMinMax[IdxDescriptor];
-           // List<PlateChart> LChart = new List<PlateChart>();
+                //double[] MinMax = ListMinMax[IdxDescriptor];
+                // List<PlateChart> LChart = new List<PlateChart>();
 
                 ParentScreening.GlobalInfo.panelForPlate.Controls.Clear();
                 List<PlateChart> LChart = new List<PlateChart>();
@@ -775,15 +928,15 @@ namespace LibPlateAnalysis
             double Max = double.MinValue;
             double CurrentVal;
 
-            
+
 
             for (int x = 0; x < ParentScreening.Columns; x++)
                 for (int y = 0; y < ParentScreening.Rows; y++)
                 {
-                    
+
                     if (ListWell[x, y] == null) continue;
 
-                    
+
                     cWell TWell = GetWell(x, y, false);
 
                     if (IdxDescriptor >= TWell.ListDescriptors.Count) return null;
@@ -834,7 +987,7 @@ namespace LibPlateAnalysis
             for (int i = 0; i < ParentScreening.ListDescriptors.Count; i++)
             {
                 double[] TmpMinMax = GetMinMax(i);
-                if(ListMinMax!=null)    ListMinMax.Add(TmpMinMax);
+                if (ListMinMax != null) ListMinMax.Add(TmpMinMax);
             }
             return;
         }
@@ -871,7 +1024,7 @@ namespace LibPlateAnalysis
         {
             IsMissingWell = false;
             double[][] Table = new double[ParentScreening.Rows][];
-                for(int J=0;J<Table.Length;J++)
+            for (int J = 0; J < Table.Length; J++)
                 Table[J] = new double[ParentScreening.Columns];
 
             for (int j = 0; j < ParentScreening.Rows; j++)

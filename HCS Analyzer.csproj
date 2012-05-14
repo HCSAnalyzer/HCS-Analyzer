@@ -174,6 +174,9 @@
     <Reference Include="Emgu.Util">
       <HintPath>Dlls\OpenCV\Emgu.Util.dll</HintPath>
     </Reference>
+    <Reference Include="FreeImage.NET">
+      <HintPath>Dlls\FreeImage\FreeImage.NET.dll</HintPath>
+    </Reference>
     <Reference Include="HCSPlugin">
       <HintPath>Dlls\HCSPlugin.dll</HintPath>
     </Reference>
@@ -280,8 +283,17 @@
     <Reference Include="msvcm90">
       <HintPath>Dlls\msvcm90.dll</HintPath>
     </Reference>
+    <Reference Include="SQLite.Designer">
+      <HintPath>Dlls\SQlite\SQLite.Designer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>Dlls\SQlite\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq">
+      <HintPath>Dlls\SQlite\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Services" />
@@ -305,12 +317,16 @@
     <Compile Include="Classes\cB-Score.cs" />
     <Compile Include="Classes\cDendoGram.cs" />
     <Compile Include="Classes\cDescriptor.cs" />
-    <Compile Include="Classes\CDisplayGraph.cs" />
+    <Compile Include="Classes\cDisplayGraph.cs" />
     <Compile Include="Classes\cDRCanalysis.cs" />
     <Compile Include="Classes\cEdgeEffect.cs" />
     <Compile Include="Classes\cExportDatabase.cs" />
     <Compile Include="Classes\cGlobalInfo.cs" />
     <Compile Include="Classes\cReference.cs" />
+    <Compile Include="Classes\Image\cImageViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Classes\Image\cImage.cs" />
     <Compile Include="Classes\MiscClasses.cs" />
     <Compile Include="Classif.cs">
       <SubType>Form</SubType>
@@ -366,11 +382,23 @@
     <Compile Include="Forms\FormsForDRCAnalysis\FormForDRCDesign.Designer.cs">
       <DependentUpon>FormForDRCDesign.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormsForGraphsDisplay\FormForSingleCellsDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsForGraphsDisplay\FormForSingleCellsDisplay.Designer.cs">
+      <DependentUpon>FormForSingleCellsDisplay.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormsForGraphsDisplay\FormToDisplayTable.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FormsForGraphsDisplay\FormToDisplayTable.Designer.cs">
       <DependentUpon>FormToDisplayTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsForImages\FormForImageDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsForImages\FormForImageDisplay.Designer.cs">
+      <DependentUpon>FormForImageDisplay.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\IO\FormForHistogramScreen.cs">
       <SubType>Form</SubType>
@@ -432,6 +460,12 @@
     <Compile Include="Forms\FormForWellInformation.Designer.cs">
       <DependentUpon>FormForWellInformation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\IO\FormForProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\IO\FormForProgress.Designer.cs">
+      <DependentUpon>FormForProgress.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\IO\FormForVariability.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -444,11 +478,11 @@
     <Compile Include="Forms\IO\FormSaveScreening.Designer.cs">
       <DependentUpon>FormSaveScreening.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormsForGraphsDisplay\FormToDisplayArray.cs">
+    <Compile Include="Forms\FormsForGraphsDisplay\FormToDisplayScreening.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormsForGraphsDisplay\FormToDisplayArray.Designer.cs">
-      <DependentUpon>FormToDisplayArray.cs</DependentUpon>
+    <Compile Include="Forms\FormsForGraphsDisplay\FormToDisplayScreening.Designer.cs">
+      <DependentUpon>FormToDisplayScreening.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\PlateChart.cs">
       <SubType>Component</SubType>
@@ -552,6 +586,9 @@
       <DependentUpon>WindowHCSAnalyzer.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Classes\Image\cImageViewer.resx">
+      <DependentUpon>cImageViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\3D\FormFor3DDataDisplay.resx">
       <DependentUpon>FormFor3DDataDisplay.cs</DependentUpon>
     </EmbeddedResource>
@@ -564,8 +601,14 @@
     <EmbeddedResource Include="Forms\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsForGraphsDisplay\FormForSingleCellsDisplay.resx">
+      <DependentUpon>FormForSingleCellsDisplay.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsForGraphsDisplay\FormToDisplayTable.resx">
       <DependentUpon>FormToDisplayTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsForImages\FormForImageDisplay.resx">
+      <DependentUpon>FormForImageDisplay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\IO\FormForHistogramScreen.resx">
       <DependentUpon>FormForHistogramScreen.cs</DependentUpon>
@@ -606,14 +649,17 @@
     <EmbeddedResource Include="Forms\FormForWellInformation.resx">
       <DependentUpon>FormForWellInformation.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\IO\FormForProgress.resx">
+      <DependentUpon>FormForProgress.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\IO\FormForVariability.resx">
       <DependentUpon>FormForVariability.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\IO\FormSaveScreening.resx">
       <DependentUpon>FormSaveScreening.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormsForGraphsDisplay\FormToDisplayArray.resx">
-      <DependentUpon>FormToDisplayArray.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormsForGraphsDisplay\FormToDisplayScreening.resx">
+      <DependentUpon>FormToDisplayScreening.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormForNameRequest.resx">
       <DependentUpon>FormForNameRequest.cs</DependentUpon>
@@ -747,10 +793,16 @@
     <None Include="bin\Capture1.JPG" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FreeImage.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="opencv_core231.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="opencv_imgproc231.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="bin\Logo.PNG" />

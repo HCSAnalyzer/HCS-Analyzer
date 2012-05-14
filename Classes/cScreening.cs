@@ -11,6 +11,7 @@ using HCSAnalyzer;
 using weka.core;
 using HCSAnalyzer.Classes;
 using HCSAnalyzer.Classes._3D;
+using System.Data.SQLite;
 
 namespace LibPlateAnalysis
 {
@@ -75,12 +76,10 @@ namespace LibPlateAnalysis
         }
 
         public bool ISLoading = true;
-        
+
         public cReference Reference = null;
 
-
         public c3DWorld _3DWorldForPlateDisplay;
-
 
         public void Close3DView()
         {

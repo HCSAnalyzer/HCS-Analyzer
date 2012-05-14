@@ -129,18 +129,33 @@ namespace HCSAnalyzer.Classes
                 if (this[Idx] < Min) Min = this[Idx];
             }
 
-            double step = (Max - Min) / Bin;
+            double[] axeX;
+            double[] histogram;
 
+            if (Max == Min)
+            {
+                axeX = new double[1];
+                axeX[0] = Max;
+                ToReturn.Add(axeX);
+                histogram = new double[1];
+                histogram[0] = Max * this.Count;
+                ToReturn.Add(histogram);
+                return ToReturn;
+
+            }
+
+            double step = (Max - Min) / Bin;
             int HistoSize = (int)((Max - Min) / step) + 1;
-            if (Max == Min) return null;
-            double[] axeX = new double[HistoSize];
+            
+            axeX = new double[HistoSize];
+
             for (int i = 0; i < HistoSize; i++)
             {
                 axeX[i] = Min + i * step;
             }
             ToReturn.Add(axeX);
 
-            double[] histogram = new double[HistoSize];
+            histogram = new double[HistoSize];
             //double RealPos = Min;
 
             int PosHisto;
@@ -226,7 +241,9 @@ namespace HCSAnalyzer.Classes
 
             if(Bottom<=0) return -1;
 
-            return Top/Bottom;
+            double ToReturn = 1 - (Top / Bottom);
+
+            return ToReturn;
         }
 
 

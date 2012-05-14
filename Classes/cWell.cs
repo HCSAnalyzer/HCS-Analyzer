@@ -15,6 +15,7 @@ using System.Runtime.InteropServices;
 using System.Xml;
 using System.Collections;
 using System.Data.SqlClient;
+using FreeImageAPI;
 
 namespace LibPlateAnalysis
 {
@@ -36,16 +37,14 @@ namespace LibPlateAnalysis
         // private string CurrentSelectedPathway = "";
         public double LocusID = -1;
 
+
+        public string SQLTableName = "";
+
         public string Name = "";
         public string Info = "";
         public double Concentration = 0;
 
         FormForPathway ListP = new FormForPathway();
-
-
-
-        // protected Size SizeHisto = new System.Drawing.Size(10, 5);
-
 
         public cWell(cWell NewWell)
         {
@@ -219,6 +218,101 @@ namespace LibPlateAnalysis
             sr.Close();
             this.CurrentColor = this.Parent.GlobalInfo.GetColor(ClassForClassif);
             return;
+        }
+
+        public double DistanceTo(cWell DestinationWell, int Idxdescriptor, eDistances DistanceType)
+        {
+            double Distance = 0;
+            switch (DistanceType)
+            {
+                case eDistances.EUCLIDEAN:
+                    Distance = this.ListDescriptors[Idxdescriptor].Getvalues().Dist_Euclidean(DestinationWell.ListDescriptors[Idxdescriptor].Getvalues());
+                    break;
+                case eDistances.MANHATTAN:
+                    Distance = this.ListDescriptors[Idxdescriptor].Getvalues().Dist_Manhattan(DestinationWell.ListDescriptors[Idxdescriptor].Getvalues());
+                    break;
+                case eDistances.VECTOR_COS:
+                    Distance = this.ListDescriptors[Idxdescriptor].Getvalues().Dist_VectorCosine(DestinationWell.ListDescriptors[Idxdescriptor].Getvalues());
+                    break;
+                case eDistances.BHATTACHARYYA:
+                    Distance = this.ListDescriptors[Idxdescriptor].Getvalues().Dist_BhattacharyyaCoefficient(DestinationWell.ListDescriptors[Idxdescriptor].Getvalues());
+                    break;
+                case eDistances.EMD:
+                    Distance = this.ListDescriptors[Idxdescriptor].Getvalues().Dist_EarthMover(DestinationWell.ListDescriptors[Idxdescriptor].Getvalues());
+                    break;
+                default:
+                    break;
+            }
+            return Distance;
+        }
+
+        public double DistanceTo(cWell DestinationWell, eDistances IntraHistoDistanceType, eDistances InterHistoDistanceType)
+        {
+            double Distance = 0;
+
+            cExtendedList ListDistSource = new cExtendedList();
+            cExtendedList ListDistDest = new cExtendedList();
+
+            for (int Idxdescriptor = 0; Idxdescriptor < this.Parent.ListDescriptors.Count; Idxdescriptor++)
+            {
+                if (this.Parent.ListDescriptors[Idxdescriptor].IsActive() == false) continue;
+
+
+                switch (IntraHistoDistanceType)
+                {
+                    case eDistances.EUCLIDEAN:
+                        ListDistSource.Add(this.ListDescriptors[Idxdescriptor].Getvalues().Dist_Euclidean(DestinationWell.ListDescriptors[Idxdescriptor].Getvalues()));
+                        ListDistDest.Add(DestinationWell.ListDescriptors[Idxdescriptor].GetValue());
+
+
+                        Distance = ListDistSource.Dist_Euclidean(ListDistDest);
+                        break;
+                    case eDistances.MANHATTAN:
+                        Distance = ListDistSource.Dist_Manhattan(ListDistDest);
+                        break;
+                    case eDistances.VECTOR_COS:
+                        Distance = ListDistSource.Dist_VectorCosine(ListDistDest);
+                        break;
+                    case eDistances.BHATTACHARYYA:
+                        Distance = ListDistSource.Dist_BhattacharyyaCoefficient(ListDistDest);
+                        break;
+                    case eDistances.EMD:
+                        Distance = ListDistSource.Dist_EarthMover(ListDistDest);
+                        break;
+                    default:
+                        break;
+                }
+
+
+
+
+
+            }
+
+
+
+            switch (InterHistoDistanceType)
+            {
+                case eDistances.EUCLIDEAN:
+                    Distance = ListDistSource.Dist_Euclidean(ListDistDest);
+                    break;
+                case eDistances.MANHATTAN:
+                    Distance = ListDistSource.Dist_Manhattan(ListDistDest);
+                    break;
+                case eDistances.VECTOR_COS:
+                    Distance = ListDistSource.Dist_VectorCosine(ListDistDest);
+                    break;
+                case eDistances.BHATTACHARYYA:
+                    Distance = ListDistSource.Dist_BhattacharyyaCoefficient(ListDistDest);
+                    break;
+                case eDistances.EMD:
+                    Distance = ListDistSource.Dist_EarthMover(ListDistDest);
+                    break;
+                default:
+                    break;
+            }
+
+            return Distance;
         }
 
         /// <summary>
@@ -510,6 +604,7 @@ namespace LibPlateAnalysis
                 ToolStripMenuItem ToolStripMenuItem_SwitchVizuMode = new ToolStripMenuItem(TextFor3D2D);
                 ToolStripMenuItem ToolStripMenuItem_Info = new ToolStripMenuItem("Info");
                 ToolStripMenuItem ToolStripMenuItem_Histo = new ToolStripMenuItem("Histogram");
+                ToolStripMenuItem ToolStripMenuItem_DisplayData = new ToolStripMenuItem("Display Data");
                 ToolStripSeparator ToolStripSep = new ToolStripSeparator();
 
                 ToolStripMenuItem ToolStripMenuItem_Kegg = new ToolStripMenuItem("Kegg");
@@ -517,7 +612,10 @@ namespace LibPlateAnalysis
                 ToolStripSeparator ToolStripSep1 = new ToolStripSeparator();
                 ToolStripMenuItem ToolStripMenuItem_Copy = new ToolStripMenuItem("Copy Visu.");
 
-                contextMenuStrip.Items.AddRange(new ToolStripItem[] { ToolStripMenuItem_SwitchVizuMode, ToolStripMenuItem_Info, ToolStripMenuItem_Histo, ToolStripSep, ToolStripMenuItem_Kegg, ToolStripSep1, ToolStripMenuItem_Copy });
+                if (this.SQLTableName != "")
+                    contextMenuStrip.Items.AddRange(new ToolStripItem[] { ToolStripMenuItem_SwitchVizuMode, ToolStripMenuItem_Info, ToolStripMenuItem_DisplayData, ToolStripMenuItem_Histo, ToolStripSep, ToolStripMenuItem_Kegg, ToolStripSep1, ToolStripMenuItem_Copy });
+                else
+                    contextMenuStrip.Items.AddRange(new ToolStripItem[] { ToolStripMenuItem_SwitchVizuMode, ToolStripMenuItem_Info, ToolStripMenuItem_Histo, ToolStripSep, ToolStripMenuItem_Kegg, ToolStripSep1, ToolStripMenuItem_Copy });
 
                 //ToolStripSeparator SepratorStrip = new ToolStripSeparator();
                 contextMenuStrip.Show(Control.MousePosition);
@@ -525,6 +623,7 @@ namespace LibPlateAnalysis
                 ToolStripMenuItem_SwitchVizuMode.Click += new System.EventHandler(this.SwitchVizuMode);
                 ToolStripMenuItem_Info.Click += new System.EventHandler(this.DisplayInfo);
                 ToolStripMenuItem_Histo.Click += new System.EventHandler(this.DisplayHisto);
+                ToolStripMenuItem_DisplayData.Click += new System.EventHandler(this.ToolStripMenuItem_DisplayData);
                 ToolStripMenuItem_Kegg.Click += new System.EventHandler(this.DisplayPathways);
                 ToolStripMenuItem_Copy.Click += new System.EventHandler(this.CopyVisu);
             }
@@ -536,6 +635,17 @@ namespace LibPlateAnalysis
             this.Parent.GlobalInfo.SwitchVisuMode();
         }
 
+        private void ToolStripMenuItem_DisplayData(object sender, EventArgs e)
+        {
+            this.AssociatedPlate.DBConnection = new cDBConnection(this.AssociatedPlate, this.SQLTableName);
+            // this.AssociatedPlate.DBConnection.DB_EstablishConnection();
+
+            this.AssociatedPlate.DBConnection.DisplayTable(this);
+
+            this.AssociatedPlate.DBConnection.DB_CloseConnection();
+            //this.SQLTableName
+
+        }
 
         private void DisplayHisto(object sender, EventArgs e)
         {
@@ -860,7 +970,6 @@ namespace LibPlateAnalysis
 
         }
 
-
         static IList images = null;
 
         /// <summary>
@@ -969,29 +1078,29 @@ namespace LibPlateAnalysis
 
             NewWindow.Text = PosX + "x" + PosY + " / " + StateForClassif;
 
-            string connec = string.Concat(new string[] { "server=", "192.168.10.10", ";uid=", "IMG-USER", ";pwd=", "", ";database=", "OPERA_DB" });
+            string connec = string.Concat(new string[] { "server=", "192.168.10.10", ";uid=", "***", ";pwd=", "***", ";database=", "OPERA_DB" });
 
             string[] ListOpera = new string[3];
             ListOpera[0] = "OPERA-COMMON";
             ListOpera[1] = "OPERA-P3";
             ListOpera[2] = "OPERA-SUWON";
-            List<string> strf = new List<string>(); 
-            
-            
-            string[] SplittedString  = Parent.ListPlatesActive[Parent.CurrentDisplayPlateIdx].Name.Split('(');
+            List<string> strf = new List<string>();
+
+
+            string[] SplittedString = Parent.ListPlatesActive[Parent.CurrentDisplayPlateIdx].Name.Split('(');
             if (SplittedString.Length == 1) goto THEEND;
             string PlateName = "(" + SplittedString[1];
             SqlConnection sqc = new SqlConnection(connec);
             for (int OperaIdx = 0; OperaIdx < ListOpera.Length; OperaIdx++)
             {
-                //string queryString = "SELECT A.P_SEQ,A.LVL,A.PATH, A.TREE_NAME,B.MEA_NAME,B.MEA_YEAR, B.MEA_TYPE,B.BARCODE, C.MEA, C.[CIA-1],C.[CIA-2],C.[CIA-3], C.[CIA-4],C.[CIA-5],C.[CIA-6],";
-                //queryString += " A.END_FLAG FROM TB_OPERA_DB_TREE A LEFT OUTER JOIN TB_OPERA_MEA B ON A.ITEM_SEQ = B.MEA_PATH AND B.MEA_TYPE = '" + ListOpera[OperaIdx] + "' LEFT OUTER JOIN TB_OPERA_PATH C ON B.MEA_YEAR = C.EQ_YEAR";
-                //queryString += " AND B.MEA_TYPE = C.EQ_TYPE AND C.EQ_TYPE = '" + ListOpera[OperaIdx] + "' WHERE A.EQ_TYPE = '" + ListOpera[OperaIdx] + "' ORDER BY A.PATH ASC, A.LVL ASC, A.P_SEQ ASC";
-
-
-                string queryString = "SELECT B.MEA_NAME, B.BARCODE, C.[CIA-1],C.[CIA-2],C.[CIA-3], C.[CIA-4],C.[CIA-5],C.[CIA-6]";
-                queryString += " FROM TB_OPERA_DB_TREE A LEFT OUTER JOIN TB_OPERA_MEA B ON A.ITEM_SEQ = B.MEA_PATH AND B.MEA_TYPE = '" + ListOpera[OperaIdx] + "' LEFT OUTER JOIN TB_OPERA_PATH C ON B.MEA_YEAR = C.EQ_YEAR";
+                string queryString = "SELECT A.PATH, A.TREE_NAME,B.MEA_NAME,B.MEA_YEAR, B.MEA_TYPE,B.BARCODE, C.MEA, C.[CIA-1],C.[CIA-2],C.[CIA-3], C.[CIA-4],C.[CIA-5],C.[CIA-6],";
+                queryString += " A.END_FLAG FROM TB_OPERA_DB_TREE A LEFT OUTER JOIN TB_OPERA_MEA B ON A.ITEM_SEQ = B.MEA_PATH AND B.MEA_TYPE = '" + ListOpera[OperaIdx] + "' LEFT OUTER JOIN TB_OPERA_PATH C ON B.MEA_YEAR = C.EQ_YEAR";
                 queryString += " AND B.MEA_TYPE = C.EQ_TYPE AND C.EQ_TYPE = '" + ListOpera[OperaIdx] + "' WHERE A.EQ_TYPE = '" + ListOpera[OperaIdx] + "' ORDER BY A.PATH ASC, A.LVL ASC, A.P_SEQ ASC";
+
+
+                //  string queryString = "SELECT B.MEA_NAME, B.BARCODE, C.[CIA-1],C.[CIA-2],C.[CIA-3], C.[CIA-4],C.[CIA-5],C.[CIA-6]";
+                //  queryString += " FROM TB_OPERA_DB_TREE A LEFT OUTER JOIN TB_OPERA_MEA B ON A.ITEM_SEQ = B.MEA_PATH AND B.MEA_TYPE = '" + ListOpera[OperaIdx] + "' LEFT OUTER JOIN TB_OPERA_PATH C ON B.MEA_YEAR = C.EQ_YEAR";
+                //  queryString += " AND B.MEA_TYPE = C.EQ_TYPE AND C.EQ_TYPE = '" + ListOpera[OperaIdx] + "' WHERE A.EQ_TYPE = '" + ListOpera[OperaIdx] + "' ORDER BY A.PATH ASC, A.LVL ASC, A.P_SEQ ASC";
 
                 SqlCommand command = new SqlCommand(queryString, sqc);
                 sqc.Open();
@@ -1003,7 +1112,8 @@ namespace LibPlateAnalysis
 
                 while (reader.Read())
                 {
-                    if (reader.GetSqlString(0).ToString().Contains(PlateName))
+
+                    if (reader.GetSqlString(2).ToString().Contains(PlateName))
                     {
                         for (int i = 0; i < reader.FieldCount; i++)
                         {
@@ -1020,9 +1130,21 @@ namespace LibPlateAnalysis
 
         THELOOPEND: sqc.Close();
 
-
             if (strf.Count > 1)
             {
+
+                string MeaFileLocation = strf[6] + strf[0] +"\\"+ strf[2];
+
+                StreamReader st = new StreamReader(MeaFileLocation);
+                string FileRead = "";
+                while (!st.EndOfStream)
+                {
+                    FileRead = st.ReadToEnd();
+                }
+                string[] Splter = new string[1];
+                Splter[0]="Wavelength";
+                int NumWaveLength= FileRead.Split(Splter,StringSplitOptions.None).Length;
+
                 string specifier = "000";
 
                 string PX = this.GetPosX().ToString(specifier);
@@ -1038,19 +1160,36 @@ namespace LibPlateAnalysis
                     string NewTemp1 = strf[IdxCIA + 2] + "\\" + strf[1] + "\\" + FinalName + "\\" + PY + PX + "000.flex";
                     if (File.Exists(NewTemp1))
                     {
-                        Bitmap NewBMP = new Bitmap(NewTemp1);
+                        //  Bitmap NewBMP = new Bitmap(NewTemp1);
 
                         images = new ArrayList();
-                        int count = NewBMP.GetFrameCount(System.Drawing.Imaging.FrameDimension.Page);
-                        for (int idx = 0; idx < count; idx++)
+
+                        FreeImageAPI.FIMULTIBITMAP LoadedMultiPageImage = FreeImage.OpenMultiBitmap(FREE_IMAGE_FORMAT.FIF_TIFF, NewTemp1, false, true, true, FREE_IMAGE_LOAD_FLAGS.DEFAULT);
+
+
+
+                        //int count = NewBMP.GetFrameCount(System.Drawing.Imaging.FrameDimension.Page);
+                        for (int idx = 0; idx < FreeImage.GetPageCount(LoadedMultiPageImage); idx++)
                         {
                             // save each frame to a bytestream
-                            NewBMP.SelectActiveFrame(System.Drawing.Imaging.FrameDimension.Page, idx);
-                            MemoryStream byteStream = new MemoryStream();
-                            NewBMP.Save(byteStream, System.Drawing.Imaging.ImageFormat.Bmp);
+                            //NewBMP.SelectActiveFrame(System.Drawing.Imaging.FrameDimension.Page, idx);
+                            //MemoryStream byteStream = new MemoryStream();
+                            //NewBMP.Save(byteStream, System.Drawing.Imaging.ImageFormat.Bmp);
+
+                            FreeImageAPI.FIBITMAP LoadedPage = FreeImage.LockPage(LoadedMultiPageImage, idx);
+
+                            FreeImageAPI.BITMAPINFO ImageInfo = FreeImage.GetInfoEx(LoadedPage);
+                            int NumBands = (int)ImageInfo.bmiHeader.biPlanes;
+
+                            FreeImageAPI.FIBITMAP LoadedImage = FreeImage.ConvertToStandardType(LoadedPage, true);
+                            FreeImage.FlipVertical(LoadedImage);
+
+                            images.Add((Image)FreeImage.GetBitmap(LoadedImage));
+
+
 
                             // and then create a new Image from it
-                            images.Add(Image.FromStream(byteStream));
+                            //images.Add(Image.FromStream(byteStream));
                         }
 
                         NewWindow.numericUpDownIdxImage.Maximum = images.Count - 1;
@@ -1066,110 +1205,110 @@ namespace LibPlateAnalysis
             //    // display Image
 
             //    string toSearch = AssociatedPlate.Name;
-            //    string[] ToSplit = toSearch.Split('/');
+        //    string[] ToSplit = toSearch.Split('/');
 
             //    if (Parent.GlobalInfo.OptionsWindow.textBoxMainServer.Text == "") goto THEEND;
-            //    string[] ResultsPath = Directory.GetDirectories(Parent.GlobalInfo.OptionsWindow.textBoxMainServer.Text, ToSplit[0], SearchOption.AllDirectories);
-            //    string RealDir = "";
-            //    if (ResultsPath.Length == 0) goto THEEND;
-            //    foreach (string CurrPath in ResultsPath)
-            //    {
-            //        string[] Results = Directory.GetFiles(CurrPath, ToSplit[1] + ".mea", SearchOption.AllDirectories);
-            //        if (Results.Length == 1)
-            //        {
-            //            RealDir = Results[0];
-            //            break;
-            //        }
-            //    }
+        //    string[] ResultsPath = Directory.GetDirectories(Parent.GlobalInfo.OptionsWindow.textBoxMainServer.Text, ToSplit[0], SearchOption.AllDirectories);
+        //    string RealDir = "";
+        //    if (ResultsPath.Length == 0) goto THEEND;
+        //    foreach (string CurrPath in ResultsPath)
+        //    {
+        //        string[] Results = Directory.GetFiles(CurrPath, ToSplit[1] + ".mea", SearchOption.AllDirectories);
+        //        if (Results.Length == 1)
+        //        {
+        //            RealDir = Results[0];
+        //            break;
+        //        }
+        //    }
 
             //    if (RealDir == "") goto THEEND;
-            //    //XmlReader XMLRead = XmlReader.Create(RealDir);
-            //    List<string> ListHosts = new List<string>();
+        //    //XmlReader XMLRead = XmlReader.Create(RealDir);
+        //    List<string> ListHosts = new List<string>();
 
             //    XmlReader xmlReader = new XmlTextReader(RealDir);
-            //    xmlReader.MoveToContent();
-            //    while (!xmlReader.EOF)
-            //    {
-            //        string localName = xmlReader.LocalName;
-            //        switch (localName)
-            //        {
-            //            case "Host":
-            //                {
-            //                    string HostName = xmlReader["name"];
-            //                    if (HostName != null) ListHosts.Add(HostName);
-            //                    break;
-            //                }
-            //            default: break;
-            //        }
-            //        xmlReader.Read();
-            //    }
+        //    xmlReader.MoveToContent();
+        //    while (!xmlReader.EOF)
+        //    {
+        //        string localName = xmlReader.LocalName;
+        //        switch (localName)
+        //        {
+        //            case "Host":
+        //                {
+        //                    string HostName = xmlReader["name"];
+        //                    if (HostName != null) ListHosts.Add(HostName);
+        //                    break;
+        //                }
+        //            default: break;
+        //        }
+        //        xmlReader.Read();
+        //    }
 
             //    StreamReader st = new StreamReader(RealDir);
-            //    string FileRead = "";
-            //    while (!st.EndOfStream)
-            //    {
-            //        FileRead = st.ReadToEnd();
-            //    }
+        //    string FileRead = "";
+        //    while (!st.EndOfStream)
+        //    {
+        //        FileRead = st.ReadToEnd();
+        //    }
 
             //    int Idx = FileRead.IndexOf("path");
-            //    string Stemp = FileRead.Remove(0, Idx + 6);
-            //    int Idx1 = Stemp.IndexOf("table_");
+        //    string Stemp = FileRead.Remove(0, Idx + 6);
+        //    int Idx1 = Stemp.IndexOf("table_");
 
             //    string NewTmp = Stemp.Remove(Idx1 - 11);
 
             //    //string PX = "0"+this.GetPosX().ToString("N3");
-            //    string specifier = "000";
+        //    string specifier = "000";
 
             //    string PX = this.GetPosX().ToString(specifier);
-            //    string PY = this.GetPosY().ToString(specifier);
+        //    string PY = this.GetPosY().ToString(specifier);
 
             //    string NewHost = "";
-            //    foreach (string Host in ListHosts)
-            //    {
-            //        if (Host == "CIA-1") NewHost = "CIA-01";
-            //        if (Host == "CIA-2") NewHost = "CIA-02";
-            //        if (Host == "CIA-3") NewHost = "CIA-03";
-            //        if (Host == "CIA-4") NewHost = "CIA-04";
+        //    foreach (string Host in ListHosts)
+        //    {
+        //        if (Host == "CIA-1") NewHost = "CIA-01";
+        //        if (Host == "CIA-2") NewHost = "CIA-02";
+        //        if (Host == "CIA-3") NewHost = "CIA-03";
+        //        if (Host == "CIA-4") NewHost = "CIA-04";
 
             //        string NewTemp1 = "\\\\ip-korea.org\\REQ\\opr_p2_2012\\" + NewHost + "\\screening\\" + NewTmp + PY + PX + "000.flex";
-            //        if (File.Exists(NewTemp1))
-            //        {
+        //        if (File.Exists(NewTemp1))
+        //        {
 
             //            //  Graphics g = Graphics.FromImage(NewBMP);
-            //            Bitmap NewBMP = new Bitmap(NewTemp1);
+        //            Bitmap NewBMP = new Bitmap(NewTemp1);
 
             //            //XmpParser parser = new XmpParser();
-            //            //System.Xml.XmlDocument xml = (System.Xml.XmlDocument)parser.ParseFromImage(stream, frameIndex);
+        //            //System.Xml.XmlDocument xml = (System.Xml.XmlDocument)parser.ParseFromImage(stream, frameIndex);
 
 
             //            images = new ArrayList();
 
 
             //            int count = NewBMP.GetFrameCount(System.Drawing.Imaging.FrameDimension.Page);
-            //            for (int idx = 0; idx < count; idx++)
-            //            {
-            //                // save each frame to a bytestream
-            //                NewBMP.SelectActiveFrame(System.Drawing.Imaging.FrameDimension.Page, idx);
-            //                MemoryStream byteStream = new MemoryStream();
-            //                NewBMP.Save(byteStream, System.Drawing.Imaging.ImageFormat.Bmp);
+        //            for (int idx = 0; idx < count; idx++)
+        //            {
+        //                // save each frame to a bytestream
+        //                NewBMP.SelectActiveFrame(System.Drawing.Imaging.FrameDimension.Page, idx);
+        //                MemoryStream byteStream = new MemoryStream();
+        //                NewBMP.Save(byteStream, System.Drawing.Imaging.ImageFormat.Bmp);
 
             //                // and then create a new Image from it
-            //                images.Add(Image.FromStream(byteStream));
-            //            }
+        //                images.Add(Image.FromStream(byteStream));
+        //            }
 
             //            NewWindow.numericUpDownIdxImage.Maximum = images.Count - 1;
 
             //            DrawPic(NewWindow, null, null);
-            //        }
-            //    }
-            ////Graphics g = NewWindow.pictureBoxForImage.CreateGraphics();
-            ////g.DrawImage((Image)NewBMP, 1, 1);
-            ////NewBMP.PixelFormat = System.Drawing.Imaging.PixelFormat.Format16bppRgb555;
-            //// NewWindow.pictureBoxForImage.Image = (Image)NewBMP;
-            ////NewWindow.pictureBoxForImage.Image = System.Drawing.Image.FromFile("005001000.tiff", true);
-            ////  NewWindow.pictureBoxForImage.Image = System.Drawing.Image.FromFile("hilbert.tif");
-            ////NewWindow.pictureBoxForImage.
-            //THEEND: ;
+        //        }
+        //    }
+        ////Graphics g = NewWindow.pictureBoxForImage.CreateGraphics();
+        ////g.DrawImage((Image)NewBMP, 1, 1);
+        ////NewBMP.PixelFormat = System.Drawing.Imaging.PixelFormat.Format16bppRgb555;
+        //// NewWindow.pictureBoxForImage.Image = (Image)NewBMP;
+        ////NewWindow.pictureBoxForImage.Image = System.Drawing.Image.FromFile("005001000.tiff", true);
+        ////  NewWindow.pictureBoxForImage.Image = System.Drawing.Image.FromFile("hilbert.tif");
+        ////NewWindow.pictureBoxForImage.
+        //THEEND: ;
 
             THEEND: ;
 
@@ -1194,55 +1333,16 @@ namespace LibPlateAnalysis
         {
             if (images == null) return;
 
+            Graphics ThisGraph = NewWindow.panelForImage.CreateGraphics();
+            //   ThisGraph.Clear(Color.White);
+            //NewWindow.pictureBoxForImage.Image = (Image)images[(int)NewWindow.numericUpDownIdxImage.Value];
+            //Graphics bmG = Graphics.FromImage((Image)images[(int)NewWindow.numericUpDownIdxImage.Value]);
+            ThisGraph.DrawImage((Image)images[(int)NewWindow.numericUpDownIdxImage.Value], new Point(0, 0));
+            ThisGraph.DrawString("Image " + (int)NewWindow.numericUpDownIdxImage.Value, new Font(FontFamily.GenericSansSerif, 10), System.Drawing.Brushes.LightYellow, 5, 5);
+            //  ThisGraph.DrawImage((Image)images[(int)NewWindow.numericUpDownIdxImage.Value], new Point(0, 0));
 
+            //  NewWindow.pictureBoxForImage.Invalidate();
 
-
-            Bitmap NewBMP = (Bitmap)images[(int)NewWindow.numericUpDownIdxImage.Value];
-
-            double Max = int.MinValue;
-            double Min = int.MaxValue;
-
-
-
-
-            cExtendedList PixelValues = new cExtendedList();
-            for (int Y = 0; Y < NewBMP.Height; Y++)
-                for (int X = 0; X < NewBMP.Width; X++)
-                {
-                    Color Col = NewBMP.GetPixel(X, Y);
-                    PixelValues.Add(Col.R);
-                    if (Col.R > Max) Max = Col.R;
-                    if (Col.R < Min) Min = Col.R;
-                }
-
-
-
-
-            if (lMin == null) NewWindow.numericUpDownImageMin.Value = (decimal)Min;
-            if (lMax == null) NewWindow.numericUpDownImageMax.Value = (decimal)Max;
-
-            Min = (double)NewWindow.numericUpDownImageMin.Value;
-            Max = (double)NewWindow.numericUpDownImageMax.Value;
-
-            //   NewWindow.panelForImage.Width = NewBMP.Width;
-            //   NewWindow.panelForImage.Height = NewBMP.Height;
-            NewWindow.pictureBoxForImage.SizeMode = PictureBoxSizeMode.StretchImage;
-            //NewWindow.pictureBoxForImage.Width = 1000;
-            //NewWindow.pictureBoxForImage.Height = 1000;
-
-            int ConvertedValue = 0;
-
-            Bitmap FinalBMP = new Bitmap(NewBMP);
-
-            for (int Y = 0; Y < NewBMP.Height; Y++)
-                for (int X = 0; X < NewBMP.Width; X++)
-                {
-                    ConvertedValue = 0;
-                    if (Max != Min)
-                        ConvertedValue = (int)(((Parent.GlobalInfo.LUT[0].Length - 1) * (PixelValues[X + Y * NewBMP.Width] - Min)) / (Max - Min));
-                    FinalBMP.SetPixel(X, Y, Color.FromArgb(Parent.GlobalInfo.LUT[0][ConvertedValue], Parent.GlobalInfo.LUT[1][ConvertedValue], Parent.GlobalInfo.LUT[2][ConvertedValue]));
-                }
-            NewWindow.pictureBoxForImage.Image = (Image)FinalBMP;
         }
 
         private void DisplayInfo(object sender, EventArgs e)
@@ -1309,7 +1409,6 @@ namespace LibPlateAnalysis
             data1.setClassIndex((data1.numAttributes() - 1));
             return data1;
         }
-
 
     }
 }

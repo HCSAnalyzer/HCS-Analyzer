@@ -123,9 +123,9 @@
             // buttonGenerate
             // 
             this.buttonGenerate.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonGenerate.Location = new System.Drawing.Point(105, 584);
+            this.buttonGenerate.Location = new System.Drawing.Point(211, 549);
             this.buttonGenerate.Name = "buttonGenerate";
-            this.buttonGenerate.Size = new System.Drawing.Size(171, 31);
+            this.buttonGenerate.Size = new System.Drawing.Size(134, 31);
             this.buttonGenerate.TabIndex = 0;
             this.buttonGenerate.Text = "Generate";
             this.buttonGenerate.UseVisualStyleBackColor = true;
@@ -521,7 +521,7 @@
             this.tabControlGenerateScreening.Alignment = System.Windows.Forms.TabAlignment.Left;
             this.tabControlGenerateScreening.Controls.Add(this.tabPage1);
             this.tabControlGenerateScreening.Controls.Add(this.tabPage2);
-            this.tabControlGenerateScreening.Location = new System.Drawing.Point(12, 156);
+            this.tabControlGenerateScreening.Location = new System.Drawing.Point(7, 131);
             this.tabControlGenerateScreening.Multiline = true;
             this.tabControlGenerateScreening.Name = "tabControlGenerateScreening";
             this.tabControlGenerateScreening.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -892,7 +892,7 @@
             // checkBoxAddAsDescriptor
             // 
             this.checkBoxAddAsDescriptor.AutoSize = true;
-            this.checkBoxAddAsDescriptor.Location = new System.Drawing.Point(12, 68);
+            this.checkBoxAddAsDescriptor.Location = new System.Drawing.Point(12, 56);
             this.checkBoxAddAsDescriptor.Name = "checkBoxAddAsDescriptor";
             this.checkBoxAddAsDescriptor.Size = new System.Drawing.Size(110, 17);
             this.checkBoxAddAsDescriptor.TabIndex = 18;
@@ -908,9 +908,9 @@
             this.groupBoxGeneralInfo.Controls.Add(this.numericUpDownRows);
             this.groupBoxGeneralInfo.Controls.Add(this.label2);
             this.groupBoxGeneralInfo.Controls.Add(this.numericUpDownColumns);
-            this.groupBoxGeneralInfo.Location = new System.Drawing.Point(130, 16);
+            this.groupBoxGeneralInfo.Location = new System.Drawing.Point(128, 6);
             this.groupBoxGeneralInfo.Name = "groupBoxGeneralInfo";
-            this.groupBoxGeneralInfo.Size = new System.Drawing.Size(220, 119);
+            this.groupBoxGeneralInfo.Size = new System.Drawing.Size(217, 119);
             this.groupBoxGeneralInfo.TabIndex = 19;
             this.groupBoxGeneralInfo.TabStop = false;
             this.groupBoxGeneralInfo.Text = "General";
@@ -919,12 +919,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(383, 631);
+            this.ClientSize = new System.Drawing.Size(352, 584);
             this.Controls.Add(this.groupBoxGeneralInfo);
             this.Controls.Add(this.checkBoxAddAsDescriptor);
             this.Controls.Add(this.tabControlGenerateScreening);
             this.Controls.Add(this.buttonGenerate);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormForGenerateScreening";
             this.Text = "Generate Screening";

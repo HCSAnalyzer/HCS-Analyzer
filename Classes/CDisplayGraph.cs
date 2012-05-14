@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace HCSAnalyzer.Classes
 {
-    class CDisplayGraph
+    class cDisplayGraph
     {
 
         public string Title = "";
@@ -16,7 +16,7 @@ namespace HCSAnalyzer.Classes
         public SimpleForm NewWindow = new SimpleForm();
         public Series Serie;
 
-        public CDisplayGraph(double[] Values, string Name)
+        public cDisplayGraph(double[] Values, string Name)
         {
             SimpleForm NewWindow = new SimpleForm();
             NewWindow.Text = Name;
