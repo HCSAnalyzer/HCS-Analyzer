@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using weka.core;
-using System.Data;
+//using System.Data;
 using weka.clusterers;
 using LibPlateAnalysis;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -15,11 +15,296 @@ using weka.attributeSelection;
 using weka.filters;
 using weka.classifiers;
 using HCSAnalyzer.Classes;
+using Microsoft.Research.Science.Data;
+using Microsoft.Research.Science.Data.Imperative;
+using System.IO;
+using HCSAnalyzer.Forms.IO;
 
 namespace HCSAnalyzer
 {
+
+
+
+
+
     public partial class HCSAnalyzer
     {
+
+        protected virtual bool IsFileUsed(string file)
+        {
+            try
+            {
+                using (FileStream fs = new FileStream(file, FileMode.OpenOrCreate))
+                {
+                    //fs.CanWrite;
+                }
+                return false;
+            }
+            catch (IOException ex)
+            {
+                return true;
+            }
+        }
+
+        private FormForImportExcel CellByCellFromCSV(string FileName)
+        {
+            FormForImportExcel FromExcel = new FormForImportExcel();
+
+            FromExcel.IsImportCSV = true;
+
+
+            int Mode = 2;
+            if (GlobalInfo.OptionsWindow.radioButtonWellPosModeSingle.Checked) Mode = 1;
+            CsvFileReader CSVsr = new CsvFileReader(FileName);
+
+            CsvRow Names = new CsvRow();
+            if (!CSVsr.ReadRow(Names))
+            {
+                CSVsr.Close();
+                return null;
+            }
+
+            int NumPreview = 4;
+            List<CsvRow> LCSVRow = new List<CsvRow>();
+            for (int Idx = 0; Idx < NumPreview; Idx++)
+            {
+                CsvRow TNames = new CsvRow();
+                // if (TNames.Count == 0) break;
+                if (!CSVsr.ReadRow(TNames))
+                {
+                    CSVsr.Close();
+                    return null;
+                }
+                LCSVRow.Add(TNames);
+            }
+
+            // FromExcel.dataGridViewForImport.RowsDefaultCellStyle.BackColor = Color.Bisque;
+            FromExcel.dataGridViewForImport.AlternatingRowsDefaultCellStyle.BackColor = Color.Beige;
+
+
+            DataGridViewColumn ColName = new DataGridViewColumn();
+            FromExcel.dataGridViewForImport.Columns.Add("Data Name", "Data Name");
+
+            DataGridViewCheckBoxColumn columnSelection = new DataGridViewCheckBoxColumn();
+            columnSelection.Name = "Selection";
+            FromExcel.dataGridViewForImport.Columns.Add(columnSelection);
+
+            DataGridViewComboBoxColumn columnType = new DataGridViewComboBoxColumn();
+            if (GlobalInfo.OptionsWindow.radioButtonWellPosModeDouble.Checked)
+                columnType.DataSource = new string[] { "Plate name", "Column", "Row", "Descriptor" };
+            else
+                columnType.DataSource = new string[] { "Plate name", "Well position", "Descriptor" };
+            columnType.Name = "Type";
+            FromExcel.dataGridViewForImport.Columns.Add(columnType);
+
+            for (int i = 0; i < LCSVRow.Count; i++)
+            {
+                DataGridViewColumn NewCol = new DataGridViewColumn();
+                NewCol.ReadOnly = true;
+                FromExcel.dataGridViewForImport.Columns.Add("Readout " + i, "Readout " + i);
+            }
+
+            if (LCSVRow[0].Count > Names.Count)
+            {
+                CSVsr.Close();
+                MessageBox.Show("Inconsistent column number. Check your CSV file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+
+            }
+
+            for (int i = 0; i < Names.Count; i++)
+            {
+                int IdxRow = 0;
+                FromExcel.dataGridViewForImport.Rows.Add();
+                FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow++].Value = Names[i];
+
+                if (i == 0) FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow++].Value = true;
+                else if (i == 1) FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow++].Value = true;
+                else if ((i == 2) && (GlobalInfo.OptionsWindow.radioButtonWellPosModeDouble.Checked)) FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow++].Value = true;
+                else FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow++].Value = false;
+
+                if (i == 0)
+                {
+                    FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow++].Value = "Plate name";
+                }
+                else if (i == 1)
+                {
+                    if (GlobalInfo.OptionsWindow.radioButtonWellPosModeDouble.Checked)
+                    {
+                        FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow++].Value = "Column";
+                    }
+                    else
+                    {
+                        FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow++].Value = "Well position";
+                    }
+                }
+                else if (i == 2)
+                {
+                    if (GlobalInfo.OptionsWindow.radioButtonWellPosModeDouble.Checked)
+                    {
+                        FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow++].Value = "Row";
+                    }
+                    else
+                        FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow++].Value = "Descriptor";
+                }
+                else
+                {
+                    FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow++].Value = "Descriptor";
+                }
+
+                for (int j = 0; j < LCSVRow.Count; j++)
+                {
+                    if (i < LCSVRow[j].Count)
+                        FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow + j].Value = LCSVRow[j][i].ToString();
+                    else
+                        FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow + j].Value = "";
+                }
+            }
+
+            FromExcel.dataGridViewForImport.Update();
+            // FromExcel.dataGridViewForImport.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewForImport_MouseClick);
+
+            FromExcel.CurrentScreen = CompleteScreening;
+            FromExcel.thisHCSAnalyzer = this;
+
+            return FromExcel;
+        }
+
+
+
+        private void LoadingCSVProcedure(FormForImportExcel FromExcel)
+        {
+            int Mode = 2;
+            if (GlobalInfo.OptionsWindow.radioButtonWellPosModeSingle.Checked) Mode = 1;
+            CsvFileReader CSVsr = new CsvFileReader(PathNames[0]);
+            if (!CSVsr.BaseStream.CanRead)
+            {
+                MessageBox.Show("Cannot read the file !", "Process finished !", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CSVsr.Close();
+                return;
+            }
+            CsvRow Names = new CsvRow();
+            if (!CSVsr.ReadRow(Names))
+            {
+                CSVsr.Close();
+                return;
+            }
+            int ColSelectedForName = GetColIdxFor("Name", FromExcel);
+            //  int ColLocusID = GetColIdxFor("Locus ID", FromExcel);
+            // int ColConcentration = GetColIdxFor("Concentration", FromExcel);
+            //  int ColInfo = GetColIdxFor("Info", FromExcel);
+            //  int ColClass = GetColIdxFor("Class", FromExcel);
+            int ColPlateName = GetColIdxFor("Plate name", FromExcel);
+            int ColCol = GetColIdxFor("Column", FromExcel);
+            int ColRow = GetColIdxFor("Row", FromExcel);
+            int ColWellPos = GetColIdxFor("Well position", FromExcel);
+            int[] ColsForDescriptors = GetColsIdxFor("Descriptor", FromExcel);
+
+
+            while (CSVsr.EndOfStream != true)
+            {
+            NEXT: ;
+                CsvRow CurrentDesc = new CsvRow();
+                if (CSVsr.ReadRow(CurrentDesc) == false) break;
+
+                string PlateName = CurrentDesc[ColPlateName];
+                //return;
+                // check if the plate exist already
+                cPlate CurrentPlate = CompleteScreening.GetPlateIfNameIsContainIn(PlateName);
+                if (CurrentPlate == null) goto NEXT;
+
+                int[] Pos = new int[2];
+                if (Mode == 1)
+                {
+                    Pos = ConvertPosition(CurrentDesc[ColWellPos]);
+                }
+                else
+                {
+                    if (!int.TryParse(CurrentDesc[ColCol], out Pos[0]))
+                    {
+                        if (MessageBox.Show("Error in converting the current well position.\nGo to Edit->Options->Import-Export->Well Position Mode to fix this.\nDo you want continue ?", "Loading error !", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == System.Windows.Forms.DialogResult.No)
+                        {
+                            CSVsr.Close();
+                            return;
+                        }
+                        else
+                            goto NEXTLOOP;
+                    }
+
+                    Pos[1] = Convert.ToInt16(CurrentDesc[ColRow]);
+                }
+
+                cWell CurrentWell = CurrentPlate.GetWell(Pos[0] - 1, Pos[1] - 1, false);
+                if (CurrentWell == null) goto NEXT;
+
+                if (ColSelectedForName != -1)
+                {
+                    CurrentWell.Name = CurrentDesc[ColSelectedForName];
+                }
+                else
+                {
+                    CurrentWell.SetAsNoneSelected();
+                }
+
+                //if (ColLocusID != -1)
+            //{
+            //    double CurrentValue;
+
+                //    if (!double.TryParse(CurrentDesc[ColLocusID], out CurrentValue))
+            //        goto NEXTSTEP;
+
+                //    CurrentWell.LocusID = CurrentValue;
+
+                //}
+            //if (ColConcentration != -1)
+            //{
+            //    double CurrentValue;
+
+                //    if (!double.TryParse(CurrentDesc[ColConcentration], out CurrentValue))
+            //        goto NEXTSTEP;
+
+
+                //    CurrentWell.Concentration = CurrentValue;
+
+                //}
+            NEXTSTEP: ;
+
+                //if (ColInfo != -1)
+            //    CurrentWell.Info = CurrentDesc[ColInfo];
+
+                //if (ColClass != -1)
+            //{
+            //    int CurrentValue;
+            //    if (!int.TryParse(CurrentDesc[ColClass], out CurrentValue))
+            //        goto NEXTLOOP;
+            //    CurrentWell.SetClass(CurrentValue);
+            //}
+
+            NEXTLOOP: ;
+
+            }
+
+            CSVsr.Close();
+
+            CompleteScreening.GetCurrentDisplayPlate().DisplayDistribution(CompleteScreening.ListDescriptors.CurrentSelectedDescriptor, false);
+
+            MessageBox.Show("File loaded", "Process finished !", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return;
+        }
+
+
+        private static bool IsRightName(string Name, string NameToCompare)
+        {
+            if (Name == NameToCompare)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         #region User interface
         private void comboBoxCLassificationMethod_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -58,7 +343,7 @@ namespace HCSAnalyzer
                 return;
             }
 
-            
+
             this.Cursor = Cursors.WaitCursor;
             Classification(comboBoxNeutralClassForClassif.SelectedIndex, radioButtonClassifPlateByPlate.Checked, comboBoxCLassificationMethod.SelectedIndex);
             this.Cursor = Cursors.Default;

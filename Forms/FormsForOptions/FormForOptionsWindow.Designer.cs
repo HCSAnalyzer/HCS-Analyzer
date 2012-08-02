@@ -48,6 +48,7 @@
             this.numericUpDownGutter = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.radioButtonWellInfoDescValue = new System.Windows.Forms.RadioButton();
             this.radioButtonWellInfoConcentration = new System.Windows.Forms.RadioButton();
             this.radioButtonWellInfoLocusID = new System.Windows.Forms.RadioButton();
             this.radioButtonWellInfoInfo = new System.Windows.Forms.RadioButton();
@@ -55,9 +56,7 @@
             this.checkBoxDisplayWellInformation = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.checkBoxDisplayHistoStats = new System.Windows.Forms.CheckBox();
-            this.radioButtonDisplayAverage = new System.Windows.Forms.RadioButton();
-            this.radioButtonDisplayDistribution = new System.Windows.Forms.RadioButton();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPageClustering = new System.Windows.Forms.TabPage();
             this.groupBox18 = new System.Windows.Forms.GroupBox();
             this.comboBoxHierarchicalLinkType = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -122,6 +121,8 @@
             this.numericUpDownGenerateScreenNoiseStdDev = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.groupBox25 = new System.Windows.Forms.GroupBox();
+            this.checkBoxConnectDRCPts = new System.Windows.Forms.CheckBox();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
             this.radioButtonReplicatesAverageStdev = new System.Windows.Forms.RadioButton();
             this.radioButtonReplicateAllValues = new System.Windows.Forms.RadioButton();
@@ -145,7 +146,18 @@
             this.label27 = new System.Windows.Forms.Label();
             this.numericUpDownWellOpacity = new System.Windows.Forms.NumericUpDown();
             this.label25 = new System.Windows.Forms.Label();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.tabPageHisto = new System.Windows.Forms.TabPage();
+            this.label31 = new System.Windows.Forms.Label();
+            this.groupBox26 = new System.Windows.Forms.GroupBox();
+            this.radioButtonHistoDisplayAdjusted = new System.Windows.Forms.RadioButton();
+            this.numericUpDownManualMax = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownManualMin = new System.Windows.Forms.NumericUpDown();
+            this.label33 = new System.Windows.Forms.Label();
+            this.numericUpDownAutomatedMax = new System.Windows.Forms.NumericUpDown();
+            this.label32 = new System.Windows.Forms.Label();
+            this.numericUpDownAutomatedMin = new System.Windows.Forms.NumericUpDown();
+            this.radioButtonHistoDisplayManualMinMax = new System.Windows.Forms.RadioButton();
+            this.radioButtonHistoDisplayAutomatedMinMax = new System.Windows.Forms.RadioButton();
             this.groupBox24 = new System.Windows.Forms.GroupBox();
             this.radioButtonDistributionMetricEMD = new System.Windows.Forms.RadioButton();
             this.radioButtonDistributionMetricBhattacharyya = new System.Windows.Forms.RadioButton();
@@ -156,6 +168,7 @@
             this.radioButtonDistributionMetricEuclidean = new System.Windows.Forms.RadioButton();
             this.buttonOk = new System.Windows.Forms.Button();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
+            this.buttonApply = new System.Windows.Forms.Button();
             this.tabControlWindowOption.SuspendLayout();
             this.tabPageImport.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -167,7 +180,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGutter)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.tabPageClustering.SuspendLayout();
             this.groupBox18.SuspendLayout();
             this.tabPageClassification.SuspendLayout();
             this.groupBox15.SuspendLayout();
@@ -203,6 +216,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGenerateScreenRowEffectShift)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGenerateScreenNoiseStdDev)).BeginInit();
             this.tabPage6.SuspendLayout();
+            this.groupBox25.SuspendLayout();
             this.groupBox19.SuspendLayout();
             this.tabPage3D.SuspendLayout();
             this.groupBox23.SuspendLayout();
@@ -213,7 +227,12 @@
             this.groupBox21.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellOpacity)).BeginInit();
-            this.tabPage8.SuspendLayout();
+            this.tabPageHisto.SuspendLayout();
+            this.groupBox26.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownManualMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownManualMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutomatedMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutomatedMin)).BeginInit();
             this.groupBox24.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -221,7 +240,7 @@
             // 
             this.tabControlWindowOption.Controls.Add(this.tabPageImport);
             this.tabControlWindowOption.Controls.Add(this.tabPageDisplay);
-            this.tabControlWindowOption.Controls.Add(this.tabPage3);
+            this.tabControlWindowOption.Controls.Add(this.tabPageClustering);
             this.tabControlWindowOption.Controls.Add(this.tabPageClassification);
             this.tabControlWindowOption.Controls.Add(this.tabPage1);
             this.tabControlWindowOption.Controls.Add(this.tabPage2);
@@ -229,7 +248,7 @@
             this.tabControlWindowOption.Controls.Add(this.tabPage5);
             this.tabControlWindowOption.Controls.Add(this.tabPage6);
             this.tabControlWindowOption.Controls.Add(this.tabPage3D);
-            this.tabControlWindowOption.Controls.Add(this.tabPage8);
+            this.tabControlWindowOption.Controls.Add(this.tabPageHisto);
             this.tabControlWindowOption.Location = new System.Drawing.Point(12, 12);
             this.tabControlWindowOption.Multiline = true;
             this.tabControlWindowOption.Name = "tabControlWindowOption";
@@ -424,6 +443,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.radioButtonWellInfoDescValue);
             this.groupBox5.Controls.Add(this.radioButtonWellInfoConcentration);
             this.groupBox5.Controls.Add(this.radioButtonWellInfoLocusID);
             this.groupBox5.Controls.Add(this.radioButtonWellInfoInfo);
@@ -436,10 +456,20 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "                                            ";
             // 
+            // radioButtonWellInfoDescValue
+            // 
+            this.radioButtonWellInfoDescValue.AutoSize = true;
+            this.radioButtonWellInfoDescValue.Location = new System.Drawing.Point(70, 25);
+            this.radioButtonWellInfoDescValue.Name = "radioButtonWellInfoDescValue";
+            this.radioButtonWellInfoDescValue.Size = new System.Drawing.Size(82, 17);
+            this.radioButtonWellInfoDescValue.TabIndex = 20;
+            this.radioButtonWellInfoDescValue.Text = "Mean Value";
+            this.radioButtonWellInfoDescValue.UseVisualStyleBackColor = true;
+            // 
             // radioButtonWellInfoConcentration
             // 
             this.radioButtonWellInfoConcentration.AutoSize = true;
-            this.radioButtonWellInfoConcentration.Location = new System.Drawing.Point(260, 25);
+            this.radioButtonWellInfoConcentration.Location = new System.Drawing.Point(288, 25);
             this.radioButtonWellInfoConcentration.Name = "radioButtonWellInfoConcentration";
             this.radioButtonWellInfoConcentration.Size = new System.Drawing.Size(91, 17);
             this.radioButtonWellInfoConcentration.TabIndex = 19;
@@ -449,7 +479,7 @@
             // radioButtonWellInfoLocusID
             // 
             this.radioButtonWellInfoLocusID.AutoSize = true;
-            this.radioButtonWellInfoLocusID.Location = new System.Drawing.Point(177, 25);
+            this.radioButtonWellInfoLocusID.Location = new System.Drawing.Point(214, 25);
             this.radioButtonWellInfoLocusID.Name = "radioButtonWellInfoLocusID";
             this.radioButtonWellInfoLocusID.Size = new System.Drawing.Size(68, 17);
             this.radioButtonWellInfoLocusID.TabIndex = 19;
@@ -459,7 +489,7 @@
             // radioButtonWellInfoInfo
             // 
             this.radioButtonWellInfoInfo.AutoSize = true;
-            this.radioButtonWellInfoInfo.Location = new System.Drawing.Point(111, 25);
+            this.radioButtonWellInfoInfo.Location = new System.Drawing.Point(164, 25);
             this.radioButtonWellInfoInfo.Name = "radioButtonWellInfoInfo";
             this.radioButtonWellInfoInfo.Size = new System.Drawing.Size(43, 17);
             this.radioButtonWellInfoInfo.TabIndex = 19;
@@ -470,7 +500,7 @@
             // 
             this.radioButtonWellInfoName.AutoSize = true;
             this.radioButtonWellInfoName.Checked = true;
-            this.radioButtonWellInfoName.Location = new System.Drawing.Point(34, 25);
+            this.radioButtonWellInfoName.Location = new System.Drawing.Point(11, 25);
             this.radioButtonWellInfoName.Name = "radioButtonWellInfoName";
             this.radioButtonWellInfoName.Size = new System.Drawing.Size(53, 17);
             this.radioButtonWellInfoName.TabIndex = 19;
@@ -491,8 +521,6 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.checkBoxDisplayHistoStats);
-            this.groupBox4.Controls.Add(this.radioButtonDisplayAverage);
-            this.groupBox4.Controls.Add(this.radioButtonDisplayDistribution);
             this.groupBox4.Location = new System.Drawing.Point(5, 6);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(385, 78);
@@ -505,45 +533,23 @@
             this.checkBoxDisplayHistoStats.AutoSize = true;
             this.checkBoxDisplayHistoStats.Checked = true;
             this.checkBoxDisplayHistoStats.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxDisplayHistoStats.Location = new System.Drawing.Point(140, 51);
+            this.checkBoxDisplayHistoStats.Location = new System.Drawing.Point(141, 41);
             this.checkBoxDisplayHistoStats.Name = "checkBoxDisplayHistoStats";
             this.checkBoxDisplayHistoStats.Size = new System.Drawing.Size(105, 17);
             this.checkBoxDisplayHistoStats.TabIndex = 1;
             this.checkBoxDisplayHistoStats.Text = "Display Statistics";
             this.checkBoxDisplayHistoStats.UseVisualStyleBackColor = true;
             // 
-            // radioButtonDisplayAverage
+            // tabPageClustering
             // 
-            this.radioButtonDisplayAverage.AutoSize = true;
-            this.radioButtonDisplayAverage.Checked = true;
-            this.radioButtonDisplayAverage.Location = new System.Drawing.Point(193, 21);
-            this.radioButtonDisplayAverage.Name = "radioButtonDisplayAverage";
-            this.radioButtonDisplayAverage.Size = new System.Drawing.Size(130, 17);
-            this.radioButtonDisplayAverage.TabIndex = 0;
-            this.radioButtonDisplayAverage.TabStop = true;
-            this.radioButtonDisplayAverage.Text = "Display average value";
-            this.radioButtonDisplayAverage.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonDisplayDistribution
-            // 
-            this.radioButtonDisplayDistribution.AutoSize = true;
-            this.radioButtonDisplayDistribution.Location = new System.Drawing.Point(61, 21);
-            this.radioButtonDisplayDistribution.Name = "radioButtonDisplayDistribution";
-            this.radioButtonDisplayDistribution.Size = new System.Drawing.Size(107, 17);
-            this.radioButtonDisplayDistribution.TabIndex = 0;
-            this.radioButtonDisplayDistribution.Text = "Display histogram";
-            this.radioButtonDisplayDistribution.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.groupBox18);
-            this.tabPage3.Location = new System.Drawing.Point(4, 58);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(396, 384);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Clustering";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPageClustering.Controls.Add(this.groupBox18);
+            this.tabPageClustering.Location = new System.Drawing.Point(4, 58);
+            this.tabPageClustering.Name = "tabPageClustering";
+            this.tabPageClustering.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageClustering.Size = new System.Drawing.Size(396, 384);
+            this.tabPageClustering.TabIndex = 2;
+            this.tabPageClustering.Text = "Clustering";
+            this.tabPageClustering.UseVisualStyleBackColor = true;
             // 
             // groupBox18
             // 
@@ -1450,6 +1456,7 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.groupBox25);
             this.tabPage6.Controls.Add(this.groupBox19);
             this.tabPage6.Controls.Add(this.buttonDRCPlateDesign);
             this.tabPage6.Location = new System.Drawing.Point(4, 58);
@@ -1459,6 +1466,26 @@
             this.tabPage6.TabIndex = 9;
             this.tabPage6.Text = "DRC analysis";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // groupBox25
+            // 
+            this.groupBox25.Controls.Add(this.checkBoxConnectDRCPts);
+            this.groupBox25.Location = new System.Drawing.Point(6, 136);
+            this.groupBox25.Name = "groupBox25";
+            this.groupBox25.Size = new System.Drawing.Size(384, 70);
+            this.groupBox25.TabIndex = 3;
+            this.groupBox25.TabStop = false;
+            this.groupBox25.Text = "XYZ scatter points";
+            // 
+            // checkBoxConnectDRCPts
+            // 
+            this.checkBoxConnectDRCPts.AutoSize = true;
+            this.checkBoxConnectDRCPts.Location = new System.Drawing.Point(128, 30);
+            this.checkBoxConnectDRCPts.Name = "checkBoxConnectDRCPts";
+            this.checkBoxConnectDRCPts.Size = new System.Drawing.Size(123, 17);
+            this.checkBoxConnectDRCPts.TabIndex = 2;
+            this.checkBoxConnectDRCPts.Text = "Connect DRC points";
+            this.checkBoxConnectDRCPts.UseVisualStyleBackColor = true;
             // 
             // groupBox19
             // 
@@ -1549,7 +1576,7 @@
             this.groupBox22.Controls.Add(this.checkBox3DDisplayIsoboles);
             this.groupBox22.Location = new System.Drawing.Point(6, 248);
             this.groupBox22.Name = "groupBox22";
-            this.groupBox22.Size = new System.Drawing.Size(382, 126);
+            this.groupBox22.Size = new System.Drawing.Size(382, 107);
             this.groupBox22.TabIndex = 21;
             this.groupBox22.TabStop = false;
             this.groupBox22.Text = "                                 ";
@@ -1608,7 +1635,7 @@
             this.checkBox3DDisplayIsoRatioCurves.AutoSize = true;
             this.checkBox3DDisplayIsoRatioCurves.Checked = true;
             this.checkBox3DDisplayIsoRatioCurves.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox3DDisplayIsoRatioCurves.Location = new System.Drawing.Point(123, 89);
+            this.checkBox3DDisplayIsoRatioCurves.Location = new System.Drawing.Point(195, 66);
             this.checkBox3DDisplayIsoRatioCurves.Name = "checkBox3DDisplayIsoRatioCurves";
             this.checkBox3DDisplayIsoRatioCurves.Size = new System.Drawing.Size(135, 17);
             this.checkBox3DDisplayIsoRatioCurves.TabIndex = 3;
@@ -1620,7 +1647,7 @@
             this.checkBox3DDisplayIsoboles.AutoSize = true;
             this.checkBox3DDisplayIsoboles.Checked = true;
             this.checkBox3DDisplayIsoboles.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox3DDisplayIsoboles.Location = new System.Drawing.Point(140, 60);
+            this.checkBox3DDisplayIsoboles.Location = new System.Drawing.Point(68, 66);
             this.checkBox3DDisplayIsoboles.Name = "checkBox3DDisplayIsoboles";
             this.checkBox3DDisplayIsoboles.Size = new System.Drawing.Size(102, 17);
             this.checkBox3DDisplayIsoboles.TabIndex = 3;
@@ -1743,16 +1770,177 @@
             this.label25.TabIndex = 0;
             this.label25.Text = "Well opacity";
             // 
-            // tabPage8
+            // tabPageHisto
             // 
-            this.tabPage8.Controls.Add(this.groupBox24);
-            this.tabPage8.Location = new System.Drawing.Point(4, 58);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(396, 384);
-            this.tabPage8.TabIndex = 11;
-            this.tabPage8.Text = "Histogram Analysis";
-            this.tabPage8.UseVisualStyleBackColor = true;
+            this.tabPageHisto.Controls.Add(this.label31);
+            this.tabPageHisto.Controls.Add(this.groupBox26);
+            this.tabPageHisto.Controls.Add(this.groupBox24);
+            this.tabPageHisto.Location = new System.Drawing.Point(4, 58);
+            this.tabPageHisto.Name = "tabPageHisto";
+            this.tabPageHisto.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageHisto.Size = new System.Drawing.Size(396, 384);
+            this.tabPageHisto.TabIndex = 11;
+            this.tabPageHisto.Text = "Histogram Analysis && Display";
+            this.tabPageHisto.UseVisualStyleBackColor = true;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(6, 194);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(108, 13);
+            this.label31.TabIndex = 4;
+            this.label31.Text = "Histogram Display";
+            // 
+            // groupBox26
+            // 
+            this.groupBox26.Controls.Add(this.radioButtonHistoDisplayAdjusted);
+            this.groupBox26.Controls.Add(this.numericUpDownManualMax);
+            this.groupBox26.Controls.Add(this.numericUpDownManualMin);
+            this.groupBox26.Controls.Add(this.label33);
+            this.groupBox26.Controls.Add(this.numericUpDownAutomatedMax);
+            this.groupBox26.Controls.Add(this.label32);
+            this.groupBox26.Controls.Add(this.numericUpDownAutomatedMin);
+            this.groupBox26.Controls.Add(this.radioButtonHistoDisplayManualMinMax);
+            this.groupBox26.Controls.Add(this.radioButtonHistoDisplayAutomatedMinMax);
+            this.groupBox26.Location = new System.Drawing.Point(9, 216);
+            this.groupBox26.Name = "groupBox26";
+            this.groupBox26.Size = new System.Drawing.Size(376, 150);
+            this.groupBox26.TabIndex = 1;
+            this.groupBox26.TabStop = false;
+            this.groupBox26.Text = "Scale";
+            // 
+            // radioButtonHistoDisplayAdjusted
+            // 
+            this.radioButtonHistoDisplayAdjusted.AutoSize = true;
+            this.radioButtonHistoDisplayAdjusted.Location = new System.Drawing.Point(25, 108);
+            this.radioButtonHistoDisplayAdjusted.Name = "radioButtonHistoDisplayAdjusted";
+            this.radioButtonHistoDisplayAdjusted.Size = new System.Drawing.Size(124, 17);
+            this.radioButtonHistoDisplayAdjusted.TabIndex = 7;
+            this.radioButtonHistoDisplayAdjusted.Text = "Well-by-well adjusted";
+            this.radioButtonHistoDisplayAdjusted.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownManualMax
+            // 
+            this.numericUpDownManualMax.DecimalPlaces = 3;
+            this.numericUpDownManualMax.Location = new System.Drawing.Point(281, 74);
+            this.numericUpDownManualMax.Maximum = new decimal(new int[] {
+            -1304428544,
+            434162106,
+            542,
+            0});
+            this.numericUpDownManualMax.Minimum = new decimal(new int[] {
+            -1593835520,
+            466537709,
+            54210,
+            -2147483648});
+            this.numericUpDownManualMax.Name = "numericUpDownManualMax";
+            this.numericUpDownManualMax.Size = new System.Drawing.Size(89, 20);
+            this.numericUpDownManualMax.TabIndex = 6;
+            this.numericUpDownManualMax.Value = new decimal(new int[] {
+            256,
+            0,
+            0,
+            0});
+            this.numericUpDownManualMax.ValueChanged += new System.EventHandler(this.numericUpDownManualMax_ValueChanged);
+            // 
+            // numericUpDownManualMin
+            // 
+            this.numericUpDownManualMin.DecimalPlaces = 3;
+            this.numericUpDownManualMin.Location = new System.Drawing.Point(171, 74);
+            this.numericUpDownManualMin.Maximum = new decimal(new int[] {
+            -1304428544,
+            434162106,
+            542,
+            0});
+            this.numericUpDownManualMin.Minimum = new decimal(new int[] {
+            -1593835520,
+            466537709,
+            54210,
+            -2147483648});
+            this.numericUpDownManualMin.Name = "numericUpDownManualMin";
+            this.numericUpDownManualMin.Size = new System.Drawing.Size(89, 20);
+            this.numericUpDownManualMin.TabIndex = 5;
+            this.numericUpDownManualMin.ValueChanged += new System.EventHandler(this.numericUpDownManualMin_ValueChanged);
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(312, 16);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(27, 13);
+            this.label33.TabIndex = 4;
+            this.label33.Text = "Max";
+            // 
+            // numericUpDownAutomatedMax
+            // 
+            this.numericUpDownAutomatedMax.DecimalPlaces = 3;
+            this.numericUpDownAutomatedMax.Location = new System.Drawing.Point(281, 41);
+            this.numericUpDownAutomatedMax.Maximum = new decimal(new int[] {
+            -1304428544,
+            434162106,
+            542,
+            0});
+            this.numericUpDownAutomatedMax.Minimum = new decimal(new int[] {
+            -1593835520,
+            466537709,
+            54210,
+            -2147483648});
+            this.numericUpDownAutomatedMax.Name = "numericUpDownAutomatedMax";
+            this.numericUpDownAutomatedMax.ReadOnly = true;
+            this.numericUpDownAutomatedMax.Size = new System.Drawing.Size(89, 20);
+            this.numericUpDownAutomatedMax.TabIndex = 3;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(203, 16);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(24, 13);
+            this.label32.TabIndex = 2;
+            this.label32.Text = "Min";
+            // 
+            // numericUpDownAutomatedMin
+            // 
+            this.numericUpDownAutomatedMin.DecimalPlaces = 3;
+            this.numericUpDownAutomatedMin.Location = new System.Drawing.Point(171, 41);
+            this.numericUpDownAutomatedMin.Maximum = new decimal(new int[] {
+            -1304428544,
+            434162106,
+            542,
+            0});
+            this.numericUpDownAutomatedMin.Minimum = new decimal(new int[] {
+            -1593835520,
+            466537709,
+            54210,
+            -2147483648});
+            this.numericUpDownAutomatedMin.Name = "numericUpDownAutomatedMin";
+            this.numericUpDownAutomatedMin.ReadOnly = true;
+            this.numericUpDownAutomatedMin.Size = new System.Drawing.Size(89, 20);
+            this.numericUpDownAutomatedMin.TabIndex = 1;
+            // 
+            // radioButtonHistoDisplayManualMinMax
+            // 
+            this.radioButtonHistoDisplayManualMinMax.AutoSize = true;
+            this.radioButtonHistoDisplayManualMinMax.Location = new System.Drawing.Point(25, 74);
+            this.radioButtonHistoDisplayManualMinMax.Name = "radioButtonHistoDisplayManualMinMax";
+            this.radioButtonHistoDisplayManualMinMax.Size = new System.Drawing.Size(60, 17);
+            this.radioButtonHistoDisplayManualMinMax.TabIndex = 0;
+            this.radioButtonHistoDisplayManualMinMax.Text = "Manual";
+            this.radioButtonHistoDisplayManualMinMax.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonHistoDisplayAutomatedMinMax
+            // 
+            this.radioButtonHistoDisplayAutomatedMinMax.AutoSize = true;
+            this.radioButtonHistoDisplayAutomatedMinMax.Checked = true;
+            this.radioButtonHistoDisplayAutomatedMinMax.Location = new System.Drawing.Point(25, 41);
+            this.radioButtonHistoDisplayAutomatedMinMax.Name = "radioButtonHistoDisplayAutomatedMinMax";
+            this.radioButtonHistoDisplayAutomatedMinMax.Size = new System.Drawing.Size(76, 17);
+            this.radioButtonHistoDisplayAutomatedMinMax.TabIndex = 0;
+            this.radioButtonHistoDisplayAutomatedMinMax.TabStop = true;
+            this.radioButtonHistoDisplayAutomatedMinMax.Text = "Automated";
+            this.radioButtonHistoDisplayAutomatedMinMax.UseVisualStyleBackColor = true;
             // 
             // groupBox24
             // 
@@ -1763,9 +1951,9 @@
             this.groupBox24.Controls.Add(this.radioButtonDistributionMetricCosine);
             this.groupBox24.Controls.Add(this.radioButtonDistributionMetricManhattan);
             this.groupBox24.Controls.Add(this.radioButtonDistributionMetricEuclidean);
-            this.groupBox24.Location = new System.Drawing.Point(8, 12);
+            this.groupBox24.Location = new System.Drawing.Point(9, 6);
             this.groupBox24.Name = "groupBox24";
-            this.groupBox24.Size = new System.Drawing.Size(376, 228);
+            this.groupBox24.Size = new System.Drawing.Size(376, 168);
             this.groupBox24.TabIndex = 0;
             this.groupBox24.TabStop = false;
             this.groupBox24.Text = "Metric";
@@ -1773,7 +1961,7 @@
             // radioButtonDistributionMetricEMD
             // 
             this.radioButtonDistributionMetricEMD.AutoSize = true;
-            this.radioButtonDistributionMetricEMD.Location = new System.Drawing.Point(130, 182);
+            this.radioButtonDistributionMetricEMD.Location = new System.Drawing.Point(130, 129);
             this.radioButtonDistributionMetricEMD.Name = "radioButtonDistributionMetricEMD";
             this.radioButtonDistributionMetricEMD.Size = new System.Drawing.Size(128, 17);
             this.radioButtonDistributionMetricEMD.TabIndex = 6;
@@ -1794,7 +1982,7 @@
             // 
             this.label30.AutoSize = true;
             this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(22, 156);
+            this.label30.Location = new System.Drawing.Point(22, 132);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(59, 13);
             this.label30.TabIndex = 4;
@@ -1844,7 +2032,7 @@
             // 
             // buttonOk
             // 
-            this.buttonOk.Location = new System.Drawing.Point(141, 464);
+            this.buttonOk.Location = new System.Drawing.Point(271, 464);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(144, 32);
             this.buttonOk.TabIndex = 1;
@@ -1852,12 +2040,23 @@
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
+            // buttonApply
+            // 
+            this.buttonApply.Location = new System.Drawing.Point(12, 464);
+            this.buttonApply.Name = "buttonApply";
+            this.buttonApply.Size = new System.Drawing.Size(144, 32);
+            this.buttonApply.TabIndex = 2;
+            this.buttonApply.Text = "Apply";
+            this.buttonApply.UseVisualStyleBackColor = true;
+            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
+            // 
             // FormForOptionsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(427, 508);
             this.ControlBox = false;
+            this.Controls.Add(this.buttonApply);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.tabControlWindowOption);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -1883,7 +2082,7 @@
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
+            this.tabPageClustering.ResumeLayout(false);
             this.groupBox18.ResumeLayout(false);
             this.groupBox18.PerformLayout();
             this.tabPageClassification.ResumeLayout(false);
@@ -1930,6 +2129,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGenerateScreenRowEffectShift)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGenerateScreenNoiseStdDev)).EndInit();
             this.tabPage6.ResumeLayout(false);
+            this.groupBox25.ResumeLayout(false);
+            this.groupBox25.PerformLayout();
             this.groupBox19.ResumeLayout(false);
             this.groupBox19.PerformLayout();
             this.tabPage3D.ResumeLayout(false);
@@ -1945,7 +2146,14 @@
             this.groupBox21.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellOpacity)).EndInit();
-            this.tabPage8.ResumeLayout(false);
+            this.tabPageHisto.ResumeLayout(false);
+            this.tabPageHisto.PerformLayout();
+            this.groupBox26.ResumeLayout(false);
+            this.groupBox26.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownManualMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownManualMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutomatedMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutomatedMin)).EndInit();
             this.groupBox24.ResumeLayout(false);
             this.groupBox24.PerformLayout();
             this.ResumeLayout(false);
@@ -1955,10 +2163,8 @@
         #endregion
 
         private System.Windows.Forms.TabPage tabPageDisplay;
-        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPageClassification;
         private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.TabPage tabPageImport;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.RadioButton radioButtonWellPosModeDouble;
@@ -1971,7 +2177,6 @@
         public System.Windows.Forms.CheckBox checkBoxCorrelationMatrixDisplayRanking;
         public System.Windows.Forms.RadioButton radioButtonPearson;
         private System.Windows.Forms.GroupBox groupBox4;
-        public System.Windows.Forms.RadioButton radioButtonDisplayAverage;
         private System.Windows.Forms.GroupBox groupBox5;
         public System.Windows.Forms.RadioButton radioButtonWellInfoLocusID;
         public System.Windows.Forms.RadioButton radioButtonWellInfoInfo;
@@ -2067,13 +2272,11 @@
         public System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.GroupBox groupBox23;
         public System.Windows.Forms.CheckBox checkBox3DPlateInformation;
-        private System.Windows.Forms.TabPage tabPage8;
         private System.Windows.Forms.GroupBox groupBox24;
         public System.Windows.Forms.RadioButton radioButtonDistributionMetricManhattan;
         public System.Windows.Forms.RadioButton radioButtonDistributionMetricEuclidean;
         public System.Windows.Forms.RadioButton radioButtonSpearman;
         public System.Windows.Forms.RadioButton radioButtonMIC;
-        public System.Windows.Forms.RadioButton radioButtonDisplayDistribution;
         public System.Windows.Forms.RadioButton radioButtonDistributionMetricCosine;
         public System.Windows.Forms.RadioButton radioButtonDistributionMetricBhattacharyya;
         private System.Windows.Forms.Label label30;
@@ -2081,5 +2284,23 @@
         public System.Windows.Forms.RadioButton radioButtonDistributionMetricEMD;
         public System.Windows.Forms.TabControl tabControlWindowOption;
         public System.Windows.Forms.TabPage tabPage3D;
+        public System.Windows.Forms.RadioButton radioButtonWellInfoDescValue;
+        public System.Windows.Forms.TabPage tabPageClustering;
+        public System.Windows.Forms.TabPage tabPageImport;
+        private System.Windows.Forms.GroupBox groupBox25;
+        public System.Windows.Forms.CheckBox checkBoxConnectDRCPts;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.GroupBox groupBox26;
+        private System.Windows.Forms.Label label33;
+        public System.Windows.Forms.NumericUpDown numericUpDownAutomatedMax;
+        private System.Windows.Forms.Label label32;
+        public System.Windows.Forms.NumericUpDown numericUpDownAutomatedMin;
+        public System.Windows.Forms.RadioButton radioButtonHistoDisplayAutomatedMinMax;
+        public System.Windows.Forms.NumericUpDown numericUpDownManualMax;
+        public System.Windows.Forms.NumericUpDown numericUpDownManualMin;
+        public System.Windows.Forms.RadioButton radioButtonHistoDisplayManualMinMax;
+        public System.Windows.Forms.RadioButton radioButtonHistoDisplayAdjusted;
+        private System.Windows.Forms.Button buttonApply;
+        public System.Windows.Forms.TabPage tabPageHisto;
     }
 }

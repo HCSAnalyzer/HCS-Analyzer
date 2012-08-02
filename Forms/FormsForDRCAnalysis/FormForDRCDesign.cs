@@ -34,7 +34,14 @@ namespace HCSAnalyzer.Forms
         int PosYMax;
 
 
-
+        public void Reset()
+        {
+            if(!panelForDesignDisplay.IsDisposed)
+            panelForDesignDisplay.CreateGraphics().Clear(Color.White);
+            this.TemplateRegion = null;
+            this.ListWells = null;
+        
+        }
 
         private void buttonApply_Click(object sender, EventArgs e)
         {
@@ -235,6 +242,7 @@ namespace HCSAnalyzer.Forms
 
         private void buttonFill_Click(object sender, EventArgs e)
         {
+            if (TemplateRegion == null) return;
             int SizeX, SizeY;
             if (TemplateRegion.IsConcentrationHorizontal)
             {

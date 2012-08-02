@@ -27,7 +27,7 @@ namespace HCSAnalyzer.Classes
                     double CurrentVal = 0;
                     foreach (cWell CurrentWell in WellsForReference)
                     {
-                        CurrentVal += CurrentWell.ListDescriptors[IdxDesc].Getvalues()[i];// Desc.Getvalue(i);
+                        CurrentVal += CurrentWell.ListDescriptors[IdxDesc].GetHistovalues()[i];// Desc.Getvalue(i);
                     }
                     CurrentVal /= (double)WellsForReference.Count;
                     NewList.Add(CurrentVal);

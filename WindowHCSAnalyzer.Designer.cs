@@ -77,6 +77,16 @@ namespace HCSAnalyzer
             this.richTextBoxInfoForNormalization = new System.Windows.Forms.RichTextBox();
             this.comboBoxMethodForNormalization = new System.Windows.Forms.ComboBox();
             this.tabPageClassification = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.buttonStartManualSelection = new System.Windows.Forms.Button();
+            this.numericUpDownManualThreshold = new System.Windows.Forms.NumericUpDown();
+            this.radioButtonManualLowerThan = new System.Windows.Forms.RadioButton();
+            this.comboBoxManualClassToBeAnalyzed = new System.Windows.Forms.ComboBox();
+            this.radioButtonManualHigherThan = new System.Windows.Forms.RadioButton();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.richTextBoxForManualSelection = new System.Windows.Forms.RichTextBox();
+            this.comboBoxdescriptorToBeAnalyzed = new System.Windows.Forms.ComboBox();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.radioButtonClusterFullScreen = new System.Windows.Forms.RadioButton();
             this.radioButtonClusterPlateByPlate = new System.Windows.Forms.RadioButton();
@@ -87,6 +97,7 @@ namespace HCSAnalyzer
             this.comboBoxClusteringMethod = new System.Windows.Forms.ComboBox();
             this.numericUpDownClusterNumber = new System.Windows.Forms.NumericUpDown();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.button_Trees = new System.Windows.Forms.Button();
             this.radioButtonClassifGlobal = new System.Windows.Forms.RadioButton();
             this.comboBoxNeutralClassForClassif = new System.Windows.Forms.ComboBox();
             this.buttonStartClassification = new System.Windows.Forms.Button();
@@ -116,6 +127,9 @@ namespace HCSAnalyzer
             this.buttonDisplayWellsSelectionData = new System.Windows.Forms.Button();
             this.imageListForTab = new System.Windows.Forms.ImageList(this.components);
             this.panelForTools = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxClass = new System.Windows.Forms.ComboBox();
+            this.labelNumClasses = new System.Windows.Forms.Label();
             this.buttonGlobalOnlySelected = new System.Windows.Forms.Button();
             this.checkBoxDisplayClasses = new System.Windows.Forms.CheckBox();
             this.buttonSizeIncrease = new System.Windows.Forms.Button();
@@ -127,14 +141,13 @@ namespace HCSAnalyzer
             this.labelMin = new System.Windows.Forms.Label();
             this.panelForPlate = new System.Windows.Forms.Panel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.labelNumClasses = new System.Windows.Forms.Label();
-            this.comboBoxClass = new System.Windows.Forms.ComboBox();
             this.menuStripFile = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cellByCellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadDBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateDBFromCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generateScreenToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.univariateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.multivariateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -156,38 +169,52 @@ namespace HCSAnalyzer
             this.applySelectionToScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.consoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.platesManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.plateViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.descriptorViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.classViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+            this.averageViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.histogramViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pieViewToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
+            this.ThreeDVisualizationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripcomboBoxPlateList = new System.Windows.Forms.ToolStripComboBox();
-            this.clusteringToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.visualizationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scatterPointsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.xYScatterPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xYZScatterPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.distributionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.PCAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.classificationTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hierarchicalTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lDAToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.displayGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generateDescToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.distanceMatrixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.qualityControlsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.zscoreSinglePlateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.normalProbabilityPlotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.systematicErrorsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.mINEAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.screenAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.visualizationToolStripMenuItemPCA = new System.Windows.Forms.ToolStripMenuItem();
             this.scatterPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xYScatterPointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xYZScatterPointsToolStripMenuItemFullScreen = new System.Windows.Forms.ToolStripMenuItem();
             this.histogramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stackedHistogramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pCAToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.hierarchicalClusteringToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            this.cellBasedClassificationTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.hierarchicalTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.projectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PCAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lDAToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayGraphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.projectionsFullScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lDAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayGraphToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.generateDescToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pCAToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.StatisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zscoreSinglePlateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.normalProbabilityPlotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.systematicErrorsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.mINEAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.qualityControlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zscoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sSMDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -195,17 +222,14 @@ namespace HCSAnalyzer
             this.correlationMatrixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.coeffOfVariationEvolutionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.descriptorEvolutionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.classesDistributionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.extractPhenotypesOfInterestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.generateHitsDistributionMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemGeneAnalysis = new System.Windows.Forms.ToolStripMenuItem();
             this.findGeneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pahtwaysAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findPathwayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.displayThumbnailsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.consoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.platesManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pluginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.betaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dRCAnalysisToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.doseResponseDesignerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -213,9 +237,15 @@ namespace HCSAnalyzer
             this.convertDRCToWellToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.displayDRCToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.displayRespondingDRCToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+            this.currentPlate3DToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
+            this.generateDRCsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.distributionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.distributionsModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayReferenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pluginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutHCSAnalyzerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkedListBoxActiveDescriptors = new System.Windows.Forms.CheckedListBox();
@@ -240,6 +270,8 @@ namespace HCSAnalyzer
             this.tabPageNormalization.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.tabPageClassification.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownManualThreshold)).BeginInit();
             this.groupBox12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownClusterNumber)).BeginInit();
             this.groupBox11.SuspendLayout();
@@ -849,6 +881,7 @@ namespace HCSAnalyzer
             // 
             // tabPageClassification
             // 
+            this.tabPageClassification.Controls.Add(this.groupBox6);
             this.tabPageClassification.Controls.Add(this.groupBox12);
             this.tabPageClassification.Controls.Add(this.groupBox11);
             this.tabPageClassification.ImageIndex = 3;
@@ -859,6 +892,137 @@ namespace HCSAnalyzer
             this.tabPageClassification.TabIndex = 4;
             this.tabPageClassification.Text = "Classification & Clustering";
             this.tabPageClassification.UseVisualStyleBackColor = true;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox6.Controls.Add(this.buttonStartManualSelection);
+            this.groupBox6.Controls.Add(this.numericUpDownManualThreshold);
+            this.groupBox6.Controls.Add(this.radioButtonManualLowerThan);
+            this.groupBox6.Controls.Add(this.comboBoxManualClassToBeAnalyzed);
+            this.groupBox6.Controls.Add(this.radioButtonManualHigherThan);
+            this.groupBox6.Controls.Add(this.label14);
+            this.groupBox6.Controls.Add(this.label13);
+            this.groupBox6.Controls.Add(this.richTextBoxForManualSelection);
+            this.groupBox6.Controls.Add(this.comboBoxdescriptorToBeAnalyzed);
+            this.groupBox6.Location = new System.Drawing.Point(278, 6);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(263, 268);
+            this.groupBox6.TabIndex = 28;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Manual Selection";
+            // 
+            // buttonStartManualSelection
+            // 
+            this.buttonStartManualSelection.Location = new System.Drawing.Point(69, 228);
+            this.buttonStartManualSelection.Name = "buttonStartManualSelection";
+            this.buttonStartManualSelection.Size = new System.Drawing.Size(125, 34);
+            this.buttonStartManualSelection.TabIndex = 28;
+            this.buttonStartManualSelection.Text = "Select";
+            this.buttonStartManualSelection.UseVisualStyleBackColor = true;
+            this.buttonStartManualSelection.Click += new System.EventHandler(this.buttonStartManualSelection_Click);
+            // 
+            // numericUpDownManualThreshold
+            // 
+            this.numericUpDownManualThreshold.DecimalPlaces = 3;
+            this.numericUpDownManualThreshold.Location = new System.Drawing.Point(77, 53);
+            this.numericUpDownManualThreshold.Maximum = new decimal(new int[] {
+            1316134912,
+            2328,
+            0,
+            0});
+            this.numericUpDownManualThreshold.Minimum = new decimal(new int[] {
+            1316134912,
+            2328,
+            0,
+            -2147483648});
+            this.numericUpDownManualThreshold.Name = "numericUpDownManualThreshold";
+            this.numericUpDownManualThreshold.Size = new System.Drawing.Size(97, 20);
+            this.numericUpDownManualThreshold.TabIndex = 27;
+            // 
+            // radioButtonManualLowerThan
+            // 
+            this.radioButtonManualLowerThan.AutoSize = true;
+            this.radioButtonManualLowerThan.Location = new System.Drawing.Point(16, 53);
+            this.radioButtonManualLowerThan.Name = "radioButtonManualLowerThan";
+            this.radioButtonManualLowerThan.Size = new System.Drawing.Size(54, 17);
+            this.radioButtonManualLowerThan.TabIndex = 6;
+            this.radioButtonManualLowerThan.TabStop = true;
+            this.radioButtonManualLowerThan.Text = "Lower";
+            this.radioButtonManualLowerThan.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxManualClassToBeAnalyzed
+            // 
+            this.comboBoxManualClassToBeAnalyzed.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBoxManualClassToBeAnalyzed.FormattingEnabled = true;
+            this.comboBoxManualClassToBeAnalyzed.Items.AddRange(new object[] {
+            "Positive (0)",
+            "Negative (1)",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"});
+            this.comboBoxManualClassToBeAnalyzed.Location = new System.Drawing.Point(113, 80);
+            this.comboBoxManualClassToBeAnalyzed.Name = "comboBoxManualClassToBeAnalyzed";
+            this.comboBoxManualClassToBeAnalyzed.Size = new System.Drawing.Size(133, 21);
+            this.comboBoxManualClassToBeAnalyzed.TabIndex = 26;
+            this.comboBoxManualClassToBeAnalyzed.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxManualClassToBeAnalyzed_DrawItem);
+            // 
+            // radioButtonManualHigherThan
+            // 
+            this.radioButtonManualHigherThan.AutoSize = true;
+            this.radioButtonManualHigherThan.Checked = true;
+            this.radioButtonManualHigherThan.Location = new System.Drawing.Point(190, 53);
+            this.radioButtonManualHigherThan.Name = "radioButtonManualHigherThan";
+            this.radioButtonManualHigherThan.Size = new System.Drawing.Size(56, 17);
+            this.radioButtonManualHigherThan.TabIndex = 2;
+            this.radioButtonManualHigherThan.TabStop = true;
+            this.radioButtonManualHigherThan.Text = "Higher";
+            this.radioButtonManualHigherThan.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(13, 23);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(35, 13);
+            this.label14.TabIndex = 22;
+            this.label14.Text = "Desc.";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(24, 84);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(83, 13);
+            this.label13.TabIndex = 22;
+            this.label13.Text = "To Be Classified";
+            // 
+            // richTextBoxForManualSelection
+            // 
+            this.richTextBoxForManualSelection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.richTextBoxForManualSelection.Location = new System.Drawing.Point(6, 110);
+            this.richTextBoxForManualSelection.Name = "richTextBoxForManualSelection";
+            this.richTextBoxForManualSelection.ReadOnly = true;
+            this.richTextBoxForManualSelection.Size = new System.Drawing.Size(251, 112);
+            this.richTextBoxForManualSelection.TabIndex = 0;
+            this.richTextBoxForManualSelection.Text = "";
+            // 
+            // comboBoxdescriptorToBeAnalyzed
+            // 
+            this.comboBoxdescriptorToBeAnalyzed.FormattingEnabled = true;
+            this.comboBoxdescriptorToBeAnalyzed.Location = new System.Drawing.Point(64, 20);
+            this.comboBoxdescriptorToBeAnalyzed.Name = "comboBoxdescriptorToBeAnalyzed";
+            this.comboBoxdescriptorToBeAnalyzed.Size = new System.Drawing.Size(182, 21);
+            this.comboBoxdescriptorToBeAnalyzed.TabIndex = 19;
+            this.comboBoxdescriptorToBeAnalyzed.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxdescriptorToBeAnalyzed_DrawItem);
+            this.comboBoxdescriptorToBeAnalyzed.DropDown += new System.EventHandler(this.comboBoxdescriptorToBeAnalyzed_DropDown);
             // 
             // groupBox12
             // 
@@ -908,7 +1072,7 @@ namespace HCSAnalyzer
             this.buttonCluster.Enabled = false;
             this.buttonCluster.Location = new System.Drawing.Point(58, 228);
             this.buttonCluster.Name = "buttonCluster";
-            this.buttonCluster.Size = new System.Drawing.Size(150, 34);
+            this.buttonCluster.Size = new System.Drawing.Size(146, 34);
             this.buttonCluster.TabIndex = 1;
             this.buttonCluster.Text = "Cluster";
             this.buttonCluster.UseVisualStyleBackColor = true;
@@ -985,6 +1149,7 @@ namespace HCSAnalyzer
             // 
             this.groupBox11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox11.Controls.Add(this.button_Trees);
             this.groupBox11.Controls.Add(this.radioButtonClassifGlobal);
             this.groupBox11.Controls.Add(this.comboBoxNeutralClassForClassif);
             this.groupBox11.Controls.Add(this.buttonStartClassification);
@@ -992,12 +1157,22 @@ namespace HCSAnalyzer
             this.groupBox11.Controls.Add(this.label5);
             this.groupBox11.Controls.Add(this.richTextBoxInfoClassif);
             this.groupBox11.Controls.Add(this.comboBoxCLassificationMethod);
-            this.groupBox11.Location = new System.Drawing.Point(295, 6);
+            this.groupBox11.Location = new System.Drawing.Point(547, 6);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(263, 268);
             this.groupBox11.TabIndex = 5;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Classification";
+            // 
+            // button_Trees
+            // 
+            this.button_Trees.Location = new System.Drawing.Point(140, 228);
+            this.button_Trees.Name = "button_Trees";
+            this.button_Trees.Size = new System.Drawing.Size(85, 34);
+            this.button_Trees.TabIndex = 27;
+            this.button_Trees.Text = "Vizualize Tree";
+            this.button_Trees.UseVisualStyleBackColor = true;
+            this.button_Trees.Click += new System.EventHandler(this.button_Trees_Click);
             // 
             // radioButtonClassifGlobal
             // 
@@ -1035,9 +1210,9 @@ namespace HCSAnalyzer
             // 
             this.buttonStartClassification.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonStartClassification.Enabled = false;
-            this.buttonStartClassification.Location = new System.Drawing.Point(60, 228);
+            this.buttonStartClassification.Location = new System.Drawing.Point(38, 228);
             this.buttonStartClassification.Name = "buttonStartClassification";
-            this.buttonStartClassification.Size = new System.Drawing.Size(150, 34);
+            this.buttonStartClassification.Size = new System.Drawing.Size(88, 34);
             this.buttonStartClassification.TabIndex = 1;
             this.buttonStartClassification.Text = "Classify";
             this.buttonStartClassification.UseVisualStyleBackColor = true;
@@ -1299,12 +1474,11 @@ namespace HCSAnalyzer
             this.tabPageWellsSelection.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageWellsSelection.Size = new System.Drawing.Size(1208, 277);
             this.tabPageWellsSelection.TabIndex = 9;
-            this.tabPageWellsSelection.Text = "Wells Selection";
+            this.tabPageWellsSelection.Text = "Cell-by-cell Analysis";
             this.tabPageWellsSelection.UseVisualStyleBackColor = true;
             // 
             // buttonToSelectWellsFromClass
             // 
-            this.buttonToSelectWellsFromClass.Enabled = false;
             this.buttonToSelectWellsFromClass.Location = new System.Drawing.Point(320, 52);
             this.buttonToSelectWellsFromClass.Name = "buttonToSelectWellsFromClass";
             this.buttonToSelectWellsFromClass.Size = new System.Drawing.Size(133, 33);
@@ -1316,7 +1490,6 @@ namespace HCSAnalyzer
             // comboBoxClassForWellSelection
             // 
             this.comboBoxClassForWellSelection.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.comboBoxClassForWellSelection.Enabled = false;
             this.comboBoxClassForWellSelection.FormattingEnabled = true;
             this.comboBoxClassForWellSelection.Items.AddRange(new object[] {
             "Positive (0)",
@@ -1338,7 +1511,6 @@ namespace HCSAnalyzer
             // listBoxSelectedWells
             // 
             this.listBoxSelectedWells.ContextMenuStrip = this.contextMenuStripForListSelectedWells;
-            this.listBoxSelectedWells.Enabled = false;
             this.listBoxSelectedWells.FormattingEnabled = true;
             this.listBoxSelectedWells.HorizontalScrollbar = true;
             this.listBoxSelectedWells.Location = new System.Drawing.Point(9, 6);
@@ -1363,12 +1535,11 @@ namespace HCSAnalyzer
             // buttonDisplayWellsSelectionData
             // 
             this.buttonDisplayWellsSelectionData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDisplayWellsSelectionData.Enabled = false;
             this.buttonDisplayWellsSelectionData.Location = new System.Drawing.Point(1063, 230);
             this.buttonDisplayWellsSelectionData.Name = "buttonDisplayWellsSelectionData";
             this.buttonDisplayWellsSelectionData.Size = new System.Drawing.Size(139, 39);
             this.buttonDisplayWellsSelectionData.TabIndex = 0;
-            this.buttonDisplayWellsSelectionData.Text = "Display Data";
+            this.buttonDisplayWellsSelectionData.Text = "Cell-by-Cell Analysis";
             this.buttonDisplayWellsSelectionData.UseVisualStyleBackColor = true;
             this.buttonDisplayWellsSelectionData.Click += new System.EventHandler(this.buttonDisplayWellsSelectionData_Click);
             // 
@@ -1387,6 +1558,9 @@ namespace HCSAnalyzer
             // 
             this.panelForTools.AutoScroll = true;
             this.panelForTools.BackColor = System.Drawing.Color.Transparent;
+            this.panelForTools.Controls.Add(this.label1);
+            this.panelForTools.Controls.Add(this.comboBoxClass);
+            this.panelForTools.Controls.Add(this.labelNumClasses);
             this.panelForTools.Controls.Add(this.buttonGlobalOnlySelected);
             this.panelForTools.Controls.Add(this.checkBoxDisplayClasses);
             this.panelForTools.Controls.Add(this.buttonSizeIncrease);
@@ -1401,11 +1575,52 @@ namespace HCSAnalyzer
             this.panelForTools.Size = new System.Drawing.Size(166, 392);
             this.panelForTools.TabIndex = 34;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 343);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 13);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "Class selection";
+            // 
+            // comboBoxClass
+            // 
+            this.comboBoxClass.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBoxClass.FormattingEnabled = true;
+            this.comboBoxClass.Items.AddRange(new object[] {
+            "Unselected (-1)",
+            "Positive (0)",
+            "Negative (1)",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"});
+            this.comboBoxClass.Location = new System.Drawing.Point(12, 359);
+            this.comboBoxClass.Name = "comboBoxClass";
+            this.comboBoxClass.Size = new System.Drawing.Size(101, 21);
+            this.comboBoxClass.TabIndex = 31;
+            this.comboBoxClass.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxClass_DrawItem_1);
+            this.comboBoxClass.SelectedIndexChanged += new System.EventHandler(this.comboBoxClass_SelectedIndexChanged);
+            // 
+            // labelNumClasses
+            // 
+            this.labelNumClasses.AutoSize = true;
+            this.labelNumClasses.Location = new System.Drawing.Point(119, 362);
+            this.labelNumClasses.Name = "labelNumClasses";
+            this.labelNumClasses.Size = new System.Drawing.Size(28, 13);
+            this.labelNumClasses.TabIndex = 33;
+            this.labelNumClasses.Text = "###";
+            // 
             // buttonGlobalOnlySelected
             // 
-            this.buttonGlobalOnlySelected.Location = new System.Drawing.Point(13, 73);
+            this.buttonGlobalOnlySelected.Location = new System.Drawing.Point(52, 39);
             this.buttonGlobalOnlySelected.Name = "buttonGlobalOnlySelected";
-            this.buttonGlobalOnlySelected.Size = new System.Drawing.Size(90, 39);
+            this.buttonGlobalOnlySelected.Size = new System.Drawing.Size(61, 54);
             this.buttonGlobalOnlySelected.TabIndex = 3;
             this.buttonGlobalOnlySelected.Text = "Global only selected";
             this.buttonGlobalOnlySelected.UseVisualStyleBackColor = true;
@@ -1416,7 +1631,7 @@ namespace HCSAnalyzer
             this.checkBoxDisplayClasses.Appearance = System.Windows.Forms.Appearance.Button;
             this.checkBoxDisplayClasses.AutoSize = true;
             this.checkBoxDisplayClasses.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.checkBoxDisplayClasses.Location = new System.Drawing.Point(21, 201);
+            this.checkBoxDisplayClasses.Location = new System.Drawing.Point(20, 188);
             this.checkBoxDisplayClasses.Name = "checkBoxDisplayClasses";
             this.checkBoxDisplayClasses.Size = new System.Drawing.Size(78, 23);
             this.checkBoxDisplayClasses.TabIndex = 5;
@@ -1449,7 +1664,7 @@ namespace HCSAnalyzer
             this.checkBoxApplyToAllPlates.AutoSize = true;
             this.checkBoxApplyToAllPlates.Checked = true;
             this.checkBoxApplyToAllPlates.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxApplyToAllPlates.Location = new System.Drawing.Point(9, 168);
+            this.checkBoxApplyToAllPlates.Location = new System.Drawing.Point(6, 125);
             this.checkBoxApplyToAllPlates.Name = "checkBoxApplyToAllPlates";
             this.checkBoxApplyToAllPlates.Size = new System.Drawing.Size(108, 17);
             this.checkBoxApplyToAllPlates.TabIndex = 4;
@@ -1480,9 +1695,9 @@ namespace HCSAnalyzer
             // 
             // buttonGlobalSelection
             // 
-            this.buttonGlobalSelection.Location = new System.Drawing.Point(13, 28);
+            this.buttonGlobalSelection.Location = new System.Drawing.Point(5, 39);
             this.buttonGlobalSelection.Name = "buttonGlobalSelection";
-            this.buttonGlobalSelection.Size = new System.Drawing.Size(90, 39);
+            this.buttonGlobalSelection.Size = new System.Drawing.Size(45, 54);
             this.buttonGlobalSelection.TabIndex = 2;
             this.buttonGlobalSelection.Text = "Global";
             this.buttonGlobalSelection.UseVisualStyleBackColor = true;
@@ -1515,7 +1730,6 @@ namespace HCSAnalyzer
             this.panelForPlate.Size = new System.Drawing.Size(769, 382);
             this.panelForPlate.TabIndex = 0;
             this.panelForPlate.Paint += new System.Windows.Forms.PaintEventHandler(this.panelForPlate_Paint);
-            this.panelForPlate.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panelForPlate_MouseClick);
             this.panelForPlate.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.panelForPlate_MouseDoubleClick);
             this.panelForPlate.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelForPlate_MouseDown);
             this.panelForPlate.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelForPlate_MouseMove);
@@ -1533,58 +1747,19 @@ namespace HCSAnalyzer
             this.pictureBox3.TabIndex = 0;
             this.pictureBox3.TabStop = false;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 13);
-            this.label1.TabIndex = 22;
-            this.label1.Text = "Class selection";
-            // 
-            // labelNumClasses
-            // 
-            this.labelNumClasses.AutoSize = true;
-            this.labelNumClasses.Location = new System.Drawing.Point(129, 25);
-            this.labelNumClasses.Name = "labelNumClasses";
-            this.labelNumClasses.Size = new System.Drawing.Size(28, 13);
-            this.labelNumClasses.TabIndex = 29;
-            this.labelNumClasses.Text = "###";
-            // 
-            // comboBoxClass
-            // 
-            this.comboBoxClass.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.comboBoxClass.FormattingEnabled = true;
-            this.comboBoxClass.Items.AddRange(new object[] {
-            "Unselected (-1)",
-            "Positive (0)",
-            "Negative (1)",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-            this.comboBoxClass.Location = new System.Drawing.Point(3, 22);
-            this.comboBoxClass.Name = "comboBoxClass";
-            this.comboBoxClass.Size = new System.Drawing.Size(117, 21);
-            this.comboBoxClass.TabIndex = 1;
-            this.comboBoxClass.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxClass_DrawItem);
-            this.comboBoxClass.SelectedIndexChanged += new System.EventHandler(this.comboBoxClass_SelectedIndexChanged);
-            // 
             // menuStripFile
             // 
             this.menuStripFile.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.copyAverageValuesToolStripMenuItem,
-            this.toolStripcomboBoxPlateList,
-            this.clusteringToolStripMenuItem1,
-            this.screenAnalysisToolStripMenuItem,
             this.viewToolStripMenuItem,
-            this.pluginsToolStripMenuItem,
+            this.toolStripcomboBoxPlateList,
+            this.visualizationToolStripMenuItem,
+            this.projectionsToolStripMenuItem,
+            this.StatisticsToolStripMenuItem,
+            this.toolStripMenuItemGeneAnalysis,
             this.betaToolStripMenuItem,
+            this.pluginsToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStripFile.Location = new System.Drawing.Point(0, 0);
             this.menuStripFile.Name = "menuStripFile";
@@ -1596,8 +1771,8 @@ namespace HCSAnalyzer
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.importToolStripMenuItem,
+            this.cellByCellToolStripMenuItem,
             this.loadScreenToolStripMenuItem,
-            this.loadDatabaseToolStripMenuItem,
             this.generateScreenToolStripMenuItem1,
             this.toolStripSeparator2,
             this.exportToolStripMenuItem,
@@ -1621,6 +1796,29 @@ namespace HCSAnalyzer
             this.importToolStripMenuItem.ToolTipText = "Load screen from regular format";
             this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
+            // cellByCellToolStripMenuItem
+            // 
+            this.cellByCellToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadDBToolStripMenuItem,
+            this.generateDBFromCSVToolStripMenuItem});
+            this.cellByCellToolStripMenuItem.Name = "cellByCellToolStripMenuItem";
+            this.cellByCellToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
+            this.cellByCellToolStripMenuItem.Text = "Cell by Cell";
+            // 
+            // loadDBToolStripMenuItem
+            // 
+            this.loadDBToolStripMenuItem.Name = "loadDBToolStripMenuItem";
+            this.loadDBToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.loadDBToolStripMenuItem.Text = "Load Database";
+            this.loadDBToolStripMenuItem.Click += new System.EventHandler(this.loadDBToolStripMenuItem_Click);
+            // 
+            // generateDBFromCSVToolStripMenuItem
+            // 
+            this.generateDBFromCSVToolStripMenuItem.Name = "generateDBFromCSVToolStripMenuItem";
+            this.generateDBFromCSVToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.generateDBFromCSVToolStripMenuItem.Text = "CSV -> DB";
+            this.generateDBFromCSVToolStripMenuItem.Click += new System.EventHandler(this.generateDBFromCSVToolStripMenuItem_Click);
+            // 
             // loadScreenToolStripMenuItem
             // 
             this.loadScreenToolStripMenuItem.Image = global::HCSAnalyzer.Properties.Resources.document_open_5;
@@ -1630,15 +1828,6 @@ namespace HCSAnalyzer
             this.loadScreenToolStripMenuItem.Text = "Load Histogram Based Screen";
             this.loadScreenToolStripMenuItem.ToolTipText = "Load distributions based screens";
             this.loadScreenToolStripMenuItem.Click += new System.EventHandler(this.loadScreenToolStripMenuItem_Click);
-            // 
-            // loadDatabaseToolStripMenuItem
-            // 
-            this.loadDatabaseToolStripMenuItem.Enabled = false;
-            this.loadDatabaseToolStripMenuItem.Name = "loadDatabaseToolStripMenuItem";
-            this.loadDatabaseToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
-            this.loadDatabaseToolStripMenuItem.Text = "Load Database";
-            this.loadDatabaseToolStripMenuItem.ToolTipText = "soon !!";
-            this.loadDatabaseToolStripMenuItem.Click += new System.EventHandler(this.loadDatabaseToolStripMenuItem_Click);
             // 
             // generateScreenToolStripMenuItem1
             // 
@@ -1669,6 +1858,7 @@ namespace HCSAnalyzer
             // 
             // histogramBasedToolStripMenuItem
             // 
+            this.histogramBasedToolStripMenuItem.Enabled = false;
             this.histogramBasedToolStripMenuItem.Name = "histogramBasedToolStripMenuItem";
             this.histogramBasedToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.histogramBasedToolStripMenuItem.Text = "Histogram Based";
@@ -1819,21 +2009,127 @@ namespace HCSAnalyzer
             this.optionsToolStripMenuItem.Text = "Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.consoleToolStripMenuItem,
+            this.platesManagerToolStripMenuItem,
+            this.toolStripSeparator6,
+            this.plateViewToolStripMenuItem,
+            this.descriptorViewToolStripMenuItem,
+            this.toolStripSeparator7,
+            this.classViewToolStripMenuItem,
+            this.toolStripSeparator13,
+            this.averageViewToolStripMenuItem,
+            this.histogramViewToolStripMenuItem,
+            this.pieViewToolStripMenuItem1,
+            this.toolStripSeparator12,
+            this.ThreeDVisualizationToolStripMenuItem});
+            this.viewToolStripMenuItem.Enabled = false;
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(114, 23);
+            this.viewToolStripMenuItem.Text = "Windows && Views";
+            // 
+            // consoleToolStripMenuItem
+            // 
+            this.consoleToolStripMenuItem.CheckOnClick = true;
+            this.consoleToolStripMenuItem.Image = global::HCSAnalyzer.Properties.Resources.format_justify_fill;
+            this.consoleToolStripMenuItem.Name = "consoleToolStripMenuItem";
+            this.consoleToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
+            this.consoleToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.consoleToolStripMenuItem.Text = "Console";
+            this.consoleToolStripMenuItem.Click += new System.EventHandler(this.consoleToolStripMenuItem_Click);
+            // 
+            // platesManagerToolStripMenuItem
+            // 
+            this.platesManagerToolStripMenuItem.Enabled = false;
+            this.platesManagerToolStripMenuItem.Name = "platesManagerToolStripMenuItem";
+            this.platesManagerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.P)));
+            this.platesManagerToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.platesManagerToolStripMenuItem.Text = "Plates manager";
+            this.platesManagerToolStripMenuItem.Click += new System.EventHandler(this.platesManagerToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(189, 6);
+            // 
+            // plateViewToolStripMenuItem
+            // 
+            this.plateViewToolStripMenuItem.Name = "plateViewToolStripMenuItem";
+            this.plateViewToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.plateViewToolStripMenuItem.Text = "Plate Window";
+            this.plateViewToolStripMenuItem.Click += new System.EventHandler(this.plateViewToolStripMenuItem_Click);
+            // 
+            // descriptorViewToolStripMenuItem
+            // 
+            this.descriptorViewToolStripMenuItem.Name = "descriptorViewToolStripMenuItem";
+            this.descriptorViewToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.descriptorViewToolStripMenuItem.Text = "Descriptor Window";
+            this.descriptorViewToolStripMenuItem.Click += new System.EventHandler(this.descriptorViewToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(189, 6);
+            // 
+            // classViewToolStripMenuItem
+            // 
+            this.classViewToolStripMenuItem.CheckOnClick = true;
+            this.classViewToolStripMenuItem.Name = "classViewToolStripMenuItem";
+            this.classViewToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.classViewToolStripMenuItem.Text = "Class View";
+            this.classViewToolStripMenuItem.Click += new System.EventHandler(this.classViewToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator13
+            // 
+            this.toolStripSeparator13.Name = "toolStripSeparator13";
+            this.toolStripSeparator13.Size = new System.Drawing.Size(189, 6);
+            // 
+            // averageViewToolStripMenuItem
+            // 
+            this.averageViewToolStripMenuItem.Checked = true;
+            this.averageViewToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.averageViewToolStripMenuItem.Name = "averageViewToolStripMenuItem";
+            this.averageViewToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.averageViewToolStripMenuItem.Text = "Average View";
+            this.averageViewToolStripMenuItem.Click += new System.EventHandler(this.averageViewToolStripMenuItem_Click);
+            // 
+            // histogramViewToolStripMenuItem
+            // 
+            this.histogramViewToolStripMenuItem.Name = "histogramViewToolStripMenuItem";
+            this.histogramViewToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.histogramViewToolStripMenuItem.Text = "Histogram View";
+            this.histogramViewToolStripMenuItem.Click += new System.EventHandler(this.histogramViewToolStripMenuItem_Click);
+            // 
+            // pieViewToolStripMenuItem1
+            // 
+            this.pieViewToolStripMenuItem1.CheckOnClick = true;
+            this.pieViewToolStripMenuItem1.Name = "pieViewToolStripMenuItem1";
+            this.pieViewToolStripMenuItem1.Size = new System.Drawing.Size(192, 22);
+            this.pieViewToolStripMenuItem1.Text = "Pie View";
+            this.pieViewToolStripMenuItem1.Click += new System.EventHandler(this.pieViewToolStripMenuItem1_Click);
+            // 
+            // toolStripSeparator12
+            // 
+            this.toolStripSeparator12.Name = "toolStripSeparator12";
+            this.toolStripSeparator12.Size = new System.Drawing.Size(189, 6);
+            // 
+            // ThreeDVisualizationToolStripMenuItem
+            // 
+            this.ThreeDVisualizationToolStripMenuItem.CheckOnClick = true;
+            this.ThreeDVisualizationToolStripMenuItem.Name = "ThreeDVisualizationToolStripMenuItem";
+            this.ThreeDVisualizationToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
+            this.ThreeDVisualizationToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.ThreeDVisualizationToolStripMenuItem.Text = "3D Visualization";
+            this.ThreeDVisualizationToolStripMenuItem.Click += new System.EventHandler(this.ThreeDVisualizationToolStripMenuItem_Click);
+            // 
             // toolStripcomboBoxPlateList
             // 
             this.toolStripcomboBoxPlateList.DropDownWidth = 121;
             this.toolStripcomboBoxPlateList.Name = "toolStripcomboBoxPlateList";
-            this.toolStripcomboBoxPlateList.Size = new System.Drawing.Size(400, 23);
+            this.toolStripcomboBoxPlateList.Size = new System.Drawing.Size(250, 23);
             this.toolStripcomboBoxPlateList.SelectedIndexChanged += new System.EventHandler(this.toolStripcomboBoxPlateList_SelectedIndexChanged);
-            // 
-            // clusteringToolStripMenuItem1
-            // 
-            this.clusteringToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.visualizationToolStripMenuItem,
-            this.qualityControlsToolStripMenuItem1});
-            this.clusteringToolStripMenuItem1.Name = "clusteringToolStripMenuItem1";
-            this.clusteringToolStripMenuItem1.Size = new System.Drawing.Size(45, 23);
-            this.clusteringToolStripMenuItem1.Text = "Plate";
             // 
             // visualizationToolStripMenuItem
             // 
@@ -1842,167 +2138,63 @@ namespace HCSAnalyzer
             this.xYScatterPointsToolStripMenuItem,
             this.xYZScatterPointsToolStripMenuItem,
             this.distributionToolStripMenuItem,
-            this.PCAToolStripMenuItem,
-            this.classificationTreeToolStripMenuItem,
-            this.hierarchicalTreeToolStripMenuItem,
-            this.lDAToolStripMenuItem2,
-            this.distanceMatrixToolStripMenuItem});
+            this.distanceMatrixToolStripMenuItem,
+            this.toolStripSeparator9,
+            this.visualizationToolStripMenuItemPCA,
+            this.toolStripSeparator8,
+            this.hierarchicalTreeToolStripMenuItem});
             this.visualizationToolStripMenuItem.Enabled = false;
             this.visualizationToolStripMenuItem.Name = "visualizationToolStripMenuItem";
-            this.visualizationToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.visualizationToolStripMenuItem.Text = "Visualization";
+            this.visualizationToolStripMenuItem.Size = new System.Drawing.Size(112, 23);
+            this.visualizationToolStripMenuItem.Text = "Data Visualization";
             // 
             // scatterPointsToolStripMenuItem1
             // 
             this.scatterPointsToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("scatterPointsToolStripMenuItem1.Image")));
             this.scatterPointsToolStripMenuItem1.Name = "scatterPointsToolStripMenuItem1";
             this.scatterPointsToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.scatterPointsToolStripMenuItem1.Size = new System.Drawing.Size(211, 22);
+            this.scatterPointsToolStripMenuItem1.Size = new System.Drawing.Size(204, 22);
             this.scatterPointsToolStripMenuItem1.Text = "Scatter Points";
+            this.scatterPointsToolStripMenuItem1.ToolTipText = "Display 1D points ";
             this.scatterPointsToolStripMenuItem1.Click += new System.EventHandler(this.scatterPointsToolStripMenuItem1_Click);
             // 
             // xYScatterPointsToolStripMenuItem
             // 
             this.xYScatterPointsToolStripMenuItem.Name = "xYScatterPointsToolStripMenuItem";
             this.xYScatterPointsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.xYScatterPointsToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.xYScatterPointsToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.xYScatterPointsToolStripMenuItem.Text = "XY Scatter Points";
+            this.xYScatterPointsToolStripMenuItem.ToolTipText = "Display 2D points";
             this.xYScatterPointsToolStripMenuItem.Click += new System.EventHandler(this.xYScatterPointsToolStripMenuItem_Click);
             // 
             // xYZScatterPointsToolStripMenuItem
             // 
             this.xYZScatterPointsToolStripMenuItem.Name = "xYZScatterPointsToolStripMenuItem";
-            this.xYZScatterPointsToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.xYZScatterPointsToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.xYZScatterPointsToolStripMenuItem.Text = "XYZ Scatter Points";
+            this.xYZScatterPointsToolStripMenuItem.ToolTipText = "Display 3D points";
             this.xYZScatterPointsToolStripMenuItem.Click += new System.EventHandler(this.xYZScatterPointsToolStripMenuItem_Click);
             // 
             // distributionToolStripMenuItem
             // 
             this.distributionToolStripMenuItem.Name = "distributionToolStripMenuItem";
             this.distributionToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
-            this.distributionToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.distributionToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.distributionToolStripMenuItem.Text = "Histogram";
-            this.distributionToolStripMenuItem.Click += new System.EventHandler(this.distributionToolStripMenuItem_Click);
-            // 
-            // PCAToolStripMenuItem
-            // 
-            this.PCAToolStripMenuItem.Name = "PCAToolStripMenuItem";
-            this.PCAToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.PCAToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
-            this.PCAToolStripMenuItem.Text = "PCA";
-            this.PCAToolStripMenuItem.Click += new System.EventHandler(this.aToolStripMenuItem_Click);
-            // 
-            // classificationTreeToolStripMenuItem
-            // 
-            this.classificationTreeToolStripMenuItem.Name = "classificationTreeToolStripMenuItem";
-            this.classificationTreeToolStripMenuItem.ShortcutKeyDisplayString = "";
-            this.classificationTreeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.classificationTreeToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
-            this.classificationTreeToolStripMenuItem.Text = "Classification Tree";
-            this.classificationTreeToolStripMenuItem.Click += new System.EventHandler(this.classificationTreeToolStripMenuItem_Click);
-            // 
-            // hierarchicalTreeToolStripMenuItem
-            // 
-            this.hierarchicalTreeToolStripMenuItem.Name = "hierarchicalTreeToolStripMenuItem";
-            this.hierarchicalTreeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.hierarchicalTreeToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
-            this.hierarchicalTreeToolStripMenuItem.Text = "Hierarchical Tree";
-            this.hierarchicalTreeToolStripMenuItem.Click += new System.EventHandler(this.hierarchicalTreeToolStripMenuItem_Click);
-            // 
-            // lDAToolStripMenuItem2
-            // 
-            this.lDAToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.displayGraphToolStripMenuItem,
-            this.generateDescToolStripMenuItem});
-            this.lDAToolStripMenuItem2.Name = "lDAToolStripMenuItem2";
-            this.lDAToolStripMenuItem2.Size = new System.Drawing.Size(211, 22);
-            this.lDAToolStripMenuItem2.Text = "LDA";
-            // 
-            // displayGraphToolStripMenuItem
-            // 
-            this.displayGraphToolStripMenuItem.Name = "displayGraphToolStripMenuItem";
-            this.displayGraphToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.displayGraphToolStripMenuItem.Text = "Display Graph";
-            this.displayGraphToolStripMenuItem.Click += new System.EventHandler(this.displayGraphToolStripMenuItem_Click_1);
-            // 
-            // generateDescToolStripMenuItem
-            // 
-            this.generateDescToolStripMenuItem.Name = "generateDescToolStripMenuItem";
-            this.generateDescToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.generateDescToolStripMenuItem.Text = "Generate Desc.";
-            this.generateDescToolStripMenuItem.Click += new System.EventHandler(this.generateDescToolStripMenuItem_Click);
+            this.distributionToolStripMenuItem.ToolTipText = "Display Histogram";
+            this.distributionToolStripMenuItem.Click += new System.EventHandler(this.histogramToolStripMenuItem_Click);
             // 
             // distanceMatrixToolStripMenuItem
             // 
             this.distanceMatrixToolStripMenuItem.Name = "distanceMatrixToolStripMenuItem";
-            this.distanceMatrixToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.distanceMatrixToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.distanceMatrixToolStripMenuItem.Text = "Distance Matrix";
             this.distanceMatrixToolStripMenuItem.Click += new System.EventHandler(this.distanceMatrixToolStripMenuItem_Click);
             // 
-            // qualityControlsToolStripMenuItem1
+            // toolStripSeparator9
             // 
-            this.qualityControlsToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.zscoreSinglePlateToolStripMenuItem,
-            this.normalProbabilityPlotToolStripMenuItem,
-            this.toolStripMenuItem2,
-            this.systematicErrorsToolStripMenuItem1,
-            this.mINEAnalysisToolStripMenuItem});
-            this.qualityControlsToolStripMenuItem1.Enabled = false;
-            this.qualityControlsToolStripMenuItem1.Name = "qualityControlsToolStripMenuItem1";
-            this.qualityControlsToolStripMenuItem1.Size = new System.Drawing.Size(160, 22);
-            this.qualityControlsToolStripMenuItem1.Text = "Quality Controls";
-            // 
-            // zscoreSinglePlateToolStripMenuItem
-            // 
-            this.zscoreSinglePlateToolStripMenuItem.Name = "zscoreSinglePlateToolStripMenuItem";
-            this.zscoreSinglePlateToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.zscoreSinglePlateToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.zscoreSinglePlateToolStripMenuItem.Text = "Z-score";
-            this.zscoreSinglePlateToolStripMenuItem.Click += new System.EventHandler(this.zscoreSinglePlateToolStripMenuItem_Click);
-            // 
-            // normalProbabilityPlotToolStripMenuItem
-            // 
-            this.normalProbabilityPlotToolStripMenuItem.Name = "normalProbabilityPlotToolStripMenuItem";
-            this.normalProbabilityPlotToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.normalProbabilityPlotToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.normalProbabilityPlotToolStripMenuItem.Text = "Normal Probability Plot";
-            this.normalProbabilityPlotToolStripMenuItem.Click += new System.EventHandler(this.normalProbabilityPlotToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(241, 22);
-            this.toolStripMenuItem2.Text = "Correlation Matrix";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
-            // 
-            // systematicErrorsToolStripMenuItem1
-            // 
-            this.systematicErrorsToolStripMenuItem1.Name = "systematicErrorsToolStripMenuItem1";
-            this.systematicErrorsToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.systematicErrorsToolStripMenuItem1.Size = new System.Drawing.Size(241, 22);
-            this.systematicErrorsToolStripMenuItem1.Text = "Systematic Errors";
-            this.systematicErrorsToolStripMenuItem1.Click += new System.EventHandler(this.systematicErrorsToolStripMenuItem1_Click);
-            // 
-            // mINEAnalysisToolStripMenuItem
-            // 
-            this.mINEAnalysisToolStripMenuItem.Name = "mINEAnalysisToolStripMenuItem";
-            this.mINEAnalysisToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
-            this.mINEAnalysisToolStripMenuItem.Text = "MINE analysis";
-            this.mINEAnalysisToolStripMenuItem.Click += new System.EventHandler(this.mINEAnalysisToolStripMenuItem_Click);
-            // 
-            // screenAnalysisToolStripMenuItem
-            // 
-            this.screenAnalysisToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.visualizationToolStripMenuItemPCA,
-            this.qualityControlToolStripMenuItem,
-            this.toolStripSeparator6,
-            this.toolStripMenuItemGeneAnalysis,
-            this.toolStripSeparator7,
-            this.displayThumbnailsToolStripMenuItem1});
-            this.screenAnalysisToolStripMenuItem.Name = "screenAnalysisToolStripMenuItem";
-            this.screenAnalysisToolStripMenuItem.Size = new System.Drawing.Size(54, 23);
-            this.screenAnalysisToolStripMenuItem.Text = "Screen";
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(201, 6);
             // 
             // visualizationToolStripMenuItemPCA
             // 
@@ -2012,13 +2204,11 @@ namespace HCSAnalyzer
             this.xYZScatterPointsToolStripMenuItemFullScreen,
             this.histogramToolStripMenuItem,
             this.stackedHistogramToolStripMenuItem,
-            this.pCAToolStripMenuItem2,
-            this.hierarchicalClusteringToolStripMenuItem1,
-            this.lDAToolStripMenuItem});
-            this.visualizationToolStripMenuItemPCA.Enabled = false;
+            this.toolStripSeparator11,
+            this.cellBasedClassificationTreeToolStripMenuItem});
             this.visualizationToolStripMenuItemPCA.Name = "visualizationToolStripMenuItemPCA";
-            this.visualizationToolStripMenuItemPCA.Size = new System.Drawing.Size(178, 22);
-            this.visualizationToolStripMenuItemPCA.Text = "Visualization";
+            this.visualizationToolStripMenuItemPCA.Size = new System.Drawing.Size(204, 22);
+            this.visualizationToolStripMenuItemPCA.Text = "Visualization Full Screen";
             // 
             // scatterPointsToolStripMenuItem
             // 
@@ -2064,46 +2254,156 @@ namespace HCSAnalyzer
             this.stackedHistogramToolStripMenuItem.Text = "Stacked Histogram";
             this.stackedHistogramToolStripMenuItem.Click += new System.EventHandler(this.stackedHistogramToolStripMenuItem_Click);
             // 
+            // toolStripSeparator11
+            // 
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(243, 6);
+            // 
+            // cellBasedClassificationTreeToolStripMenuItem
+            // 
+            this.cellBasedClassificationTreeToolStripMenuItem.Name = "cellBasedClassificationTreeToolStripMenuItem";
+            this.cellBasedClassificationTreeToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
+            this.cellBasedClassificationTreeToolStripMenuItem.Text = "Cell-based Classification Tree";
+            this.cellBasedClassificationTreeToolStripMenuItem.Click += new System.EventHandler(this.cellBasedClassificationTreeToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(201, 6);
+            // 
+            // hierarchicalTreeToolStripMenuItem
+            // 
+            this.hierarchicalTreeToolStripMenuItem.Name = "hierarchicalTreeToolStripMenuItem";
+            this.hierarchicalTreeToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.hierarchicalTreeToolStripMenuItem.Text = "Hierarchical Tree";
+            this.hierarchicalTreeToolStripMenuItem.Click += new System.EventHandler(this.hierarchicalTreeToolStripMenuItem_Click);
+            // 
+            // projectionsToolStripMenuItem
+            // 
+            this.projectionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.PCAToolStripMenuItem,
+            this.lDAToolStripMenuItem2,
+            this.projectionsFullScreenToolStripMenuItem});
+            this.projectionsToolStripMenuItem.Enabled = false;
+            this.projectionsToolStripMenuItem.Name = "projectionsToolStripMenuItem";
+            this.projectionsToolStripMenuItem.Size = new System.Drawing.Size(78, 23);
+            this.projectionsToolStripMenuItem.Text = "Projections";
+            // 
+            // PCAToolStripMenuItem
+            // 
+            this.PCAToolStripMenuItem.Name = "PCAToolStripMenuItem";
+            this.PCAToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.PCAToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.PCAToolStripMenuItem.Text = "PCA";
+            this.PCAToolStripMenuItem.ToolTipText = "Project Data after Principal Component Analysis ";
+            this.PCAToolStripMenuItem.Click += new System.EventHandler(this.aToolStripMenuItem_Click);
+            // 
+            // lDAToolStripMenuItem2
+            // 
+            this.lDAToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.displayGraphToolStripMenuItem});
+            this.lDAToolStripMenuItem2.Name = "lDAToolStripMenuItem2";
+            this.lDAToolStripMenuItem2.Size = new System.Drawing.Size(193, 22);
+            this.lDAToolStripMenuItem2.Text = "LDA";
+            this.lDAToolStripMenuItem2.ToolTipText = "Project data after Linear Discreminent Analysis";
+            // 
+            // displayGraphToolStripMenuItem
+            // 
+            this.displayGraphToolStripMenuItem.Name = "displayGraphToolStripMenuItem";
+            this.displayGraphToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.displayGraphToolStripMenuItem.Text = "Display Graph";
+            this.displayGraphToolStripMenuItem.Click += new System.EventHandler(this.displayGraphToolStripMenuItem_Click);
+            // 
+            // projectionsFullScreenToolStripMenuItem
+            // 
+            this.projectionsFullScreenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lDAToolStripMenuItem,
+            this.pCAToolStripMenuItem2});
+            this.projectionsFullScreenToolStripMenuItem.Name = "projectionsFullScreenToolStripMenuItem";
+            this.projectionsFullScreenToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.projectionsFullScreenToolStripMenuItem.Text = "Projections Full Screen";
+            // 
+            // lDAToolStripMenuItem
+            // 
+            this.lDAToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.displayGraphToolStripMenuItem1});
+            this.lDAToolStripMenuItem.Name = "lDAToolStripMenuItem";
+            this.lDAToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.lDAToolStripMenuItem.Text = "LDA Full Screen";
+            // 
+            // displayGraphToolStripMenuItem1
+            // 
+            this.displayGraphToolStripMenuItem1.Name = "displayGraphToolStripMenuItem1";
+            this.displayGraphToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
+            this.displayGraphToolStripMenuItem1.Text = "Display Graph";
+            this.displayGraphToolStripMenuItem1.Click += new System.EventHandler(this.displayGraphToolStripMenuItem1_Click);
+            // 
             // pCAToolStripMenuItem2
             // 
             this.pCAToolStripMenuItem2.Name = "pCAToolStripMenuItem2";
             this.pCAToolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.A)));
-            this.pCAToolStripMenuItem2.Size = new System.Drawing.Size(246, 22);
-            this.pCAToolStripMenuItem2.Text = "PCA";
+            this.pCAToolStripMenuItem2.Size = new System.Drawing.Size(231, 22);
+            this.pCAToolStripMenuItem2.Text = "PCA Full Screen";
             this.pCAToolStripMenuItem2.Click += new System.EventHandler(this.pCAToolStripMenuItem2_Click);
             // 
-            // hierarchicalClusteringToolStripMenuItem1
+            // StatisticsToolStripMenuItem
             // 
-            this.hierarchicalClusteringToolStripMenuItem1.Name = "hierarchicalClusteringToolStripMenuItem1";
-            this.hierarchicalClusteringToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.I)));
-            this.hierarchicalClusteringToolStripMenuItem1.Size = new System.Drawing.Size(246, 22);
-            this.hierarchicalClusteringToolStripMenuItem1.Text = "Hierarchical Tree";
-            this.hierarchicalClusteringToolStripMenuItem1.Click += new System.EventHandler(this.hierarchicalClusteringToolStripMenuItem1_Click);
+            this.StatisticsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.zscoreSinglePlateToolStripMenuItem,
+            this.normalProbabilityPlotToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.systematicErrorsToolStripMenuItem1,
+            this.mINEAnalysisToolStripMenuItem,
+            this.qualityControlToolStripMenuItem});
+            this.StatisticsToolStripMenuItem.Enabled = false;
+            this.StatisticsToolStripMenuItem.Name = "StatisticsToolStripMenuItem";
+            this.StatisticsToolStripMenuItem.Size = new System.Drawing.Size(124, 23);
+            this.StatisticsToolStripMenuItem.Text = "Statistics && Analysis";
             // 
-            // lDAToolStripMenuItem
+            // zscoreSinglePlateToolStripMenuItem
             // 
-            this.lDAToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.displayGraphToolStripMenuItem1,
-            this.generateDescToolStripMenuItem1});
-            this.lDAToolStripMenuItem.Name = "lDAToolStripMenuItem";
-            this.lDAToolStripMenuItem.Size = new System.Drawing.Size(246, 22);
-            this.lDAToolStripMenuItem.Text = "LDA";
+            this.zscoreSinglePlateToolStripMenuItem.Name = "zscoreSinglePlateToolStripMenuItem";
+            this.zscoreSinglePlateToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.zscoreSinglePlateToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.zscoreSinglePlateToolStripMenuItem.Text = "Z-score";
+            this.zscoreSinglePlateToolStripMenuItem.ToolTipText = "Compute Z-score between two controls";
+            this.zscoreSinglePlateToolStripMenuItem.Click += new System.EventHandler(this.zscoreSinglePlateToolStripMenuItem_Click);
             // 
-            // displayGraphToolStripMenuItem1
+            // normalProbabilityPlotToolStripMenuItem
             // 
-            this.displayGraphToolStripMenuItem1.Name = "displayGraphToolStripMenuItem1";
-            this.displayGraphToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.displayGraphToolStripMenuItem1.Text = "Display Graph";
-            this.displayGraphToolStripMenuItem1.Click += new System.EventHandler(this.displayGraphToolStripMenuItem1_Click);
+            this.normalProbabilityPlotToolStripMenuItem.Name = "normalProbabilityPlotToolStripMenuItem";
+            this.normalProbabilityPlotToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.normalProbabilityPlotToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.normalProbabilityPlotToolStripMenuItem.Text = "Normal Probability Plot";
+            this.normalProbabilityPlotToolStripMenuItem.ToolTipText = "Data should fit random distribution";
+            this.normalProbabilityPlotToolStripMenuItem.Click += new System.EventHandler(this.normalProbabilityPlotToolStripMenuItem_Click);
             // 
-            // generateDescToolStripMenuItem1
+            // toolStripMenuItem2
             // 
-            this.generateDescToolStripMenuItem1.Name = "generateDescToolStripMenuItem1";
-            this.generateDescToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.generateDescToolStripMenuItem1.Text = "Generate Desc.";
-            this.generateDescToolStripMenuItem1.Click += new System.EventHandler(this.generateDescToolStripMenuItem1_Click);
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(241, 22);
+            this.toolStripMenuItem2.Text = "Correlation Matrix";
+            this.toolStripMenuItem2.ToolTipText = "Correlation Matrix of descriptors";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // systematicErrorsToolStripMenuItem1
+            // 
+            this.systematicErrorsToolStripMenuItem1.Name = "systematicErrorsToolStripMenuItem1";
+            this.systematicErrorsToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.systematicErrorsToolStripMenuItem1.Size = new System.Drawing.Size(241, 22);
+            this.systematicErrorsToolStripMenuItem1.Text = "Systematic Errors";
+            this.systematicErrorsToolStripMenuItem1.ToolTipText = "Evaluate the systematic spatial errors  ";
+            this.systematicErrorsToolStripMenuItem1.Click += new System.EventHandler(this.systematicErrorsToolStripMenuItem1_Click);
+            // 
+            // mINEAnalysisToolStripMenuItem
+            // 
+            this.mINEAnalysisToolStripMenuItem.Name = "mINEAnalysisToolStripMenuItem";
+            this.mINEAnalysisToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.mINEAnalysisToolStripMenuItem.Text = "MINE analysis";
+            this.mINEAnalysisToolStripMenuItem.ToolTipText = "Compute nonlinear correlation factors (Science2012)";
+            this.mINEAnalysisToolStripMenuItem.Click += new System.EventHandler(this.mINEAnalysisToolStripMenuItem_Click);
             // 
             // qualityControlToolStripMenuItem
             // 
@@ -2113,11 +2413,14 @@ namespace HCSAnalyzer
             this.normalProbabilityPlotToolStripMenuItem1,
             this.correlationMatrixToolStripMenuItem,
             this.coeffOfVariationEvolutionToolStripMenuItem,
-            this.descriptorEvolutionToolStripMenuItem});
-            this.qualityControlToolStripMenuItem.Enabled = false;
+            this.descriptorEvolutionToolStripMenuItem,
+            this.classesDistributionToolStripMenuItem,
+            this.extractPhenotypesOfInterestToolStripMenuItem,
+            this.toolStripSeparator10,
+            this.generateHitsDistributionMapToolStripMenuItem});
             this.qualityControlToolStripMenuItem.Name = "qualityControlToolStripMenuItem";
-            this.qualityControlToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.qualityControlToolStripMenuItem.Text = "Quality Controls";
+            this.qualityControlToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.qualityControlToolStripMenuItem.Text = "Statistics Full Screen";
             // 
             // zscoreToolStripMenuItem
             // 
@@ -2167,10 +2470,31 @@ namespace HCSAnalyzer
             this.descriptorEvolutionToolStripMenuItem.Text = "Descriptor Evolution";
             this.descriptorEvolutionToolStripMenuItem.Click += new System.EventHandler(this.descriptorEvolutionToolStripMenuItem_Click);
             // 
-            // toolStripSeparator6
+            // classesDistributionToolStripMenuItem
             // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(175, 6);
+            this.classesDistributionToolStripMenuItem.Name = "classesDistributionToolStripMenuItem";
+            this.classesDistributionToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
+            this.classesDistributionToolStripMenuItem.Text = "Classes Distribution";
+            this.classesDistributionToolStripMenuItem.Click += new System.EventHandler(this.classesDistributionToolStripMenuItem_Click);
+            // 
+            // extractPhenotypesOfInterestToolStripMenuItem
+            // 
+            this.extractPhenotypesOfInterestToolStripMenuItem.Name = "extractPhenotypesOfInterestToolStripMenuItem";
+            this.extractPhenotypesOfInterestToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
+            this.extractPhenotypesOfInterestToolStripMenuItem.Text = "Extract Phenotypes of Interest";
+            this.extractPhenotypesOfInterestToolStripMenuItem.Click += new System.EventHandler(this.extractPhenotypesOfInterestToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(270, 6);
+            // 
+            // generateHitsDistributionMapToolStripMenuItem
+            // 
+            this.generateHitsDistributionMapToolStripMenuItem.Name = "generateHitsDistributionMapToolStripMenuItem";
+            this.generateHitsDistributionMapToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
+            this.generateHitsDistributionMapToolStripMenuItem.Text = "Hits Distribution Maps";
+            this.generateHitsDistributionMapToolStripMenuItem.Click += new System.EventHandler(this.generateHitsDistributionMapToolStripMenuItem_Click);
             // 
             // toolStripMenuItemGeneAnalysis
             // 
@@ -2180,8 +2504,8 @@ namespace HCSAnalyzer
             this.findPathwayToolStripMenuItem});
             this.toolStripMenuItemGeneAnalysis.Enabled = false;
             this.toolStripMenuItemGeneAnalysis.Name = "toolStripMenuItemGeneAnalysis";
-            this.toolStripMenuItemGeneAnalysis.Size = new System.Drawing.Size(178, 22);
-            this.toolStripMenuItemGeneAnalysis.Text = "Gene Analysis";
+            this.toolStripMenuItemGeneAnalysis.Size = new System.Drawing.Size(113, 23);
+            this.toolStripMenuItemGeneAnalysis.Text = "Genomic Analysis";
             // 
             // findGeneToolStripMenuItem
             // 
@@ -2197,6 +2521,7 @@ namespace HCSAnalyzer
             this.pahtwaysAnalysisToolStripMenuItem.Name = "pahtwaysAnalysisToolStripMenuItem";
             this.pahtwaysAnalysisToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.pahtwaysAnalysisToolStripMenuItem.Text = "Pathways analysis";
+            this.pahtwaysAnalysisToolStripMenuItem.ToolTipText = "Compute Pathway redundancies among one class ";
             this.pahtwaysAnalysisToolStripMenuItem.Click += new System.EventHandler(this.pahtwaysAnalysisToolStripMenuItem_Click);
             // 
             // findPathwayToolStripMenuItem
@@ -2206,63 +2531,16 @@ namespace HCSAnalyzer
             this.findPathwayToolStripMenuItem.Text = "Find Pathway";
             this.findPathwayToolStripMenuItem.Click += new System.EventHandler(this.findPathwayToolStripMenuItem_Click);
             // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(175, 6);
-            // 
-            // displayThumbnailsToolStripMenuItem1
-            // 
-            this.displayThumbnailsToolStripMenuItem1.Enabled = false;
-            this.displayThumbnailsToolStripMenuItem1.Name = "displayThumbnailsToolStripMenuItem1";
-            this.displayThumbnailsToolStripMenuItem1.Size = new System.Drawing.Size(178, 22);
-            this.displayThumbnailsToolStripMenuItem1.Text = "Display Thumbnails";
-            this.displayThumbnailsToolStripMenuItem1.Click += new System.EventHandler(this.displayThumbnailsToolStripMenuItem1_Click);
-            // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.consoleToolStripMenuItem,
-            this.platesManagerToolStripMenuItem});
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(68, 23);
-            this.viewToolStripMenuItem.Text = "Windows";
-            // 
-            // consoleToolStripMenuItem
-            // 
-            this.consoleToolStripMenuItem.CheckOnClick = true;
-            this.consoleToolStripMenuItem.Image = global::HCSAnalyzer.Properties.Resources.format_justify_fill;
-            this.consoleToolStripMenuItem.Name = "consoleToolStripMenuItem";
-            this.consoleToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
-            this.consoleToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.consoleToolStripMenuItem.Text = "Console";
-            this.consoleToolStripMenuItem.Click += new System.EventHandler(this.consoleToolStripMenuItem_Click);
-            // 
-            // platesManagerToolStripMenuItem
-            // 
-            this.platesManagerToolStripMenuItem.Enabled = false;
-            this.platesManagerToolStripMenuItem.Name = "platesManagerToolStripMenuItem";
-            this.platesManagerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.P)));
-            this.platesManagerToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.platesManagerToolStripMenuItem.Text = "Plates manager";
-            this.platesManagerToolStripMenuItem.Click += new System.EventHandler(this.platesManagerToolStripMenuItem_Click);
-            // 
-            // pluginsToolStripMenuItem
-            // 
-            this.pluginsToolStripMenuItem.Enabled = false;
-            this.pluginsToolStripMenuItem.Name = "pluginsToolStripMenuItem";
-            this.pluginsToolStripMenuItem.Size = new System.Drawing.Size(63, 23);
-            this.pluginsToolStripMenuItem.Text = "Plug-ins";
-            // 
             // betaToolStripMenuItem
             // 
             this.betaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dRCAnalysisToolStripMenuItem2,
-            this.distributionsToolStripMenuItem});
-            this.betaToolStripMenuItem.Enabled = false;
+            this.distributionsToolStripMenuItem,
+            this.toolStripMenuItem3});
             this.betaToolStripMenuItem.Name = "betaToolStripMenuItem";
             this.betaToolStripMenuItem.Size = new System.Drawing.Size(42, 23);
             this.betaToolStripMenuItem.Text = "Beta";
+            this.betaToolStripMenuItem.ToolTipText = "At your own risk!!!";
             // 
             // dRCAnalysisToolStripMenuItem2
             // 
@@ -2271,7 +2549,11 @@ namespace HCSAnalyzer
             this.toolStripSeparator5,
             this.convertDRCToWellToolStripMenuItem1,
             this.displayDRCToolStripMenuItem1,
-            this.displayRespondingDRCToolStripMenuItem1});
+            this.displayRespondingDRCToolStripMenuItem1,
+            this.toolStripSeparator14,
+            this.currentPlate3DToolStripMenuItem,
+            this.toolStripSeparator15,
+            this.generateDRCsToolStripMenuItem});
             this.dRCAnalysisToolStripMenuItem2.Name = "dRCAnalysisToolStripMenuItem2";
             this.dRCAnalysisToolStripMenuItem2.Size = new System.Drawing.Size(181, 22);
             this.dRCAnalysisToolStripMenuItem2.Text = "DRC Analysis";
@@ -2279,35 +2561,59 @@ namespace HCSAnalyzer
             // doseResponseDesignerToolStripMenuItem
             // 
             this.doseResponseDesignerToolStripMenuItem.Name = "doseResponseDesignerToolStripMenuItem";
-            this.doseResponseDesignerToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.doseResponseDesignerToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
             this.doseResponseDesignerToolStripMenuItem.Text = "Dose Response Designer";
             this.doseResponseDesignerToolStripMenuItem.Click += new System.EventHandler(this.doseResponseDesignerToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(201, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(246, 6);
             // 
             // convertDRCToWellToolStripMenuItem1
             // 
             this.convertDRCToWellToolStripMenuItem1.Name = "convertDRCToWellToolStripMenuItem1";
-            this.convertDRCToWellToolStripMenuItem1.Size = new System.Drawing.Size(204, 22);
+            this.convertDRCToWellToolStripMenuItem1.Size = new System.Drawing.Size(249, 22);
             this.convertDRCToWellToolStripMenuItem1.Text = "Convert DRC To Well";
             this.convertDRCToWellToolStripMenuItem1.Click += new System.EventHandler(this.convertDRCToWellToolStripMenuItem1_Click);
             // 
             // displayDRCToolStripMenuItem1
             // 
             this.displayDRCToolStripMenuItem1.Name = "displayDRCToolStripMenuItem1";
-            this.displayDRCToolStripMenuItem1.Size = new System.Drawing.Size(204, 22);
+            this.displayDRCToolStripMenuItem1.Size = new System.Drawing.Size(249, 22);
             this.displayDRCToolStripMenuItem1.Text = "Display DRC";
             this.displayDRCToolStripMenuItem1.Click += new System.EventHandler(this.displayDRCToolStripMenuItem1_Click);
             // 
             // displayRespondingDRCToolStripMenuItem1
             // 
             this.displayRespondingDRCToolStripMenuItem1.Name = "displayRespondingDRCToolStripMenuItem1";
-            this.displayRespondingDRCToolStripMenuItem1.Size = new System.Drawing.Size(204, 22);
+            this.displayRespondingDRCToolStripMenuItem1.Size = new System.Drawing.Size(249, 22);
             this.displayRespondingDRCToolStripMenuItem1.Text = "Display Responding DRC";
             this.displayRespondingDRCToolStripMenuItem1.Click += new System.EventHandler(this.displayRespondingDRCToolStripMenuItem1_Click);
+            // 
+            // toolStripSeparator14
+            // 
+            this.toolStripSeparator14.Name = "toolStripSeparator14";
+            this.toolStripSeparator14.Size = new System.Drawing.Size(246, 6);
+            // 
+            // currentPlate3DToolStripMenuItem
+            // 
+            this.currentPlate3DToolStripMenuItem.Name = "currentPlate3DToolStripMenuItem";
+            this.currentPlate3DToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
+            this.currentPlate3DToolStripMenuItem.Text = "XYZ Scatter Pts with Connections";
+            this.currentPlate3DToolStripMenuItem.Click += new System.EventHandler(this.currentPlate3DToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator15
+            // 
+            this.toolStripSeparator15.Name = "toolStripSeparator15";
+            this.toolStripSeparator15.Size = new System.Drawing.Size(246, 6);
+            // 
+            // generateDRCsToolStripMenuItem
+            // 
+            this.generateDRCsToolStripMenuItem.Name = "generateDRCsToolStripMenuItem";
+            this.generateDRCsToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
+            this.generateDRCsToolStripMenuItem.Text = "Generate DRCs";
+            this.generateDRCsToolStripMenuItem.Click += new System.EventHandler(this.generateDRCsToolStripMenuItem_Click);
             // 
             // distributionsToolStripMenuItem
             // 
@@ -2333,6 +2639,20 @@ namespace HCSAnalyzer
             this.displayReferenceToolStripMenuItem.Text = "Display Reference";
             this.displayReferenceToolStripMenuItem.Click += new System.EventHandler(this.displayReferenceToolStripMenuItem_Click);
             // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(181, 22);
+            this.toolStripMenuItem3.Text = "Load FACS data";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // pluginsToolStripMenuItem
+            // 
+            this.pluginsToolStripMenuItem.Enabled = false;
+            this.pluginsToolStripMenuItem.Name = "pluginsToolStripMenuItem";
+            this.pluginsToolStripMenuItem.Size = new System.Drawing.Size(63, 23);
+            this.pluginsToolStripMenuItem.Text = "Plug-ins";
+            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2357,9 +2677,9 @@ namespace HCSAnalyzer
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBoxActiveDescriptors.CheckOnClick = true;
             this.checkedListBoxActiveDescriptors.FormattingEnabled = true;
-            this.checkedListBoxActiveDescriptors.Location = new System.Drawing.Point(3, 134);
+            this.checkedListBoxActiveDescriptors.Location = new System.Drawing.Point(3, 85);
             this.checkedListBoxActiveDescriptors.Name = "checkedListBoxActiveDescriptors";
-            this.checkedListBoxActiveDescriptors.Size = new System.Drawing.Size(216, 244);
+            this.checkedListBoxActiveDescriptors.Size = new System.Drawing.Size(216, 304);
             this.checkedListBoxActiveDescriptors.TabIndex = 8;
             this.checkedListBoxActiveDescriptors.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxDescriptorActive_SelectedIndexChanged);
             this.checkedListBoxActiveDescriptors.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxActiveDescriptors_MouseDown);
@@ -2369,7 +2689,7 @@ namespace HCSAnalyzer
             this.comboBoxDescriptorToDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxDescriptorToDisplay.FormattingEnabled = true;
-            this.comboBoxDescriptorToDisplay.Location = new System.Drawing.Point(3, 75);
+            this.comboBoxDescriptorToDisplay.Location = new System.Drawing.Point(3, 26);
             this.comboBoxDescriptorToDisplay.Name = "comboBoxDescriptorToDisplay";
             this.comboBoxDescriptorToDisplay.Size = new System.Drawing.Size(216, 21);
             this.comboBoxDescriptorToDisplay.TabIndex = 9;
@@ -2378,7 +2698,7 @@ namespace HCSAnalyzer
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 55);
+            this.label2.Location = new System.Drawing.Point(3, 6);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(92, 13);
             this.label2.TabIndex = 20;
@@ -2387,7 +2707,7 @@ namespace HCSAnalyzer
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 116);
+            this.label8.Location = new System.Drawing.Point(3, 69);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(74, 13);
             this.label8.TabIndex = 20;
@@ -2422,10 +2742,7 @@ namespace HCSAnalyzer
             // 
             // splitContainerMain.Panel2
             // 
-            this.splitContainerMain.Panel2.Controls.Add(this.label1);
             this.splitContainerMain.Panel2.Controls.Add(this.checkedListBoxActiveDescriptors);
-            this.splitContainerMain.Panel2.Controls.Add(this.comboBoxClass);
-            this.splitContainerMain.Panel2.Controls.Add(this.labelNumClasses);
             this.splitContainerMain.Panel2.Controls.Add(this.label2);
             this.splitContainerMain.Panel2.Controls.Add(this.comboBoxDescriptorToDisplay);
             this.splitContainerMain.Panel2.Controls.Add(this.label8);
@@ -2474,7 +2791,6 @@ namespace HCSAnalyzer
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStripFile;
             this.Name = "HCSAnalyzer";
-            this.Text = "HCS analyzer v1.0.4.3";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.HCSAnalyzer_FormClosed);
             this.Load += new System.EventHandler(this.HCSAnalyzer_Load);
             this.Shown += new System.EventHandler(this.HCSAnalyzer_Shown);
@@ -2497,6 +2813,9 @@ namespace HCSAnalyzer
             this.groupBox15.ResumeLayout(false);
             this.groupBox15.PerformLayout();
             this.tabPageClassification.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownManualThreshold)).EndInit();
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownClusterNumber)).EndInit();
@@ -2544,13 +2863,9 @@ namespace HCSAnalyzer
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem currentPlateTomtrToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clusteringToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem copyAverageValuesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyAverageValuesToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem copyClassesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem screenAnalysisToolStripMenuItem;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBoxClass;
         private System.Windows.Forms.Button buttonGlobalSelection;
         private System.Windows.Forms.CheckBox checkBoxApplyToAllPlates;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -2560,30 +2875,14 @@ namespace HCSAnalyzer
         private System.Windows.Forms.ToolStripMenuItem platesManagerToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.Label labelNumClasses;
-        private System.Windows.Forms.ToolStripMenuItem qualityControlToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sSMDToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem zscoreToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SaveScreentoCSVToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemGeneAnalysis;
-        private System.Windows.Forms.ToolStripMenuItem pahtwaysAnalysisToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem qualityControlsToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem zscoreSinglePlateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem normalProbabilityPlotToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem applySelectionToScreenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem systematicErrorsToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem visualizationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem PCAToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem distributionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem scatterPointsToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutHCSAnalyzerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem findGeneToolStripMenuItem;
         public System.Windows.Forms.Panel panelForLUT;
         public System.Windows.Forms.Label labelMax;
         public System.Windows.Forms.Label labelMin;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.TabPage tabPageNormalization;
         private System.Windows.Forms.TabPage tabPageClassification;
         private System.Windows.Forms.TabPage tabPageExport;
@@ -2597,7 +2896,6 @@ namespace HCSAnalyzer
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.ToolStripMenuItem linkToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem descriptorEvolutionToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPageQualityQtrl;
         private System.Windows.Forms.ComboBox comboBoxDescriptorToDisplay;
         private System.Windows.Forms.CheckBox checkBoxDisplayClasses;
@@ -2609,19 +2907,12 @@ namespace HCSAnalyzer
         private System.Windows.Forms.Button buttonGlobalOnlySelected;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.RichTextBox richTextBoxForScreeningInformation;
-        private System.Windows.Forms.ToolStripMenuItem classificationTreeToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripMenuItem normalProbabilityPlotToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem correlationMatrixToolStripMenuItem;
         private System.Windows.Forms.CheckBox checkBoxExportPlateFormat;
         private System.Windows.Forms.CheckBox checkBoxExportFullScreen;
         private System.Windows.Forms.CheckBox checkBoxExportScreeningInformation;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.ImageList imageListForTab;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-        private System.Windows.Forms.ToolStripMenuItem scatterPointsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem visualizationToolStripMenuItemPCA;
-        private System.Windows.Forms.ToolStripMenuItem histogramToolStripMenuItem;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonReduceDim;
         private System.Windows.Forms.GroupBox groupBoxUnsupervised;
@@ -2669,10 +2960,6 @@ namespace HCSAnalyzer
         private ToolStripMenuItem generateScreenToolStripMenuItem1;
         private ToolStripMenuItem univariateToolStripMenuItem;
         private ToolStripMenuItem multivariateToolStripMenuItem;
-        private ToolStripMenuItem stackedHistogramToolStripMenuItem;
-        private ToolStripMenuItem xYScatterPointsToolStripMenuItem;
-        private ToolStripMenuItem xYScatterPointToolStripMenuItem;
-        private ToolStripMenuItem coeffOfVariationEvolutionToolStripMenuItem;
         private ContextMenuStrip contextMenuStripForLUT;
         private ToolStripMenuItem toolStripMenuItem1;
         private RadioButton radioButtonClusterFullScreen;
@@ -2680,10 +2967,7 @@ namespace HCSAnalyzer
         private Label label10;
         private CheckBox checkBoxAutomatedClusterNumber;
         private NumericUpDown numericUpDownClusterNumber;
-        private ToolStripMenuItem pCAToolStripMenuItem2;
         private ToolStripMenuItem pluginsToolStripMenuItem;
-        private ToolStripMenuItem hierarchicalClusteringToolStripMenuItem1;
-        private ToolStripMenuItem hierarchicalTreeToolStripMenuItem;
         private ToolStripMenuItem toARFFToolStripMenuItem;
         private ComboBox comboBoxRejectionPositiveCtrl;
         private Label label11;
@@ -2698,28 +2982,14 @@ namespace HCSAnalyzer
         private ToolStripMenuItem distributionsToolStripMenuItem;
         private ToolStripMenuItem distributionsModeToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator5;
-        private ToolStripMenuItem xYZScatterPointsToolStripMenuItem;
-        private ToolStripMenuItem xYZScatterPointsToolStripMenuItemFullScreen;
         private SplitContainer splitContainerExport;
         private ToolStripMenuItem displayReferenceToolStripMenuItem;
-        private ToolStripMenuItem mINEAnalysisToolStripMenuItem;
-        private ToolStripMenuItem findPathwayToolStripMenuItem;
         private ToolStripMenuItem histogramBasedToolStripMenuItem;
         public TabControl tabControlMain;
-        private ToolStripMenuItem lDAToolStripMenuItem2;
-        private ToolStripMenuItem displayGraphToolStripMenuItem;
-        private ToolStripMenuItem generateDescToolStripMenuItem;
-        private ToolStripMenuItem lDAToolStripMenuItem;
-        private ToolStripMenuItem displayGraphToolStripMenuItem1;
-        private ToolStripMenuItem generateDescToolStripMenuItem1;
         private SplitContainer splitContainerMain;
         public Panel panelForPlate;
         private Button buttonNextPlate;
         private Button buttonPreviousPlate;
-        private ToolStripSeparator toolStripSeparator7;
-        private ToolStripMenuItem displayThumbnailsToolStripMenuItem1;
-        private ToolStripMenuItem distanceMatrixToolStripMenuItem;
-        private ToolStripMenuItem loadDatabaseToolStripMenuItem;
         private TabPage tabPageWellsSelection;
         private Button buttonDisplayWellsSelectionData;
         private ComboBox comboBoxClassForWellSelection;
@@ -2727,6 +2997,85 @@ namespace HCSAnalyzer
         private Button buttonToSelectWellsFromClass;
         private ContextMenuStrip contextMenuStripForListSelectedWells;
         private ToolStripMenuItem clearToolStripMenuItem;
+        private ToolStripMenuItem projectionsToolStripMenuItem;
+        private ToolStripMenuItem PCAToolStripMenuItem;
+        private ToolStripMenuItem lDAToolStripMenuItem2;
+        private ToolStripMenuItem displayGraphToolStripMenuItem;
+        private ToolStripMenuItem visualizationToolStripMenuItem;
+        private ToolStripMenuItem scatterPointsToolStripMenuItem1;
+        private ToolStripMenuItem xYScatterPointsToolStripMenuItem;
+        private ToolStripMenuItem xYZScatterPointsToolStripMenuItem;
+        private ToolStripMenuItem distributionToolStripMenuItem;
+        private ToolStripMenuItem distanceMatrixToolStripMenuItem;
+        private ToolStripMenuItem visualizationToolStripMenuItemPCA;
+        private ToolStripMenuItem scatterPointsToolStripMenuItem;
+        private ToolStripMenuItem xYScatterPointToolStripMenuItem;
+        private ToolStripMenuItem xYZScatterPointsToolStripMenuItemFullScreen;
+        private ToolStripMenuItem histogramToolStripMenuItem;
+        private ToolStripMenuItem stackedHistogramToolStripMenuItem;
+        private ToolStripMenuItem cellBasedClassificationTreeToolStripMenuItem;
+        private ToolStripMenuItem StatisticsToolStripMenuItem;
+        private ToolStripMenuItem zscoreSinglePlateToolStripMenuItem;
+        private ToolStripMenuItem normalProbabilityPlotToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItem2;
+        private ToolStripMenuItem systematicErrorsToolStripMenuItem1;
+        private ToolStripMenuItem mINEAnalysisToolStripMenuItem;
+        private ToolStripMenuItem qualityControlToolStripMenuItem;
+        private ToolStripMenuItem zscoreToolStripMenuItem;
+        private ToolStripMenuItem sSMDToolStripMenuItem;
+        private ToolStripMenuItem normalProbabilityPlotToolStripMenuItem1;
+        private ToolStripMenuItem correlationMatrixToolStripMenuItem;
+        private ToolStripMenuItem coeffOfVariationEvolutionToolStripMenuItem;
+        private ToolStripMenuItem descriptorEvolutionToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItemGeneAnalysis;
+        private ToolStripMenuItem findGeneToolStripMenuItem;
+        private ToolStripMenuItem pahtwaysAnalysisToolStripMenuItem;
+        private ToolStripMenuItem findPathwayToolStripMenuItem;
+        private Label label1;
+        private ComboBox comboBoxClass;
+        private Label labelNumClasses;
+        private ToolStripMenuItem projectionsFullScreenToolStripMenuItem;
+        private ToolStripMenuItem lDAToolStripMenuItem;
+        private ToolStripMenuItem displayGraphToolStripMenuItem1;
+        private ToolStripMenuItem pCAToolStripMenuItem2;
+        private Button button_Trees;
+        private ToolStripMenuItem toolStripMenuItem3;
+        private ToolStripMenuItem classesDistributionToolStripMenuItem;
+        private ToolStripMenuItem hierarchicalTreeToolStripMenuItem;
+        private ToolStripMenuItem extractPhenotypesOfInterestToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator6;
+        private ToolStripMenuItem plateViewToolStripMenuItem;
+        private ToolStripMenuItem descriptorViewToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator7;
+        private ToolStripMenuItem pieViewToolStripMenuItem1;
+        private ToolStripSeparator toolStripSeparator9;
+        private ToolStripSeparator toolStripSeparator8;
+        public ToolStripMenuItem ThreeDVisualizationToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator10;
+        private ToolStripMenuItem generateHitsDistributionMapToolStripMenuItem;
+        private ToolStripMenuItem cellByCellToolStripMenuItem;
+        private ToolStripMenuItem generateDBFromCSVToolStripMenuItem;
+        private ToolStripMenuItem loadDBToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator12;
+        private ToolStripSeparator toolStripSeparator11;
+        private ToolStripMenuItem classViewToolStripMenuItem;
+        private ToolStripMenuItem averageViewToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator13;
+        private ToolStripMenuItem histogramViewToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator14;
+        private ToolStripMenuItem currentPlate3DToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator15;
+        private ToolStripMenuItem generateDRCsToolStripMenuItem;
+        private GroupBox groupBox6;
+        private NumericUpDown numericUpDownManualThreshold;
+        private RadioButton radioButtonManualLowerThan;
+        private ComboBox comboBoxManualClassToBeAnalyzed;
+        private RadioButton radioButtonManualHigherThan;
+        private Label label13;
+        private RichTextBox richTextBoxForManualSelection;
+        private ComboBox comboBoxdescriptorToBeAnalyzed;
+        private Button buttonStartManualSelection;
+        private Label label14;
     }
 }
 

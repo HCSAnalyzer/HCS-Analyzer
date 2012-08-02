@@ -113,8 +113,9 @@
             this.buttonUpdateAndClose.Name = "buttonUpdateAndClose";
             this.buttonUpdateAndClose.Size = new System.Drawing.Size(132, 50);
             this.buttonUpdateAndClose.TabIndex = 4;
-            this.buttonUpdateAndClose.Text = "Update and close";
+            this.buttonUpdateAndClose.Text = "Update";
             this.buttonUpdateAndClose.UseVisualStyleBackColor = true;
+            this.buttonUpdateAndClose.Click += new System.EventHandler(this.buttonUpdateAndClose_Click);
             // 
             // label2
             // 
@@ -419,6 +420,7 @@
             // 
             // FormForWellInformation
             // 
+            this.AcceptButton = this.buttonUpdateAndClose;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 592);

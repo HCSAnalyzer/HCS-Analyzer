@@ -9,28 +9,43 @@ namespace LibPlateAnalysis
 {
 
     public enum eDistances { EUCLIDEAN , MANHATTAN, VECTOR_COS, BHATTACHARYYA, EMD };
+    public enum eDataType { HISTOGRAM, SINGLE };
 
     public class cDescriptorsType
     {
         public bool IsConnectedToDatabase { get; private set;}
 
+        public eDataType DataType { get; private set; }
 
-        public cDescriptorsType(string Name, bool IsActive, int BinNumber, bool IsConnectedToDB)
+        public cDescriptorsType(string Name, bool IsActive, int BinNumber, bool IsConnectedToDB, cGlobalInfo GlobalInfo)
         {
             //this.AssociatedcListDescriptors = AssociatedcListDescriptors;
             this.Name = Name;
             this.ActiveState = IsActive;
             this.NumBin = BinNumber;
+            
+            if (BinNumber == 1) DataType = eDataType.SINGLE;
+            else
+                DataType = eDataType.HISTOGRAM;
+
             this.IsConnectedToDatabase = IsConnectedToDB;
+            this.GlobalInfo = GlobalInfo;
             CreateAssociatedWindow();
         }
-        public cDescriptorsType(string Name, bool IsActive, int BinNumber)
+        public cDescriptorsType(string Name, bool IsActive, int BinNumber, cGlobalInfo GlobalInfo)
         {
             //this.AssociatedcListDescriptors = AssociatedcListDescriptors;
             this.Name = Name;
             this.ActiveState = IsActive;
             this.NumBin = BinNumber;
+
+            if (BinNumber == 1) DataType = eDataType.SINGLE;
+            else
+                DataType = eDataType.HISTOGRAM;
+
+
             this.IsConnectedToDatabase = false;
+            this.GlobalInfo = GlobalInfo;
             CreateAssociatedWindow();
         }
         /*public cDescriptorsType(cDescriptor Example, bool IsActive)
@@ -59,12 +74,12 @@ namespace LibPlateAnalysis
             return NumBin;
         }
 
-        public string GetDataType()
-        {
-            if (NumBin == 1) return "Single";
-            else
-                return "Histogram - " + this.GetBinNumber() + " bins.";
-        }
+        //public string GetDataType()
+        //{
+        //    if (NumBin == 1) return "Single";
+        //    else
+        //        return "Histogram";
+        //}
 
         private bool ActiveState;
 
@@ -84,6 +99,26 @@ namespace LibPlateAnalysis
             return true;
         }
 
+
+        public void ChangeBinNumber(int NewBinNumber)
+        {
+            int IdxDesc = GlobalInfo.CurrentScreen.ListDescriptors.GetDescriptorIndex(this);
+
+            foreach (cPlate TmpPlate in GlobalInfo.CurrentScreen.ListPlatesAvailable)
+            {
+                for (int Col = 0; Col <= GlobalInfo.CurrentScreen.Columns; Col++)
+                    for (int Row = 0; Row <= GlobalInfo.CurrentScreen.Rows; Row++)
+                    {
+                        cWell TmpWell = TmpPlate.GetWell(Col, Row, false);
+                        if (TmpWell == null) continue;
+                        TmpWell.ListDescriptors[IdxDesc].RefreshHisto(NewBinNumber);
+                    }
+            }
+
+            this.NumBin = NewBinNumber;
+        
+        }
+        cGlobalInfo GlobalInfo;
         public FormForDescriptorInfo WindowDescriptorInfo;// = new FormForDescriptorInfo();   
 
         private void CreateAssociatedWindow()
@@ -111,7 +146,7 @@ namespace LibPlateAnalysis
             }
             DescIndex = -1;
 
-            return DescIndex;
+            return -1;
         }
 
         public int GetDescriptorIndex(string DescriptorName)
@@ -124,7 +159,7 @@ namespace LibPlateAnalysis
             }
 
 
-            return DescIndex;
+            return -1;
         }
 
         public void SetCurrentSelectedDescriptor(int Desc)
@@ -276,7 +311,9 @@ namespace LibPlateAnalysis
         //string Name;
         //public bool IsSingle;
 
-        cDescriptorsType Type;
+        public cDescriptorsType Type{ get; private set;}
+
+        public cWell AssociatedWell;
 
         private cScreening CurrentScreening;
 
@@ -285,13 +322,17 @@ namespace LibPlateAnalysis
             return this.Type;
         }
 
-        private cExtendedList HistoValues;
+        public cHisto Histogram;
 
+        private double AverageValue = 0;
+        
         private double ComputeDistributionDistanceToReference()
         {
             return 0;
 
         }
+
+        public int HistoBins;
 
         #region public
 
@@ -303,69 +344,90 @@ namespace LibPlateAnalysis
         {
             if (CurrentScreening.Reference == null)
             {
-                if (Type.GetBinNumber() > 1)
-                {
-                    return HistoValues.GetWeightedMean();
-                }
-                else
-                    return HistoValues.Mean();
+                //if (Type.GetBinNumber() > 1)
+                //{
+                //   // MessageBox.Show("GetWeightedMean() not implemented", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                //    //return HistoValues.GetWeightedMean();
+                //    return -1;
+                //}
+                //else
+                //    return Histogram.GetXvalues()[0];
+                return this.AverageValue;// this.Histogram.GetAverageValue();
             }
             else
             {
-                if (CurrentScreening.GlobalInfo.OptionsWindow.radioButtonDistributionMetricEuclidean.Checked)
-                    return HistoValues.Dist_Euclidean(CurrentScreening.Reference[CurrentScreening.ListDescriptors.IndexOf(Type)]);
-                else if
-                    (CurrentScreening.GlobalInfo.OptionsWindow.radioButtonDistributionMetricManhattan.Checked)
-                    return HistoValues.Dist_Manhattan(CurrentScreening.Reference[CurrentScreening.ListDescriptors.IndexOf(Type)]);
-                else if
-                    (CurrentScreening.GlobalInfo.OptionsWindow.radioButtonDistributionMetricCosine.Checked)
-                    return HistoValues.Dist_VectorCosine(CurrentScreening.Reference[CurrentScreening.ListDescriptors.IndexOf(Type)]);
-                else if
-                    (CurrentScreening.GlobalInfo.OptionsWindow.radioButtonDistributionMetricBhattacharyya.Checked)
-                    return HistoValues.Dist_BhattacharyyaCoefficient(CurrentScreening.Reference[CurrentScreening.ListDescriptors.IndexOf(Type)]);
-                else if
-                    (CurrentScreening.GlobalInfo.OptionsWindow.radioButtonDistributionMetricEMD.Checked)
-                    return HistoValues.Dist_EarthMover(CurrentScreening.Reference[CurrentScreening.ListDescriptors.IndexOf(Type)]);
+                MessageBox.Show("GetValue() not implemented", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-
-                else return -1;
+                //if (CurrentScreening.GlobalInfo.OptionsWindow.radioButtonDistributionMetricEuclidean.Checked)
+                //    return HistoValues.Dist_Euclidean(CurrentScreening.Reference[CurrentScreening.ListDescriptors.IndexOf(Type)]);
+                //else if
+                //    (CurrentScreening.GlobalInfo.OptionsWindow.radioButtonDistributionMetricManhattan.Checked)
+                //    return HistoValues.Dist_Manhattan(CurrentScreening.Reference[CurrentScreening.ListDescriptors.IndexOf(Type)]);
+                //else if
+                //    (CurrentScreening.GlobalInfo.OptionsWindow.radioButtonDistributionMetricCosine.Checked)
+                //    return HistoValues.Dist_VectorCosine(CurrentScreening.Reference[CurrentScreening.ListDescriptors.IndexOf(Type)]);
+                //else if
+                //    (CurrentScreening.GlobalInfo.OptionsWindow.radioButtonDistributionMetricBhattacharyya.Checked)
+                //    return HistoValues.Dist_BhattacharyyaCoefficient(CurrentScreening.Reference[CurrentScreening.ListDescriptors.IndexOf(Type)]);
+                //else if
+                //    (CurrentScreening.GlobalInfo.OptionsWindow.radioButtonDistributionMetricEMD.Checked)
+                //    return HistoValues.Dist_EarthMover(CurrentScreening.Reference[CurrentScreening.ListDescriptors.IndexOf(Type)]);
+                //else
+                return -1;
             }
 
 
 
         }
 
-        public void SetHistoValues(List<double> ListValues)
+        public void RefreshHisto(int NewNumBins)
         {
-            HistoValues = new cExtendedList();
-            HistoValues.AddRange(ListValues);
+            this.HistoBins = NewNumBins;
+            this.Histogram = new cHisto(this.GetOriginalValues(), HistoBins);
+        
+        
+        }
 
+
+
+        public void SetHistoValues(List<double> ListXValues, List<double> ListYValues)
+        {
+            this.Histogram = new cHisto(ListXValues, ListYValues);
             UpDateDescriptorStatistics();
 
         }
 
         public void SetHistoValues(double Value)
         {
-            HistoValues[0] = Value;
-            UpDateDescriptorStatistics();
+            this.Histogram = new cHisto(Value);
+            this.AverageValue = Value;
+           // HistoValues[0] = Value;
+           // UpDateDescriptorStatistics();
 
         }
 
         public void SetHistoValues(int Idx, double Value)
         {
-            HistoValues[Idx] = Value;
+            this.Histogram.SetYvalues(Value, Idx);
+           // HistoValues[Idx] = Value;
             UpDateDescriptorStatistics();
 
         }
 
-        public cExtendedList Getvalues()
+        public cExtendedList GetHistovalues()
         {
-            return this.HistoValues;
+            return this.Histogram.GetYvalues();
         }
 
-        public double Getvalue(int Idx)
+        public double GetHistovalue(int Idx)
         {
-            return HistoValues[Idx];
+            return this.Histogram.GetYvalues()[Idx];
+        }
+
+        public double GetHistoXvalue(int Idx)
+        {
+            return this.Histogram.GetXvalues()[Idx];
         }
 
         /// <summary>
@@ -383,7 +445,10 @@ namespace LibPlateAnalysis
         /// </summary>
         public void UpDateDescriptorStatistics()
         {
-            AverageValue = HistoValues.Mean();
+            // this.HistoBins = 1;
+            // this.AverageValue = Value;
+
+
             //FirstValue = HistoValues[0];
             //  LastValue = HistoValues[HistoValues.Count - 1];
         }
@@ -391,21 +456,37 @@ namespace LibPlateAnalysis
 
         #endregion
 
-        private double AverageValue;
+       // private double AverageValue;
 
         //  private double FirstValue = -1;
         // private double LastValue = -1;
 
         private double[] OriginalValues = null;
 
-        private double getAverageValue(float[] Data)
+        public double[] GetOriginalValues()
         {
-            double Res = 0;
-            for (int i = 0; i < Data.Length; i++)
-                Res += Data[i];
-
-            return Res / (double)(Data.Length);
+            if ((CurrentScreening.GlobalInfo.CellByCellDataAccessMode == eCellByCellDataAccess.MEMORY) && (this.OriginalValues != null))
+            {
+                return this.OriginalValues;
+            }
+            else if (CurrentScreening.GlobalInfo.CellByCellDataAccessMode == eCellByCellDataAccess.HD)
+            {
+                AssociatedWell.AssociatedPlate.DBConnection = new cDBConnection(AssociatedWell.AssociatedPlate, AssociatedWell.SQLTableName);
+                cExtendedList ToReturn = AssociatedWell.AssociatedPlate.DBConnection.GetWellValues(AssociatedWell.SQLTableName, this.GetAssociatedType());
+                AssociatedWell.AssociatedPlate.DBConnection.DB_CloseConnection();
+                return ToReturn.ToArray();
+            }
+            return null;
         }
+
+        //private double getAverageValue(float[] Data)
+        //{
+        //    double Res = 0;
+        //    for (int i = 0; i < Data.Length; i++)
+        //        Res += Data[i];
+
+        //    return Res / (double)(Data.Length);
+        //}
 
         //private cExtendedList CreateHistogram(double[] data, double start, double end, double step)
         //{
@@ -444,14 +525,16 @@ namespace LibPlateAnalysis
         //    return histogram;
         //}
 
-        private double getAverageValue(double[] Data)
-        {
-            double Res = 0;
-            for (int i = 0; i < Data.Length; i++)
-                Res += Data[i];
+        //private double getAverageValue(double[] Data)
+        //{
+        //    double Res = 0;
+        //    for (int i = 0; i < Data.Length; i++)
+        //        Res += Data[i];
 
-            return Res / (double)(Data.Length);
-        }
+        //    return Res / (double)(Data.Length);
+        //}
+
+
 
 
         /// <summary>
@@ -493,34 +576,59 @@ namespace LibPlateAnalysis
         {
             this.CurrentScreening = CurrentScreening;
             this.Type = Type;
-            this.HistoValues = new cExtendedList();
-            this.HistoValues.Add(Value);
+            this.Histogram = new cHisto(Value);
+            this.HistoBins = 1;
+            this.AverageValue = Value;
+
+            this.CellNumber = 0;
             //this.FirstValue = this.LastValue = this.AverageValue = this.HistoValues[0] = Value;
+
+            if (CurrentScreening.GlobalInfo.CellByCellDataAccessMode == eCellByCellDataAccess.MEMORY)
+            {
+                  this.OriginalValues = new double[1];
+                  this.OriginalValues[0] = Value;
+            }
         }
 
-        public cDescriptor(double[] HistoGram, double FirstValue, double LastValue, cDescriptorsType Type, cScreening CurrentScreening)
+
+
+        public int CellNumber { get; private set; }
+
+        public cDescriptor(cExtendedList Values, int Bin, cDescriptorsType Type, cScreening CurrentScreening)
         {
             this.CurrentScreening = CurrentScreening;
             this.Type = Type;
+            this.HistoBins = Bin;
+            this.Histogram = new cHisto(Values, HistoBins);
+
+            this.HistoBins = this.Histogram.GetXvalues().Count;
+            this.AverageValue = Values.Mean();
+            this.CellNumber = Values.Count;
+
+            if (CurrentScreening.GlobalInfo.CellByCellDataAccessMode == eCellByCellDataAccess.MEMORY)
+            {
+                this.OriginalValues = new double[Values.Count];
+                Array.Copy(Values.ToArray(), this.OriginalValues, this.OriginalValues.Length);
+            }
 
             //this.FirstValue = FirstValue;
             // this.LastValue = LastValue;
 
-            this.HistoValues = new cExtendedList();
+            //this.HistoValues = new cExtendedList();
 
-            this.HistoValues.AddRange(HistoGram);
+            //this.HistoValues.AddRange(HistoGram);
 
-            if (HistoGram.Length < Type.GetBinNumber())
-            {
-                for (int i = 0; i < Type.GetBinNumber() - HistoGram.Length; i++)
-                    this.HistoValues.Add(0);
-            }
+            //if (HistoGram.Length < Type.GetBinNumber())
+            //{
+            //    for (int i = 0; i < Type.GetBinNumber() - HistoGram.Length; i++)
+            //        this.HistoValues.Add(0);
+            //}
 
 
             //    new double[HistoGram.Length];
             //Array.Copy(HistoGram, this.HistoValues, HistoGram.Length);
             //this.Name = Name;
-            AverageValue = getAverageValue(HistoGram);
+            //AverageValue = getAverageValue(HistoGram);
             //  if (HistoGram.Length == 1) IsSingle = true;
             //  else IsSingle = false;
         }

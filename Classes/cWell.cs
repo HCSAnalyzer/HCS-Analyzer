@@ -16,6 +16,7 @@ using System.Xml;
 using System.Collections;
 using System.Data.SqlClient;
 using FreeImageAPI;
+using System.Data;
 
 namespace LibPlateAnalysis
 {
@@ -46,47 +47,62 @@ namespace LibPlateAnalysis
 
         FormForPathway ListP = new FormForPathway();
 
-        public cWell(cWell NewWell)
-        {
-            this.PosX = NewWell.PosX;
-            this.PosY = NewWell.PosY;
-            this.ListDescriptors = NewWell.ListDescriptors;
-            this.Parent = NewWell.Parent;
-            this.AssociatedChart = NewWell.AssociatedChart;
-            this.AssociatedPlate = NewWell.AssociatedPlate;
-            this.CurrentColor = this.Parent.GlobalInfo.GetColor(ClassForClassif);
-        }
+
+        public int CellNumber { get; private set; }
+
+
+        //public cWell(cWell NewWell)
+        //{
+        //    this.PosX = NewWell.PosX;
+        //    this.PosY = NewWell.PosY;
+        //    this.ListDescriptors = NewWell.ListDescriptors;
+        //    this.Parent = NewWell.Parent;
+        //    this.AssociatedChart = NewWell.AssociatedChart;
+        //    this.AssociatedPlate = NewWell.AssociatedPlate;
+        //    this.CurrentColor = this.Parent.GlobalInfo.GetColor(ClassForClassif);
+        //}
 
         public cWell(cDescriptor Desc, int Col, int Row, cScreening screenParent, cPlate CurrentPlate)
         {
+            this.CellNumber = -1;
             this.Parent = screenParent;
             this.AssociatedPlate = CurrentPlate;
             this.ListDescriptors = new List<cDescriptor>();
+            List<cDescriptor> TmpListDescriptors = new List<cDescriptor>();
+            TmpListDescriptors.Add(Desc);
 
-            this.ListDescriptors.Add(Desc);
+            this.AddDescriptors(TmpListDescriptors);
 
             this.PosX = Col;
             this.PosY = Row;
 
             this.CurrentColor = this.Parent.GlobalInfo.GetColor(ClassForClassif);
+
+           
         }
 
         public cWell(List<cDescriptor> ListDesc, int Col, int Row, cScreening screenParent, cPlate CurrentPlate)
         {
+            this.CellNumber = -1;
             this.Parent = screenParent;
             this.AssociatedPlate = CurrentPlate;
             this.ListDescriptors = new List<cDescriptor>();
 
-            this.ListDescriptors = ListDesc;
+           // this.ListDescriptors = ListDesc;
+            this.AddDescriptors(ListDesc);
 
             this.PosX = Col;
             this.PosY = Row;
 
             this.CurrentColor = this.Parent.GlobalInfo.GetColor(ClassForClassif);
+
+
+
         }
 
         public cWell(string FileName, cScreening screenParent, cPlate CurrentPlate)
         {
+            this.CellNumber = -1;
             this.Parent = screenParent;
             this.AssociatedPlate = CurrentPlate;
 
@@ -112,9 +128,6 @@ namespace LibPlateAnalysis
                     sr.Close();
                     return;
                 }
-
-
-
 
                 NewLine = TmpLine.Remove(0, Idx + 1);
                 Idx = NewLine.IndexOf(".");
@@ -154,7 +167,7 @@ namespace LibPlateAnalysis
                             readData.Add(Value);
                         }
                         // first check if the descriptor exist
-                        screenParent.ListDescriptors.AddNew(new cDescriptorsType(DescName, true, NumValue));
+                        screenParent.ListDescriptors.AddNew(new cDescriptorsType(DescName, true, NumValue, screenParent.GlobalInfo));
 
                     }
                     line = sr.ReadLine();
@@ -187,7 +200,7 @@ namespace LibPlateAnalysis
                 {
                     Idx = line.IndexOf("\t");
                     string DescName = line.Remove(Idx);
-                    List<double> readData = new List<double>();
+                    cExtendedList readData = new cExtendedList();
 
                     NewLine = line.Remove(0, Idx + 1);
                     line = NewLine;
@@ -209,7 +222,7 @@ namespace LibPlateAnalysis
                         double Value = Convert.ToDouble(line);
                         readData.Add(Value);
                     }
-                    cDescriptor CurrentDesc = new cDescriptor(readData.ToArray(), 0, screenParent.ListDescriptors[IDxLine].GetBinNumber() - 1, screenParent.ListDescriptors[IDxLine], this.Parent/* DescName*/);
+                    cDescriptor CurrentDesc = new cDescriptor(readData, screenParent.ListDescriptors[IDxLine].GetBinNumber() - 1, screenParent.ListDescriptors[IDxLine], this.Parent);
                     this.ListDescriptors.Add(CurrentDesc);
                 }
                 line = sr.ReadLine();
@@ -226,19 +239,19 @@ namespace LibPlateAnalysis
             switch (DistanceType)
             {
                 case eDistances.EUCLIDEAN:
-                    Distance = this.ListDescriptors[Idxdescriptor].Getvalues().Dist_Euclidean(DestinationWell.ListDescriptors[Idxdescriptor].Getvalues());
+                    Distance = this.ListDescriptors[Idxdescriptor].GetHistovalues().Dist_Euclidean(DestinationWell.ListDescriptors[Idxdescriptor].GetHistovalues());
                     break;
                 case eDistances.MANHATTAN:
-                    Distance = this.ListDescriptors[Idxdescriptor].Getvalues().Dist_Manhattan(DestinationWell.ListDescriptors[Idxdescriptor].Getvalues());
+                    Distance = this.ListDescriptors[Idxdescriptor].GetHistovalues().Dist_Manhattan(DestinationWell.ListDescriptors[Idxdescriptor].GetHistovalues());
                     break;
                 case eDistances.VECTOR_COS:
-                    Distance = this.ListDescriptors[Idxdescriptor].Getvalues().Dist_VectorCosine(DestinationWell.ListDescriptors[Idxdescriptor].Getvalues());
+                    Distance = this.ListDescriptors[Idxdescriptor].GetHistovalues().Dist_VectorCosine(DestinationWell.ListDescriptors[Idxdescriptor].GetHistovalues());
                     break;
                 case eDistances.BHATTACHARYYA:
-                    Distance = this.ListDescriptors[Idxdescriptor].Getvalues().Dist_BhattacharyyaCoefficient(DestinationWell.ListDescriptors[Idxdescriptor].Getvalues());
+                    Distance = this.ListDescriptors[Idxdescriptor].GetHistovalues().Dist_BhattacharyyaCoefficient(DestinationWell.ListDescriptors[Idxdescriptor].GetHistovalues());
                     break;
                 case eDistances.EMD:
-                    Distance = this.ListDescriptors[Idxdescriptor].Getvalues().Dist_EarthMover(DestinationWell.ListDescriptors[Idxdescriptor].Getvalues());
+                    Distance = this.ListDescriptors[Idxdescriptor].GetHistovalues().Dist_EarthMover(DestinationWell.ListDescriptors[Idxdescriptor].GetHistovalues());
                     break;
                 default:
                     break;
@@ -246,6 +259,34 @@ namespace LibPlateAnalysis
             return Distance;
         }
 
+        public double DistanceTo(cWell DestinationWell, eDistances DistanceType)
+        {
+            double Distance = 0;
+
+            switch (DistanceType)
+            {
+                case eDistances.EUCLIDEAN:
+                    Distance += this.GetAverageValuesList(true).Dist_Euclidean(DestinationWell.GetAverageValuesList(true));
+                    break;
+                case eDistances.MANHATTAN:
+                    Distance += this.GetAverageValuesList(true).Dist_Manhattan(DestinationWell.GetAverageValuesList(true));
+                    break;
+                case eDistances.VECTOR_COS:
+                    Distance += this.GetAverageValuesList(true).Dist_VectorCosine(DestinationWell.GetAverageValuesList(true));
+                    break;
+                case eDistances.BHATTACHARYYA:
+                    Distance += this.GetAverageValuesList(true).Dist_BhattacharyyaCoefficient(DestinationWell.GetAverageValuesList(true));
+                    break;
+                case eDistances.EMD:
+                    Distance += this.GetAverageValuesList(true).Dist_EarthMover(DestinationWell.GetAverageValuesList(true));
+                    break;
+                default:
+                    break;
+            }
+
+            return Distance;
+        }
+   
         public double DistanceTo(cWell DestinationWell, eDistances IntraHistoDistanceType, eDistances InterHistoDistanceType)
         {
             double Distance = 0;
@@ -261,7 +302,7 @@ namespace LibPlateAnalysis
                 switch (IntraHistoDistanceType)
                 {
                     case eDistances.EUCLIDEAN:
-                        ListDistSource.Add(this.ListDescriptors[Idxdescriptor].Getvalues().Dist_Euclidean(DestinationWell.ListDescriptors[Idxdescriptor].Getvalues()));
+                        ListDistSource.Add(this.ListDescriptors[Idxdescriptor].GetHistovalues().Dist_Euclidean(DestinationWell.ListDescriptors[Idxdescriptor].GetHistovalues()));
                         ListDistDest.Add(DestinationWell.ListDescriptors[Idxdescriptor].GetValue());
 
 
@@ -333,11 +374,24 @@ namespace LibPlateAnalysis
             return this.CurrentColor;
         }
 
-        public List<double> GetAverageValuesList()
+        public cExtendedList GetAverageValuesList(bool IsOnlySelectedDescriptors)
         {
-            List<double> ValuesToReturn = new List<double>();
-            for (int i = 0; i < ListDescriptors.Count; i++)
-                ValuesToReturn.Add(ListDescriptors[i].GetValue());
+            cExtendedList ValuesToReturn = new cExtendedList();
+
+            if (IsOnlySelectedDescriptors)
+            {
+                for (int i = 0; i < ListDescriptors.Count; i++)
+                {
+                    if (Parent.ListDescriptors[i].IsActive())
+                        ValuesToReturn.Add(ListDescriptors[i].GetValue());
+                }
+            }
+            else
+            {
+                for (int i = 0; i < ListDescriptors.Count; i++)
+                    ValuesToReturn.Add(ListDescriptors[i].GetValue());
+
+            }
             return ValuesToReturn;
         }
 
@@ -415,6 +469,8 @@ namespace LibPlateAnalysis
                     MainLegend.Text = Name;
                 if (Parent.GlobalInfo.OptionsWindow.radioButtonWellInfoInfo.Checked)
                     MainLegend.Text = Info;
+                if (Parent.GlobalInfo.OptionsWindow.radioButtonWellInfoDescValue.Checked)
+                    MainLegend.Text = ListDescriptors[Parent.ListDescriptors.CurrentSelectedDescriptor].GetValue().ToString("N3");
                 if (Parent.GlobalInfo.OptionsWindow.radioButtonWellInfoLocusID.Checked)
                     MainLegend.Text = ((int)(LocusID)).ToString();
                 if (Parent.GlobalInfo.OptionsWindow.radioButtonWellInfoConcentration.Checked)
@@ -454,7 +510,40 @@ namespace LibPlateAnalysis
             CurrentChartArea.Axes[0].MajorGrid.Enabled = false;
             CurrentChartArea.Axes[0].LabelStyle.Enabled = false;
 
-            if ((ListDescriptors[IdxDescriptor].GetAssociatedType().GetBinNumber() == 1) || (Parent.GlobalInfo.OptionsWindow.radioButtonDisplayAverage.Checked))
+            if (Parent.GlobalInfo.ViewMode == eViewMode.PIE)
+            {
+                CurrentSeries.ChartType = SeriesChartType.Pie;
+                //AssociatedChart.Palette = ChartColorPalette.Grayscale;
+                //ChartColorPalette a = new ChartColorPalette();
+
+
+                for (int IdxValue = 0; IdxValue < ListDescriptors.Count; IdxValue++)
+                {
+                    if (ListDescriptors[IdxValue].GetAssociatedType().IsActive())
+                    {
+                        CurrentSeries.Points.Add(ListDescriptors[IdxValue].GetValue());
+                        //CurrentSeries.Points[Idx].Label = String.Format("{0:0.###}", ((100.0 * ListPathway[Idx].Occurence) / TotalOcurrence)) + " %";
+
+                        //CurrentSeries.Points[Idx].LegendText = ListPathway[Idx].Name;
+                        //CurrentSeries.Points[CurrentSeries.Points.Count - 1] = 2;
+                        //CurrentSeries.Points[CurrentSeries.Points.Count - 1].Label = ListDescriptors[IdxValue].GetAssociatedType().GetName() + " : ";
+                    }
+                }
+                //CurrentChartArea.Axes[1].MajorGrid.Enabled = false;
+                //CurrentChartArea.Axes[1].MajorGrid.LineColor = Color.FromArgb(127, 127, 127);
+                //CurrentChartArea.Axes[1].LineColor = Color.FromArgb(127, 127, 127);
+                //CurrentChartArea.Axes[1].MajorTickMark.LineColor = Color.FromArgb(127, 127, 127);
+                //CurrentChartArea.Axes[1].LabelStyle.Enabled = false;
+                //CurrentChartArea.Axes[0].LineColor = Color.FromArgb(127, 127, 127);
+                //CurrentChartArea.Axes[0].MajorTickMark.LineColor = Color.FromArgb(127, 127, 127);
+                //CurrentSeries.Color = Color.White;
+                //CurrentSeries.BorderWidth = 1;
+                //CurrentChartArea.BackColor = Color.FromArgb(16, 37, 63);
+
+                //CurrentChartArea.BorderWidth = borderSize;
+                AssociatedChart.ChartAreas.Add(CurrentChartArea);
+            }
+            else if ((ListDescriptors[IdxDescriptor].GetAssociatedType().GetBinNumber() == 1) || (Parent.GlobalInfo.ViewMode == eViewMode.AVERAGE))
             {
                 CurrentChartArea.Axes[1].LabelStyle.Enabled = false;
                 CurrentChartArea.Axes[1].MajorGrid.Enabled = false;
@@ -475,9 +564,19 @@ namespace LibPlateAnalysis
             }
             else
             {
-                CurrentSeries.ChartType = SeriesChartType.Line;
-                for (int IdxValue = 0; IdxValue < ListDescriptors[IdxDescriptor].GetAssociatedType().GetBinNumber(); IdxValue++)
-                    CurrentSeries.Points.Add(ListDescriptors[IdxDescriptor].Getvalue(IdxValue));
+                CurrentSeries.ChartType = SeriesChartType.Column;
+
+                for (int IdxValue = 0; IdxValue < ListDescriptors[IdxDescriptor].Histogram.GetXvalues().Count; IdxValue++)
+                {
+                    if ((Parent.GlobalInfo.OptionsWindow.radioButtonHistoDisplayAutomatedMinMax.Checked) || (Parent.GlobalInfo.OptionsWindow.radioButtonHistoDisplayManualMinMax.Checked))
+                    {
+                        CurrentSeries.Points.AddXY(ListDescriptors[IdxDescriptor].GetHistoXvalue(IdxValue), ListDescriptors[IdxDescriptor].GetHistovalue(IdxValue));
+                    }
+                    else
+                    {
+                        CurrentSeries.Points.Add(ListDescriptors[IdxDescriptor].GetHistovalue(IdxValue));
+                    }
+                }
 
                 CurrentChartArea.Axes[1].MajorGrid.Enabled = false;
                 CurrentChartArea.Axes[1].MajorGrid.LineColor = Color.FromArgb(127, 127, 127);
@@ -486,6 +585,16 @@ namespace LibPlateAnalysis
                 CurrentChartArea.Axes[1].LabelStyle.Enabled = false;
                 CurrentChartArea.Axes[0].LineColor = Color.FromArgb(127, 127, 127);
                 CurrentChartArea.Axes[0].MajorTickMark.LineColor = Color.FromArgb(127, 127, 127);
+                if (Parent.GlobalInfo.OptionsWindow.radioButtonHistoDisplayAutomatedMinMax.Checked)
+                {
+                    CurrentChartArea.Axes[0].Minimum = Parent.GetCurrentDisplayPlate().MinMaxHisto[0];
+                    CurrentChartArea.Axes[0].Maximum = Parent.GetCurrentDisplayPlate().MinMaxHisto[1];
+                }
+                else if (Parent.GlobalInfo.OptionsWindow.radioButtonHistoDisplayManualMinMax.Checked)
+                {
+                    CurrentChartArea.Axes[0].Minimum = (double)Parent.GlobalInfo.OptionsWindow.numericUpDownManualMin.Value;
+                    CurrentChartArea.Axes[0].Maximum = (double)Parent.GlobalInfo.OptionsWindow.numericUpDownManualMax.Value;
+                }
                 CurrentSeries.Color = Color.White;
                 CurrentSeries.BorderWidth = 1;
                 CurrentChartArea.BackColor = Color.FromArgb(16, 37, 63);
@@ -494,7 +603,6 @@ namespace LibPlateAnalysis
                 AssociatedChart.ChartAreas.Add(CurrentChartArea);
             }
 
-
             AssociatedChart.Location = new System.Drawing.Point((int)((PosX - 1) * (Parent.GlobalInfo.SizeHistoWidth + GutterSize) + Parent.GlobalInfo.ShiftX), (int)((PosY - 1) * (Parent.GlobalInfo.SizeHistoHeight + GutterSize) + Parent.GlobalInfo.ShiftY));
             AssociatedChart.Series.Add(CurrentSeries);
 
@@ -502,7 +610,7 @@ namespace LibPlateAnalysis
             AssociatedChart.Width = (int)Parent.GlobalInfo.SizeHistoWidth;
             AssociatedChart.Height = (int)Parent.GlobalInfo.SizeHistoHeight;
 
-            if (Parent.GlobalInfo.OptionsWindow.checkBoxDisplayWellInformation.Checked)
+            if ((Parent.GlobalInfo.OptionsWindow.checkBoxDisplayWellInformation.Checked) && (Parent.GlobalInfo.ViewMode != eViewMode.PIE))
             {
                 Title MainLegend = new Title();
 
@@ -510,6 +618,8 @@ namespace LibPlateAnalysis
                     MainLegend.Text = Name;
                 if (Parent.GlobalInfo.OptionsWindow.radioButtonWellInfoInfo.Checked)
                     MainLegend.Text = Info;
+                if (Parent.GlobalInfo.OptionsWindow.radioButtonWellInfoDescValue.Checked)
+                    MainLegend.Text = ListDescriptors[Parent.ListDescriptors.CurrentSelectedDescriptor].GetValue().ToString("N3");
                 if (Parent.GlobalInfo.OptionsWindow.radioButtonWellInfoLocusID.Checked)
                     MainLegend.Text = ((int)(LocusID)).ToString();
                 if (Parent.GlobalInfo.OptionsWindow.radioButtonWellInfoConcentration.Checked)
@@ -595,13 +705,7 @@ namespace LibPlateAnalysis
             else if (e.Button == MouseButtons.Right)
             {
                 ContextMenuStrip contextMenuStrip = new ContextMenuStrip();
-                string TextFor3D2D;
-                if (this.AssociatedPlate.ParentScreening.GlobalInfo.Is3DVisu())
-                    TextFor3D2D = "Turn Off 3D vizualization";
-                else
-                    TextFor3D2D = "Turn On 3D vizualization";
 
-                ToolStripMenuItem ToolStripMenuItem_SwitchVizuMode = new ToolStripMenuItem(TextFor3D2D);
                 ToolStripMenuItem ToolStripMenuItem_Info = new ToolStripMenuItem("Info");
                 ToolStripMenuItem ToolStripMenuItem_Histo = new ToolStripMenuItem("Histogram");
                 ToolStripMenuItem ToolStripMenuItem_DisplayData = new ToolStripMenuItem("Display Data");
@@ -613,14 +717,14 @@ namespace LibPlateAnalysis
                 ToolStripMenuItem ToolStripMenuItem_Copy = new ToolStripMenuItem("Copy Visu.");
 
                 if (this.SQLTableName != "")
-                    contextMenuStrip.Items.AddRange(new ToolStripItem[] { ToolStripMenuItem_SwitchVizuMode, ToolStripMenuItem_Info, ToolStripMenuItem_DisplayData, ToolStripMenuItem_Histo, ToolStripSep, ToolStripMenuItem_Kegg, ToolStripSep1, ToolStripMenuItem_Copy });
+                    contextMenuStrip.Items.AddRange(new ToolStripItem[] { ToolStripMenuItem_Info, ToolStripMenuItem_DisplayData, ToolStripMenuItem_Histo, ToolStripSep, ToolStripMenuItem_Kegg, ToolStripSep1, ToolStripMenuItem_Copy });
                 else
-                    contextMenuStrip.Items.AddRange(new ToolStripItem[] { ToolStripMenuItem_SwitchVizuMode, ToolStripMenuItem_Info, ToolStripMenuItem_Histo, ToolStripSep, ToolStripMenuItem_Kegg, ToolStripSep1, ToolStripMenuItem_Copy });
+                    contextMenuStrip.Items.AddRange(new ToolStripItem[] { ToolStripMenuItem_Info, ToolStripMenuItem_Histo, ToolStripSep, ToolStripMenuItem_Kegg, ToolStripSep1, ToolStripMenuItem_Copy });
 
                 //ToolStripSeparator SepratorStrip = new ToolStripSeparator();
                 contextMenuStrip.Show(Control.MousePosition);
 
-                ToolStripMenuItem_SwitchVizuMode.Click += new System.EventHandler(this.SwitchVizuMode);
+
                 ToolStripMenuItem_Info.Click += new System.EventHandler(this.DisplayInfo);
                 ToolStripMenuItem_Histo.Click += new System.EventHandler(this.DisplayHisto);
                 ToolStripMenuItem_DisplayData.Click += new System.EventHandler(this.ToolStripMenuItem_DisplayData);
@@ -628,11 +732,6 @@ namespace LibPlateAnalysis
                 ToolStripMenuItem_Copy.Click += new System.EventHandler(this.CopyVisu);
             }
 
-        }
-
-        private void SwitchVizuMode(object sender, EventArgs e)
-        {
-            this.Parent.GlobalInfo.SwitchVisuMode();
         }
 
         private void ToolStripMenuItem_DisplayData(object sender, EventArgs e)
@@ -882,9 +981,9 @@ namespace LibPlateAnalysis
             for (int IdxCol = 0; IdxCol < bg_list.Length; IdxCol++)
             {
 
-                int ConvertedValue = (int)((((Parent.GlobalInfo.LUT_JET[0].Length - 1) * (ListValues[IdxCol] - MinValue)) / (MaxValue - MinValue)));
+                int ConvertedValue = (int)((((Parent.GlobalInfo.LUTs.LUT_JET[0].Length - 1) * (ListValues[IdxCol] - MinValue)) / (MaxValue - MinValue)));
 
-                Color Coul = Color.FromArgb(Parent.GlobalInfo.LUT_JET[0][ConvertedValue], Parent.GlobalInfo.LUT_JET[1][ConvertedValue], Parent.GlobalInfo.LUT_JET[2][ConvertedValue]);
+                Color Coul = Color.FromArgb(Parent.GlobalInfo.LUTs.LUT_JET[0][ConvertedValue], Parent.GlobalInfo.LUTs.LUT_JET[1][ConvertedValue], Parent.GlobalInfo.LUTs.LUT_JET[2][ConvertedValue]);
 
                 if (IdxCol == IDxGeneOfInterest)
                     fg_list[IdxCol] = "white";
@@ -931,7 +1030,7 @@ namespace LibPlateAnalysis
             //CurrentSeries.ShadowOffset = 2;
 
             for (int IdxValue = 0; IdxValue < ListDescriptors[CurrentDescriptorToDisplay].GetAssociatedType().GetBinNumber(); IdxValue++)
-                CurrentSeries.Points.Add(ListDescriptors[CurrentDescriptorToDisplay].Getvalue(IdxValue));
+                CurrentSeries.Points.Add(ListDescriptors[CurrentDescriptorToDisplay].GetHistovalue(IdxValue));
 
             ChartArea CurrentChartArea = new ChartArea("ChartArea" + PosX + "x" + PosY);
             CurrentChartArea.BorderColor = Color.White;
@@ -989,29 +1088,60 @@ namespace LibPlateAnalysis
                 NewWindow.textBoxLocusID.Text = ((int)(LocusID)).ToString();
 
             Series CurrentSeries = new Series("ChartSeries" + PosX + "x" + PosY);
-            CurrentSeries.ShadowOffset = 2;
-
-            for (int IdxValue = 0; IdxValue < ListDescriptors[CurrentDescriptorToDisplay].GetAssociatedType().GetBinNumber(); IdxValue++)
-            {
-                double Value = ListDescriptors[CurrentDescriptorToDisplay].Getvalue(IdxValue);
-                CurrentSeries.Points.Add(Value);
-                CurrentSeries.Points[IdxValue].ToolTip = Value.ToString();
-            }
             ChartArea CurrentChartArea = new ChartArea("ChartArea" + PosX + "x" + PosY);
+            if (Parent.GlobalInfo.ViewMode != eViewMode.PIE)
+            {
+
+                CurrentSeries.ShadowOffset = 2;
+
+                for (int IdxValue = 0; IdxValue < ListDescriptors[CurrentDescriptorToDisplay].GetAssociatedType().GetBinNumber(); IdxValue++)
+                {
+                    double Value = ListDescriptors[CurrentDescriptorToDisplay].GetHistovalue(IdxValue);
+                    //CurrentSeries.Points.Add(Value);
+
+                    CurrentSeries.Points.AddXY(ListDescriptors[CurrentDescriptorToDisplay].GetHistoXvalue(IdxValue), Value);
+
+
+                    CurrentSeries.Points[IdxValue].ToolTip = Value.ToString();
+                }
+
+
+
+
+
+                CurrentChartArea.Axes[0].MajorGrid.Enabled = false;
+                CurrentChartArea.Axes[0].Title = ListDescriptors[CurrentDescriptorToDisplay].GetName();
+                //  if (CurrentSeries.Points.Count == 1)
+                CurrentSeries.ChartType = SeriesChartType.Column;
+                //  else
+                //    CurrentSeries.ChartType = SeriesChartType.Line;
+                CurrentSeries.Color = Color.White;
+                CurrentSeries.BorderWidth = 3;
+            }
+            else
+            {
+                CurrentSeries.ChartType = SeriesChartType.Pie;
+                for (int IdxValue = 0; IdxValue < ListDescriptors.Count; IdxValue++)
+                {
+                    if (ListDescriptors[IdxValue].GetAssociatedType().IsActive())
+                    {
+                        double Value = ListDescriptors[IdxValue].GetValue();
+                        CurrentSeries.Points.Add(Value);
+                        if (Value > 0)
+                        {
+                            CurrentSeries.Points[CurrentSeries.Points.Count - 1].Label = ListDescriptors[IdxValue].GetAssociatedType().GetName();
+
+                            CurrentSeries.Points[CurrentSeries.Points.Count - 1].ToolTip = Value.ToString();
+                        }
+                    }
+                }
+
+            }
             CurrentChartArea.BorderColor = Color.Black;
 
             NewWindow.chartForFormWell.ChartAreas.Add(CurrentChartArea);
             NewWindow.chartForFormWell.TextAntiAliasingQuality = TextAntiAliasingQuality.High;
             CurrentChartArea.BackColor = Color.FromArgb(64, 64, 64);
-
-            CurrentChartArea.Axes[0].MajorGrid.Enabled = false;
-            CurrentChartArea.Axes[0].Title = ListDescriptors[CurrentDescriptorToDisplay].GetName();
-            if (CurrentSeries.Points.Count == 1)
-                CurrentSeries.ChartType = SeriesChartType.Column;
-            else
-                CurrentSeries.ChartType = SeriesChartType.Line;
-            CurrentSeries.Color = Color.White;
-            CurrentSeries.BorderWidth = 3;
             CurrentSeries.ChartArea = "ChartArea" + PosX + "x" + PosY;
 
             CurrentSeries.Name = "Series" + PosX + "x" + PosY;
@@ -1026,6 +1156,12 @@ namespace LibPlateAnalysis
             //}
 
             NewWindow.richTextBoxDescription.AppendText("Plate: " + this.AssociatedPlate.Name + "\nWell: [" + this.GetPosX() + "x" + this.GetPosY() + "]");
+            NewWindow.richTextBoxDescription.AppendText("\nCell Number: " + this.CellNumber);
+
+            if (Parent.GlobalInfo.ViewMode != eViewMode.PIE)
+            {
+                NewWindow.richTextBoxDescription.AppendText("\nHistogram: BINS: " + ListDescriptors[CurrentDescriptorToDisplay].GetAssociatedType().GetBinNumber() + ", STEP: "  + ListDescriptors[CurrentDescriptorToDisplay].Histogram.Step);
+            }
 
             if (Parent.GlobalInfo.IsDistributionMode() && (Parent.Reference != null))
             {
@@ -1064,8 +1200,9 @@ namespace LibPlateAnalysis
             {
 
                 StripLine AverageLineHisto = new StripLine();
-                AverageLineHisto.BackColor = Color.White;
-                AverageLineHisto.IntervalOffset = ListDescriptors[CurrentDescriptorToDisplay].Getvalues().GetWeightedMean();
+                AverageLineHisto.BackColor = Color.Red;
+                AverageLineHisto.IntervalOffset = ListDescriptors[CurrentDescriptorToDisplay].Histogram.GetAverageValue();
+                //   AverageLineHisto.IntervalOffset = ListDescriptors[CurrentDescriptorToDisplay].Getvalues().GetWeightedMean();
                 AverageLineHisto.StripWidth = double.Epsilon;
                 CurrentChartArea.AxisX.StripLines.Add(AverageLineHisto);
                 AverageLineHisto.Text = String.Format("{0:0.###}", AverageLineHisto.IntervalOffset);
@@ -1133,7 +1270,7 @@ namespace LibPlateAnalysis
             if (strf.Count > 1)
             {
 
-                string MeaFileLocation = strf[6] + strf[0] +"\\"+ strf[2];
+                string MeaFileLocation = strf[6] + strf[0] + "\\" + strf[2];
 
                 StreamReader st = new StreamReader(MeaFileLocation);
                 string FileRead = "";
@@ -1142,8 +1279,8 @@ namespace LibPlateAnalysis
                     FileRead = st.ReadToEnd();
                 }
                 string[] Splter = new string[1];
-                Splter[0]="Wavelength";
-                int NumWaveLength= FileRead.Split(Splter,StringSplitOptions.None).Length;
+                Splter[0] = "Wavelength";
+                int NumWaveLength = FileRead.Split(Splter, StringSplitOptions.None).Length;
 
                 string specifier = "000";
 
@@ -1316,16 +1453,7 @@ namespace LibPlateAnalysis
             //NewWindow.chartForFormWell.Show();
 
 
-            if (NewWindow.ShowDialog() == DialogResult.OK)
-            {
-                this.Info = NewWindow.textBoxInfo.Text;
-                this.Name = NewWindow.textBoxName.Text;
-                double Concen = 0;
-                if (double.TryParse(NewWindow.textBoxConcentration.Text, out Concen))
-                    this.Concentration = Concen;
-
-                this.Parent.GetCurrentDisplayPlate().DisplayDistribution(this.Parent.ListDescriptors.CurrentSelectedDescriptor, false);
-            }
+            NewWindow.Show();
             return;
         }
 
@@ -1352,7 +1480,41 @@ namespace LibPlateAnalysis
 
         internal void AddDescriptors(List<cDescriptor> LDesc)
         {
-            this.ListDescriptors.AddRange(LDesc);
+            foreach (var item in LDesc)
+            {
+                // if this is a single value, Cell number of the well become 0
+                if (item.GetAssociatedType().DataType == eDataType.SINGLE)
+                {
+                    if (this.CellNumber == -1) this.CellNumber = 0;
+                    this.ListDescriptors.Add(item);
+                     item.AssociatedWell = this;
+                }
+                else
+                {
+                    if ((this.CellNumber == -1) || (this.CellNumber == 0))
+                    {
+                        //if(this.CellNumber == item.CellNumber)
+                        this.CellNumber = item.CellNumber;
+                        this.ListDescriptors.Add(item);
+                        item.AssociatedWell = this;
+
+                    }
+                    else if (this.CellNumber == item.CellNumber)
+                    {
+                        this.ListDescriptors.Add(item);
+                        item.AssociatedWell = this;
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Data lenght inconsistency ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                     }
+
+                }
+            }
+
+     
+
         }
 
         /// <summary>
@@ -1384,7 +1546,7 @@ namespace LibPlateAnalysis
             List<double> AverageList = new List<double>();
 
             for (int i = 0; i < Parent.ListDescriptors.Count; i++)
-                if (Parent.ListDescriptors[i].IsActive()) AverageList.Add(GetAverageValuesList()[i]);
+                if (Parent.ListDescriptors[i].IsActive()) AverageList.Add(GetAverageValuesList(false)[i]);
 
             weka.core.FastVector atts = new FastVector();
 
@@ -1409,6 +1571,44 @@ namespace LibPlateAnalysis
             data1.setClassIndex((data1.numAttributes() - 1));
             return data1;
         }
+
+
+
+        public DataTable GetDescDataTable(bool OnlyActive)
+        {
+            DataTable TableToReturn = new DataTable();
+            if (Parent.GlobalInfo.CellByCellDataAccessMode == eCellByCellDataAccess.MEMORY)
+            {
+                List<double[]> FullRes = new List<double[]>();
+
+                for (int Desc = 0; Desc < this.Parent.ListDescriptors.Count; Desc++)
+                {
+                    if ((this.Parent.ListDescriptors[Desc].IsActive()) && (!(this.Parent.ListDescriptors[Desc].DataType == eDataType.SINGLE)))
+                    {
+                        TableToReturn.Columns.Add(this.Parent.ListDescriptors[Desc].GetName(), typeof(double));
+                        FullRes.Add(this.ListDescriptors[Desc].GetOriginalValues());
+                    }
+
+                }
+                if (FullRes.Count == 0) return null;
+                for (int IdxRow = 0; IdxRow < FullRes[0].Length; IdxRow++)
+                {
+                    TableToReturn.Rows.Add();
+
+                    for (int IdxColumn = 0; IdxColumn < FullRes.Count; IdxColumn++)
+                        TableToReturn.Rows[TableToReturn.Rows.Count - 1][IdxColumn] = FullRes[IdxColumn][IdxRow];
+                }
+            }
+            else if (Parent.GlobalInfo.CellByCellDataAccessMode == eCellByCellDataAccess.HD)
+            {
+                this.AssociatedPlate.DBConnection = new cDBConnection(AssociatedPlate, SQLTableName);
+                this.AssociatedPlate.DBConnection.AddWellToDataTable(this, TableToReturn, false, true);
+                this.AssociatedPlate.DBConnection.DB_CloseConnection();
+            }
+            return TableToReturn;
+        }
+
+
 
     }
 }

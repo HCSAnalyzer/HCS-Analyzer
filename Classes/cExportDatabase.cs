@@ -76,7 +76,7 @@ namespace LibPlateAnalysis
             for (int i = 0; i < ListDescriptors.Count; i++)
             {
                 stream.Write(ListDescriptors[i].GetName() + "\t");
-                foreach (double f in ListDescriptors[i].Getvalues()) stream.Write(f + "\t");
+                foreach (double f in ListDescriptors[i].GetHistovalues()) stream.Write(f + "\t");
                 stream.WriteLine();
             }
             stream.Dispose();

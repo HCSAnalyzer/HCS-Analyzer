@@ -35,15 +35,21 @@
             this.numericUpDownRows = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownHistoSize = new System.Windows.Forms.NumericUpDown();
             this.labelHisto = new System.Windows.Forms.Label();
+            this.checkBoxIsOmitFirstColumn = new System.Windows.Forms.CheckBox();
+            this.checkBoxAddCellNumber = new System.Windows.Forms.CheckBox();
+            this.radioButtonDataHDDB = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButtonDataMemory = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRows)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHistoSize)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(39, 124);
+            this.buttonOk.Location = new System.Drawing.Point(39, 275);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(124, 32);
             this.buttonOk.TabIndex = 3;
@@ -145,11 +151,73 @@
             this.labelHisto.Text = "Histo. Size";
             this.labelHisto.Visible = false;
             // 
+            // checkBoxIsOmitFirstColumn
+            // 
+            this.checkBoxIsOmitFirstColumn.AutoSize = true;
+            this.checkBoxIsOmitFirstColumn.Checked = true;
+            this.checkBoxIsOmitFirstColumn.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxIsOmitFirstColumn.Location = new System.Drawing.Point(48, 120);
+            this.checkBoxIsOmitFirstColumn.Name = "checkBoxIsOmitFirstColumn";
+            this.checkBoxIsOmitFirstColumn.Size = new System.Drawing.Size(107, 17);
+            this.checkBoxIsOmitFirstColumn.TabIndex = 6;
+            this.checkBoxIsOmitFirstColumn.Text = "Omit First Column";
+            this.checkBoxIsOmitFirstColumn.UseVisualStyleBackColor = true;
+            this.checkBoxIsOmitFirstColumn.Visible = false;
+            // 
+            // checkBoxAddCellNumber
+            // 
+            this.checkBoxAddCellNumber.AutoSize = true;
+            this.checkBoxAddCellNumber.Checked = true;
+            this.checkBoxAddCellNumber.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAddCellNumber.Location = new System.Drawing.Point(45, 146);
+            this.checkBoxAddCellNumber.Name = "checkBoxAddCellNumber";
+            this.checkBoxAddCellNumber.Size = new System.Drawing.Size(113, 17);
+            this.checkBoxAddCellNumber.TabIndex = 7;
+            this.checkBoxAddCellNumber.Text = "Add \"Cell number\"";
+            this.checkBoxAddCellNumber.UseVisualStyleBackColor = true;
+            this.checkBoxAddCellNumber.Visible = false;
+            // 
+            // radioButtonDataHDDB
+            // 
+            this.radioButtonDataHDDB.AutoSize = true;
+            this.radioButtonDataHDDB.Location = new System.Drawing.Point(47, 24);
+            this.radioButtonDataHDDB.Name = "radioButtonDataHDDB";
+            this.radioButtonDataHDDB.Size = new System.Drawing.Size(90, 17);
+            this.radioButtonDataHDDB.TabIndex = 8;
+            this.radioButtonDataHDDB.Text = "HD Database";
+            this.radioButtonDataHDDB.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.radioButtonDataMemory);
+            this.groupBox1.Controls.Add(this.radioButtonDataHDDB);
+            this.groupBox1.Location = new System.Drawing.Point(9, 178);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(185, 91);
+            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Data Access";
+            // 
+            // radioButtonDataMemory
+            // 
+            this.radioButtonDataMemory.AutoSize = true;
+            this.radioButtonDataMemory.Checked = true;
+            this.radioButtonDataMemory.Location = new System.Drawing.Point(61, 53);
+            this.radioButtonDataMemory.Name = "radioButtonDataMemory";
+            this.radioButtonDataMemory.Size = new System.Drawing.Size(62, 17);
+            this.radioButtonDataMemory.TabIndex = 9;
+            this.radioButtonDataMemory.TabStop = true;
+            this.radioButtonDataMemory.Text = "Memory";
+            this.radioButtonDataMemory.UseVisualStyleBackColor = true;
+            // 
             // FormForPlateDimensions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(197, 168);
+            this.ClientSize = new System.Drawing.Size(202, 317);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.checkBoxAddCellNumber);
+            this.Controls.Add(this.checkBoxIsOmitFirstColumn);
             this.Controls.Add(this.numericUpDownHistoSize);
             this.Controls.Add(this.labelHisto);
             this.Controls.Add(this.numericUpDownRows);
@@ -163,6 +231,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRows)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHistoSize)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,5 +247,10 @@
         public System.Windows.Forms.NumericUpDown numericUpDownRows;
         public System.Windows.Forms.NumericUpDown numericUpDownHistoSize;
         public System.Windows.Forms.Label labelHisto;
+        public System.Windows.Forms.CheckBox checkBoxIsOmitFirstColumn;
+        public System.Windows.Forms.CheckBox checkBoxAddCellNumber;
+        public System.Windows.Forms.RadioButton radioButtonDataHDDB;
+        private System.Windows.Forms.GroupBox groupBox1;
+        public System.Windows.Forms.RadioButton radioButtonDataMemory;
     }
 }

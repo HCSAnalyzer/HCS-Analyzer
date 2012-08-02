@@ -28,15 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormForImportExcel));
             this.buttonOk = new System.Windows.Forms.Button();
             this.dataGridViewForImport = new System.Windows.Forms.DataGridView();
+            this.contextMenuStripDataGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unselectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.numericUpDownRows = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownColumns = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonChangeMode = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewForImport)).BeginInit();
+            this.contextMenuStripDataGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRows)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -45,13 +51,13 @@
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Location = new System.Drawing.Point(480, 600);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(149, 30);
             this.buttonOk.TabIndex = 4;
             this.buttonOk.Text = "Ok";
             this.buttonOk.UseVisualStyleBackColor = true;
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // dataGridViewForImport
             // 
@@ -61,10 +67,33 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewForImport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewForImport.ContextMenuStrip = this.contextMenuStripDataGrid;
             this.dataGridViewForImport.Location = new System.Drawing.Point(12, 127);
             this.dataGridViewForImport.Name = "dataGridViewForImport";
             this.dataGridViewForImport.Size = new System.Drawing.Size(617, 467);
             this.dataGridViewForImport.TabIndex = 3;
+            // 
+            // contextMenuStripDataGrid
+            // 
+            this.contextMenuStripDataGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectAllToolStripMenuItem,
+            this.unselectAllToolStripMenuItem});
+            this.contextMenuStripDataGrid.Name = "contextMenuStripDataGrid";
+            this.contextMenuStripDataGrid.Size = new System.Drawing.Size(137, 48);
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.selectAllToolStripMenuItem.Text = "Select All";
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
+            // 
+            // unselectAllToolStripMenuItem
+            // 
+            this.unselectAllToolStripMenuItem.Name = "unselectAllToolStripMenuItem";
+            this.unselectAllToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.unselectAllToolStripMenuItem.Text = "Unselect All";
+            this.unselectAllToolStripMenuItem.Click += new System.EventHandler(this.unselectAllToolStripMenuItem_Click);
             // 
             // numericUpDownRows
             // 
@@ -131,11 +160,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Plate Dimensions";
             // 
+            // buttonChangeMode
+            // 
+            this.buttonChangeMode.Enabled = false;
+            this.buttonChangeMode.Location = new System.Drawing.Point(503, 12);
+            this.buttonChangeMode.Name = "buttonChangeMode";
+            this.buttonChangeMode.Size = new System.Drawing.Size(126, 27);
+            this.buttonChangeMode.TabIndex = 39;
+            this.buttonChangeMode.Text = "Well Position Mode";
+            this.buttonChangeMode.UseVisualStyleBackColor = true;
+            this.buttonChangeMode.Click += new System.EventHandler(this.buttonChangeMode_Click);
+            // 
             // FormForImportExcel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(641, 642);
+            this.Controls.Add(this.buttonChangeMode);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dataGridViewForImport);
             this.Controls.Add(this.buttonOk);
@@ -143,6 +184,7 @@
             this.Name = "FormForImportExcel";
             this.Text = "Import";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewForImport)).EndInit();
+            this.contextMenuStripDataGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRows)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -160,5 +202,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripDataGrid;
+        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem unselectAllToolStripMenuItem;
+        private System.Windows.Forms.Button buttonChangeMode;
     }
 }

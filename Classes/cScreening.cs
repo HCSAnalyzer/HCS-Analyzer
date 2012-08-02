@@ -12,6 +12,8 @@ using weka.core;
 using HCSAnalyzer.Classes;
 using HCSAnalyzer.Classes._3D;
 using System.Data.SQLite;
+using weka.classifiers;
+using weka.classifiers.trees;
 
 namespace LibPlateAnalysis
 {
@@ -33,7 +35,7 @@ namespace LibPlateAnalysis
         {
             if (Idx < 0) return null;
             if (this.Count == 0) return null;
-            // if (Idx > this.Count) return null;
+            if (Idx >= this.Count) return null;
             return this[Idx];
         }
     }
@@ -41,7 +43,7 @@ namespace LibPlateAnalysis
 
     public class cInfoForHierarchical
     {
-        public  weka.core.Instances Ninsts = null;
+        public weka.core.Instances Ninsts = null;
         public List<cWell> ListIndexedWells = new List<cWell>();
         public List<double> ListMin = new List<double>();
         public List<double> ListMax = new List<double>();
@@ -67,17 +69,92 @@ namespace LibPlateAnalysis
         }
     }
 
+
+    public class cCellBasedClassification
+    {
+        public Classifier ClassificationModel_CellBased;
+        public Evaluation evaluation;
+        public J48 J48Model { get; private set; }
+        public int NumClasses { get; private set; }
+
+        public void SetJ48Tree(J48 J48Model, int NumClasses)
+        {
+            this.J48Model = J48Model;
+            this.NumClasses = NumClasses;
+
+
+        }
+
+
+        public Instances CreateInstancesWithoutClass(DataTable dt)
+        {
+            weka.core.FastVector atts = new FastVector();
+            int columnNo = 0;
+
+            // Descriptors loop
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                //if (ParentScreening.ListDescriptors[i].IsActive() == false) continue;
+                atts.addElement(new weka.core.Attribute(dt.Columns[i].ColumnName));
+                columnNo++;
+            }
+            // weka.core.FastVector attVals = new FastVector();
+            Instances data1 = new Instances("MyRelation", atts, 0);
+
+            for (int IdxRow = 0; IdxRow < dt.Rows.Count; IdxRow++)
+            {
+                double[] vals = new double[data1.numAttributes()];
+                for (int Col = 0; Col < columnNo; Col++)
+                {
+                    //if (ParentScreening.ListDescriptors[Col].IsActive() == false) continue;
+                    vals[Col] = double.Parse(dt.Rows[IdxRow][Col].ToString());
+                }
+                data1.add(new DenseInstance(1.0, vals));
+            }
+
+            return data1;
+        }
+
+
+        public FormForClassificationTree DisplayTree(cGlobalInfo GlobalInfo)
+        {
+            FormForClassificationTree WindowForTree = new FormForClassificationTree();
+
+            if (J48Model == null) return null;
+
+            string StringForTree = J48Model.graph().Remove(0, J48Model.graph().IndexOf("{") + 2);
+
+            WindowForTree.gViewerForTreeClassif.Graph = GlobalInfo.WindowHCSAnalyzer.ComputeAndDisplayGraph(StringForTree.Remove(StringForTree.Length - 3, 3));
+
+            WindowForTree.richTextBoxConsoleForClassification.Clear();
+
+            if (evaluation != null)
+            {
+                WindowForTree.richTextBoxConsoleForClassification.AppendText(evaluation.toSummaryString());
+                WindowForTree.richTextBoxConsoleForClassification.AppendText(evaluation.toMatrixString());
+            }
+
+            return WindowForTree;
+
+        }
+
+
+    }
+
+
     public class cScreening
     {
 
         public cScreening()
         {
-            
+
         }
 
         public bool ISLoading = true;
 
         public cReference Reference = null;
+
+        public cCellBasedClassification CellBasedClassification = new cCellBasedClassification();
 
         public c3DWorld _3DWorldForPlateDisplay;
 
@@ -89,7 +166,7 @@ namespace LibPlateAnalysis
                 _3DWorldForPlateDisplay.Terminate();
                 _3DWorldForPlateDisplay = null;
             }
-        
+
         }
 
         public Point ptOriginal = new Point();
@@ -99,7 +176,7 @@ namespace LibPlateAnalysis
         public Point ClientPosLast = new Point();
 
         public List<string> ListPlateBaseddescriptorNames;
-        
+
         public int GetNumberOfActiveDescriptor()
         {
             int Res = 0;
@@ -119,10 +196,10 @@ namespace LibPlateAnalysis
         public bool IsSelectionApplyToAllPlates = false;
         public int CurrentDisplayPlateIdx = 0;
 
-        public Label LabelForClass;
+
         public cGlobalInfo GlobalInfo;
         public cListDescriptors ListDescriptors;
-        
+
         public Label LabelForMin;
         public Label LabelForMax;
         public Panel PanelForLUT;
@@ -165,16 +242,26 @@ namespace LibPlateAnalysis
 
             foreach (cPlate CurrentPlate in this.ListPlatesActive)
             {
-                foreach (cWell CurrentWell in CurrentPlate.ListActiveWells)
-                {
-                    double[] vals = new double[data1.numAttributes()];
-                    for (int Col = 0; Col < columnNo; Col++)
+                //   foreach (cWell CurrentWell in CurrentPlate.ListActiveWells)
+                //  {
+                for (int j = 0; j < this.Columns; j++)
+                    for (int i = 0; i < this.Rows; i++)
                     {
-                        if (this.ListDescriptors[Col].IsActive() == false) continue;
-                        vals[Col] = CurrentWell.ListDescriptors[Col].GetValue();
+                        cWell CurrentWell = CurrentPlate.GetWell(j, i, false);
+
+                        if (CurrentWell == null) continue;
+
+                        double[] vals = new double[data1.numAttributes()];
+                        int IdxRealCol = 0;
+
+                        for (int Col = 0; Col < this.ListDescriptors.Count; Col++)
+                        {
+                            if (this.ListDescriptors[Col].IsActive() == false) continue;
+                            vals[IdxRealCol++] = CurrentWell.ListDescriptors[Col].GetValue();
+                        }
+                        data1.add(new DenseInstance(1.0, vals));
                     }
-                    data1.add(new DenseInstance(1.0, vals));
-                }
+                // }
             }
             return data1;
         }
@@ -208,10 +295,12 @@ namespace LibPlateAnalysis
                     attVals.addElement("Class" + (IdxWell).ToString());
                     InfoForHierarchical.ListIndexedWells.Add(CurrentWell);
                     double[] vals = new double[InfoForHierarchical.Ninsts.numAttributes()];
-                    for (int Col = 0; Col < columnNo; Col++)
+
+                    int IdxCol = 0;
+                    for (int Col = 0; Col < this.ListDescriptors.Count; Col++)
                     {
                         if (this.ListDescriptors[Col].IsActive() == false) continue;
-                        vals[Col] = CurrentWell.ListDescriptors[Col].GetValue();
+                        vals[IdxCol++] = CurrentWell.ListDescriptors[Col].GetValue();
                     }
                     vals[columnNo] = IdxWell;
                     InfoForHierarchical.Ninsts.add(new DenseInstance(1.0, vals));
@@ -255,10 +344,12 @@ namespace LibPlateAnalysis
                 {
                     if (CurrentWell.GetClass() == NeutralClass) continue;
                     double[] vals = new double[data1.numAttributes()];
-                    for (int Col = 0; Col < columnNo; Col++)
+
+                    int IdxCol = 0;
+                    for (int Col = 0; Col < this.ListDescriptors.Count; Col++)
                     {
                         if (this.ListDescriptors[Col].IsActive() == false) continue;
-                        vals[Col] = CurrentWell.ListDescriptors[Col].GetValue();
+                        vals[IdxCol++] = CurrentWell.ListDescriptors[Col].GetValue();
                     }
                     vals[columnNo] = InfoClass.CorrespondanceTable[CurrentWell.GetClass()];
                     data1.add(new DenseInstance(1.0, vals));
@@ -275,13 +366,22 @@ namespace LibPlateAnalysis
         /// <param name="ListClasses">Table containing the classes</param>
         public void AssignClass(double[] ListClasses)
         {
-            int i=0;
+            int idxClass = 0;
             foreach (cPlate CurrentPlate in this.ListPlatesActive)
             {
-                foreach (cWell CurrentWell in CurrentPlate.ListActiveWells)
-                {
-                    CurrentWell.SetClass((int)ListClasses[i++]);
-                }
+                //foreach (cWell CurrentWell in CurrentPlate.ListActiveWells)
+                //{
+
+                for (int j = 0; j < this.Columns; j++)
+                    for (int i = 0; i < this.Rows; i++)
+                    {
+                        cWell CurrentWell = CurrentPlate.GetWell(j, i, false);
+
+                        if (CurrentWell == null) continue;
+
+
+                        CurrentWell.SetClass((int)ListClasses[idxClass++]);
+                    }
                 CurrentPlate.UpDateWellsSelection();
             }
         }
@@ -305,7 +405,7 @@ namespace LibPlateAnalysis
 
         public cInfoDescriptors BuildInfoDesc()
         {
-           // int[] ListClasses = UpdateNumberOfClass();
+            // int[] ListClasses = UpdateNumberOfClass();
 
             cInfoDescriptors InfoDescriptors = new cInfoDescriptors();
             InfoDescriptors.CorrespondanceTable = new int[this.ListDescriptors.Count];
@@ -342,11 +442,41 @@ namespace LibPlateAnalysis
             return NumberOfClasses;
         }
 
+        public int[] GetClassPopulation()
+        {
+            int[] ListClass = new int[GlobalInfo.GetNumberofDefinedClass()];
+            foreach (cPlate CurrentPlateToProcess in this.ListPlatesActive)
+            {
+                foreach (cWell TmpWell in CurrentPlateToProcess.ListActiveWells)
+                {
+                    int Class = TmpWell.GetClass();
+                    if (Class >= 0)
+                        ListClass[Class]++;
+                    else
+                    {
+                    }
+                }
+            }
+
+
+            return ListClass;
+        }
+
+        public int GetNumberOfActiveWells()
+        {
+            int TotalWells = 0;
+            foreach (cPlate CurrentPlateToProcess in this.ListPlatesActive)
+            {
+                TotalWells += CurrentPlateToProcess.GetNumberOfActiveWells();
+            }
+            return TotalWells;
+        }
+
         public cInfoClass GetNumberOfClassesBut(int NeutralClass)
         {
             NeutralClass++;
             int NumberOfPlates = this.ListPlatesActive.Count;
-            int[] CompleteListClasses = new int[GlobalInfo.GetNumberofDefinedClass()+1];
+            int[] CompleteListClasses = new int[GlobalInfo.GetNumberofDefinedClass() + 1];
 
             foreach (cPlate CurrentPlateToProcess in this.ListPlatesActive)
             {
@@ -358,7 +488,7 @@ namespace LibPlateAnalysis
             InfoClass.CorrespondanceTable = new int[GlobalInfo.GetNumberofDefinedClass()];
 
 
-           // int NumberOfClasses = 0;
+            // int NumberOfClasses = 0;
             for (int i = 1; i < CompleteListClasses.Length; i++)
             {
                 if ((CompleteListClasses[i] > 0) && (i != NeutralClass))
@@ -384,7 +514,7 @@ namespace LibPlateAnalysis
             //this.GlobalInfo = new cGlobalInfo(this);
             this.Name = Name;
 
-          
+
 
             //ListPlate = new List<cPlate>();
             ListPlatesAvailable = new cExtendPlateList();
@@ -392,14 +522,14 @@ namespace LibPlateAnalysis
             //this.CurrentCompleteListBoxForPlates = CurrentCompleteListBoxForPlates;
             //this.listBoxPlateNameToProcess = listBoxPlateNameToProcess;
 
-           // for (int i = 0; i < this.CurrentCompleteListBoxForPlates.Items.Count; i++)
-        //        this.listBoxPlateNameToProcess.Items.Add(this.CurrentCompleteListBoxForPlates.Items[i]);
-            
+            // for (int i = 0; i < this.CurrentCompleteListBoxForPlates.Items.Count; i++)
+            //        this.listBoxPlateNameToProcess.Items.Add(this.CurrentCompleteListBoxForPlates.Items[i]);
 
-           // this.PanelForPlate = GlobalInfo.panelForPlate;
-            
-            
-            
+
+            // this.PanelForPlate = GlobalInfo.panelForPlate;
+
+
+
 
             this.ListPlateBaseddescriptorNames = new List<string>();
             this.ListPlateBaseddescriptorNames.Add("Row_Pos");
@@ -414,11 +544,6 @@ namespace LibPlateAnalysis
         public int GetNumberOfOriginalPlates()
         {
             return ListPlatesAvailable.Count;
-        }
-
-        public int GetNumberOfActivePlates()
-        {
-            return ListPlatesActive.Count;
         }
 
         public int GetSelectionType()
@@ -451,8 +576,8 @@ namespace LibPlateAnalysis
             this.ListPlatesActive = new cExtendPlateList();
             foreach (cPlate Plate in ListPlatesAvailable) this.ListPlatesActive.Add(Plate);
 
-           // this.ListPlatesAvailable = new cExtendPlateList();
-          //  foreach (cPlate Plate in ListPlatesAvailable) this.ListPlatesAvailable.Add(Plate);
+            // this.ListPlatesAvailable = new cExtendPlateList();
+            //  foreach (cPlate Plate in ListPlatesAvailable) this.ListPlatesAvailable.Add(Plate);
 
         }
 
@@ -483,10 +608,10 @@ namespace LibPlateAnalysis
 
             }
 
-         //   for (int Desc = 0; Desc < this.ListDescriptors.Count; Desc++)
-         //       ListDescriptors.Add(true);
+            //   for (int Desc = 0; Desc < this.ListDescriptors.Count; Desc++)
+            //       ListDescriptors.Add(true);
 
-        //    this.GlobalInfo.CurrentRichTextBox.AppendText(ListPlatesAvailable.Count + " plates processed");
+            //    this.GlobalInfo.CurrentRichTextBox.AppendText(ListPlatesAvailable.Count + " plates processed");
 
             UpDatePlateListWithFullAvailablePlate();
 
@@ -604,7 +729,7 @@ namespace LibPlateAnalysis
             int RejectedWells = 0;
             int WellLoaded = 0;
             this.ListDescriptors.Clean();
-            this.ListDescriptors.AddNew(new cDescriptorsType("Descriptor", true, 1));
+            this.ListDescriptors.AddNew(new cDescriptorsType("Descriptor", true, 1, GlobalInfo));
 
             ListPlatesAvailable = new cExtendPlateList();
 
@@ -612,12 +737,13 @@ namespace LibPlateAnalysis
             {
                 string FileName = FileNames[i];
 
+
                 StreamReader sr = new StreamReader(FileName);
                 string line = sr.ReadLine();
 
                 int Idx = line.IndexOf(" ");
 
-               // if (Idx == -1) Idx = 0;
+                // if (Idx == -1) Idx = 0;
                 string PlateNumber = line.Remove(Idx);
                 int NumberOfPlate = Convert.ToInt32(PlateNumber);
 
@@ -664,7 +790,7 @@ namespace LibPlateAnalysis
                                 goto NEXT;
                             }
 
-                            cDescriptor Desc = new cDescriptor(CurrentValue, this.ListDescriptors[0],this);
+                            cDescriptor Desc = new cDescriptor(CurrentValue, this.ListDescriptors[0], this);
                             cPlate CurrentPlate = ListPlatesAvailable[ListPlatesAvailable.Count - IdxPlate - 1];
                             cWell CurrentWell = new cWell(Desc, CurrentCol + 1, CurrentRow + 1, this, CurrentPlate);
                             CurrentPlate.AddWell(CurrentWell);
@@ -725,10 +851,10 @@ namespace LibPlateAnalysis
 
                 if (IsAppend == false)
                 {
-                   // this.ListDescriptorName = new List<string>();
+                    // this.ListDescriptorName = new List<string>();
                     this.ListDescriptors.Clean();
 
-                 //   for (int i = 1 + Mode; i < ListDesc.Count; i++) this.ListDescriptors.Add(new cDescriptorsType(ListDesc[i],true,true);
+                    //   for (int i = 1 + Mode; i < ListDesc.Count; i++) this.ListDescriptors.Add(new cDescriptorsType(ListDesc[i],true,true);
                 }
                 else
                 {
@@ -785,7 +911,7 @@ namespace LibPlateAnalysis
                             goto NEXT;
                         }
 
-                        Desc = new cDescriptor(CurrentValue, this.ListDescriptors[i - (1 + Mode)],this);
+                        Desc = new cDescriptor(CurrentValue, this.ListDescriptors[i - (1 + Mode)], this);
                         LDesc.Add(Desc);
                     }
                     int[] Pos = new int[2];
@@ -826,7 +952,7 @@ namespace LibPlateAnalysis
 
 
             this.ListDescriptors.Clean();
-          //  this.ListDescriptors.AddNew(new cDescriptorsType("Descriptor", true, 1));
+            //  this.ListDescriptors.AddNew(new cDescriptorsType("Descriptor", true, 1));
 
 
             // ListPlate = new List<cPlate>();
@@ -842,8 +968,8 @@ namespace LibPlateAnalysis
                 int Idx = line.IndexOf("\t");
                 string TmLine = line.Remove(0, 1);
                 line = TmLine;
-               // this.ListDescriptorName = new List<string>();
-               // this.ListDescriptors.Clean();
+                // this.ListDescriptorName = new List<string>();
+                // this.ListDescriptors.Clean();
                 if (IsFirstLoop)
                 {
                     while (Idx != -1)
@@ -852,20 +978,20 @@ namespace LibPlateAnalysis
                         if (Idx != -1)
                         {
                             string DescriptorName = line.Remove(Idx, line.Length - Idx);
-                            this.ListDescriptors.AddNew(new cDescriptorsType(DescriptorName, true, 1));
+                            this.ListDescriptors.AddNew(new cDescriptorsType(DescriptorName, true, 1, GlobalInfo));
                             TmLine = line.Remove(0, Idx + 1);
                             line = TmLine;
                         }
                         else if (line.Length > 0)
                         {
                             string DescriptorName = line;
-                            this.ListDescriptors.AddNew(new cDescriptorsType(DescriptorName, true, 1));
+                            this.ListDescriptors.AddNew(new cDescriptorsType(DescriptorName, true, 1, GlobalInfo));
                         }
                     }
                     IsFirstLoop = false;
                 }
                 line = sr.ReadLine();
-                this.Rows =NumRow;
+                this.Rows = NumRow;
                 this.Columns = NumCol;
                 this.ListDescriptors.CurrentSelectedDescriptor = 0;
 
@@ -902,7 +1028,7 @@ namespace LibPlateAnalysis
                                 goto NEXT;
                             }
 
-                            cDescriptor Desc = new cDescriptor(Convert.ToDouble(NewLine), this.ListDescriptors[i],this);
+                            cDescriptor Desc = new cDescriptor(Convert.ToDouble(NewLine), this.ListDescriptors[i], this);
                             LDesc.Add(Desc);
 
                             NewLine = line.Remove(0, Idx + 1);

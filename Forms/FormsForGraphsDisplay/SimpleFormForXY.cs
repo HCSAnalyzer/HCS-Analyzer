@@ -128,9 +128,9 @@ namespace LibPlateAnalysis
         Series CurrentSeries;
         ChartArea CurrentChartArea = new ChartArea();
 
-        public void DisplayXY()
+        public bool DisplayXY()
         {
-            if (CompleteScreening == null) return;
+            if (CompleteScreening == null) return false;
 
             int DescX = this.comboBoxDescriptorX.SelectedIndex;
             int DescY = this.comboBoxDescriptorY.SelectedIndex;
@@ -190,7 +190,11 @@ namespace LibPlateAnalysis
                     }
             }
 
-
+            if (CurrentSeries.Points.Count < 2)
+            {
+                MessageBox.Show("Statistical Analyses - More than one data point needed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
 
             CurrentChartArea.CursorX.IsUserSelectionEnabled = true;
             CurrentChartArea.CursorY.IsUserSelectionEnabled = true;
@@ -223,6 +227,7 @@ namespace LibPlateAnalysis
 
 
             this.chartForSimpleFormXY.Update();
+            return true;
         }
 
 

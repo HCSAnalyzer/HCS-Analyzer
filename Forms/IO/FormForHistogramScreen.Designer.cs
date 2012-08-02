@@ -72,7 +72,7 @@
             // buttonGenerate
             // 
             this.buttonGenerate.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonGenerate.Location = new System.Drawing.Point(63, 576);
+            this.buttonGenerate.Location = new System.Drawing.Point(36, 576);
             this.buttonGenerate.Name = "buttonGenerate";
             this.buttonGenerate.Size = new System.Drawing.Size(185, 34);
             this.buttonGenerate.TabIndex = 0;
@@ -82,7 +82,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(55, 186);
+            this.label1.Location = new System.Drawing.Point(39, 186);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 13);
             this.label1.TabIndex = 1;
@@ -90,7 +90,7 @@
             // 
             // numericUpDownHistogramSize
             // 
-            this.numericUpDownHistogramSize.Location = new System.Drawing.Point(152, 184);
+            this.numericUpDownHistogramSize.Location = new System.Drawing.Point(136, 184);
             this.numericUpDownHistogramSize.Maximum = new decimal(new int[] {
             1215752192,
             23,
@@ -118,7 +118,7 @@
             this.groupBoxGeneralInfo.Controls.Add(this.numericUpDownRows);
             this.groupBoxGeneralInfo.Controls.Add(this.label4);
             this.groupBoxGeneralInfo.Controls.Add(this.numericUpDownColumns);
-            this.groupBoxGeneralInfo.Location = new System.Drawing.Point(27, 50);
+            this.groupBoxGeneralInfo.Location = new System.Drawing.Point(7, 50);
             this.groupBoxGeneralInfo.Name = "groupBoxGeneralInfo";
             this.groupBoxGeneralInfo.Size = new System.Drawing.Size(243, 119);
             this.groupBoxGeneralInfo.TabIndex = 21;
@@ -221,7 +221,7 @@
             // checkBoxAddAsDescriptor
             // 
             this.checkBoxAddAsDescriptor.AutoSize = true;
-            this.checkBoxAddAsDescriptor.Location = new System.Drawing.Point(92, 24);
+            this.checkBoxAddAsDescriptor.Location = new System.Drawing.Point(73, 24);
             this.checkBoxAddAsDescriptor.Name = "checkBoxAddAsDescriptor";
             this.checkBoxAddAsDescriptor.Size = new System.Drawing.Size(110, 17);
             this.checkBoxAddAsDescriptor.TabIndex = 20;
@@ -321,7 +321,7 @@
             this.groupBox1.Controls.Add(this.labelStdevPop1);
             this.groupBox1.Controls.Add(this.labelMeanPop1);
             this.groupBox1.Controls.Add(this.numericUpDownPopulation1Stdev);
-            this.groupBox1.Location = new System.Drawing.Point(27, 219);
+            this.groupBox1.Location = new System.Drawing.Point(7, 219);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(243, 157);
             this.groupBox1.TabIndex = 28;
@@ -336,7 +336,7 @@
             this.groupBox2.Controls.Add(this.labelStdevPop2);
             this.groupBox2.Controls.Add(this.labelMeanPop2);
             this.groupBox2.Controls.Add(this.numericUpDownPopulation2Stdev);
-            this.groupBox2.Location = new System.Drawing.Point(29, 386);
+            this.groupBox2.Location = new System.Drawing.Point(7, 386);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(243, 157);
             this.groupBox2.TabIndex = 29;
@@ -431,7 +431,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(297, 622);
+            this.ClientSize = new System.Drawing.Size(256, 622);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxGeneralInfo);

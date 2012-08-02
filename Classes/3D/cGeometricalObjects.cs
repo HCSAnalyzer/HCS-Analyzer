@@ -80,6 +80,8 @@ namespace HCSAnalyzer.Classes._3D
     }
 
 
+
+
     public class c3DDRC : cGeometric3DObject
     {
         public vtkParametricSpline Spline;

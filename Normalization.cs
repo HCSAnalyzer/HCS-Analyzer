@@ -148,7 +148,7 @@ namespace HCSAnalyzer
                             if (TempWell == null) continue;
                             for (int i = 0; i < TempWell.ListDescriptors[Desc].GetAssociatedType().GetBinNumber(); i++)
                             {
-                                double Value = TempWell.ListDescriptors[Desc].Getvalue(i) - CurrentMean;
+                                double Value = TempWell.ListDescriptors[Desc].GetHistovalue(i) - CurrentMean;
                                 TempWell.ListDescriptors[Desc].SetHistoValues(Value / CurrentStd);
                             }
 
@@ -229,7 +229,7 @@ namespace HCSAnalyzer
                             if (TempWell == null) continue;
                             for (int i = 0; i < TempWell.ListDescriptors[Desc].GetAssociatedType().GetBinNumber(); i++)
                             {
-                                double Val = TempWell.ListDescriptors[Desc].Getvalue(i);
+                                double Val = TempWell.ListDescriptors[Desc].GetHistovalue(i);
                                 Val /= CurrentMean;
                                 TempWell.ListDescriptors[Desc].SetHistoValues(i,Val*100);
                             }
@@ -304,7 +304,7 @@ namespace HCSAnalyzer
                             if (TempWell == null) continue;
                             for (int i = 0; i < TempWell.ListDescriptors[Desc].GetAssociatedType().GetBinNumber(); i++)
                             {
-                                double CurrValue = TempWell.ListDescriptors[Desc].Getvalue(i);
+                                double CurrValue = TempWell.ListDescriptors[Desc].GetHistovalue(i);
                                 TempWell.ListDescriptors[Desc].SetHistoValues(i, (CurrValue - CurrentMeanNeg) / Denominator);
                             }
                             TempWell.ListDescriptors[Desc].UpDateDescriptorStatistics();

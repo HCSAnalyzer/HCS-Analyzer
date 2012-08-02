@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using weka.classifiers;
 using HCSAnalyzer.Classes;
 using weka.core.neighboursearch;
+using HCSAnalyzer.Forms.ClusteringForms;
+using HCSAnalyzer.Forms.IO;
 
 namespace HCSAnalyzer
 {
@@ -84,11 +86,34 @@ namespace HCSAnalyzer
             }
             else if (comboBoxClusteringMethod.SelectedIndex == 1)   // ---------------- EM --------------------------
             {
-                if (checkBoxAutomatedClusterNumber.Checked)
-                    ClusteringEM(radioButtonClusterFullScreen.Checked, -1);
-                else
-                    ClusteringEM(radioButtonClusterFullScreen.Checked, (int)numericUpDownClusterNumber.Value);
+                FormForEMInfo WindowEMinfo = new FormForEMInfo();
 
+                if (WindowEMinfo.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+
+                if (checkBoxAutomatedClusterNumber.Checked)
+                {
+                    string feedback = ClusteringEM(radioButtonClusterFullScreen.Checked, -1, WindowEMinfo);
+                    if (feedback != null)
+                    {
+                        FormForCellByCellClusteringResults WindowFormForCellByCellClusteringResults = new FormForCellByCellClusteringResults();
+                        WindowFormForCellByCellClusteringResults.richTextBoxResults.Clear();
+                        WindowFormForCellByCellClusteringResults.richTextBoxResults.AppendText(feedback);
+                        WindowFormForCellByCellClusteringResults.buttonPerformLearning.Text = "Ok";
+                        WindowFormForCellByCellClusteringResults.ShowDialog();
+                    }
+                }
+                else
+                {
+                    string feedback = ClusteringEM(radioButtonClusterFullScreen.Checked, (int)numericUpDownClusterNumber.Value, WindowEMinfo);
+                    if (feedback != null)
+                    {
+                        FormForCellByCellClusteringResults WindowFormForCellByCellClusteringResults = new FormForCellByCellClusteringResults();
+                        WindowFormForCellByCellClusteringResults.richTextBoxResults.Clear();
+                        WindowFormForCellByCellClusteringResults.richTextBoxResults.AppendText(feedback);
+                        WindowFormForCellByCellClusteringResults.buttonPerformLearning.Text = "Ok";
+                        WindowFormForCellByCellClusteringResults.ShowDialog();
+                    }
+                }
             }
             else if (comboBoxClusteringMethod.SelectedIndex == 2)   // ---------------- Hierarchical --------------------------
             {
@@ -122,12 +147,15 @@ namespace HCSAnalyzer
         #endregion
 
         #region EM Clustering
-        private void ClusteringEM(bool IsFullScreen, int ClassNumber)
+        private string ClusteringEM(bool IsFullScreen, int ClassNumber, FormForEMInfo WindowEMinfo)
         {
             if (IsFullScreen)
             {
-                ClusteringEMGlobalScreen(ClassNumber);
+                string feedback = ClusteringEMGlobalScreen(ClassNumber, WindowEMinfo);
                 richTextBoxInfoClustering.AppendText("\nGlobal EM clustering done !\n");
+                return feedback;
+
+
             }
             else
             {
@@ -135,10 +163,11 @@ namespace HCSAnalyzer
                 for (int PlateIdx = 0; PlateIdx < NumberOfPlates; PlateIdx++)
                 {
                     cPlate CurrentPlateToProcess = CompleteScreening.ListPlatesActive.GetPlate(PlateIdx);
-                    if ((ClassNumber == 0) || (ClassNumber == 1)) return;
-                    ClusteringEMSinglePlate(CurrentPlateToProcess, ClassNumber);
+                    if ((ClassNumber == 0) || (ClassNumber == 1)) return null;
+                    ClusteringEMSinglePlate(CurrentPlateToProcess, ClassNumber, WindowEMinfo);
                 }
                 richTextBoxInfoClustering.AppendText("\nPlate by plate EM clustering done !\n");
+                return null;
             }
         }
 
@@ -147,12 +176,21 @@ namespace HCSAnalyzer
         /// </summary>
         /// <param name="CurrentPlateToProcess">the plate to process</param>
         /// <param name="ClassNumber">Number of class</param>
-        private void ClusteringEMSinglePlate(cPlate CurrentPlateToProcess, int ClassNumber)
+        private void ClusteringEMSinglePlate(cPlate CurrentPlateToProcess, int ClassNumber, FormForEMInfo WindowEMinfo)
         {
             weka.core.Instances Ninsts = CurrentPlateToProcess.CreateInstancesWithoutClass();// CreateInstanceWithoutClass(CurrentTable);
-
+            if (Ninsts.numInstances() == 0)
+            {
+                MessageBox.Show("No active wells !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             weka.clusterers.EM EMCluster = new EM();
             EMCluster.setNumClusters(ClassNumber);
+
+            EMCluster.setMaxIterations((int)WindowEMinfo.numericUpDownMaxIterations.Value);
+            EMCluster.setMinStdDev((double)WindowEMinfo.numericUpDownMinStdev.Value);
+            EMCluster.setSeed((int)WindowEMinfo.numericUpDownSeedNumber.Value);
+
 
             EMCluster.buildClusterer(Ninsts);
             EMCluster.getClusterModelsNumericAtts();
@@ -175,28 +213,33 @@ namespace HCSAnalyzer
         /// perform an EM clustering over the entire screening data
         /// </summary>
         /// <param name="ClassNumber"></param>
-        private void ClusteringEMGlobalScreen(int ClassNumber)
+        private string ClusteringEMGlobalScreen(int ClassNumber, FormForEMInfo WindowEMinfo)
         {
             weka.core.Instances Ninsts = CompleteScreening.CreateInstancesWithoutClass();// CreateInstanceWithoutClass(CurrentTable);
 
             weka.clusterers.EM EMCluster = new EM();
             EMCluster.setNumClusters(ClassNumber);
+            EMCluster.setMaxIterations((int)WindowEMinfo.numericUpDownMaxIterations.Value);
+            EMCluster.setMinStdDev((double)WindowEMinfo.numericUpDownMinStdev.Value);
+            EMCluster.setSeed((int)WindowEMinfo.numericUpDownSeedNumber.Value);
+
             EMCluster.buildClusterer(Ninsts);
             EMCluster.getClusterModelsNumericAtts();
             if (EMCluster.numberOfClusters() > GlobalInfo.GetNumberofDefinedClass())
             {
                 richTextBoxInfoClustering.AppendText("\nCluster Number: more than " + GlobalInfo.GetNumberofDefinedClass() + ", clustering not operated.\n");
-                return;
+                return null;
             }
-            else
-                richTextBoxInfoClustering.AppendText("\n" + EMCluster.numberOfClusters() + " cluster(s) identified");
+
+            richTextBoxInfoClustering.AppendText("\n" + EMCluster.numberOfClusters() + " cluster(s) identified");
 
             ClusterEvaluation eval = new ClusterEvaluation();
             eval.setClusterer(EMCluster);
             eval.evaluateClusterer(Ninsts);
 
-
             CompleteScreening.AssignClass(eval.getClusterAssignments());
+
+            return eval.clusterResultsToString();
         }
 
         #endregion
@@ -229,7 +272,7 @@ namespace HCSAnalyzer
         /// <param name="ClassNumber">Number of class</param>
         private void ClusteringHierarchicalSinglePlate(cPlate CurrentPlateToProcess, int ClassNumber)
         {
-           weka.core.Instances Ninsts = CurrentPlateToProcess.CreateInstancesWithoutClass();
+            weka.core.Instances Ninsts = CurrentPlateToProcess.CreateInstancesWithoutClass();
 
             weka.clusterers.HierarchicalClusterer HClusterer = new HierarchicalClusterer();
 
@@ -383,7 +426,7 @@ namespace HCSAnalyzer
             catch
             {
                 richTextBoxInfoClustering.AppendText("\nPlate: " + PlateToProcess.Name + " skipped: data corrupted (check your descriptor data validity).");
-                
+
                 //MessageBox.Show("Check the data validity", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }

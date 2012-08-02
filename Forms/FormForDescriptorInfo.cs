@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using HCSAnalyzer.Classes;
 
 namespace LibPlateAnalysis
 {
@@ -13,13 +14,28 @@ namespace LibPlateAnalysis
     {
 
         public cDescriptorsType CurrentDesc = null;
+        
+        int OriginalBinNumber;
+
 
         public FormForDescriptorInfo(cDescriptorsType CurrentDesc)
         {
             this.CurrentDesc = CurrentDesc;
             InitializeComponent(); 
             this.textBoxNameDescriptor.Text = CurrentDesc.GetName();
-            this.labelDataType.Text = CurrentDesc.GetDataType();
+
+            if (CurrentDesc.DataType == eDataType.SINGLE)
+            {
+                this.numericUpDownBinValue.Visible = false;
+                this.labelDataType.Text = "Single";
+            }
+            else
+            {
+                this.labelDataType.Text = "Histogram";
+            }
+            this.numericUpDownBinValue.Value = CurrentDesc.GetBinNumber();
+        
+            this.OriginalBinNumber = CurrentDesc.GetBinNumber();
 
             if (CurrentDesc.IsConnectedToDatabase)
             {
@@ -39,6 +55,16 @@ namespace LibPlateAnalysis
             this.Visible = false;
             if(CurrentDesc.GetName()!=this.textBoxNameDescriptor.Text)
                 this.CurrentDesc.ChangeName(this.textBoxNameDescriptor.Text);
+
+
+
+            if (this.numericUpDownBinValue.Value != OriginalBinNumber)
+                this.CurrentDesc.ChangeBinNumber((int)this.numericUpDownBinValue.Value);
+
+
+            //this.CurrentDesc.RefreshHisto(this.numericUpDownBinValue.Value);
+
+
         }
 
 

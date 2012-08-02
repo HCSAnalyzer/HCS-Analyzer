@@ -113,6 +113,22 @@ namespace HCSAnalyzer
             CurrentScreen.GlobalInfo.WindowForDRCDesign.ShowDialog();
         }
 
+        private void buttonApply_Click(object sender, EventArgs e)
+        {
+            if ((CurrentScreen != null) && (CurrentScreen.ListPlatesActive != null))
+                CurrentScreen.GetCurrentDisplayPlate().DisplayDistribution(CurrentScreen.ListDescriptors.CurrentSelectedDescriptor, false);
+        }
+
+        private void numericUpDownManualMin_ValueChanged(object sender, EventArgs e)
+        {
+            if (numericUpDownManualMin.Value >= numericUpDownManualMax.Value) numericUpDownManualMin.Value = numericUpDownManualMax.Value;
+        }
+
+        private void numericUpDownManualMax_ValueChanged(object sender, EventArgs e)
+        {
+            if (numericUpDownManualMax.Value <= numericUpDownManualMin.Value) numericUpDownManualMax.Value = numericUpDownManualMin.Value;
+        }
+
 
 
 

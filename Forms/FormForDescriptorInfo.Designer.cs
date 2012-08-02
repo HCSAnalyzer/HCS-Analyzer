@@ -36,6 +36,8 @@
             this.labelDataType = new System.Windows.Forms.Label();
             this.labelDataBaseConnection = new System.Windows.Forms.Label();
             this.panelForColor = new System.Windows.Forms.Panel();
+            this.numericUpDownBinValue = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBinValue)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -61,7 +63,7 @@
             // 
             this.textBoxNameDescriptor.Location = new System.Drawing.Point(88, 15);
             this.textBoxNameDescriptor.Name = "textBoxNameDescriptor";
-            this.textBoxNameDescriptor.Size = new System.Drawing.Size(163, 20);
+            this.textBoxNameDescriptor.Size = new System.Drawing.Size(186, 20);
             this.textBoxNameDescriptor.TabIndex = 2;
             // 
             // label2
@@ -77,7 +79,7 @@
             // 
             this.labelDataType.AutoSize = true;
             this.labelDataType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDataType.Location = new System.Drawing.Point(111, 60);
+            this.labelDataType.Location = new System.Drawing.Point(96, 62);
             this.labelDataType.Name = "labelDataType";
             this.labelDataType.Size = new System.Drawing.Size(31, 13);
             this.labelDataType.TabIndex = 3;
@@ -102,11 +104,34 @@
             this.panelForColor.Size = new System.Drawing.Size(22, 18);
             this.panelForColor.TabIndex = 6;
             // 
+            // numericUpDownBinValue
+            // 
+            this.numericUpDownBinValue.Location = new System.Drawing.Point(183, 58);
+            this.numericUpDownBinValue.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDownBinValue.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownBinValue.Name = "numericUpDownBinValue";
+            this.numericUpDownBinValue.Size = new System.Drawing.Size(91, 20);
+            this.numericUpDownBinValue.TabIndex = 7;
+            this.numericUpDownBinValue.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // FormForDescriptorInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(299, 176);
+            this.Controls.Add(this.numericUpDownBinValue);
             this.Controls.Add(this.panelForColor);
             this.Controls.Add(this.labelDataBaseConnection);
             this.Controls.Add(this.labelDataType);
@@ -118,6 +143,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormForDescriptorInfo";
             this.Text = "Info Descriptor";
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBinValue)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -132,5 +158,6 @@
         private System.Windows.Forms.Label labelDataType;
         private System.Windows.Forms.Label labelDataBaseConnection;
         public System.Windows.Forms.Panel panelForColor;
+        public System.Windows.Forms.NumericUpDown numericUpDownBinValue;
     }
 }

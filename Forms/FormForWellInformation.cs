@@ -139,6 +139,17 @@ namespace HCSAnalyzer.Forms
             this.CurrentWell.DrawPic(this, null, null);
         }
 
+        private void buttonUpdateAndClose_Click(object sender, EventArgs e)
+        {
+            CurrentWell.Info = this.textBoxInfo.Text;
+            CurrentWell.Name = this.textBoxName.Text;
+            double Concen = 0;
+            if (double.TryParse(this.textBoxConcentration.Text, out Concen))
+                CurrentWell.Concentration = Concen;
+
+            CurrentWell.AssociatedPlate.ParentScreening.GetCurrentDisplayPlate().DisplayDistribution(CurrentWell.AssociatedPlate.ParentScreening.ListDescriptors.CurrentSelectedDescriptor, false);
+        }
+
 
 
 

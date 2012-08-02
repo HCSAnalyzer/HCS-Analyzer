@@ -68,9 +68,9 @@
             "7",
             "8",
             "9"});
-            this.comboBoxForNeutralClass.Location = new System.Drawing.Point(103, 38);
+            this.comboBoxForNeutralClass.Location = new System.Drawing.Point(102, 38);
             this.comboBoxForNeutralClass.Name = "comboBoxForNeutralClass";
-            this.comboBoxForNeutralClass.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxForNeutralClass.Size = new System.Drawing.Size(112, 21);
             this.comboBoxForNeutralClass.TabIndex = 27;
             this.comboBoxForNeutralClass.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxForNeutralClass_DrawItem);
             // 

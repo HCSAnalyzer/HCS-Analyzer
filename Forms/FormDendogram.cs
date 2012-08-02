@@ -113,6 +113,8 @@ namespace HCSAnalyzer.Forms
             if (SizeSquareForSignatureX < 0) SizeSquareForSignatureX = 0;
             if (SizeSquareForSignatureX < SizeSquareForSignature) SizeSquareForSignature = SizeSquareForSignatureX;
 
+
+            if (SizeSquareForSignature == 0) SizeSquareForSignature = 1;
             int DistBetweenLines = SizeSquareForSignature;
 
 
