@@ -62,12 +62,12 @@ namespace HCSAnalyzer.Forms
 
             }
 
-            for (int i = 0; i < GlobalInfo.GetNumberofDefinedClass(); i++)
+            for (int i = 0; i < GlobalInfo.GetNumberofDefinedWellClass(); i++)
             {
                 int IdxPosCol = 0;
                 dataGridViewForCompounds.Rows.Add();
                 dataGridViewForCompounds.Rows[i].Cells[IdxPosCol].Value = "Phenotype " + i;
-                dataGridViewForCompounds.Rows[i].Cells[IdxPosCol++].Style.BackColor = GlobalInfo.GetColor(i);
+                dataGridViewForCompounds.Rows[i].Cells[IdxPosCol++].Style.BackColor = GlobalInfo.ListWellClasses[i].ColourForDisplay;
 
 
                 int Position = i;

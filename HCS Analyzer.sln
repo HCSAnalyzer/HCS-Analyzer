@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+# Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HCS Analyzer", "HCS Analyzer.csproj", "{FF1F8666-DA92-4052-ABA9-C6ADB629EA50}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HCSPlugin", "HCSPlugin\HCSPlugin.csproj", "{2475F0D3-2F54-4BAF-8882-33536F411764}"

@@ -39,20 +39,25 @@
             this.numericUpDownColumns = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxPlateDim = new System.Windows.Forms.GroupBox();
+            this.contextMenuStripForPlateDim = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem96 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem384 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1536 = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonChangeMode = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewForImport)).BeginInit();
             this.contextMenuStripDataGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRows)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxPlateDim.SuspendLayout();
+            this.contextMenuStripForPlateDim.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(480, 600);
+            this.buttonOk.Location = new System.Drawing.Point(483, 521);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(149, 30);
             this.buttonOk.TabIndex = 4;
@@ -63,14 +68,14 @@
             // 
             this.dataGridViewForImport.AllowUserToAddRows = false;
             this.dataGridViewForImport.AllowUserToDeleteRows = false;
-            this.dataGridViewForImport.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewForImport.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewForImport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewForImport.ContextMenuStrip = this.contextMenuStripDataGrid;
-            this.dataGridViewForImport.Location = new System.Drawing.Point(12, 127);
+            this.dataGridViewForImport.Location = new System.Drawing.Point(10, 93);
             this.dataGridViewForImport.Name = "dataGridViewForImport";
-            this.dataGridViewForImport.Size = new System.Drawing.Size(617, 467);
+            this.dataGridViewForImport.Size = new System.Drawing.Size(622, 422);
             this.dataGridViewForImport.TabIndex = 3;
             // 
             // contextMenuStripDataGrid
@@ -97,7 +102,7 @@
             // 
             // numericUpDownRows
             // 
-            this.numericUpDownRows.Location = new System.Drawing.Point(96, 68);
+            this.numericUpDownRows.Location = new System.Drawing.Point(74, 51);
             this.numericUpDownRows.Maximum = new decimal(new int[] {
             1215752192,
             23,
@@ -114,7 +119,7 @@
             // 
             // numericUpDownColumns
             // 
-            this.numericUpDownColumns.Location = new System.Drawing.Point(96, 29);
+            this.numericUpDownColumns.Location = new System.Drawing.Point(74, 21);
             this.numericUpDownColumns.Maximum = new decimal(new int[] {
             1000000000,
             0,
@@ -132,7 +137,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 70);
+            this.label2.Location = new System.Drawing.Point(15, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 13);
             this.label2.TabIndex = 34;
@@ -141,24 +146,55 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 31);
+            this.label1.Location = new System.Drawing.Point(15, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 35;
             this.label1.Text = "Columns";
             // 
-            // groupBox1
+            // groupBoxPlateDim
             // 
-            this.groupBox1.Controls.Add(this.numericUpDownColumns);
-            this.groupBox1.Controls.Add(this.numericUpDownRows);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(206, 109);
-            this.groupBox1.TabIndex = 38;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Plate Dimensions";
+            this.groupBoxPlateDim.ContextMenuStrip = this.contextMenuStripForPlateDim;
+            this.groupBoxPlateDim.Controls.Add(this.numericUpDownColumns);
+            this.groupBoxPlateDim.Controls.Add(this.numericUpDownRows);
+            this.groupBoxPlateDim.Controls.Add(this.label1);
+            this.groupBoxPlateDim.Controls.Add(this.label2);
+            this.groupBoxPlateDim.Location = new System.Drawing.Point(8, 3);
+            this.groupBoxPlateDim.Name = "groupBoxPlateDim";
+            this.groupBoxPlateDim.Size = new System.Drawing.Size(186, 84);
+            this.groupBoxPlateDim.TabIndex = 38;
+            this.groupBoxPlateDim.TabStop = false;
+            this.groupBoxPlateDim.Text = "Plate Dimensions";
+            // 
+            // contextMenuStripForPlateDim
+            // 
+            this.contextMenuStripForPlateDim.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem96,
+            this.toolStripMenuItem384,
+            this.toolStripMenuItem1536});
+            this.contextMenuStripForPlateDim.Name = "contextMenuStripForPlateDim";
+            this.contextMenuStripForPlateDim.Size = new System.Drawing.Size(153, 92);
+            // 
+            // toolStripMenuItem96
+            // 
+            this.toolStripMenuItem96.Name = "toolStripMenuItem96";
+            this.toolStripMenuItem96.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem96.Text = "96";
+            this.toolStripMenuItem96.Click += new System.EventHandler(this.toolStripMenuItem96_Click);
+            // 
+            // toolStripMenuItem384
+            // 
+            this.toolStripMenuItem384.Name = "toolStripMenuItem384";
+            this.toolStripMenuItem384.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem384.Text = "384";
+            this.toolStripMenuItem384.Click += new System.EventHandler(this.toolStripMenuItem384_Click);
+            // 
+            // toolStripMenuItem1536
+            // 
+            this.toolStripMenuItem1536.Name = "toolStripMenuItem1536";
+            this.toolStripMenuItem1536.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1536.Text = "1536";
+            this.toolStripMenuItem1536.Click += new System.EventHandler(this.toolStripMenuItem1536_Click);
             // 
             // buttonChangeMode
             // 
@@ -175,9 +211,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(641, 642);
+            this.ClientSize = new System.Drawing.Size(642, 558);
             this.Controls.Add(this.buttonChangeMode);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBoxPlateDim);
             this.Controls.Add(this.dataGridViewForImport);
             this.Controls.Add(this.buttonOk);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -187,8 +223,9 @@
             this.contextMenuStripDataGrid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRows)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxPlateDim.ResumeLayout(false);
+            this.groupBoxPlateDim.PerformLayout();
+            this.contextMenuStripForPlateDim.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -201,10 +238,14 @@
         public System.Windows.Forms.NumericUpDown numericUpDownColumns;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxPlateDim;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDataGrid;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unselectAllToolStripMenuItem;
         private System.Windows.Forms.Button buttonChangeMode;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripForPlateDim;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem96;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem384;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1536;
     }
 }

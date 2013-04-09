@@ -1,6 +1,6 @@
 ﻿namespace HCSAnalyzer.Forms
 {
-    partial class FormForPCAAxisGeneration
+    partial class FormForProjections
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormForPCAAxisGeneration));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormForProjections));
             this.comboBoxForNeutralClass = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonClassification = new System.Windows.Forms.Button();
@@ -37,6 +37,7 @@
             this.radioButtonFromCurrentPlate = new System.Windows.Forms.RadioButton();
             this.numericUpDownNumberOfAxis = new System.Windows.Forms.NumericUpDown();
             this.labelAxeNumber = new System.Windows.Forms.Label();
+            this.panelForClasses = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfAxis)).BeginInit();
             this.SuspendLayout();
@@ -46,8 +47,8 @@
             this.comboBoxForNeutralClass.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.comboBoxForNeutralClass.FormattingEnabled = true;
             this.comboBoxForNeutralClass.Items.AddRange(new object[] {
-            "Positive (0)",
-            "Negative (1)",
+            "0",
+            "1",
             "2",
             "3",
             "4",
@@ -56,27 +57,27 @@
             "7",
             "8",
             "9"});
-            this.comboBoxForNeutralClass.Location = new System.Drawing.Point(128, 21);
+            this.comboBoxForNeutralClass.Location = new System.Drawing.Point(107, 200);
             this.comboBoxForNeutralClass.Name = "comboBoxForNeutralClass";
-            this.comboBoxForNeutralClass.Size = new System.Drawing.Size(112, 21);
+            this.comboBoxForNeutralClass.Size = new System.Drawing.Size(117, 21);
             this.comboBoxForNeutralClass.TabIndex = 30;
             this.comboBoxForNeutralClass.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBoxForNeutralClass_DrawItem);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 24);
+            this.label1.Location = new System.Drawing.Point(7, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 13);
+            this.label1.Size = new System.Drawing.Size(93, 13);
             this.label1.TabIndex = 29;
-            this.label1.Text = "Neutral Class";
+            this.label1.Text = "Classes of Interest";
             // 
             // buttonClassification
             // 
             this.buttonClassification.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonClassification.Location = new System.Drawing.Point(46, 202);
+            this.buttonClassification.Location = new System.Drawing.Point(106, 250);
             this.buttonClassification.Name = "buttonClassification";
-            this.buttonClassification.Size = new System.Drawing.Size(193, 29);
+            this.buttonClassification.Size = new System.Drawing.Size(118, 24);
             this.buttonClassification.TabIndex = 28;
             this.buttonClassification.Text = "Ok";
             this.buttonClassification.UseVisualStyleBackColor = true;
@@ -86,17 +87,17 @@
             // 
             this.groupBox1.Controls.Add(this.radioButtonFromFullScreening);
             this.groupBox1.Controls.Add(this.radioButtonFromCurrentPlate);
-            this.groupBox1.Location = new System.Drawing.Point(12, 65);
+            this.groupBox1.Location = new System.Drawing.Point(106, 11);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(260, 59);
+            this.groupBox1.Size = new System.Drawing.Size(118, 73);
             this.groupBox1.TabIndex = 31;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "From";
+            this.groupBox1.Text = "Data";
             // 
             // radioButtonFromFullScreening
             // 
             this.radioButtonFromFullScreening.AutoSize = true;
-            this.radioButtonFromFullScreening.Location = new System.Drawing.Point(142, 25);
+            this.radioButtonFromFullScreening.Location = new System.Drawing.Point(17, 44);
             this.radioButtonFromFullScreening.Name = "radioButtonFromFullScreening";
             this.radioButtonFromFullScreening.Size = new System.Drawing.Size(78, 17);
             this.radioButtonFromFullScreening.TabIndex = 1;
@@ -107,7 +108,7 @@
             // 
             this.radioButtonFromCurrentPlate.AutoSize = true;
             this.radioButtonFromCurrentPlate.Checked = true;
-            this.radioButtonFromCurrentPlate.Location = new System.Drawing.Point(32, 25);
+            this.radioButtonFromCurrentPlate.Location = new System.Drawing.Point(17, 19);
             this.radioButtonFromCurrentPlate.Name = "radioButtonFromCurrentPlate";
             this.radioButtonFromCurrentPlate.Size = new System.Drawing.Size(86, 17);
             this.radioButtonFromCurrentPlate.TabIndex = 0;
@@ -117,14 +118,14 @@
             // 
             // numericUpDownNumberOfAxis
             // 
-            this.numericUpDownNumberOfAxis.Location = new System.Drawing.Point(128, 154);
+            this.numericUpDownNumberOfAxis.Location = new System.Drawing.Point(129, 123);
             this.numericUpDownNumberOfAxis.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.numericUpDownNumberOfAxis.Name = "numericUpDownNumberOfAxis";
-            this.numericUpDownNumberOfAxis.Size = new System.Drawing.Size(111, 20);
+            this.numericUpDownNumberOfAxis.Size = new System.Drawing.Size(75, 20);
             this.numericUpDownNumberOfAxis.TabIndex = 32;
             this.numericUpDownNumberOfAxis.Value = new decimal(new int[] {
             1,
@@ -135,17 +136,25 @@
             // labelAxeNumber
             // 
             this.labelAxeNumber.AutoSize = true;
-            this.labelAxeNumber.Location = new System.Drawing.Point(34, 156);
+            this.labelAxeNumber.Location = new System.Drawing.Point(127, 102);
             this.labelAxeNumber.Name = "labelAxeNumber";
             this.labelAxeNumber.Size = new System.Drawing.Size(78, 13);
             this.labelAxeNumber.TabIndex = 33;
             this.labelAxeNumber.Text = "Number of Axis";
             // 
-            // FormForPCAAxisGeneration
+            // panelForClasses
+            // 
+            this.panelForClasses.Location = new System.Drawing.Point(7, 32);
+            this.panelForClasses.Name = "panelForClasses";
+            this.panelForClasses.Size = new System.Drawing.Size(92, 242);
+            this.panelForClasses.TabIndex = 34;
+            // 
+            // FormForProjections
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(285, 243);
+            this.ClientSize = new System.Drawing.Size(230, 277);
+            this.Controls.Add(this.panelForClasses);
             this.Controls.Add(this.labelAxeNumber);
             this.Controls.Add(this.numericUpDownNumberOfAxis);
             this.Controls.Add(this.groupBox1);
@@ -155,8 +164,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "FormForPCAAxisGeneration";
-            this.Text = "FormForPCAAxisGeneration";
+            this.Name = "FormForProjections";
+            this.Text = "FormForProjections";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumberOfAxis)).EndInit();
@@ -175,5 +184,6 @@
         public System.Windows.Forms.RadioButton radioButtonFromCurrentPlate;
         public System.Windows.Forms.NumericUpDown numericUpDownNumberOfAxis;
         public System.Windows.Forms.Label labelAxeNumber;
+        public System.Windows.Forms.Panel panelForClasses;
     }
 }

@@ -146,7 +146,10 @@
             this.label27 = new System.Windows.Forms.Label();
             this.numericUpDownWellOpacity = new System.Windows.Forms.NumericUpDown();
             this.label25 = new System.Windows.Forms.Label();
-            this.tabPageHisto = new System.Windows.Forms.TabPage();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.groupBox27 = new System.Windows.Forms.GroupBox();
+            this.radioButtonBackColorAverageValue = new System.Windows.Forms.RadioButton();
+            this.radioButtonBackColorDefault = new System.Windows.Forms.RadioButton();
             this.label31 = new System.Windows.Forms.Label();
             this.groupBox26 = new System.Windows.Forms.GroupBox();
             this.radioButtonHistoDisplayAdjusted = new System.Windows.Forms.RadioButton();
@@ -166,6 +169,11 @@
             this.radioButtonDistributionMetricCosine = new System.Windows.Forms.RadioButton();
             this.radioButtonDistributionMetricManhattan = new System.Windows.Forms.RadioButton();
             this.radioButtonDistributionMetricEuclidean = new System.Windows.Forms.RadioButton();
+            this.tabPageClasses = new System.Windows.Forms.TabPage();
+            this.groupBox29 = new System.Windows.Forms.GroupBox();
+            this.panelForCellularPhenotypes = new System.Windows.Forms.Panel();
+            this.groupBox28 = new System.Windows.Forms.GroupBox();
+            this.panelForWellClasses = new System.Windows.Forms.Panel();
             this.buttonOk = new System.Windows.Forms.Button();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.buttonApply = new System.Windows.Forms.Button();
@@ -227,13 +235,17 @@
             this.groupBox21.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellOpacity)).BeginInit();
-            this.tabPageHisto.SuspendLayout();
+            this.tabPage8.SuspendLayout();
+            this.groupBox27.SuspendLayout();
             this.groupBox26.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownManualMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownManualMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutomatedMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutomatedMin)).BeginInit();
             this.groupBox24.SuspendLayout();
+            this.tabPageClasses.SuspendLayout();
+            this.groupBox29.SuspendLayout();
+            this.groupBox28.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlWindowOption
@@ -248,7 +260,8 @@
             this.tabControlWindowOption.Controls.Add(this.tabPage5);
             this.tabControlWindowOption.Controls.Add(this.tabPage6);
             this.tabControlWindowOption.Controls.Add(this.tabPage3D);
-            this.tabControlWindowOption.Controls.Add(this.tabPageHisto);
+            this.tabControlWindowOption.Controls.Add(this.tabPage8);
+            this.tabControlWindowOption.Controls.Add(this.tabPageClasses);
             this.tabControlWindowOption.Location = new System.Drawing.Point(12, 12);
             this.tabControlWindowOption.Multiline = true;
             this.tabControlWindowOption.Name = "tabControlWindowOption";
@@ -1770,24 +1783,58 @@
             this.label25.TabIndex = 0;
             this.label25.Text = "Well opacity";
             // 
-            // tabPageHisto
+            // tabPage8
             // 
-            this.tabPageHisto.Controls.Add(this.label31);
-            this.tabPageHisto.Controls.Add(this.groupBox26);
-            this.tabPageHisto.Controls.Add(this.groupBox24);
-            this.tabPageHisto.Location = new System.Drawing.Point(4, 58);
-            this.tabPageHisto.Name = "tabPageHisto";
-            this.tabPageHisto.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageHisto.Size = new System.Drawing.Size(396, 384);
-            this.tabPageHisto.TabIndex = 11;
-            this.tabPageHisto.Text = "Histogram Analysis && Display";
-            this.tabPageHisto.UseVisualStyleBackColor = true;
+            this.tabPage8.Controls.Add(this.groupBox27);
+            this.tabPage8.Controls.Add(this.label31);
+            this.tabPage8.Controls.Add(this.groupBox26);
+            this.tabPage8.Controls.Add(this.groupBox24);
+            this.tabPage8.Location = new System.Drawing.Point(4, 58);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(396, 384);
+            this.tabPage8.TabIndex = 11;
+            this.tabPage8.Text = "Histogram Analysis && Display";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // groupBox27
+            // 
+            this.groupBox27.Controls.Add(this.radioButtonBackColorAverageValue);
+            this.groupBox27.Controls.Add(this.radioButtonBackColorDefault);
+            this.groupBox27.Location = new System.Drawing.Point(9, 316);
+            this.groupBox27.Name = "groupBox27";
+            this.groupBox27.Size = new System.Drawing.Size(376, 62);
+            this.groupBox27.TabIndex = 5;
+            this.groupBox27.TabStop = false;
+            this.groupBox27.Text = "Back Color";
+            // 
+            // radioButtonBackColorAverageValue
+            // 
+            this.radioButtonBackColorAverageValue.AutoSize = true;
+            this.radioButtonBackColorAverageValue.Location = new System.Drawing.Point(214, 28);
+            this.radioButtonBackColorAverageValue.Name = "radioButtonBackColorAverageValue";
+            this.radioButtonBackColorAverageValue.Size = new System.Drawing.Size(95, 17);
+            this.radioButtonBackColorAverageValue.TabIndex = 1;
+            this.radioButtonBackColorAverageValue.Text = "Average Value";
+            this.radioButtonBackColorAverageValue.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonBackColorDefault
+            // 
+            this.radioButtonBackColorDefault.AutoSize = true;
+            this.radioButtonBackColorDefault.Checked = true;
+            this.radioButtonBackColorDefault.Location = new System.Drawing.Point(90, 28);
+            this.radioButtonBackColorDefault.Name = "radioButtonBackColorDefault";
+            this.radioButtonBackColorDefault.Size = new System.Drawing.Size(59, 17);
+            this.radioButtonBackColorDefault.TabIndex = 0;
+            this.radioButtonBackColorDefault.TabStop = true;
+            this.radioButtonBackColorDefault.Text = "Default";
+            this.radioButtonBackColorDefault.UseVisualStyleBackColor = true;
             // 
             // label31
             // 
             this.label31.AutoSize = true;
             this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.Location = new System.Drawing.Point(6, 194);
+            this.label31.Location = new System.Drawing.Point(6, 162);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(108, 13);
             this.label31.TabIndex = 4;
@@ -1804,9 +1851,9 @@
             this.groupBox26.Controls.Add(this.numericUpDownAutomatedMin);
             this.groupBox26.Controls.Add(this.radioButtonHistoDisplayManualMinMax);
             this.groupBox26.Controls.Add(this.radioButtonHistoDisplayAutomatedMinMax);
-            this.groupBox26.Location = new System.Drawing.Point(9, 216);
+            this.groupBox26.Location = new System.Drawing.Point(9, 178);
             this.groupBox26.Name = "groupBox26";
-            this.groupBox26.Size = new System.Drawing.Size(376, 150);
+            this.groupBox26.Size = new System.Drawing.Size(376, 131);
             this.groupBox26.TabIndex = 1;
             this.groupBox26.TabStop = false;
             this.groupBox26.Text = "Scale";
@@ -1814,7 +1861,7 @@
             // radioButtonHistoDisplayAdjusted
             // 
             this.radioButtonHistoDisplayAdjusted.AutoSize = true;
-            this.radioButtonHistoDisplayAdjusted.Location = new System.Drawing.Point(25, 108);
+            this.radioButtonHistoDisplayAdjusted.Location = new System.Drawing.Point(25, 101);
             this.radioButtonHistoDisplayAdjusted.Name = "radioButtonHistoDisplayAdjusted";
             this.radioButtonHistoDisplayAdjusted.Size = new System.Drawing.Size(124, 17);
             this.radioButtonHistoDisplayAdjusted.TabIndex = 7;
@@ -1824,7 +1871,7 @@
             // numericUpDownManualMax
             // 
             this.numericUpDownManualMax.DecimalPlaces = 3;
-            this.numericUpDownManualMax.Location = new System.Drawing.Point(281, 74);
+            this.numericUpDownManualMax.Location = new System.Drawing.Point(281, 70);
             this.numericUpDownManualMax.Maximum = new decimal(new int[] {
             -1304428544,
             434162106,
@@ -1848,7 +1895,7 @@
             // numericUpDownManualMin
             // 
             this.numericUpDownManualMin.DecimalPlaces = 3;
-            this.numericUpDownManualMin.Location = new System.Drawing.Point(171, 74);
+            this.numericUpDownManualMin.Location = new System.Drawing.Point(171, 70);
             this.numericUpDownManualMin.Maximum = new decimal(new int[] {
             -1304428544,
             434162106,
@@ -1876,7 +1923,7 @@
             // numericUpDownAutomatedMax
             // 
             this.numericUpDownAutomatedMax.DecimalPlaces = 3;
-            this.numericUpDownAutomatedMax.Location = new System.Drawing.Point(281, 41);
+            this.numericUpDownAutomatedMax.Location = new System.Drawing.Point(281, 37);
             this.numericUpDownAutomatedMax.Maximum = new decimal(new int[] {
             -1304428544,
             434162106,
@@ -1904,7 +1951,7 @@
             // numericUpDownAutomatedMin
             // 
             this.numericUpDownAutomatedMin.DecimalPlaces = 3;
-            this.numericUpDownAutomatedMin.Location = new System.Drawing.Point(171, 41);
+            this.numericUpDownAutomatedMin.Location = new System.Drawing.Point(171, 37);
             this.numericUpDownAutomatedMin.Maximum = new decimal(new int[] {
             -1304428544,
             434162106,
@@ -1923,7 +1970,7 @@
             // radioButtonHistoDisplayManualMinMax
             // 
             this.radioButtonHistoDisplayManualMinMax.AutoSize = true;
-            this.radioButtonHistoDisplayManualMinMax.Location = new System.Drawing.Point(25, 74);
+            this.radioButtonHistoDisplayManualMinMax.Location = new System.Drawing.Point(25, 70);
             this.radioButtonHistoDisplayManualMinMax.Name = "radioButtonHistoDisplayManualMinMax";
             this.radioButtonHistoDisplayManualMinMax.Size = new System.Drawing.Size(60, 17);
             this.radioButtonHistoDisplayManualMinMax.TabIndex = 0;
@@ -1934,7 +1981,7 @@
             // 
             this.radioButtonHistoDisplayAutomatedMinMax.AutoSize = true;
             this.radioButtonHistoDisplayAutomatedMinMax.Checked = true;
-            this.radioButtonHistoDisplayAutomatedMinMax.Location = new System.Drawing.Point(25, 41);
+            this.radioButtonHistoDisplayAutomatedMinMax.Location = new System.Drawing.Point(25, 37);
             this.radioButtonHistoDisplayAutomatedMinMax.Name = "radioButtonHistoDisplayAutomatedMinMax";
             this.radioButtonHistoDisplayAutomatedMinMax.Size = new System.Drawing.Size(76, 17);
             this.radioButtonHistoDisplayAutomatedMinMax.TabIndex = 0;
@@ -1953,7 +2000,7 @@
             this.groupBox24.Controls.Add(this.radioButtonDistributionMetricEuclidean);
             this.groupBox24.Location = new System.Drawing.Point(9, 6);
             this.groupBox24.Name = "groupBox24";
-            this.groupBox24.Size = new System.Drawing.Size(376, 168);
+            this.groupBox24.Size = new System.Drawing.Size(376, 152);
             this.groupBox24.TabIndex = 0;
             this.groupBox24.TabStop = false;
             this.groupBox24.Text = "Metric";
@@ -1961,7 +2008,7 @@
             // radioButtonDistributionMetricEMD
             // 
             this.radioButtonDistributionMetricEMD.AutoSize = true;
-            this.radioButtonDistributionMetricEMD.Location = new System.Drawing.Point(130, 129);
+            this.radioButtonDistributionMetricEMD.Location = new System.Drawing.Point(151, 116);
             this.radioButtonDistributionMetricEMD.Name = "radioButtonDistributionMetricEMD";
             this.radioButtonDistributionMetricEMD.Size = new System.Drawing.Size(128, 17);
             this.radioButtonDistributionMetricEMD.TabIndex = 6;
@@ -1971,7 +2018,7 @@
             // radioButtonDistributionMetricBhattacharyya
             // 
             this.radioButtonDistributionMetricBhattacharyya.AutoSize = true;
-            this.radioButtonDistributionMetricBhattacharyya.Location = new System.Drawing.Point(130, 97);
+            this.radioButtonDistributionMetricBhattacharyya.Location = new System.Drawing.Point(151, 84);
             this.radioButtonDistributionMetricBhattacharyya.Name = "radioButtonDistributionMetricBhattacharyya";
             this.radioButtonDistributionMetricBhattacharyya.Size = new System.Drawing.Size(146, 17);
             this.radioButtonDistributionMetricBhattacharyya.TabIndex = 5;
@@ -1982,7 +2029,7 @@
             // 
             this.label30.AutoSize = true;
             this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(22, 132);
+            this.label30.Location = new System.Drawing.Point(43, 119);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(59, 13);
             this.label30.TabIndex = 4;
@@ -1992,7 +2039,7 @@
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(22, 29);
+            this.label29.Location = new System.Drawing.Point(43, 16);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(61, 13);
             this.label29.TabIndex = 3;
@@ -2001,7 +2048,7 @@
             // radioButtonDistributionMetricCosine
             // 
             this.radioButtonDistributionMetricCosine.AutoSize = true;
-            this.radioButtonDistributionMetricCosine.Location = new System.Drawing.Point(130, 74);
+            this.radioButtonDistributionMetricCosine.Location = new System.Drawing.Point(151, 61);
             this.radioButtonDistributionMetricCosine.Name = "radioButtonDistributionMetricCosine";
             this.radioButtonDistributionMetricCosine.Size = new System.Drawing.Size(121, 17);
             this.radioButtonDistributionMetricCosine.TabIndex = 2;
@@ -2011,7 +2058,7 @@
             // radioButtonDistributionMetricManhattan
             // 
             this.radioButtonDistributionMetricManhattan.AutoSize = true;
-            this.radioButtonDistributionMetricManhattan.Location = new System.Drawing.Point(130, 51);
+            this.radioButtonDistributionMetricManhattan.Location = new System.Drawing.Point(151, 38);
             this.radioButtonDistributionMetricManhattan.Name = "radioButtonDistributionMetricManhattan";
             this.radioButtonDistributionMetricManhattan.Size = new System.Drawing.Size(76, 17);
             this.radioButtonDistributionMetricManhattan.TabIndex = 1;
@@ -2022,13 +2069,59 @@
             // 
             this.radioButtonDistributionMetricEuclidean.AutoSize = true;
             this.radioButtonDistributionMetricEuclidean.Checked = true;
-            this.radioButtonDistributionMetricEuclidean.Location = new System.Drawing.Point(130, 28);
+            this.radioButtonDistributionMetricEuclidean.Location = new System.Drawing.Point(151, 15);
             this.radioButtonDistributionMetricEuclidean.Name = "radioButtonDistributionMetricEuclidean";
             this.radioButtonDistributionMetricEuclidean.Size = new System.Drawing.Size(72, 17);
             this.radioButtonDistributionMetricEuclidean.TabIndex = 0;
             this.radioButtonDistributionMetricEuclidean.TabStop = true;
             this.radioButtonDistributionMetricEuclidean.Text = "Euclidean";
             this.radioButtonDistributionMetricEuclidean.UseVisualStyleBackColor = true;
+            // 
+            // tabPageClasses
+            // 
+            this.tabPageClasses.Controls.Add(this.groupBox29);
+            this.tabPageClasses.Controls.Add(this.groupBox28);
+            this.tabPageClasses.Location = new System.Drawing.Point(4, 58);
+            this.tabPageClasses.Name = "tabPageClasses";
+            this.tabPageClasses.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageClasses.Size = new System.Drawing.Size(396, 384);
+            this.tabPageClasses.TabIndex = 12;
+            this.tabPageClasses.Text = "Classes";
+            this.tabPageClasses.UseVisualStyleBackColor = true;
+            // 
+            // groupBox29
+            // 
+            this.groupBox29.Controls.Add(this.panelForCellularPhenotypes);
+            this.groupBox29.Location = new System.Drawing.Point(201, 6);
+            this.groupBox29.Name = "groupBox29";
+            this.groupBox29.Size = new System.Drawing.Size(190, 375);
+            this.groupBox29.TabIndex = 2;
+            this.groupBox29.TabStop = false;
+            this.groupBox29.Text = "Cellular Phenotypes";
+            // 
+            // panelForCellularPhenotypes
+            // 
+            this.panelForCellularPhenotypes.Location = new System.Drawing.Point(6, 19);
+            this.panelForCellularPhenotypes.Name = "panelForCellularPhenotypes";
+            this.panelForCellularPhenotypes.Size = new System.Drawing.Size(178, 350);
+            this.panelForCellularPhenotypes.TabIndex = 0;
+            // 
+            // groupBox28
+            // 
+            this.groupBox28.Controls.Add(this.panelForWellClasses);
+            this.groupBox28.Location = new System.Drawing.Point(3, 6);
+            this.groupBox28.Name = "groupBox28";
+            this.groupBox28.Size = new System.Drawing.Size(190, 375);
+            this.groupBox28.TabIndex = 1;
+            this.groupBox28.TabStop = false;
+            this.groupBox28.Text = "Well Classes";
+            // 
+            // panelForWellClasses
+            // 
+            this.panelForWellClasses.Location = new System.Drawing.Point(6, 19);
+            this.panelForWellClasses.Name = "panelForWellClasses";
+            this.panelForWellClasses.Size = new System.Drawing.Size(178, 350);
+            this.panelForWellClasses.TabIndex = 0;
             // 
             // buttonOk
             // 
@@ -2146,8 +2239,10 @@
             this.groupBox21.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownWellOpacity)).EndInit();
-            this.tabPageHisto.ResumeLayout(false);
-            this.tabPageHisto.PerformLayout();
+            this.tabPage8.ResumeLayout(false);
+            this.tabPage8.PerformLayout();
+            this.groupBox27.ResumeLayout(false);
+            this.groupBox27.PerformLayout();
             this.groupBox26.ResumeLayout(false);
             this.groupBox26.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownManualMax)).EndInit();
@@ -2156,6 +2251,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutomatedMin)).EndInit();
             this.groupBox24.ResumeLayout(false);
             this.groupBox24.PerformLayout();
+            this.tabPageClasses.ResumeLayout(false);
+            this.groupBox29.ResumeLayout(false);
+            this.groupBox28.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2272,6 +2370,7 @@
         public System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.GroupBox groupBox23;
         public System.Windows.Forms.CheckBox checkBox3DPlateInformation;
+        private System.Windows.Forms.TabPage tabPage8;
         private System.Windows.Forms.GroupBox groupBox24;
         public System.Windows.Forms.RadioButton radioButtonDistributionMetricManhattan;
         public System.Windows.Forms.RadioButton radioButtonDistributionMetricEuclidean;
@@ -2301,6 +2400,13 @@
         public System.Windows.Forms.RadioButton radioButtonHistoDisplayManualMinMax;
         public System.Windows.Forms.RadioButton radioButtonHistoDisplayAdjusted;
         private System.Windows.Forms.Button buttonApply;
-        public System.Windows.Forms.TabPage tabPageHisto;
+        private System.Windows.Forms.GroupBox groupBox27;
+        private System.Windows.Forms.RadioButton radioButtonBackColorAverageValue;
+        public System.Windows.Forms.RadioButton radioButtonBackColorDefault;
+        private System.Windows.Forms.TabPage tabPageClasses;
+        public System.Windows.Forms.Panel panelForWellClasses;
+        private System.Windows.Forms.GroupBox groupBox29;
+        public System.Windows.Forms.Panel panelForCellularPhenotypes;
+        private System.Windows.Forms.GroupBox groupBox28;
     }
 }
