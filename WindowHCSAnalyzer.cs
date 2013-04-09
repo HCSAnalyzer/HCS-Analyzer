@@ -73,7 +73,7 @@ using System.Net;
 // You can also use your own Painter & Mouse event handler
 // 
 //////////////////////////////////////////////////////////////////////////
-// toto
+
 namespace HCSAnalyzer
 {
     public partial class HCSAnalyzer : Form
