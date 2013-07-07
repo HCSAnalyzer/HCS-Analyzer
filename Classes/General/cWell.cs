@@ -21,6 +21,7 @@ using HCSAnalyzer.Classes.Base_Classes.Viewers;
 using HCSAnalyzer.Classes.General;
 using System.Data;
 using System.Net;
+using System.Diagnostics;
 
 namespace LibPlateAnalysis
 {
@@ -857,9 +858,9 @@ namespace LibPlateAnalysis
             this.AssociatedPlate.DBConnection = new cDBConnection(this.AssociatedPlate, this.SQLTableName);
             // this.AssociatedPlate.DBConnection.DB_EstablishConnection();
 
-//            DataTable DT = new DataTable();
+            //            DataTable DT = new DataTable();
 
- //          this.AssociatedPlate.DBConnection.AddWellToDataTable(this, DT, false, Parent.GlobalInfo);
+            //          this.AssociatedPlate.DBConnection.AddWellToDataTable(this, DT, false, Parent.GlobalInfo);
 
             cListSingleBiologicalObjects ListPhenotypes =
                 this.AssociatedPlate.DBConnection.GetWellBiologicalPhenotypes(this);
@@ -1161,10 +1162,11 @@ namespace LibPlateAnalysis
 
             List<string> Pathways2 = HCSAnalyzer.HCSAnalyzer.Find_Pathways(LocusID); //appel de la function static je ne sais pas pourquoi elle doit etre static…
 
-            if (Pathways2.Count > 0)
+            if (Pathways2.Count > 0 || Pathways2.Count == 0)
             {
                 string getvars2 = "/get/hsa:" + LocusID;
-                HttpWebRequest req2 = WebRequest.Create(string.Format("http://rest.kegg.jp" + getvars2)) as HttpWebRequest;
+                string getvar = "/link/genes/" + "hsa05010";
+                HttpWebRequest req2 = WebRequest.Create(string.Format("http://rest.kegg.jp" + getvar)) as HttpWebRequest;
                 req2.Method = "GET";
 
                 HttpWebResponse response = req2.GetResponse() as HttpWebResponse;
@@ -1175,15 +1177,81 @@ namespace LibPlateAnalysis
 
                 reader2.Close();
 
-                foreach (string item in Pathways2)
-                {
-                    FormForKeggGene KeggWin = new FormForKeggGene();
 
-                    KeggWin.webBrowser.Navigate("http://www.kegg.jp/kegg-bin/show_pathway?" + item + "/default%3dpink/" + "hsa:" + LocusID + "%09,blue");
-                    KeggWin.richTextBox.Text = GenInfo;
-                    KeggWin.Text = "Gene Infos";
-                    KeggWin.Show();
+
+                string[] genesarraytmp = GenInfo.Split('\n');
+                List<string> genesarray = new List<string>();
+                foreach (string item in genesarraytmp)
+                {
+                    if (item.Contains('\t'))
+                    {
+                        genesarray.Add(item.Split('\t')[1]);
+                    }
+
                 }
+                int yup = 0;
+
+                string[] ListGenesinPathway = genesarray.ToArray();
+                double[] ListValues = new double[ListGenesinPathway.Length];
+                int IDxGeneOfInterest = 0;
+                //StreamWriter stw = new StreamWriter(@"C:\alzheimer.csv");
+                //stw.WriteLine("Genes" + "," + "Value");
+                foreach (cPlate CurrentPlate in Parent.ListPlatesActive)
+                {
+                    foreach (cWell CurrentWell in CurrentPlate.ListActiveWells)
+                    {
+                        string CurrentLID = "hsa:" + (int)CurrentWell.LocusID;
+
+                        for (int IdxGene = 0; IdxGene < ListGenesinPathway.Length; IdxGene++)
+                        {
+
+                            //if (CurrentLID == ListGenesinPathway[IdxGene])
+                            //    IDxGeneOfInterest = IdxGene;
+
+                            if (CurrentLID == ListGenesinPathway[IdxGene])
+                            {
+                                ListValues[IdxGene] = CurrentWell.ListDescriptors[Parent.ListDescriptors.CurrentSelectedDescriptorIdx].GetValue();
+                                //stw.Write(CurrentWell.Name); stw.Write(","); stw.Write(ListValues[IdxGene]); stw.WriteLine();
+                                break;
+                            }
+                        }
+                    }
+                }
+                //stw.Close();
+                string webpage = "http://www.kegg.jp/kegg-bin/show_pathway?hsa05010+";
+
+                double MinValue = ListValues.Min();
+                double MaxValue = ListValues.Max();
+                string[] bg_list = new string[ListGenesinPathway.Length];
+              string[]  fg_list = new string[ListGenesinPathway.Length];
+                for (int IdxCol = 0; IdxCol < bg_list.Length; IdxCol++)
+                {
+
+                    int ConvertedValue = (int)((((Parent.GlobalInfo.LUTs.LUT_JET[0].Length - 1) * (ListValues[IdxCol] - MinValue)) / (MaxValue - MinValue)));
+
+                    Color Coul = Color.FromArgb(Parent.GlobalInfo.LUTs.LUT_JET[0][ConvertedValue], Parent.GlobalInfo.LUTs.LUT_JET[1][ConvertedValue], 
+                        Parent.GlobalInfo.LUTs.LUT_JET[2][ConvertedValue]);
+
+                   
+                        fg_list[IdxCol] = "000000";
+                    bg_list[IdxCol] = Coul.Name.Remove(0, 2);
+
+                }
+                int ad=0;
+                foreach (string item in genesarray)
+                {
+                    webpage += item+"%09%23"+bg_list[ad]+"+";
+                    ad++;
+                }
+                
+                Process.Start("chrome.exe",webpage);
+
+                //FormForKeggGene KeggWin = new FormForKeggGene();
+                
+                //KeggWin.webBrowser.Navigate(webpage);
+                ////KeggWin.richTextBox.Text = GenInfo;
+                ////KeggWin.Text = "Gene Infos";
+                //KeggWin.Show();
                 response.Close();
             }
             else
@@ -1191,6 +1259,14 @@ namespace LibPlateAnalysis
                 MessageBox.Show("No pathway founded !", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+
+
+      
+
+
+
+
+
 
         //void listBox1_MouseDoubleClick(object sender, MouseEventArgs e)
         //{
@@ -1346,31 +1422,31 @@ namespace LibPlateAnalysis
                 this.AssociatedPlate.DBConnection = new cDBConnection(this.AssociatedPlate, this.SQLTableName);
                 // this.AssociatedPlate.DBConnection.DB_EstablishConnection();
 
-              //  DataTable DT = new DataTable();
-              //  this.AssociatedPlate.DBConnection.AddWellToDataTable(this, DT, false, Parent.GlobalInfo);
+                //  DataTable DT = new DataTable();
+                //  this.AssociatedPlate.DBConnection.AddWellToDataTable(this, DT, false, Parent.GlobalInfo);
 
 
 
-               // cExtendedList Values = 
+                // cExtendedList Values = 
                 List<cDescriptorsType> LCDT = new List<cDescriptorsType>();
                 LCDT.Add(Parent.ListDescriptors.GetActiveDescriptor());
                 cExtendedTable ET = new cExtendedTable();
 
                 foreach (var item in Parent.GlobalInfo.ListCellularPhenotypes)
-	            {
+                {
                     List<cCellularPhenotype> ListCellularPhenotypesToBeSelected = new List<cCellularPhenotype>();
                     ListCellularPhenotypesToBeSelected.Add(item);
 
-                   cExtendedTable TmpET =this.AssociatedPlate.DBConnection.GetWellValues(this, 
-                                            LCDT, 
-                                            ListCellularPhenotypesToBeSelected);
-                   if (TmpET.Count == 0) continue;
-                   TmpET[0].Name = item.Name;
-                   TmpET[0].Tag = item;
+                    cExtendedTable TmpET = this.AssociatedPlate.DBConnection.GetWellValues(this,
+                                             LCDT,
+                                             ListCellularPhenotypesToBeSelected);
+                    if (TmpET.Count == 0) continue;
+                    TmpET[0].Name = item.Name;
+                    TmpET[0].Tag = item;
 
-                   ET.Add(TmpET[0]);
+                    ET.Add(TmpET[0]);
 
-	            }
+                }
 
 
                 ET.Name = this.Name;
@@ -1384,16 +1460,16 @@ namespace LibPlateAnalysis
                 VSH.Chart.IsYAxis = true;
                 VSH.Chart.LabelAxisX = Parent.ListDescriptors[Parent.ListDescriptors.CurrentSelectedDescriptorIdx].GetName();
 
-                
+
                 VSH.Run();
                 VSH.Chart.Width = 0;// NewWindow.chartForFormWell.Width;
                 VSH.Chart.Height = 0;// NewWindow.chartForFormWell.Height;
-               // NewWindow.chartForFormWell = (Chart)(VSH.Chart);
-               // NewWindow.Controls.Add(VSH.GetOutPut());
+                // NewWindow.chartForFormWell = (Chart)(VSH.Chart);
+                // NewWindow.Controls.Add(VSH.GetOutPut());
 
                 cExtendedControl EC = VSH.GetOutPut();
-                EC.Width =  NewWindow.chartForFormWell.Width;
-                EC.Height =  NewWindow.chartForFormWell.Height;
+                EC.Width = NewWindow.chartForFormWell.Width;
+                EC.Height = NewWindow.chartForFormWell.Height;
 
                 NewWindow.chartForFormWell.Controls.Add(EC);
 
@@ -1401,9 +1477,9 @@ namespace LibPlateAnalysis
 
                 //cDisplayToWindow DTW = new cDisplayToWindow();
                 //DTW.SetInputData(VSH.GetOutPut());
-             //   DTW.Title = "Well [" + this.PosX + "x" + this.PosY + "] - " + this.Name;
-               // DTW.Run();
-               // DTW.Display();
+                //   DTW.Title = "Well [" + this.PosX + "x" + this.PosY + "] - " + this.Name;
+                // DTW.Run();
+                // DTW.Display();
 
 
                 //  this.AssociatedPlate.DBConnection.DisplayTable(this);

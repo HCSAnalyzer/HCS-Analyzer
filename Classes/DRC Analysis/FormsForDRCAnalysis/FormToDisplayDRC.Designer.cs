@@ -34,6 +34,8 @@
             this.displayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fitHorizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fitVerticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.printDialog1 = new System.Windows.Forms.PrintDialog();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,6 +85,11 @@
             this.fitVerticalToolStripMenuItem.Text = "Fit Vertical";
             this.fitVerticalToolStripMenuItem.Click += new System.EventHandler(this.fitVerticalToolStripMenuItem_Click);
             // 
+            // printDialog1
+            // 
+            this.printDialog1.Document = this.printDocument1;
+            this.printDialog1.UseEXDialog = true;
+            // 
             // FormToDisplayDRC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -108,6 +115,8 @@
         private System.Windows.Forms.ToolStripMenuItem displayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fitHorizontalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fitVerticalToolStripMenuItem;
+        public System.Windows.Forms.PrintDialog printDialog1;
+        public System.Drawing.Printing.PrintDocument printDocument1;
 
     }
 }

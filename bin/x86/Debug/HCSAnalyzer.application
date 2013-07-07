@@ -8,20 +8,20 @@
         <beforeApplicationStartup />
       </update>
     </subscription>
-    <deploymentProvider codebase="file:///D:/HCS-Analyzer%20-%20Source%20v1.2.1.3(Beta)/HCS-Analyzer%20-%20Source%20v1.2.1.3(Beta)/publish/HCSAnalyzer.application" />
+    <deploymentProvider codebase="file:///D:/Source/HCS-Analyzer/publish/HCSAnalyzer.application" />
   </deployment>
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.0" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="HCSAnalyzer.exe.manifest" size="52427">
+    <dependentAssembly dependencyType="install" codebase="HCSAnalyzer.exe.manifest" size="55579">
       <assemblyIdentity name="HCSAnalyzer.exe" version="1.2.1.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>jeDD0GCrAPpLEnTfRj8LT2COC8U=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>tTcdKGPFE3XMAkFvrV2MTuGboCdhaYxM5A3slMpVhbw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

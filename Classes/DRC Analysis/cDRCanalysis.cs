@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using HCSAnalyzer.Forms.FormsForDRCAnalysis;
 using HCSAnalyzer.Classes.Base_Classes.DataStructures;
+ 
 
 namespace HCSAnalyzer.Classes
 {
@@ -51,7 +52,7 @@ namespace HCSAnalyzer.Classes
 
 
             int IdxCurve = 0;
-
+            string titi = null;
             foreach (cDRC CurrentDRC in DRCstoDisplay)
             {
 
@@ -88,12 +89,25 @@ namespace HCSAnalyzer.Classes
                 CurrentSeriesForRealValues.Legend = "Legend1";
                 this.CurrentChart.Series.Add(CurrentSeriesForRealValues);
                 this.CurrentChart.Series.Add(CurrentSeriesForSpline);
-
+                titi = @"C:\" + "[" + CurrentDRC.AssociatedDRCRegion.PosXMin + "." + CurrentDRC.AssociatedDRCRegion.PosYMin + "]" + ".jpg";
+               
             }
+
+
+
+
+            
+
             CurrentChart.Legends.Add(legend1);
             CurrentChart.ChartAreas.Add(TmpChartArea);
             CurrentChart.Height = CurrentRichTextBox.Height = ChartSizeY;
             CurrentChart.Width = ChartSizeX;
+            if (DRCstoDisplay.Count!=0)
+            {
+                //CurrentChart.SaveImage(titi, ChartImageFormat.Jpeg);
+            }
+            
+            //CurrentChart.SaveImage(@"C:\"+, ChartImageFormat.Jpeg);
          //   CurrentChart.Anchor= (System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom  | System.Windows.Forms.AnchorStyles.Left  | System.Windows.Forms.AnchorStyles.Right);
 
             CurrentRichTextBox.Width = CurrentChart.Width;
@@ -107,7 +121,8 @@ namespace HCSAnalyzer.Classes
                 this.CurrentRichTextBox.AppendText("--------------------------------------\n");
             }
 
-
+          
+              
 
         }
 

@@ -65,6 +65,8 @@ using HCSAnalyzer.Classes.MetaComponents;
 using HCSAnalyzer.Classes.DataAnalysis;
 using HCSAnalyzer.Classes.General;
 using System.Net;
+using Excel = Microsoft.Office.Interop.Excel;
+using HCSAnalyzer.GUI.FormsForGraphsDisplay;
 //////////////////////////////////////////////////////////////////////////
 // If you want to change Menu & Name of plugin
 // Go to "Properties->Resources" in Solution Explorer
@@ -73,7 +75,7 @@ using System.Net;
 // You can also use your own Painter & Mouse event handler
 // 
 //////////////////////////////////////////////////////////////////////////
-
+// toto
 namespace HCSAnalyzer
 {
     public partial class HCSAnalyzer : Form
@@ -147,10 +149,10 @@ namespace HCSAnalyzer
             contextMenuStripStatOptions.Items.Add(_StatCVItem);
 
 
-             _StatSumItem = new ToolStripMenuItem("Sum");
-             _StatSumItem.CheckOnClick = true;
-             _StatSumItem.Click += new System.EventHandler(this.StatSumItem);
-             contextMenuStripStatOptions.Items.Add(_StatSumItem);
+            _StatSumItem = new ToolStripMenuItem("Sum");
+            _StatSumItem.CheckOnClick = true;
+            _StatSumItem.Click += new System.EventHandler(this.StatSumItem);
+            contextMenuStripStatOptions.Items.Add(_StatSumItem);
 
 
         }
@@ -1644,9 +1646,9 @@ namespace HCSAnalyzer
 
                         cExtendedTable NewTable = null;
                         if (!checkBoxDisplayClasses.Checked)
-                            NewTable=  new cExtendedTable(CompleteScreening.GetCurrentDisplayPlate().GetAverageValueDescTable(IdxDesc, out IsMissing));
+                            NewTable = new cExtendedTable(CompleteScreening.GetCurrentDisplayPlate().GetAverageValueDescTable(IdxDesc, out IsMissing));
                         else
-                            NewTable=  new cExtendedTable(CompleteScreening.GetCurrentDisplayPlate().GetWellClassesTable());
+                            NewTable = new cExtendedTable(CompleteScreening.GetCurrentDisplayPlate().GetWellClassesTable());
 
                         foreach (var item in NewTable)
                             item.ListTags = new List<object>();
@@ -1666,10 +1668,10 @@ namespace HCSAnalyzer
                             ListRow.Add("Row " + (NewTable[0].Count - IdxRow));
 
                         NewTable.ListRowNames = ListRow;
-                          if (!checkBoxDisplayClasses.Checked)
-                              NewTable.Name = CompleteScreening.ListDescriptors[IdxDesc].GetName() + " (" + ListWellsToProcess.Count + " wells)";
-                          else
-                              NewTable.Name = CompleteScreening.GetCurrentDisplayPlate().Name + " - Well Associated Classes (" + ListWellsToProcess.Count + " wells)";
+                        if (!checkBoxDisplayClasses.Checked)
+                            NewTable.Name = CompleteScreening.ListDescriptors[IdxDesc].GetName() + " (" + ListWellsToProcess.Count + " wells)";
+                        else
+                            NewTable.Name = CompleteScreening.GetCurrentDisplayPlate().Name + " - Well Associated Classes (" + ListWellsToProcess.Count + " wells)";
 
                         cViewerHeatMap VHM = new cViewerHeatMap();
                         VHM.SetInputData(NewTable);
@@ -1683,7 +1685,7 @@ namespace HCSAnalyzer
                             VHM.CurrentLUT = GlobalInfo.ListWellClasses.BuildLUT();
                             VHM.IsAutomatedMinMax = false;
                             VHM.Min = 0;
-                            VHM.Max = GlobalInfo.ListWellClasses.Count-1;
+                            VHM.Max = GlobalInfo.ListWellClasses.Count - 1;
                             VHM.IsWellClassLegend = true;
                             VHM.Title = CompleteScreening.GetCurrentDisplayPlate().Name + " - Well Associated Classes (" + ListWellsToProcess.Count + " wells)";
                         }
@@ -3211,6 +3213,10 @@ namespace HCSAnalyzer
         {
             public string Name;
             public int Occurence = 0;
+            public List<string> Genesincluded = new List<string>();
+            public int GenesActive = 0;
+            public double ratio = 0;
+            public double pValue = 0;
 
         }
 
@@ -3245,6 +3251,194 @@ namespace HCSAnalyzer
             }
 
             MessageBox.Show("Gene not found !", FormForRequest.textBoxForName.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+        private void pathwayExpressionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            // GET PATHWAYS
+            string getpathways = "http://rest.kegg.jp/list/pathway/hsa";
+
+            HttpWebRequest req = WebRequest.Create(string.Format(getpathways)) as HttpWebRequest;
+            req.Method = "GET";
+
+            HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+            StreamReader reader = new StreamReader(response.GetResponseStream());
+            string PathInfo = reader.ReadToEnd();
+
+            reader.Close();
+
+            if (CompleteScreening == null) return;
+            FormForNameRequest FormForRequest = new FormForNameRequest();
+
+
+            string[] path = PathInfo.Split('\n');
+
+            for (int i = 0; i < path.Length - 1; i++)
+            {
+                path[i] = path[i].Remove(0, 5);
+                FormForRequest.listBox1.Items.Add(path[i]);
+            }
+            FormForRequest.listBox1.EndUpdate();
+            FormForRequest.ShowDialog();
+
+            string pathwayselected = FormForRequest.listBox1.SelectedItem.ToString();
+
+            response.Close();
+
+            //if (FormForRequest.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+
+
+            string[] PathwayName = pathwayselected.Split('\t');
+
+
+
+
+
+
+            string getvar = "/link/genes/" + PathwayName[0];// "hsa05010";
+            HttpWebRequest req2 = WebRequest.Create(string.Format("http://rest.kegg.jp" + getvar)) as HttpWebRequest;
+            req2.Method = "GET";
+
+            HttpWebResponse response2 = req2.GetResponse() as HttpWebResponse;
+            StreamReader reader2 = new StreamReader(response2.GetResponseStream());
+
+
+            string GenInfo = reader2.ReadToEnd();
+
+            reader2.Close();
+
+            response2.Close();
+
+            string[] genesarraytmp = GenInfo.Split('\n');
+            List<string> genesarray = new List<string>();
+            foreach (string item in genesarraytmp)
+            {
+                if (item.Contains('\t'))
+                {
+                    genesarray.Add(item.Split('\t')[1]);
+                }
+
+            }
+
+
+            string[] ListGenesinPathway = genesarray.ToArray();
+            double[] ListValues = new double[ListGenesinPathway.Length];
+
+
+            //StreamWriter stw = new StreamWriter(@"C:\alzheimer.csv");
+            //stw.WriteLine("Genes" + "," + "Value");
+
+            int NumberOfPlates = CompleteScreening.ListPlatesActive.Count;
+
+            List<cPathWay> ListPathway = new List<cPathWay>();
+
+
+
+            foreach (cPlate CurrentPlate in CompleteScreening.ListPlatesActive)
+            {
+                foreach (cWell CurrentWell in CurrentPlate.ListActiveWells)
+                {
+                    string CurrentLID = "hsa:" + (int)CurrentWell.LocusID;
+
+                    for (int IdxGene = 0; IdxGene < ListGenesinPathway.Length; IdxGene++)
+                    {
+
+                        //if (CurrentLID == ListGenesinPathway[IdxGene])
+                        //    IDxGeneOfInterest = IdxGene;
+
+                        if (CurrentLID == ListGenesinPathway[IdxGene])
+                        {
+                            ListValues[IdxGene] = CurrentWell.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptorIdx].GetValue();
+                            //stw.Write(CurrentWell.Name); stw.Write(","); stw.Write(ListValues[IdxGene]); stw.WriteLine();
+                            break;
+                        }
+                    }
+                }
+            }
+            //stw.Close();
+            string webpage = "http://www.kegg.jp/kegg-bin/show_pathway?" + PathwayName[0] + "+";
+
+            List<double> Pos = new List<double>();
+            List<double> Neg = new List<double>();
+
+
+            int NumDesc = CompleteScreening.ListDescriptors.Count;
+
+            cWell TempWell;
+
+
+            for (int row = 0; row < CompleteScreening.Rows; row++)
+                for (int col = 0; col < CompleteScreening.Columns; col++)
+                {
+                    TempWell = CompleteScreening.GetCurrentDisplayPlate().GetWell(col, row, true);
+                    if (TempWell == null) continue;
+                    else
+                    {
+                        if (TempWell.GetClassIdx() == (int)FormForRequest.numericUpDown1.Value)
+                            Pos.Add(TempWell.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptorIdx].GetValue());
+                        if (TempWell.GetClassIdx() == (int)FormForRequest.numericUpDown2.Value)
+                            Neg.Add(TempWell.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptorIdx].GetValue());
+                    }
+                }
+            if (Pos.Count < 3)
+            {
+                MessageBox.Show("No or not enough positive controls !", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (Neg.Count < 3)
+            {
+                MessageBox.Show("No or not enough negative controls !", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+
+
+
+            double MinValue = Neg.Average();
+            //MinValue = ListValues.Min();
+            double MaxValue = Pos.Average();
+            string[] bg_list = new string[ListGenesinPathway.Length];
+            string[] fg_list = new string[ListGenesinPathway.Length];
+            for (int IdxCol = 0; IdxCol < bg_list.Length; IdxCol++)
+            {
+
+                int ConvertedValue = (int)((((CompleteScreening.GlobalInfo.LUTs.LUT_JET[0].Length - 1) * (ListValues[IdxCol] - MinValue)) / (MaxValue - MinValue)));
+                if (ConvertedValue > 63)
+                {
+                    ConvertedValue = 63;
+                }
+                if (ConvertedValue < 0)
+                {
+                    ConvertedValue = 0;
+                }
+                Color Coul = Color.FromArgb(CompleteScreening.GlobalInfo.LUTs.LUT_JET[0][ConvertedValue], CompleteScreening.GlobalInfo.LUTs.LUT_JET[1][ConvertedValue],
+                    CompleteScreening.GlobalInfo.LUTs.LUT_JET[2][ConvertedValue]);
+
+
+                fg_list[IdxCol] = "000000";
+                bg_list[IdxCol] = Coul.Name.Remove(0, 2);
+                if (ListValues[IdxCol] == 0)
+                    bg_list[IdxCol] = "ffffff";
+            }
+            int ad = 0;
+            foreach (string item in genesarray)
+            {
+                webpage += item + "%09%23" + bg_list[ad] + "+";
+                ad++;
+            }
+
+            Process.Start("chrome.exe", webpage);
+
+            //FormForKeggGene KeggWin = new FormForKeggGene();
+
+            //KeggWin.webBrowser.Navigate(webpage);
+            ////KeggWin.richTextBox.Text = GenInfo;
+            ////KeggWin.Text = "Gene Infos";
+            //KeggWin.Show();
+
+
+
+
         }
 
         static public List<string> Find_Pathways(double LocusID)
@@ -3300,10 +3494,12 @@ namespace HCSAnalyzer
 
         private FormForPie PathWayAnalysis(int Class)
         {
-            //int Idx = 0;
-            int NumberOfPlates = CompleteScreening.ListPlatesActive.Count;
 
-            List<cPathWay> ListPathway = new List<cPathWay>();
+            #region ExtractGenesHits (var=LocusinClass)
+
+            int NumberOfPlates = CompleteScreening.ListPlatesActive.Count;
+            List<string> LocusinClass = new List<string>();
+            List<string> LocusID = new List<string>();
 
             // loop on all the plate
             for (int PlateIdx = 0; PlateIdx < NumberOfPlates; PlateIdx++)
@@ -3314,113 +3510,439 @@ namespace HCSAnalyzer
                     for (int IdxValue0 = 0; IdxValue0 < CompleteScreening.Rows; IdxValue0++)
                     {
                         cWell TmpWell = CurrentPlateToProcess.GetWell(IdxValue, IdxValue0, true);
-                        if ((TmpWell == null) || (TmpWell.GetClassIdx() != Class) || (TmpWell.LocusID == -1)) continue;
+                        if ((TmpWell != null) && (TmpWell.LocusID != -1) && (TmpWell.LocusID != 0))
+                            LocusID.Add("hsa:" + TmpWell.LocusID);
+                        if ((TmpWell == null) || (TmpWell.GetClassIdx() != Class) || (TmpWell.LocusID == -1) || (TmpWell.LocusID == 0)) continue;
 
+                        LocusinClass.Add("hsa:" + TmpWell.LocusID);
 
-                        //string[] intersection_gene_pathways = new string[1];
-                        //intersection_gene_pathways[0] = "hsa:" + TmpWell.LocusID;
-                        //string[] Pathways = ServKegg.get_pathways_by_genes(intersection_gene_pathways);
-                        string[] Pathways = Find_Pathways(TmpWell.LocusID).ToArray();
-
-                        if ((Pathways == null) || (Pathways.Length == 0)) continue;
-
-                        for (int Idx = 0; Idx < Pathways.Length; Idx++)
-                        {
-                            //  string PathName = Pathways[Idx].Remove(0, 8);
-                            //string GenInfo = ServKegg.bget(Pathways[Idx]);
-
-                            string GenInfo = Find_Info(Pathways[Idx]);
-
-                            string[] Genes = GenInfo.Split(new char[] { '\n' });
-                            string PathName = "";
-                            foreach (string item in Genes)
-                            {
-                                string[] fre = item.Split(' ');
-                                string[] STRsection = fre[0].Split('_');
-
-                                if (STRsection[0] == "NAME")
-                                {
-                                    for (int i = 1; i < fre.Length; i++)
-                                    {
-                                        if (fre[i] == "") continue;
-                                        PathName += fre[i] + " ";
-                                    }
-                                    break;
-                                }
-                            }
-
-                            if (ListPathway.Count == 0)
-                            {
-                                cPathWay CurrPath = new cPathWay();
-                                CurrPath.Name = PathName;
-                                CurrPath.Occurence = 1;
-                                ListPathway.Add(CurrPath);
-                                continue;
-                            }
-
-                            bool DidIt = false;
-                            for (int i = 0; i < ListPathway.Count; i++)
-                            {
-                                if (PathName == ListPathway[i].Name)
-                                {
-                                    ListPathway[i].Occurence++;
-                                    DidIt = true;
-                                    break;
-                                }
-                            }
-
-                            if (DidIt == false)
-                            {
-                                cPathWay CurrPath1 = new cPathWay();
-                                CurrPath1.Name = PathName;
-                                CurrPath1.Occurence = 1;
-                                ListPathway.Add(CurrPath1);
-                            }
-                        }
                     }
             }
+            #endregion
 
-            // now draw the pie
+
+            #region Request HTTP (var=GenInfo2 && PathInfo)
+
+
+            //HttpWebRequest req2 = WebRequest.Create(string.Format("http://rest.kegg.jp/list/hsa")) as HttpWebRequest;
+            //req2.Method = "GET";
+
+            //HttpWebResponse response2 = req2.GetResponse() as HttpWebResponse;
+            //StreamReader reader2 = new StreamReader(response2.GetResponseStream());
+
+            //string GenInfo2 = reader2.ReadToEnd();
+            //reader2.Close();
+
+            //string[] ListofGenes = GenInfo2.Split('\n');
+            //List<string> GenesList = ListofGenes.Select(x => x.Split('\t')[0]).ToList();
+
+            //List<string> CommonGenes = GenesList.Intersect(LocusID).ToList();
+
+            HttpWebRequest req = WebRequest.Create(string.Format("http://rest.kegg.jp/link/hsa/pathway")) as HttpWebRequest;
+            req.Method = "GET";
+
+            HttpWebResponse response = req.GetResponse() as HttpWebResponse;
+            StreamReader reader = new StreamReader(response.GetResponseStream());
+
+            string PathInfo = reader.ReadToEnd();
+            reader.Close();
+            #endregion
+
+            //HttpWebRequest req3 = WebRequest.Create(string.Format("http://rest.kegg.jp/link/pathway/hsa")) as HttpWebRequest;
+            //req3.Method = "GET";
+
+            //HttpWebResponse response3 = req3.GetResponse() as HttpWebResponse;
+            //StreamReader reader3 = new StreamReader(response3.GetResponseStream());
+
+            //string GenesInfo = reader3.ReadToEnd();
+            //reader3.Close();
+            //string[] GenesinPathways = GenesInfo.Split('\n');
+
+            #region numberofgenesbypathways
+
+            string[] PathwayGenes = PathInfo.Split('\n');// extract the number of genes by Pathway for p-values
+            IEnumerable<IGrouping<string, string>> NumberofGenesByPathways = PathwayGenes.GroupBy(x => x.Split('\t')[0]).ToList();
+            IEnumerable<IGrouping<string, string>> Numberofpathwaybygenes = PathwayGenes.Where(x => x.Count() > 0).GroupBy(x => x.Split('\t')[1]).ToList();
+            //IEnumerable<IGrouping<string, string>> NumberofGenesby = GenesinPathways.Where(x => x.Count() > 0).GroupBy(x => x.Split('\t')[0]).ToList();
+
+
+            #endregion
+
+
+            #region ExtractNumberofpatways
+
+            //string[] GenePathways = GenInfo2.Split('\n');
+
+            List<cPathWay> ListPathway = new List<cPathWay>();
+
+
+            foreach (IGrouping<string, string> item in Numberofpathwaybygenes)
+            {
+                if (LocusinClass.Contains(item.Key))
+                {
+                    foreach (string PathName in item)
+                    {
+
+                        if (ListPathway.Count == 0)
+                        {
+                            cPathWay CurrPath = new cPathWay();
+                            CurrPath.Name = PathName.Split('\t')[0];
+                            CurrPath.Occurence = 1;
+                            ListPathway.Add(CurrPath);
+                            continue;
+                        }
+
+
+                        bool DidIt = false;
+                        for (int i = 0; i < ListPathway.Count; i++)
+                        {
+                            if (PathName.Split('\t')[0] == ListPathway[i].Name)
+                            {
+                                ListPathway[i].Occurence++;
+                                DidIt = true;
+                                break;
+                            }
+                        }
+
+                        if (DidIt == false)
+                        {
+                            cPathWay CurrPath1 = new cPathWay();
+                            CurrPath1.Name = PathName.Split('\t')[0];
+                            CurrPath1.Occurence = 1;
+                            ListPathway.Add(CurrPath1);
+                        }
+
+
+                    }
+
+
+                }
+            }
+
+            int thu = 0;
+            foreach (cPathWay item in ListPathway)
+            {
+
+                thu += item.Occurence;
+
+
+            }
+            #endregion
+
+            #region now draw the pie
             if (ListPathway.Count == 0)
             {
                 MessageBox.Show("No pathway identified !", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return null;
 
             }
+
             FormForPie Pie = new FormForPie();
 
             Series CurrentSeries = Pie.chartForPie.Series[0];
+            Pie.chartForPie.Titles.Add("Pathways Enrichment Ratio");
 
-            // loop on all the plate
-            int MaxOccurence = int.MinValue;
-            int MaxIdx = 0;
-            int TotalOcurrence = 0;
-            for (int Idx = 0; Idx < ListPathway.Count; Idx++)
-            {
-                if (ListPathway[Idx].Occurence > MaxOccurence)
+            List<cPathWay> newPathway = new List<cPathWay>();
+            newPathway = ListPathway.OrderByDescending(p => p.Occurence).ToList();
+            List<string> Pathwaynamehit = new List<string>();
+            //List<double> numberofgenesinPathway = new List<double>();
+
+            foreach (var item in newPathway)
+                foreach (IGrouping<string, string> item2 in NumberofGenesByPathways)
                 {
-                    MaxOccurence = ListPathway[Idx].Occurence;
-                    MaxIdx = Idx;
+
+                    if (item.Name.Contains(item2.Key) && item2.Key != "")
+                    {
+                        item.Genesincluded.AddRange(item2);
+
+                    }
+
+
                 }
-                TotalOcurrence += ListPathway[Idx].Occurence;
-            }
 
-
-
-            //CurrentSeries.CustomProperties = "PieLabelStyle=Outside";
-            for (int Idx = 0; Idx < ListPathway.Count; Idx++)
+            List<cPathWay> FinalPathway = new List<cPathWay>();
+            foreach (cPathWay item in newPathway)
             {
-                CurrentSeries.Points.Add(ListPathway[Idx].Occurence);
-                CurrentSeries.Points[Idx].Label = String.Format("{0:0.###}", ((100.0 * ListPathway[Idx].Occurence) / TotalOcurrence)) + " %";
+                cPathWay temp = new cPathWay();
+                List<string> tempgenes = new List<string>();
+                foreach (string item2 in item.Genesincluded)
+                {
+                    tempgenes.Add(item2.Replace(item2, item2.Split('\t')[1]));
+                }
+                temp.Genesincluded.AddRange(tempgenes);
+                temp.Name = item.Name;
+                temp.Occurence = item.Occurence;
 
-                CurrentSeries.Points[Idx].LegendText = ListPathway[Idx].Name;
-                CurrentSeries.Points[Idx].ToolTip = ListPathway[Idx].Name;
-                if (Idx == MaxIdx)
-                    CurrentSeries.Points[Idx].SetCustomProperty("Exploded", "True");
+                FinalPathway.Add(temp);
             }
 
+            foreach (cPathWay item in FinalPathway)
+            {
+                int cpt = 0;
+                foreach (string item2 in item.Genesincluded)
+                {
+                    if (LocusinClass.Contains(item2))
+                    {
+                        cpt++;
+                    }
+                }
+                item.GenesActive = cpt;
+                item.ratio = (double)item.GenesActive / (double)item.Genesincluded.Count();
+
+                for (int i = item.GenesActive; i < item.Genesincluded.Count(); i++)
+                {
+                    item.pValue += Pvalue(i, Numberofpathwaybygenes.Count(), item.Genesincluded.Count(), LocusinClass.Count());
+                }
+            }
+
+
+            List<cPathWay> AfterFinal = new List<cPathWay>();
+
+
+            AfterFinal = FinalPathway.OrderBy(p => (p.pValue)).ToList();
+            cExtendedList ratioac = new cExtendedList();
+
+            foreach (cPathWay item in AfterFinal)
+            {
+
+                ratioac.Add(item.pValue);
+
+
+            }
+
+            cViewerHistogram toto = new cViewerHistogram();
+            cExtendedTable data = new cExtendedTable(ratioac);
+            toto.SetInputData(data);
+
+            toto.Chart.LabelAxisX = "pValue";
+            toto.Chart.LabelAxisY = "Distribution";
+            toto.Run();
+
+
+
+
+            cDesignerSinglePanel Designer0 = new cDesignerSinglePanel();
+            Designer0.SetInputData(toto.GetOutPut());
+            Designer0.Run();
+
+            cDisplayToWindow Disp0 = new cDisplayToWindow();
+            Disp0.SetInputData(Designer0.GetOutPut());
+            Disp0.Title = "Histo- ";
+            Disp0.Run();
+            Disp0.Display();
+
+
+
+
+            //for (int Idx = 0; Idx < 40; Idx++)
+            //{
+
+            int Idx = 0;
+            while (AfterFinal[Idx].pValue < 0.05)
+            {
+                CurrentSeries.Points.Add(AfterFinal[Idx].pValue);
+                CurrentSeries.Points[Idx].Label = String.Format("{0:0.##}", ((AfterFinal[Idx].pValue)));
+
+                CurrentSeries.Points[Idx].LegendText = AfterFinal[Idx].Name + "   (" + AfterFinal[Idx].GenesActive + "/" +
+                    AfterFinal[Idx].Genesincluded.Count() + ")";
+
+                CurrentSeries.Points[Idx].ToolTip = AfterFinal[Idx].Name + "\n" + (LocusID.Count()) + "\n" + (LocusinClass.Count() + "\n" + AfterFinal[Idx].pValue);
+                if (Idx == 0)
+                    CurrentSeries.Points[Idx].SetCustomProperty("Exploded", "True");
+                //MathNet.Numerics.Distributions.Hypergeometric T =
+                //    new MathNet.Numerics.Distributions.Hypergeometric(Numberofpathwaybygenes.Count(), AfterFinal[Idx].Genesincluded.Count(), LocusinClass.Count());
+
+                Idx++;
+            }
+
+
+            #endregion
+
+            #region Display Pathways
+            List<string> namepathwaypvalue = new List<string>();
+            for (int i = 0; i < Idx; i++)
+            {
+                namepathwaypvalue.Add(AfterFinal[i].Name.Remove(0, 5));
+            }
+
+            PathwayDisplayforpvalue(namepathwaypvalue);
+            #endregion
             return Pie;
         }
+
+        public double Pvalue(int x, int m, int k, int n)
+        {
+            double p = 0;
+            double a = MathNet.Numerics.SpecialFunctions.GammaLn(k + 1) - MathNet.Numerics.SpecialFunctions.GammaLn(x + 1)
+                - MathNet.Numerics.SpecialFunctions.GammaLn(k - x + 1);
+
+            double b = MathNet.Numerics.SpecialFunctions.GammaLn(m + 1) - MathNet.Numerics.SpecialFunctions.GammaLn(n + 1) -
+                MathNet.Numerics.SpecialFunctions.GammaLn(m - n + 1);
+
+            double c = MathNet.Numerics.SpecialFunctions.GammaLn(m - k + 1) - MathNet.Numerics.SpecialFunctions.GammaLn(n - x + 1)
+                - MathNet.Numerics.SpecialFunctions.GammaLn(m - k - (n - x) + 1);
+
+            p = Math.Exp(a + c - b);
+
+
+
+
+            return p;
+        }
+
+        public void PathwayDisplayforpvalue(List<string> Pathway)
+        {
+
+            FormForNameRequest FormForRequest = new FormForNameRequest();
+            // FormForRequest.Size = new Size(150, 150);
+            FormForRequest.ShowDialog();
+            int h = (Pathway.Count() > (int)FormForRequest.numericUpDown3.Value) ? Pathway.Count() : (int)FormForRequest.numericUpDown3.Value;
+            //int h=Pathway.Count()>FormForRequest.numericUpDown3.Value?:
+            for (int i = 0; i < h; i++)
+            {
+
+
+
+                string getvar = "/link/genes/" + Pathway[i];// "hsa05010";
+                HttpWebRequest req2 = WebRequest.Create(string.Format("http://rest.kegg.jp" + getvar)) as HttpWebRequest;
+                req2.Method = "GET";
+
+                HttpWebResponse response2 = req2.GetResponse() as HttpWebResponse;
+                StreamReader reader2 = new StreamReader(response2.GetResponseStream());
+
+
+                string GenInfo = reader2.ReadToEnd();
+
+                reader2.Close();
+
+                response2.Close();
+
+                string[] genesarraytmp = GenInfo.Split('\n');
+                List<string> genesarray = new List<string>();
+                foreach (string item in genesarraytmp)
+                {
+                    if (item.Contains('\t'))
+                    {
+                        genesarray.Add(item.Split('\t')[1]);
+                    }
+
+                }
+
+
+                string[] ListGenesinPathway = genesarray.ToArray();
+                double[] ListValues = new double[ListGenesinPathway.Length];
+
+
+                //StreamWriter stw = new StreamWriter(@"C:\alzheimer.csv");
+                //stw.WriteLine("Genes" + "," + "Value");
+
+                int NumberOfPlates = CompleteScreening.ListPlatesActive.Count;
+
+                List<cPathWay> ListPathway = new List<cPathWay>();
+
+
+
+                foreach (cPlate CurrentPlate in CompleteScreening.ListPlatesActive)
+                {
+                    foreach (cWell CurrentWell in CurrentPlate.ListActiveWells)
+                    {
+                        string CurrentLID = "hsa:" + (int)CurrentWell.LocusID;
+
+                        for (int IdxGene = 0; IdxGene < ListGenesinPathway.Length; IdxGene++)
+                        {
+
+                            //if (CurrentLID == ListGenesinPathway[IdxGene])
+                            //    IDxGeneOfInterest = IdxGene;
+
+                            if (CurrentLID == ListGenesinPathway[IdxGene])
+                            {
+                                ListValues[IdxGene] = CurrentWell.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptorIdx].GetValue();
+                                //stw.Write(CurrentWell.Name); stw.Write(","); stw.Write(ListValues[IdxGene]); stw.WriteLine();
+                                break;
+                            }
+                        }
+                    }
+                }
+                //stw.Close();
+                string webpage = "http://www.kegg.jp/kegg-bin/show_pathway?" + Pathway[i] + "+";
+
+                List<double> Pos = new List<double>();
+                List<double> Neg = new List<double>();
+
+
+                int NumDesc = CompleteScreening.ListDescriptors.Count;
+
+                cWell TempWell;
+
+                if (CompleteScreening == null) return;
+
+
+
+                for (int row = 0; row < CompleteScreening.Rows; row++)
+                    for (int col = 0; col < CompleteScreening.Columns; col++)
+                    {
+                        TempWell = CompleteScreening.GetCurrentDisplayPlate().GetWell(col, row, true);
+                        if (TempWell == null) continue;
+                        else
+                        {
+                            if (TempWell.GetClassIdx() == (int)FormForRequest.numericUpDown1.Value)
+                                Pos.Add(TempWell.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptorIdx].GetValue());
+                            if (TempWell.GetClassIdx() == (int)FormForRequest.numericUpDown2.Value)
+                                Neg.Add(TempWell.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptorIdx].GetValue());
+                        }
+                    }
+                if (Pos.Count < 3)
+                {
+                    MessageBox.Show("No or not enough positive controls !", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+                if (Neg.Count < 3)
+                {
+                    MessageBox.Show("No or not enough negative controls !", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+
+
+
+
+                double MinValue = Neg.Average();
+                //MinValue = ListValues.Min();
+                double MaxValue = Pos.Average();
+                string[] bg_list = new string[ListGenesinPathway.Length];
+                string[] fg_list = new string[ListGenesinPathway.Length];
+                for (int IdxCol = 0; IdxCol < bg_list.Length; IdxCol++)
+                {
+
+                    int ConvertedValue = (int)((((CompleteScreening.GlobalInfo.LUTs.LUT_JET[0].Length - 1) * (ListValues[IdxCol] - MinValue)) / (MaxValue - MinValue)));
+                    if (ConvertedValue > 63)
+                    {
+                        ConvertedValue = 63;
+                    }
+                    if (ConvertedValue < 0)
+                    {
+                        ConvertedValue = 0;
+                    }
+                    Color Coul = Color.FromArgb(CompleteScreening.GlobalInfo.LUTs.LUT_JET[0][ConvertedValue], CompleteScreening.GlobalInfo.LUTs.LUT_JET[1][ConvertedValue],
+                        CompleteScreening.GlobalInfo.LUTs.LUT_JET[2][ConvertedValue]);
+
+
+                    fg_list[IdxCol] = "000000";
+                    bg_list[IdxCol] = Coul.Name.Remove(0, 2);
+                    if (ListValues[IdxCol] == 0)
+                        bg_list[IdxCol] = "ffffff";
+
+                }
+                int ad = 0;
+                foreach (string item in genesarray)
+                {
+                    webpage += item + "%09%23" + bg_list[ad] + "+";
+                    ad++;
+                }
+
+                Process.Start("chrome.exe", webpage);
+            }
+        }
+
 
 
         //private FormForPie PathWayAnalysis(int Class)
@@ -4769,10 +5291,11 @@ namespace HCSAnalyzer
 
             int h = 0;
             FormToDisplayDRC WindowforDRCsDisplay = new FormToDisplayDRC();
-
+            List<string> imagenames = new List<string>();
+            int cpt = 0;
             foreach (cDRC_Region TmpRegion in CompleteScreening.GetCurrentDisplayPlate().ListDRCRegions)
             {
-                int cpt = 0;
+
                 List<cDRC> ListDRC = new List<cDRC>();
                 for (int i = 0; i < CompleteScreening.ListDescriptors.Count; i++)
                 {
@@ -4781,26 +5304,158 @@ namespace HCSAnalyzer
                         cDRC CurrentDRC = new cDRC(TmpRegion, CompleteScreening.ListDescriptors[i]);
 
                         ListDRC.Add(CurrentDRC);
-                        cpt++;
+
+
+                    }
+
+                }
+                if (ListDRC.Count != 0)
+                {
+
+                    cDRCDisplay DRCDisplay = new cDRCDisplay(ListDRC, GlobalInfo);
+
+                    imagenames.Add(@"C:\" + cpt + ".jpg");
+
+                    if (DRCDisplay.CurrentChart.Series.Count == 0) continue;
+
+                    DRCDisplay.CurrentChart.Location = new Point((DRCDisplay.CurrentChart.Width + 50) * 0, (DRCDisplay.CurrentChart.Height + 10 + DRCDisplay.CurrentRichTextBox.Height) * h++);
+                    DRCDisplay.CurrentRichTextBox.Location = new Point(DRCDisplay.CurrentChart.Location.X, DRCDisplay.CurrentChart.Location.Y + DRCDisplay.CurrentChart.Height + 5);
+
+                    WindowforDRCsDisplay.LChart.Add(DRCDisplay.CurrentChart);
+                    WindowforDRCsDisplay.LRichTextBox.Add(DRCDisplay.CurrentRichTextBox);
+                    DRCDisplay.CurrentChart.SaveImage(@"C:\" + cpt + ".jpg", ChartImageFormat.Jpeg);
+                }
+                cpt++;
+            }
+
+
+
+
+
+
+
+
+
+
+            //Clipboard.SetDataObject(Image.FromFile(@"c:\1.jpg"));
+            //xlWorkSheet.Range["A1"].Select();
+            //xlWorkSheet.PasteSpecial();
+            //add some text 
+            //xlWorkSheet.Cells[1, 1] = "http://csharp.net-informations.com";
+            //xlWorkSheet.Cells[2, 1] = "Adding picture in Excel File";
+            for (int i = 0; i < imagenames.Count; i++)
+            {
+
+
+                // xlWorkSheet.Shapes.AddPicture(imagenames[i], Microsoft.Office.Core.MsoTriState.msoFalse,
+                //Microsoft.Office.Core.MsoTriState.msoCTrue, 50, 1+50*i, 300, 45);
+
+            }
+
+
+
+
+            StreamWriter filecsv = null;
+            for (int i = 0; i < CompleteScreening.ListDescriptors.Count; i++)
+            {
+
+                Excel.Application xlApp = new Excel.Application();
+                Excel.Workbook xlWorkBook;
+                Excel.Worksheet xlWorkSheet;
+                object misValue = System.Reflection.Missing.Value;
+
+                // xlApp = new Excel.ApplicationClass();
+                xlWorkBook = xlApp.Workbooks.Add(misValue);
+                xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+                // Microsoft.Office.Interop.Excel.Range cell = GetMyPictureCELL(taperSheet);
+
+                List<cDRC> ListDRC = new List<cDRC>();
+                foreach (cDRC_Region TmpRegion in CompleteScreening.GetCurrentDisplayPlate().ListDRCRegions)
+                {
+
+
+                    if (CompleteScreening.ListDescriptors[i].IsActive())
+                    {
+                        cDRC CurrentDRC = new cDRC(TmpRegion, CompleteScreening.ListDescriptors[i]);
+
+                        ListDRC.Add(CurrentDRC);
+
+
                     }
 
                 }
 
-                cDRCDisplay DRCDisplay = new cDRCDisplay(ListDRC, GlobalInfo);
 
-                if (DRCDisplay.CurrentChart.Series.Count == 0) continue;
+                string str = CompleteScreening.ListDescriptors[i].GetName();
+                str = str.Replace("\\", " ");
+                str = str.Replace("/", " ");
+                //filecsv = new StreamWriter(@"C:\" + str + ".xls");
+                //String name = CompleteScreening.GlobalInfo.CurrentScreen.CurrentDisplayPlateIdx.ToString();
+                //filecsv.WriteLine("Pos" + "," + "EC50" + "," + "Bottom" + "," + "Top" + "," + "Slope" + "," + "RelativeError");
 
-                DRCDisplay.CurrentChart.Location = new Point((DRCDisplay.CurrentChart.Width + 50) * 0, (DRCDisplay.CurrentChart.Height + 10 + DRCDisplay.CurrentRichTextBox.Height) * h++);
-                DRCDisplay.CurrentRichTextBox.Location = new Point(DRCDisplay.CurrentChart.Location.X, DRCDisplay.CurrentChart.Location.Y + DRCDisplay.CurrentChart.Height + 5);
+                xlWorkSheet.Cells[1, 1] = "Pos"; xlWorkSheet.Cells[1, 2] = "EC50"; xlWorkSheet.Cells[1, 3] = "Top"; xlWorkSheet.Cells[1, 4] = "Bottom";
+                xlWorkSheet.Cells[1, 5] = "Slope";
 
-                WindowforDRCsDisplay.LChart.Add(DRCDisplay.CurrentChart);
-                WindowforDRCsDisplay.LRichTextBox.Add(DRCDisplay.CurrentRichTextBox);
+                for (int j = 0; j < ListDRC.Count; j++)
+                {
+
+
+
+                    xlWorkSheet.Cells[j + 2, 1] = ListDRC[j].AssociatedDRCRegion.PosXMin + ":" + ListDRC[j].AssociatedDRCRegion.PosYMin;
+                    xlWorkSheet.Cells[j + 2, 2] = ListDRC[j].EC50;
+                    xlWorkSheet.Cells[j + 2, 2].AddComment(" ");
+                    xlWorkSheet.Cells[j + 2, 2].Comment.Shape.Fill.UserPicture(imagenames[j]);
+                    xlWorkSheet.Cells[j + 2, 3] = ListDRC[j].Top;
+                    xlWorkSheet.Cells[j + 2, 4] = ListDRC[j].Bottom;
+                    xlWorkSheet.Cells[j + 2, 5] = ListDRC[j].Slope;
+
+
+                    //filecsv.Write(ListDRC[j].AssociatedDRCRegion.PosXMin + ":" + ListDRC[j].AssociatedDRCRegion.PosYMin); filecsv.Write(",");
+                    //filecsv.Write(ListDRC[j].EC50); filecsv.Write(","); filecsv.Write(ListDRC[j].Bottom); filecsv.Write(","); filecsv.Write(ListDRC[j].Top);
+                    //filecsv.Write(","); filecsv.Write(ListDRC[j].Slope); filecsv.Write(","); filecsv.Write(ListDRC[j].RelativeError); filecsv.WriteLine();
+
+                }
+
+                // filecsv.Close();
+                xlWorkBook.SaveAs(@"C:\" + str + ".xls", Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue,
+               Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                xlWorkBook.Close(true, misValue, misValue);
+                xlApp.Quit();
+                releaseObject(xlWorkSheet);
+                releaseObject(xlWorkBook);
+                releaseObject(xlApp);
             }
+
+
+
+
+
+
 
             WindowforDRCsDisplay.panelForDRC.Controls.AddRange(WindowforDRCsDisplay.LChart.ToArray());
             WindowforDRCsDisplay.panelForDRC.Controls.AddRange(WindowforDRCsDisplay.LRichTextBox.ToArray());
             WindowforDRCsDisplay.Show();
         }
+
+        private void releaseObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                MessageBox.Show("Exception Occured while releasing object " + ex.ToString());
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
+
+
 
 
         private void displayRespondingDRCToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -4831,15 +5486,19 @@ namespace HCSAnalyzer
                             }
                         }
                     }
+                    if (ListDRC.Count != 0)
+                    {
+                        cDRCDisplay DRCDisplay = new cDRCDisplay(ListDRC, GlobalInfo);
 
-                    cDRCDisplay DRCDisplay = new cDRCDisplay(ListDRC, GlobalInfo);
-                    if (DRCDisplay.CurrentChart.Series.Count == 0) continue;
 
-                    DRCDisplay.CurrentChart.Location = new Point((DRCDisplay.CurrentChart.Width + 50) * 0, (DRCDisplay.CurrentChart.Height + 10 + DRCDisplay.CurrentRichTextBox.Height) * h++);
-                    DRCDisplay.CurrentRichTextBox.Location = new Point(DRCDisplay.CurrentChart.Location.X, DRCDisplay.CurrentChart.Location.Y + DRCDisplay.CurrentChart.Height + 5);
+                        if (DRCDisplay.CurrentChart.Series.Count == 0) continue;
 
-                    WindowforDRCsDisplay.LChart.Add(DRCDisplay.CurrentChart);
-                    WindowforDRCsDisplay.LRichTextBox.Add(DRCDisplay.CurrentRichTextBox);
+                        DRCDisplay.CurrentChart.Location = new Point((DRCDisplay.CurrentChart.Width + 50) * 0, (DRCDisplay.CurrentChart.Height + 10 + DRCDisplay.CurrentRichTextBox.Height) * h++);
+                        DRCDisplay.CurrentRichTextBox.Location = new Point(DRCDisplay.CurrentChart.Location.X, DRCDisplay.CurrentChart.Location.Y + DRCDisplay.CurrentChart.Height + 5);
+
+                        WindowforDRCsDisplay.LChart.Add(DRCDisplay.CurrentChart);
+                        WindowforDRCsDisplay.LRichTextBox.Add(DRCDisplay.CurrentRichTextBox);
+                    }
                 }
 
                 WindowforDRCsDisplay.panelForDRC.Controls.AddRange(WindowforDRCsDisplay.LChart.ToArray());
@@ -5068,92 +5727,92 @@ namespace HCSAnalyzer
         private void findPathwayToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-        //    if (CompleteScreening == null) return;
-        //    FormForNameRequest FormForRequest = new FormForNameRequest();
-        //    if (FormForRequest.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
-        //    int NumberOfPlates = CompleteScreening.ListPlatesActive.Count;
+            //    if (CompleteScreening == null) return;
+            //    FormForNameRequest FormForRequest = new FormForNameRequest();
+            //    if (FormForRequest.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+            //    int NumberOfPlates = CompleteScreening.ListPlatesActive.Count;
 
-        //    FormForKeggGene KeggWin = new FormForKeggGene();
-          
-        //    string[] intersection_gene_pathways = new string[1];
-        //    string[] Pathways = { FormForRequest.textBoxForName.Text };
-        //    intersection_gene_pathways = ServKegg.get_genes_by_pathway("path:" + Pathways[0]);
-        //    if ((Pathways == null) || (Pathways.Length == 0) || (Pathways[0] == ""))
-        //    {
-        //        MessageBox.Show("No pathway founded !", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-        //        return;
-        //    }
+            //    FormForKeggGene KeggWin = new FormForKeggGene();
 
-        //    string[] fg_list = { "black" };
-        //    string[] bg_list = { "orange" };
+            //    string[] intersection_gene_pathways = new string[1];
+            //    string[] Pathways = { FormForRequest.textBoxForName.Text };
+            //    intersection_gene_pathways = ServKegg.get_genes_by_pathway("path:" + Pathways[0]);
+            //    if ((Pathways == null) || (Pathways.Length == 0) || (Pathways[0] == ""))
+            //    {
+            //        MessageBox.Show("No pathway founded !", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //        return;
+            //    }
 
-        //    string pathway_map_html = "";
-        //    //  KEGG ServKegg = new KEGG();
-        //    string[] ListGenesinPathway = ServKegg.get_genes_by_pathway("path:" + Pathways[0]);
-        //    if (ListGenesinPathway.Length == 0)
-        //    {
-        //        return;
-        //    }
-        //    double[] ListValues = new double[ListGenesinPathway.Length];
-        //    int IDxGeneOfInterest = 0;
-        //    foreach (cPlate CurrentPlate in CompleteScreening.ListPlatesActive)
-        //    {
-        //        foreach (cWell CurrentWell in CurrentPlate.ListActiveWells)
-        //        {
-        //            string CurrentLID = "hsa:" + (int)CurrentWell.LocusID;
+            //    string[] fg_list = { "black" };
+            //    string[] bg_list = { "orange" };
 
-        //            for (int IdxGene = 0; IdxGene < ListGenesinPathway.Length; IdxGene++)
-        //            {
+            //    string pathway_map_html = "";
+            //    //  KEGG ServKegg = new KEGG();
+            //    string[] ListGenesinPathway = ServKegg.get_genes_by_pathway("path:" + Pathways[0]);
+            //    if (ListGenesinPathway.Length == 0)
+            //    {
+            //        return;
+            //    }
+            //    double[] ListValues = new double[ListGenesinPathway.Length];
+            //    int IDxGeneOfInterest = 0;
+            //    foreach (cPlate CurrentPlate in CompleteScreening.ListPlatesActive)
+            //    {
+            //        foreach (cWell CurrentWell in CurrentPlate.ListActiveWells)
+            //        {
+            //            string CurrentLID = "hsa:" + (int)CurrentWell.LocusID;
 
-        //                if (CurrentLID == intersection_gene_pathways[0])
-        //                    IDxGeneOfInterest = IdxGene;
+            //            for (int IdxGene = 0; IdxGene < ListGenesinPathway.Length; IdxGene++)
+            //            {
 
-        //                if (CurrentLID == ListGenesinPathway[IdxGene])
-        //                {
-        //                    ListValues[IdxGene] = CurrentWell.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptorIdx].GetValue();
-        //                    break;
-        //                }
-        //            }
-        //        }
-        //    }
+            //                if (CurrentLID == intersection_gene_pathways[0])
+            //                    IDxGeneOfInterest = IdxGene;
 
-        //    bg_list = new string[ListGenesinPathway.Length];
-        //    fg_list = new string[ListGenesinPathway.Length];
+            //                if (CurrentLID == ListGenesinPathway[IdxGene])
+            //                {
+            //                    ListValues[IdxGene] = CurrentWell.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptorIdx].GetValue();
+            //                    break;
+            //                }
+            //            }
+            //        }
+            //    }
 
-        //    double MinValue = ListValues.Min();
-        //    double MaxValue = ListValues.Max();
+            //    bg_list = new string[ListGenesinPathway.Length];
+            //    fg_list = new string[ListGenesinPathway.Length];
 
-        //    for (int IdxCol = 0; IdxCol < bg_list.Length; IdxCol++)
-        //    {
+            //    double MinValue = ListValues.Min();
+            //    double MaxValue = ListValues.Max();
 
-        //        int ConvertedValue = (int)((((CompleteScreening.GlobalInfo.LUTs.LUT_GREEN_TO_RED[0].Length - 1) * (ListValues[IdxCol] - MinValue)) / (MaxValue - MinValue)));
+            //    for (int IdxCol = 0; IdxCol < bg_list.Length; IdxCol++)
+            //    {
 
-        //        Color Coul = Color.FromArgb(CompleteScreening.GlobalInfo.LUTs.LUT_GREEN_TO_RED[0][ConvertedValue], CompleteScreening.GlobalInfo.LUTs.LUT_GREEN_TO_RED[1][ConvertedValue], CompleteScreening.GlobalInfo.LUTs.LUT_GREEN_TO_RED[2][ConvertedValue]);
+            //        int ConvertedValue = (int)((((CompleteScreening.GlobalInfo.LUTs.LUT_GREEN_TO_RED[0].Length - 1) * (ListValues[IdxCol] - MinValue)) / (MaxValue - MinValue)));
 
-        //        if (IdxCol == IDxGeneOfInterest)
-        //            fg_list[IdxCol] = "white";
-        //        else
-        //            fg_list[IdxCol] = "#000000";
-        //        bg_list[IdxCol] = "#" + Coul.Name.Remove(0, 2);
+            //        Color Coul = Color.FromArgb(CompleteScreening.GlobalInfo.LUTs.LUT_GREEN_TO_RED[0][ConvertedValue], CompleteScreening.GlobalInfo.LUTs.LUT_GREEN_TO_RED[1][ConvertedValue], CompleteScreening.GlobalInfo.LUTs.LUT_GREEN_TO_RED[2][ConvertedValue]);
 
-        //    }
+            //        if (IdxCol == IDxGeneOfInterest)
+            //            fg_list[IdxCol] = "white";
+            //        else
+            //            fg_list[IdxCol] = "#000000";
+            //        bg_list[IdxCol] = "#" + Coul.Name.Remove(0, 2);
 
-        //    //  foreach (string item in ListP.listBoxPathways.SelectedItems)
-        //    {
-        //        pathway_map_html = ServKegg.get_html_of_colored_pathway_by_objects(Pathways[0], ListGenesinPathway, fg_list, bg_list);
-        //    }
+            //    }
 
-        //    pathway_map_html = ServKegg.get_html_of_colored_pathway_by_objects((string)(Pathways[0]), intersection_gene_pathways, fg_list, bg_list);
+            //    //  foreach (string item in ListP.listBoxPathways.SelectedItems)
+            //    {
+            //        pathway_map_html = ServKegg.get_html_of_colored_pathway_by_objects(Pathways[0], ListGenesinPathway, fg_list, bg_list);
+            //    }
 
-        //    // FormForKegg KeggWin = new FormForKegg();
-        //    if (pathway_map_html.Length == 0) return;
+            //    pathway_map_html = ServKegg.get_html_of_colored_pathway_by_objects((string)(Pathways[0]), intersection_gene_pathways, fg_list, bg_list);
 
-        //    //
-        //    //KeggWin.Show();
-        //    //ListP.listBoxPathways.MouseDoubleClick += new MouseEventHandler(listBox1_MouseDoubleClick);
-        //    KeggWin.webBrowser.Navigate(pathway_map_html);
+            //    // FormForKegg KeggWin = new FormForKegg();
+            //    if (pathway_map_html.Length == 0) return;
 
-        //    KeggWin.Show();
+            //    //
+            //    //KeggWin.Show();
+            //    //ListP.listBoxPathways.MouseDoubleClick += new MouseEventHandler(listBox1_MouseDoubleClick);
+            //    KeggWin.webBrowser.Navigate(pathway_map_html);
+
+            //    KeggWin.Show();
         }
 
 
@@ -5537,7 +6196,7 @@ namespace HCSAnalyzer
                 }
 
                 TmpWell.AssociatedPlate.DBConnection = new cDBConnection(TmpWell.AssociatedPlate, TmpWell.SQLTableName);
-                int NumCells = TmpWell.AssociatedPlate.DBConnection.AddWellToDataTable(TmpWell, FinalDataTable,  GlobalInfo);
+                int NumCells = TmpWell.AssociatedPlate.DBConnection.AddWellToDataTable(TmpWell, FinalDataTable, GlobalInfo);
 
                 cListSingleBiologicalObjects LSO = TmpWell.AssociatedPlate.DBConnection.GetWellBiologicalPhenotypes(TmpWell);
                 TmpWell.AssociatedPlate.DBConnection.DB_CloseConnection();
@@ -7373,7 +8032,7 @@ namespace HCSAnalyzer
                 VG1.Chart.IsDisplayValues = true;
                 VG1.Chart.IsShadow = true;
                 VG1.Chart.MarkerSize = 4;
-                               
+
                 VG1.Title = CompleteScreening.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptorIdx].GetName();
                 VG1.Run();
 
@@ -8615,7 +9274,7 @@ namespace HCSAnalyzer
                         else if (_StatSumItem.Checked)
                             CS.IsSum = true;
 
-                        
+
                         CS.SetInputData(TableForValues);
                         CS.Run();
                         ListValues.Add(CS.GetOutPut()[0][0]);
@@ -8627,7 +9286,7 @@ namespace HCSAnalyzer
                     cExtendedTable ET = new cExtendedTable(new cExtendedTable(ListValues));
                     ET[0].ListTags = new List<object>();
                     ET[0].ListTags.AddRange(ListDescs);
-                    ET.Name = TmpPlate.Name + "\n"+NameFunction+" - " + GlobalInfo.ListWellClasses[IdxClass].Name + " (" + NewTable1[0].Count + " wells)";
+                    ET.Name = TmpPlate.Name + "\n" + NameFunction + " - " + GlobalInfo.ListWellClasses[IdxClass].Name + " (" + NewTable1[0].Count + " wells)";
                     ET[0].Name = ET.Name;
 
                     cSort S = new cSort();
@@ -8659,9 +9318,9 @@ namespace HCSAnalyzer
 
 
                 if (ProcessModeCurrentPlateOnlyToolStripMenuItem.Checked)
-                    CDW.Title = NameFunction+" - " + ListPlatesToProcess[0].Name;
+                    CDW.Title = NameFunction + " - " + ListPlatesToProcess[0].Name;
                 else
-                    CDW.Title = NameFunction+" - " + ListPlatesToProcess.Count + " plates";
+                    CDW.Title = NameFunction + " - " + ListPlatesToProcess.Count + " plates";
 
                 CDW.Run();
                 CDW.Display();
@@ -8689,9 +9348,9 @@ namespace HCSAnalyzer
                         }
                     }
 
-                    
+
                     cExtendedTable NewTable1 = new cExtendedTable(ListWellsToProcess1, CompleteScreening.ListDescriptors.GetDescriptorIndex(CompleteScreening.ListDescriptors.GetActiveDescriptor()));
-                
+
 
                     if ((NewTable1.Count == 0) || (NewTable1[0].Count < 3))
                     {
@@ -8725,7 +9384,7 @@ namespace HCSAnalyzer
                 cExtendedTable ET = new cExtendedTable(new cExtendedTable(ListZ));
                 ET[0].ListTags = new List<object>();
                 ET[0].ListTags.AddRange(ListPlatesForZFactor);
-                ET.Name = NameFunction+" - " + CompleteScreening.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptorIdx].GetName();// +" - " + GlobalInfo.ListWellClasses[IdxClassNeg].Name + " (" + NewTable1[0].Count + " wells) vs. " + GlobalInfo.ListWellClasses[IdxClassPos].Name + " (" + NewTable2[0].Count + " wells)";
+                ET.Name = NameFunction + " - " + CompleteScreening.ListDescriptors[CompleteScreening.ListDescriptors.CurrentSelectedDescriptorIdx].GetName();// +" - " + GlobalInfo.ListWellClasses[IdxClassNeg].Name + " (" + NewTable1[0].Count + " wells) vs. " + GlobalInfo.ListWellClasses[IdxClassPos].Name + " (" + NewTable2[0].Count + " wells)";
                 ET[0].Name = ET.Name;
 
                 cViewerGraph1D VG1 = new cViewerGraph1D();
@@ -8744,19 +9403,20 @@ namespace HCSAnalyzer
 
                 cDisplayToWindow CDW = new cDisplayToWindow();
                 CDW.SetInputData(VG1.GetOutPut());
-                CDW.Title = NameFunction+" - " + ListPlatesToProcess.Count + " plates";
+                CDW.Title = NameFunction + " - " + ListPlatesToProcess.Count + " plates";
                 CDW.Run();
                 CDW.Display();
             }
         }
 
-  
 
 
 
 
 
-       
+
+
+
 
     }
 

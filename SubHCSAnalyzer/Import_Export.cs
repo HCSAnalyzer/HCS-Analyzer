@@ -599,10 +599,20 @@ namespace HCSAnalyzer
                         FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow++].Value = "Row";
                     }
                     else
+                        if (Names[i].Contains("Name") || Names[i].Contains("Class") || Names[i].Contains("Locus") || Names[i].Contains("Info") || Names[i].Contains("Concentration"))
+                        {
+                             FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow++].Value = Names[i];
+                        }
+                        else
                         FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow++].Value = "Descriptor";
                 }
                 else
                 {
+                    if (Names[i].Contains("Name") || Names[i].Contains("Class") || Names[i].Contains("Locus") || Names[i].Contains("Info") || Names[i].Contains("Concentration"))
+                    {
+                        FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow++].Value = Names[i];
+                    }
+                    else
                     FromExcel.dataGridViewForImport.Rows[i].Cells[IdxRow++].Value = "Descriptor";
                 }
 

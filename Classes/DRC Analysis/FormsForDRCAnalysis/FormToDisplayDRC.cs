@@ -16,6 +16,7 @@ namespace HCSAnalyzer.Forms.FormsForOptions
         public List<RichTextBox> LRichTextBox = new List<RichTextBox>();
         public int NumberOfXDRC = 0;
         public int NumberOfYDRC = 0;
+       // printDialog1.Document = PrintDocument1;
 
         public FormToDisplayDRC()
         {
@@ -24,14 +25,15 @@ namespace HCSAnalyzer.Forms.FormsForOptions
 
         private void fitHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int NewWidth = this.panelForDRC.Width / NumberOfXDRC;
+           // int NewWidth = this.panelForDRC.Width / NumberOfXDRC;
 
-            for (int j = 0; j < NumberOfYDRC; j++)
-                for (int i = 0; i < NumberOfXDRC; i++)
-                {
-                    LChart[i + j * NumberOfXDRC].Width = NewWidth;
-                    LChart[i + j * NumberOfXDRC].Location = new Point((LChart[i + j * NumberOfXDRC].Width + 5) * i, (LChart[i + j * NumberOfXDRC].Height + 5) * j);
-                }
+            //for (int j = 0; j < NumberOfYDRC; j++)
+            //    for (int i = 0; i < NumberOfXDRC; i++)
+            //    {
+            //        LChart[i + j * NumberOfXDRC].Width = NewWidth;
+            //        LChart[i + j * NumberOfXDRC].Location = new Point((LChart[i + j * NumberOfXDRC].Width + 5) * i, (LChart[i + j * NumberOfXDRC].Height + 5) * j);
+            //    }
+            printDialog1.ShowDialog();
         }
 
         private void fitVerticalToolStripMenuItem_Click(object sender, EventArgs e)
