@@ -3689,10 +3689,10 @@ namespace HCSAnalyzer
                 item.GenesActive = cpt;
                 item.ratio = (double)item.GenesActive / (double)item.Genesincluded.Count();
 
-                for (int i = item.GenesActive; i < item.Genesincluded.Count(); i++)
-                {
-                    item.pValue += Pvalue(i, Numberofpathwaybygenes.Count(), item.Genesincluded.Count(), LocusinClass.Count());
-                }
+                //for (int i = item.GenesActive; i < item.Genesincluded.Count(); i++)
+                //{
+                item.pValue += Pvalue(item.GenesActive, Numberofpathwaybygenes.Count(), item.Genesincluded.Count(), LocusinClass.Count());
+                //}
             }
 
 
@@ -3796,7 +3796,7 @@ namespace HCSAnalyzer
             FormForNameRequest FormForRequest = new FormForNameRequest();
             // FormForRequest.Size = new Size(150, 150);
             FormForRequest.ShowDialog();
-            int h = (Pathway.Count() > (int)FormForRequest.numericUpDown3.Value) ? Pathway.Count() : (int)FormForRequest.numericUpDown3.Value;
+            int h = (Pathway.Count() < (int)FormForRequest.numericUpDown3.Value) ? Pathway.Count() : (int)FormForRequest.numericUpDown3.Value;
             //int h=Pathway.Count()>FormForRequest.numericUpDown3.Value?:
             for (int i = 0; i < h; i++)
             {
