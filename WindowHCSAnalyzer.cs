@@ -3689,10 +3689,10 @@ namespace HCSAnalyzer
                 item.GenesActive = cpt;
                 item.ratio = (double)item.GenesActive / (double)item.Genesincluded.Count();
 
-                //for (int i = item.GenesActive; i < item.Genesincluded.Count(); i++)
-                //{
-                item.pValue = Pvalue(item.GenesActive, Numberofpathwaybygenes.Count()-item.Genesincluded.Count(), item.Genesincluded.Count(), LocusinClass.Count()-item.GenesActive);
-                //}
+                for (int i = item.GenesActive-1; i < item.Genesincluded.Count(); i++)
+                {
+                    item.pValue += Pvalue(i, Numberofpathwaybygenes.Count() - item.Genesincluded.Count(), item.Genesincluded.Count(), LocusinClass.Count() - item.GenesActive);
+                }
             }
 
 
@@ -3738,7 +3738,8 @@ namespace HCSAnalyzer
             //{
 
             int Idx = 0;
-            while (AfterFinal[Idx].pValue < 0.05)
+            FormForNameRequest FormForRequest = new FormForNameRequest();
+            while (AfterFinal[Idx].pValue < (double)FormForRequest.numericUpDown4.Value)
             {
                 CurrentSeries.Points.Add(AfterFinal[Idx].pValue);
                 CurrentSeries.Points[Idx].Label = String.Format("{0:0.##}", ((AfterFinal[Idx].pValue)));
