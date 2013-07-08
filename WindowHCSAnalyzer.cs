@@ -3691,7 +3691,7 @@ namespace HCSAnalyzer
 
                 //for (int i = item.GenesActive; i < item.Genesincluded.Count(); i++)
                 //{
-                item.pValue += Pvalue(item.GenesActive, Numberofpathwaybygenes.Count(), item.Genesincluded.Count(), LocusinClass.Count());
+                item.pValue = Pvalue(item.GenesActive, Numberofpathwaybygenes.Count()-item.Genesincluded.Count(), item.Genesincluded.Count(), LocusinClass.Count()-item.GenesActive);
                 //}
             }
 
@@ -3785,8 +3785,7 @@ namespace HCSAnalyzer
             p = Math.Exp(a + c - b);
 
 
-
-
+           
             return p;
         }
 

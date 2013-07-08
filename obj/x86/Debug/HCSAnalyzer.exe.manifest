@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Controls\LogoType1.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="HCSAnalyzer" version="1.0.4937.14966" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="HCSAnalyzer" version="1.0.4937.17544" language="neutral" processorArchitecture="x86" />
     <commandLine file="HCSAnalyzer.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -370,13 +370,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HCSAnalyzer.exe" size="7476736">
-      <assemblyIdentity name="HCSAnalyzer" version="1.0.4937.14966" language="neutral" processorArchitecture="x86" />
+      <assemblyIdentity name="HCSAnalyzer" version="1.0.4937.17544" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>HQb3R5BRk4oOcf+s+Voy3j1XQiV54FIjES62Qa7Xfpg=</dsig:DigestValue>
+        <dsig:DigestValue>yOr0MvD6ug1k+YlsuvHqIdvKjRmpUPUmGVaPKHeV/fc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
