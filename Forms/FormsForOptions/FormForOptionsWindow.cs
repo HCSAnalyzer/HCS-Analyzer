@@ -11,6 +11,7 @@ using System.Reflection;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using HCSAnalyzer.Forms.FormsForGraphsDisplay;
 
 namespace HCSAnalyzer
 {
@@ -22,7 +23,7 @@ namespace HCSAnalyzer
         public FormForOptionsWindow(cScreening CurrentScreen)
         {
             this.CurrentScreen = CurrentScreen;
-
+           
             InitializeComponent();
             buttonOk.Focus();
             buttonOk.Select();
@@ -34,7 +35,7 @@ namespace HCSAnalyzer
         {
             this.Visible = false;
             if((CurrentScreen!=null)&&(CurrentScreen.ListPlatesActive!=null))
-                CurrentScreen.GetCurrentDisplayPlate().DisplayDistribution(CurrentScreen.ListDescriptors.CurrentSelectedDescriptor, false);
+                CurrentScreen.GetCurrentDisplayPlate().DisplayDistribution(CurrentScreen.ListDescriptors.CurrentSelectedDescriptorIdx, false);
         }
 
         private void panel1_DoubleClick(object sender, EventArgs e)
@@ -113,10 +114,16 @@ namespace HCSAnalyzer
             CurrentScreen.GlobalInfo.WindowForDRCDesign.ShowDialog();
         }
 
+
+    
+
         private void buttonApply_Click(object sender, EventArgs e)
         {
+
+           
+
             if ((CurrentScreen != null) && (CurrentScreen.ListPlatesActive != null))
-                CurrentScreen.GetCurrentDisplayPlate().DisplayDistribution(CurrentScreen.ListDescriptors.CurrentSelectedDescriptor, false);
+                CurrentScreen.GetCurrentDisplayPlate().DisplayDistribution(CurrentScreen.ListDescriptors.CurrentSelectedDescriptorIdx, false);
         }
 
         private void numericUpDownManualMin_ValueChanged(object sender, EventArgs e)
@@ -128,6 +135,8 @@ namespace HCSAnalyzer
         {
             if (numericUpDownManualMax.Value <= numericUpDownManualMin.Value) numericUpDownManualMax.Value = numericUpDownManualMin.Value;
         }
+
+
 
 
 

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormForGenerateScreening));
             this.buttonGenerate = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -86,6 +87,10 @@
             this.checkBoxRowEffect = new System.Windows.Forms.CheckBox();
             this.checkBoxAddAsDescriptor = new System.Windows.Forms.CheckBox();
             this.groupBoxGeneralInfo = new System.Windows.Forms.GroupBox();
+            this.contextMenuStripPlateDim = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem96 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem384 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1536 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPlateNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRows)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).BeginInit();
@@ -118,6 +123,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRowEffectIntensity)).BeginInit();
             this.groupBoxGeneralInfo.SuspendLayout();
+            this.contextMenuStripPlateDim.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonGenerate
@@ -902,6 +908,7 @@
             // 
             // groupBoxGeneralInfo
             // 
+            this.groupBoxGeneralInfo.ContextMenuStrip = this.contextMenuStripPlateDim;
             this.groupBoxGeneralInfo.Controls.Add(this.numericUpDownPlateNumber);
             this.groupBoxGeneralInfo.Controls.Add(this.label1);
             this.groupBoxGeneralInfo.Controls.Add(this.label3);
@@ -914,6 +921,36 @@
             this.groupBoxGeneralInfo.TabIndex = 19;
             this.groupBoxGeneralInfo.TabStop = false;
             this.groupBoxGeneralInfo.Text = "General";
+            // 
+            // contextMenuStripPlateDim
+            // 
+            this.contextMenuStripPlateDim.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem96,
+            this.toolStripMenuItem384,
+            this.toolStripMenuItem1536});
+            this.contextMenuStripPlateDim.Name = "contextMenuStripPlateDim";
+            this.contextMenuStripPlateDim.Size = new System.Drawing.Size(99, 70);
+            // 
+            // toolStripMenuItem96
+            // 
+            this.toolStripMenuItem96.Name = "toolStripMenuItem96";
+            this.toolStripMenuItem96.Size = new System.Drawing.Size(98, 22);
+            this.toolStripMenuItem96.Text = "96";
+            this.toolStripMenuItem96.Click += new System.EventHandler(this.toolStripMenuItem96_Click);
+            // 
+            // toolStripMenuItem384
+            // 
+            this.toolStripMenuItem384.Name = "toolStripMenuItem384";
+            this.toolStripMenuItem384.Size = new System.Drawing.Size(98, 22);
+            this.toolStripMenuItem384.Text = "384";
+            this.toolStripMenuItem384.Click += new System.EventHandler(this.toolStripMenuItem384_Click);
+            // 
+            // toolStripMenuItem1536
+            // 
+            this.toolStripMenuItem1536.Name = "toolStripMenuItem1536";
+            this.toolStripMenuItem1536.Size = new System.Drawing.Size(98, 22);
+            this.toolStripMenuItem1536.Text = "1536";
+            this.toolStripMenuItem1536.Click += new System.EventHandler(this.toolStripMenuItem1536_Click);
             // 
             // FormForGenerateScreening
             // 
@@ -968,6 +1005,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRowEffectIntensity)).EndInit();
             this.groupBoxGeneralInfo.ResumeLayout(false);
             this.groupBoxGeneralInfo.PerformLayout();
+            this.contextMenuStripPlateDim.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1032,5 +1070,9 @@
         public System.Windows.Forms.CheckBox checkBoxShiftRowEffect;
         private System.Windows.Forms.GroupBox groupBoxGeneralInfo;
         public System.Windows.Forms.CheckBox checkBoxAddAsDescriptor;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripPlateDim;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem96;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem384;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1536;
     }
 }

@@ -23,16 +23,10 @@ namespace LibPlateAnalysis
             this.CurrentDesc = CurrentDesc;
             InitializeComponent(); 
             this.textBoxNameDescriptor.Text = CurrentDesc.GetName();
-
-            if (CurrentDesc.DataType == eDataType.SINGLE)
-            {
+            this.richTextBoxDescription.Text = CurrentDesc.description;
+            this.labelDataType.Text = CurrentDesc.GetDataType();
+            if (CurrentDesc.GetDataType() == "Single")
                 this.numericUpDownBinValue.Visible = false;
-                this.labelDataType.Text = "Single";
-            }
-            else
-            {
-                this.labelDataType.Text = "Histogram";
-            }
             this.numericUpDownBinValue.Value = CurrentDesc.GetBinNumber();
         
             this.OriginalBinNumber = CurrentDesc.GetBinNumber();
@@ -56,12 +50,10 @@ namespace LibPlateAnalysis
             if(CurrentDesc.GetName()!=this.textBoxNameDescriptor.Text)
                 this.CurrentDesc.ChangeName(this.textBoxNameDescriptor.Text);
 
-
-
             if (this.numericUpDownBinValue.Value != OriginalBinNumber)
                 this.CurrentDesc.ChangeBinNumber((int)this.numericUpDownBinValue.Value);
 
-
+            this.CurrentDesc.description = this.richTextBoxDescription.Text;
             //this.CurrentDesc.RefreshHisto(this.numericUpDownBinValue.Value);
 
 

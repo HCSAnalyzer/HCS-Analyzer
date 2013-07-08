@@ -147,7 +147,7 @@ namespace HCSAnalyzer.Forms
             if (double.TryParse(this.textBoxConcentration.Text, out Concen))
                 CurrentWell.Concentration = Concen;
 
-            CurrentWell.AssociatedPlate.ParentScreening.GetCurrentDisplayPlate().DisplayDistribution(CurrentWell.AssociatedPlate.ParentScreening.ListDescriptors.CurrentSelectedDescriptor, false);
+            CurrentWell.AssociatedPlate.ParentScreening.GetCurrentDisplayPlate().DisplayDistribution(CurrentWell.AssociatedPlate.ParentScreening.ListDescriptors.CurrentSelectedDescriptorIdx, false);
         }
 
 

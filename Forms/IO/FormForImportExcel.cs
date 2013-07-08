@@ -12,7 +12,6 @@ namespace HCSAnalyzer
 {
     public partial class FormForImportExcel : Form
     {
-
         private bool FirstTime = true;
         public bool IsImportCSV =  false;
         public bool IsAppend;
@@ -53,7 +52,23 @@ namespace HCSAnalyzer
 
         }
 
+        private void toolStripMenuItem96_Click(object sender, EventArgs e)
+        {
+            this.numericUpDownColumns.Value = 12;
+            this.numericUpDownRows.Value = 8;
+        }
 
-       
+        private void toolStripMenuItem384_Click(object sender, EventArgs e)
+        {
+            this.numericUpDownColumns.Value = 24;
+            this.numericUpDownRows.Value = 16;
+        }
+
+        private void toolStripMenuItem1536_Click(object sender, EventArgs e)
+        {
+            this.numericUpDownColumns.Value = 48;
+            this.numericUpDownRows.Value = 32;
+        }
+
     }
 }

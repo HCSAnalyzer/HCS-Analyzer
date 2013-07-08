@@ -233,7 +233,7 @@
             this.Controls.Add(this.numericUpDownDimensionNumber);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormForMultivariateScreen";
-            this.Text = "FormForMultivariateScreen";
+            this.Text = "Generate Multivariate Screening";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDimensionNumber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRows)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownColumns)).EndInit();

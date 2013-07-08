@@ -20,7 +20,7 @@ namespace HCSAnalyzer.Forms
         {
             InitializeComponent();
             comboBoxDestinationClass.SelectedIndex = 0;
-            comboBoxOriginalClass.SelectedIndex = 0;
+           // comboBoxOriginalClass.SelectedIndex = 0;
             this.GlobalInfo = GlobalInfo;
         }
 
@@ -30,24 +30,10 @@ namespace HCSAnalyzer.Forms
 
             if (e.Index > 0)
             {
-                SolidBrush BrushForColor = new SolidBrush(GlobalInfo.GetColor(e.Index - 1));
+                SolidBrush BrushForColor = new SolidBrush(GlobalInfo.ListWellClasses[e.Index - 1].ColourForDisplay);
                 e.Graphics.FillRectangle(BrushForColor, e.Bounds.X + 1, e.Bounds.Y + 1, 10, 10);
             }
-            e.Graphics.DrawString(comboBoxOriginalClass.Items[e.Index].ToString(), comboBoxOriginalClass.Font,
-                System.Drawing.Brushes.Black, new RectangleF(e.Bounds.X + 15, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height));
-            e.DrawFocusRectangle();
-        }
-
-        private void comboBoxOriginalClass_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            e.DrawBackground();
-
-            if (e.Index > 0)
-            {
-                SolidBrush BrushForColor = new SolidBrush(GlobalInfo.GetColor(e.Index - 1));
-                e.Graphics.FillRectangle(BrushForColor, e.Bounds.X + 1, e.Bounds.Y + 1, 10, 10);
-            }
-            e.Graphics.DrawString(comboBoxOriginalClass.Items[e.Index].ToString(), comboBoxOriginalClass.Font,
+            e.Graphics.DrawString(comboBoxDestinationClass.Items[e.Index].ToString(), comboBoxDestinationClass.Font,
                 System.Drawing.Brushes.Black, new RectangleF(e.Bounds.X + 15, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height));
             e.DrawFocusRectangle();
         }

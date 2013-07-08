@@ -37,12 +37,14 @@
             this.labelDataBaseConnection = new System.Windows.Forms.Label();
             this.panelForColor = new System.Windows.Forms.Panel();
             this.numericUpDownBinValue = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.richTextBoxDescription = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBinValue)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
-            this.buttonOk.Location = new System.Drawing.Point(78, 134);
+            this.buttonOk.Location = new System.Drawing.Point(145, 412);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(142, 30);
             this.buttonOk.TabIndex = 0;
@@ -53,7 +55,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 18);
+            this.label1.Location = new System.Drawing.Point(12, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 1;
@@ -61,15 +63,15 @@
             // 
             // textBoxNameDescriptor
             // 
-            this.textBoxNameDescriptor.Location = new System.Drawing.Point(88, 15);
+            this.textBoxNameDescriptor.Location = new System.Drawing.Point(67, 16);
             this.textBoxNameDescriptor.Name = "textBoxNameDescriptor";
-            this.textBoxNameDescriptor.Size = new System.Drawing.Size(186, 20);
+            this.textBoxNameDescriptor.Size = new System.Drawing.Size(220, 20);
             this.textBoxNameDescriptor.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 60);
+            this.label2.Location = new System.Drawing.Point(12, 327);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 13);
             this.label2.TabIndex = 3;
@@ -79,7 +81,7 @@
             // 
             this.labelDataType.AutoSize = true;
             this.labelDataType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDataType.Location = new System.Drawing.Point(96, 62);
+            this.labelDataType.Location = new System.Drawing.Point(109, 329);
             this.labelDataType.Name = "labelDataType";
             this.labelDataType.Size = new System.Drawing.Size(31, 13);
             this.labelDataType.TabIndex = 3;
@@ -90,7 +92,7 @@
             // 
             this.labelDataBaseConnection.AutoSize = true;
             this.labelDataBaseConnection.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDataBaseConnection.Location = new System.Drawing.Point(51, 100);
+            this.labelDataBaseConnection.Location = new System.Drawing.Point(64, 367);
             this.labelDataBaseConnection.Name = "labelDataBaseConnection";
             this.labelDataBaseConnection.Size = new System.Drawing.Size(134, 13);
             this.labelDataBaseConnection.TabIndex = 5;
@@ -99,14 +101,14 @@
             // 
             // panelForColor
             // 
-            this.panelForColor.Location = new System.Drawing.Point(205, 98);
+            this.panelForColor.Location = new System.Drawing.Point(218, 365);
             this.panelForColor.Name = "panelForColor";
             this.panelForColor.Size = new System.Drawing.Size(22, 18);
             this.panelForColor.TabIndex = 6;
             // 
             // numericUpDownBinValue
             // 
-            this.numericUpDownBinValue.Location = new System.Drawing.Point(183, 58);
+            this.numericUpDownBinValue.Location = new System.Drawing.Point(183, 325);
             this.numericUpDownBinValue.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -118,7 +120,7 @@
             0,
             0});
             this.numericUpDownBinValue.Name = "numericUpDownBinValue";
-            this.numericUpDownBinValue.Size = new System.Drawing.Size(91, 20);
+            this.numericUpDownBinValue.Size = new System.Drawing.Size(104, 20);
             this.numericUpDownBinValue.TabIndex = 7;
             this.numericUpDownBinValue.Value = new decimal(new int[] {
             1,
@@ -126,11 +128,30 @@
             0,
             0});
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 53);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Description";
+            // 
+            // richTextBoxDescription
+            // 
+            this.richTextBoxDescription.Location = new System.Drawing.Point(12, 71);
+            this.richTextBoxDescription.Name = "richTextBoxDescription";
+            this.richTextBoxDescription.Size = new System.Drawing.Size(275, 235);
+            this.richTextBoxDescription.TabIndex = 9;
+            this.richTextBoxDescription.Text = "";
+            // 
             // FormForDescriptorInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(299, 176);
+            this.ClientSize = new System.Drawing.Size(299, 454);
+            this.Controls.Add(this.richTextBoxDescription);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.numericUpDownBinValue);
             this.Controls.Add(this.panelForColor);
             this.Controls.Add(this.labelDataBaseConnection);
@@ -159,5 +180,7 @@
         private System.Windows.Forms.Label labelDataBaseConnection;
         public System.Windows.Forms.Panel panelForColor;
         public System.Windows.Forms.NumericUpDown numericUpDownBinValue;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RichTextBox richTextBoxDescription;
     }
 }

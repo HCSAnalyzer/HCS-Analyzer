@@ -101,10 +101,7 @@ E:\git_HCS\HCS-Analyzer\HCSPlugin\obj\x86\Debug\GenerateResource.write.1.tlog
 E:\git_HCS\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.dll
 E:\git_HCS\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.pdb
 E:\HCS-Analyzer\HCSPlugin\bin\Debug\HCSPlugin.pdb
-E:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\ResolveAssemblyReference.cache
 E:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.Properties.Resources.resources
-E:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\GenerateResource.read.1.tlog
-E:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\GenerateResource.write.1.tlog
 E:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.dll
 E:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.pdb
 J:\HCS-Analyzer_New\HCSPlugin\bin\Debug\HCSPlugin.pdb
@@ -202,3 +199,57 @@ J:\HCS-Analyzer_New\HCSPlugin\obj\x86\Debug\HCSPlugin.Properties.Resources.resou
 J:\HCS-Analyzer_New\HCSPlugin\obj\x86\Debug\HCSPlugin.csproj.GenerateResource.Cache
 J:\HCS-Analyzer_New\HCSPlugin\obj\x86\Debug\HCSPlugin.dll
 J:\HCS-Analyzer_New\HCSPlugin\obj\x86\Debug\HCSPlugin.pdb
+D:\HCS-Analyzer\HCSPlugin\bin\Debug\HCSPlugin.pdb
+D:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.Properties.Resources.resources
+D:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.dll
+D:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.pdb
+C:\Work\underDev\HCS-Analyzer\HCSPlugin\bin\Debug\HCSPlugin.pdb
+C:\Work\underDev\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.csprojResolveAssemblyReference.cache
+C:\Work\underDev\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.Properties.Resources.resources
+C:\Work\underDev\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.csproj.GenerateResource.Cache
+C:\Work\underDev\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.dll
+C:\Work\underDev\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.pdb
+E:\underDev\HCS-Analyzer\HCSPlugin\bin\Debug\HCSPlugin.pdb
+E:\underDev\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.csprojResolveAssemblyReference.cache
+E:\underDev\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.Properties.Resources.resources
+E:\underDev\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.csproj.GenerateResource.Cache
+E:\underDev\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.dll
+E:\underDev\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.pdb
+I:\underDev\HCS-Analyzer\HCSPlugin\bin\Debug\HCSPlugin.pdb
+I:\underDev\HCS-Analyzer\HCSPlugin\obj\x86\Debug\ResolveAssemblyReference.cache
+I:\underDev\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.Properties.Resources.resources
+I:\underDev\HCS-Analyzer\HCSPlugin\obj\x86\Debug\GenerateResource.read.1.tlog
+I:\underDev\HCS-Analyzer\HCSPlugin\obj\x86\Debug\GenerateResource.write.1.tlog
+I:\underDev\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.dll
+I:\underDev\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.pdb
+I:\underDev\Tmp_HCS-Analyzer\HCSPlugin\bin\Debug\HCSPlugin.pdb
+I:\underDev\Tmp_HCS-Analyzer\HCSPlugin\obj\x86\Debug\ResolveAssemblyReference.cache
+I:\underDev\Tmp_HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.Properties.Resources.resources
+I:\underDev\Tmp_HCS-Analyzer\HCSPlugin\obj\x86\Debug\GenerateResource.read.1.tlog
+I:\underDev\Tmp_HCS-Analyzer\HCSPlugin\obj\x86\Debug\GenerateResource.write.1.tlog
+I:\underDev\Tmp_HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.dll
+I:\underDev\Tmp_HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.pdb
+E:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.csproj.GenerateResource.Cache
+I:\HCS-Analyzer\HCSPlugin\bin\Debug\HCSPlugin.pdb
+I:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\ResolveAssemblyReference.cache
+I:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.Properties.Resources.resources
+I:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\GenerateResource.read.1.tlog
+I:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\GenerateResource.write.1.tlog
+I:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.dll
+I:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.pdb
+E:\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.csprojResolveAssemblyReference.cache
+D:\HCS-Analyzer - Source v1.2.1.3(Beta)\HCS-Analyzer - Source v1.2.1.3(Beta)\HCSPlugin\bin\Debug\HCSPlugin.pdb
+D:\HCS-Analyzer - Source v1.2.1.3(Beta)\HCS-Analyzer - Source v1.2.1.3(Beta)\HCSPlugin\obj\x86\Debug\HCSPlugin.csprojResolveAssemblyReference.cache
+D:\HCS-Analyzer - Source v1.2.1.3(Beta)\HCS-Analyzer - Source v1.2.1.3(Beta)\HCSPlugin\obj\x86\Debug\HCSPlugin.Properties.Resources.resources
+D:\HCS-Analyzer - Source v1.2.1.3(Beta)\HCS-Analyzer - Source v1.2.1.3(Beta)\HCSPlugin\obj\x86\Debug\HCSPlugin.csproj.GenerateResource.Cache
+D:\HCS-Analyzer - Source v1.2.1.3(Beta)\HCS-Analyzer - Source v1.2.1.3(Beta)\HCSPlugin\obj\x86\Debug\HCSPlugin.dll
+D:\HCS-Analyzer - Source v1.2.1.3(Beta)\HCS-Analyzer - Source v1.2.1.3(Beta)\HCSPlugin\obj\x86\Debug\HCSPlugin.pdb
+D:\Source\HCS-Analyzer\HCSPlugin\bin\Debug\HCSPlugin.pdb
+D:\Source\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.csprojResolveAssemblyReference.cache
+D:\Source\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.Properties.Resources.resources
+D:\Source\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.csproj.GenerateResource.Cache
+D:\Source\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.dll
+D:\Source\HCS-Analyzer\HCSPlugin\obj\x86\Debug\HCSPlugin.pdb

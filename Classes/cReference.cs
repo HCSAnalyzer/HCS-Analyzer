@@ -5,47 +5,69 @@ using System.Text;
 using LibPlateAnalysis;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Drawing;
+using HCSAnalyzer.Classes.Base_Classes.DataStructures;
 
 namespace HCSAnalyzer.Classes
 {
-    public class cReference : List<cExtendedList>
+    public class cReference //: List<cExtendedList>
     {
 
+        List<cWell> ListWellsForReference;
 
+        public List<cWell> GetReferenceWells()
+        {
+            return this.ListWellsForReference;
+        }
 
         public cReference(List<cWell> WellsForReference)
         {
-            int IdxDesc = 0;
-            // main loop over the descriptors
-            foreach (cDescriptor Desc in WellsForReference[0].ListDescriptors)
-            {
-             
-                cExtendedList NewList = new cExtendedList();
+
+            this.ListWellsForReference = WellsForReference;
+            //int IdxDesc = 0;
+            //// main loop over the descriptors
+            //foreach (cDescriptor Desc in WellsForReference[0].ListDescriptors)
+            //{
+            //    cExtendedList NewList = new cExtendedList();
                 
-                for (int i = 0; i < Desc.GetAssociatedType().GetBinNumber(); i++)
-                {
-                    double CurrentVal = 0;
-                    foreach (cWell CurrentWell in WellsForReference)
-                    {
-                        CurrentVal += CurrentWell.ListDescriptors[IdxDesc].GetHistovalues()[i];// Desc.Getvalue(i);
-                    }
-                    CurrentVal /= (double)WellsForReference.Count;
-                    NewList.Add(CurrentVal);
-                }
-                this.Add(NewList);
-                IdxDesc++;
+            //    for (int i = 0; i < Desc.GetAssociatedType().GetBinNumber(); i++)
+            //    {
+            //        double CurrentVal = 0;
+            //        foreach (cWell CurrentWell in WellsForReference)
+            //        {
+            //            CurrentVal += CurrentWell.ListDescriptors[IdxDesc].GetHistovalues()[i];// Desc.Getvalue(i);
+            //        }
+            //        CurrentVal /= (double)WellsForReference.Count;
+            //        NewList.Add(CurrentVal);
+            //    }
+            //    this.Add(NewList);
+            //    IdxDesc++;
+            //}
+        }
+
+
+        public cExtendedList GetValues(int DescriptorIdx)
+        {
+            cExtendedList ListValue = new cExtendedList();
+            foreach (cWell TmpWell in ListWellsForReference)
+            {
+                ListValue.AddRange(TmpWell.ListDescriptors[DescriptorIdx].GetOriginalValues());
             }
+            return ListValue;
         }
 
         public Chart GetChart(int DescriptorIdx)
         {
             //if (ListDescriptors[CurrentDescriptorToDisplay].GetAssociatedType().GetBinNumber() == 1) return null;
 
+
+            List<double[]> CurrentHisto = GetValues(DescriptorIdx).CreateHistogram(100);
+
+
             Series CurrentSeries = new Series();
             //CurrentSeries.ShadowOffset = 2;
 
-            for (int IdxValue = 0; IdxValue < this[DescriptorIdx].Count ; IdxValue++)
-                CurrentSeries.Points.AddXY(IdxValue,this[DescriptorIdx][IdxValue]);
+            for (int IdxValue = 0; IdxValue < CurrentHisto[0].Length; IdxValue++)
+                CurrentSeries.Points.AddXY(CurrentHisto[0][IdxValue], CurrentHisto[1][IdxValue]);
 
             ChartArea CurrentChartArea = new ChartArea("ChartArea" + DescriptorIdx);
             CurrentChartArea.BorderColor = Color.White;
